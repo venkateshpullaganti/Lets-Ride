@@ -1,0 +1,51 @@
+baseUrl : "https://localhost:8080/api/lets_ride/
+
+
+signUp :
+    endPoint : sign_up/v1/
+    DataFormat : Json
+    method : post 
+    sampleData (request Object) to Backend :
+                                    {
+                                        "phonenumber":"1234567890",
+                                        "password" : "iBHubs@124"
+                                        
+                                    }
+
+    Response Object : 
+                        {
+                            message : "successfully created",
+                            user_id : "1"
+                        }
+
+
+sign_in : 
+    endPoint : sign_in/v1
+    method : post
+    DataFormat : Json 
+                            {
+                                "phonenumber" : "12343456",
+                                "password" : "ibhubs"
+                            }
+    response Object : 
+                        {
+                            user_id : "1"
+                        }
+
+profile :
+    endpoint : users/{user_id}/v1
+    method : get
+    DataFormat : 
+                {
+                    "phonenumber" : "2345678"
+                    username : "venky",
+
+                }
+changePassword :
+    
+
+
+
+    
+
+    
