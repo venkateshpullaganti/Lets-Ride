@@ -29,7 +29,8 @@ sign_in :
                             }
     response Object : 
                         {
-                            user_id : "1"
+                            user_id : "1",
+                            "access_token": "sample token"
                         }
 
 profile :
@@ -41,7 +42,24 @@ profile :
                     username : "venky",
 
                 }
+
+
 changePassword :
+    endpoint : users/{user_id}/v1
+    method : post 
+    DataFormat: 
+                {
+                    "password " : "updated password"
+                }
+
+    response : 
+                {
+                    "message": "successfully updated",
+                    
+                }
+
+
+
     
 
 
