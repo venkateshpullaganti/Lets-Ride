@@ -1,24 +1,34 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Provider } from 'mobx-react'
 
-import HomePage from "./components/HomePage";
-import Page1 from "./components/Page1";
+import AuthRoutes from './Authentication/routes'
+import AuthStores from './Authentication/stores'
 
-import "./App.css";
+import CommuteRoutes from './Commute/routes'
+
+import HomePage from './components/HomePage'
+import Page1 from './components/Page1'
+
+import './App.css'
 
 const App = () => {
-  return (
-    <Router basename={process.env.PUBLIC_URL}>
-      <Switch>
-        <Route exact path="/page-1">
-          <Page1 />
-        </Route>
-        <Route path="/">
-          <HomePage />
-        </Route>
-      </Switch>
-    </Router>
-  );
-};
+   return (
+      <Provider {...AuthStores}>
+         <Router basename={process.env.PUBLIC_URL}>
+            <Switch>
+               <Route exact path='/page-1'>
+                  <Page1 />
+               </Route>
+               {AuthRoutes}
+               {CommuteRoutes}
+               <Route path='/'>
+                  <HomePage />
+               </Route>
+            </Switch>
+         </Router>
+      </Provider>
+   )
+}
 
-export default App;
+export default App

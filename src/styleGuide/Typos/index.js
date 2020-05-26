@@ -1,22 +1,19 @@
-import styled from '@emotion/styled'
 import { css } from '@emotion/core'
 
 export const Typo32DarkBlueGreyRubikRegular = css`
-   font-family: HKGrotesk;
-   src: local(HKGrotesk-Regular),
-      url(../fonts/HKGrotesk-Regular.woff2) format('woff2');
+   font-family: Rubik;
+   src: local(Rubik-Regular), url(../fonts/HKGrotesk-Regular.ttf) format('ttf');
    font-size: 32px;
    font-weight: normal;
    font-stretch: normal;
    font-style: normal;
    line-height: 1.25;
    letter-spacing: normal;
-   color: #171f46;
 `
 export const Typo12SteelHKGroteskSemiBold = css`
    font-family: HKGrotesk;
-   src: local(HKGrotesk-Regular),
-      url(../fonts/HKGrotesk-Regular.woff2) format('woff2');
+   src: local(HKGrotesk-SemiBold),
+      url(../fonts/HKGrotesk-SemiBold.woff) format('woff');
    font-size: 12px;
    font-weight: 600;
    font-stretch: normal;
@@ -27,11 +24,31 @@ export const Typo12SteelHKGroteskSemiBold = css`
 export const Typo12NeonRedHKGroteskRegular = css`
    font-family: HKGrotesk;
    src: local(HKGrotesk-Regular),
-      url(../fonts/HKGrotesk-Regular.woff2) format('woff2');
+      url(../fonts/HKGrotesk-Regular.woff) format('woff');
    font-size: 12px;
    font-weight: normal;
    font-stretch: normal;
    font-style: normal;
    line-height: 1.33;
+   letter-spacing: normal;
+`
+export const Typo14BrightBlueHKGroteskRegular = css`
+   font-family: HKGrotesk;
+   src: local(HKGrotesk-Regular),
+      url(../fonts/HKGrotesk-Regular.woff) format('woff');
+   font-size: 14px;
+   font-weight: normal;
+   font-stretch: normal;
+   font-style: normal;
+   line-height: 1.71;
+   letter-spacing: normal;
+`
+export const Typo14WhiteRubikMedium = css`
+   font-family: Rubik;
+   font-size: 14px;
+   font-weight: 500;
+   font-stretch: normal;
+   font-style: normal;
+   line-height: 1.71;
    letter-spacing: normal;
 `

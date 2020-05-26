@@ -3,5 +3,6 @@ export default {
    white: '#ffffff',
    neonRed: '#ff0b37',
    steel: '#7e858e',
-   neonRed5: 'rgba(255, 11, 55, 0.05)'
+   neonRed5: 'rgba(255, 11, 55, 0.05)',
+   iceBlue: '#f1f7ff'
 }

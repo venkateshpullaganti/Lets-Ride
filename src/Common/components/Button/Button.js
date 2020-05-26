@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactLoading from 'react-loading'
 
-import { Btn } from './styledComponents'
+import { Btn, BtnTypo } from './styledComponents'
 
 class Button extends Component {
    render() {
@@ -17,7 +17,7 @@ class Button extends Component {
                   alt='loader'
                />
             ) : (
-               displayText ?? 'Button'
+               <BtnTypo>{displayText ?? 'Button'}</BtnTypo>
             )}
          </Btn>
       )

@@ -13,7 +13,7 @@ class Input extends Component {
       const {
          type,
          id,
-         onChangeInput,
+         onChange,
          labelText,
          errorMsg,
          isError,
@@ -22,7 +22,7 @@ class Input extends Component {
 
       return (
          <InputContainer>
-            <CustomLabel for={id}>{labelText}</CustomLabel>
+            <CustomLabel htmlFor={id}>{labelText}</CustomLabel>
             {isError ? (
                <ErrorIcon
                   src={
@@ -34,7 +34,7 @@ class Input extends Component {
                type={type}
                id={id}
                placeholder={placeholder}
-               onChange={onChangeInput}
+               onChange={onChange}
                isError={isError}
             />
 
@@ -42,6 +42,14 @@ class Input extends Component {
          </InputContainer>
       )
    }
+}
+Input.defaultProps = {
+   type: 'text',
+   id: '21',
+
+   labelText: 'Enter Text',
+   errorMsg: 'input error',
+   isError: false
 }
 
 export { Input }
