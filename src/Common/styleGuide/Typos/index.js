@@ -1,8 +1,9 @@
 import { css } from '@emotion/core'
 
 export const Typo32DarkBlueGreyRubikRegular = css`
-   font-family: Rubik;
-   src: local(Rubik-Regular), url(../fonts/HKGrotesk-Regular.ttf) format('ttf');
+   ${'' /* font-family: Rubik-Regular, Rubik;
+   src: local(Rubik-Regular),
+      url(../Common/fonts/Rubik-Regular.ttf) format('ttf'); */}
    font-size: 32px;
    font-weight: normal;
    font-stretch: normal;
@@ -13,7 +14,7 @@ export const Typo32DarkBlueGreyRubikRegular = css`
 export const Typo12SteelHKGroteskSemiBold = css`
    font-family: HKGrotesk;
    src: local(HKGrotesk-SemiBold),
-      url(../fonts/HKGrotesk-SemiBold.woff) format('woff');
+      url(../Common/fonts/HKGrotesk-SemiBold.woff) format('woff');
    font-size: 12px;
    font-weight: 600;
    font-stretch: normal;
@@ -24,7 +25,7 @@ export const Typo12SteelHKGroteskSemiBold = css`
 export const Typo12NeonRedHKGroteskRegular = css`
    font-family: HKGrotesk;
    src: local(HKGrotesk-Regular),
-      url(../fonts/HKGrotesk-Regular.woff) format('woff');
+      url(../Common/fonts/HKGrotesk-Regular.woff) format('woff');
    font-size: 12px;
    font-weight: normal;
    font-stretch: normal;
@@ -35,7 +36,7 @@ export const Typo12NeonRedHKGroteskRegular = css`
 export const Typo14BrightBlueHKGroteskRegular = css`
    font-family: HKGrotesk;
    src: local(HKGrotesk-Regular),
-      url(../fonts/HKGrotesk-Regular.woff) format('woff');
+      url(../Common/fonts/HKGrotesk-Regular.woff) format('woff');
    font-size: 14px;
    font-weight: normal;
    font-stretch: normal;

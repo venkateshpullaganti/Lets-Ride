@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import tw from 'tailwind.macro'
 
-import { Typo14WhiteRubikMedium } from '../../../styleGuide/Typos'
+import { Typo14WhiteRubikMedium } from '../../styleGuide/Typos'
 import Colors from '../../themes/Colors'
 
 const Btn = styled.button`
@@ -11,7 +11,7 @@ const Btn = styled.button`
    margin-bottom: 40px;
    background: ${Colors.brightBlue};
    border-radius: 4px;
-   ${tw`flex justify-center items-center text-white`};
+   ${tw`flex justify-center items-center text-white p-2`};
    ${props =>
       props.disabled
          ? ` opacity:0.5;

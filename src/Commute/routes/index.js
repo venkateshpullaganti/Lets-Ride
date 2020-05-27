@@ -5,7 +5,12 @@ import { CommuteHomeRoute } from './CommuteHomeRoute'
 import { HOMEPAGE_PATH } from '../constants/NavigationConstants'
 
 const routes = [
-   <ProtectedRoute exact path={HOMEPAGE_PATH} component={CommuteHomeRoute} />
+   <ProtectedRoute
+      exact
+      path={HOMEPAGE_PATH}
+      key={HOMEPAGE_PATH}
+      component={CommuteHomeRoute}
+   />
 ]
 
 export default routes

@@ -19,10 +19,13 @@ class SignInForm extends Component {
    render() {
       const {
          errorMsg,
-         isError,
          isLoading,
          OnChangeUserName,
-         onChangePassword
+         onChangePassword,
+         userName,
+         password,
+         isUserNameError,
+         isPasswordError
       } = this.props
 
       return (
@@ -31,20 +34,24 @@ class SignInForm extends Component {
                <Logo />
                <FormHeading headingText={strings.signInHeaderText} />
                <Input
-                  type={'text'}
-                  labelText={strings.UserNameLabelText}
+                  type={'number'}
+                  labelText={strings.MobileNumberLabelText}
                   id={'username'}
-                  isError={isError}
+                  isError={isUserNameError}
                   onChange={OnChangeUserName}
                   errorMsg={errorMsg}
+                  Required={'Required'}
+                  value={userName}
                />
                <Input
                   type={'password'}
                   labelText={strings.PasswordLabelText}
                   id={'password'}
-                  isError={isError}
+                  isError={isPasswordError}
                   onChange={onChangePassword}
                   errorMsg={errorMsg}
+                  Required={'Required'}
+                  value={password}
                />
 
                <Button
@@ -53,7 +60,9 @@ class SignInForm extends Component {
                />
                <AskSignUp>
                   {strings.DontHaveAccountSignup}
-                  <SignUpLink href='SignUpLocation'>SignUp</SignUpLink>
+                  <SignUpLink href='SignUpLocationUrl'>
+                     {strings.SignUpText}
+                  </SignUpLink>
                </AskSignUp>
             </Form>
          </Container>

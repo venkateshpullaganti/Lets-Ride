@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
-import { observable } from 'mobx'
+import { observable, computed } from 'mobx'
+import { action } from '@storybook/addon-actions'
 
 import { HOMEPAGE_PATH } from '../../../Commute/constants/NavigationConstants'
 
+import strings from '../../i18n/strings.json'
+
 import { YES, NO } from '../../constants/SignInConstants'
 import { SignInForm } from '../../components/SignInForm'
-import { action } from '@storybook/addon-actions'
 
 @inject('authStore')
 @observer
@@ -15,13 +17,19 @@ class SignInRoute extends Component {
    @observable userName
    @observable password
    @observable isLoading
-   @observable isError
-   errorMsg
+   @observable errorMsg
 
    constructor(props) {
       super(props)
+      this.init()
       this.onSuccess = this.onSuccess.bind(this)
       this.onFailure = this.onFailure.bind(this)
+   }
+   init = () => {
+      this.userName = ''
+      this.password = ''
+      this.isLoading = false
+      this.errorMsg = null
    }
 
    authStore = () => {
@@ -34,19 +42,29 @@ class SignInRoute extends Component {
    onChangePassword = event => {
       this.password = event.target.value
    }
+   @computed
+   get isUserNameError() {
+      return this.errorMsg === strings.userNameEmptyError
+   }
+   @computed
+   get isPasswordError() {
+      return this.errorMsg === strings.passwordEmptyError
+   }
+   @computed
+   get isError() {
+      return this.errorMsg !== null
+   }
 
    onSubmit = () => {
       if (this.userName === '') {
          // this.signinFormRef.current.usernameRef.current.focus()
-         this.isError = YES
-         this.errorMsg = 'Username empty'
+
+         this.errorMsg = strings.userNameEmptyError
       } else if (this.password === '') {
          // this.signinFormRef.current.passwordRef.current.focus()
-         this.isError = YES
-         this.errorMsg = 'Password empty'
+         this.errorMsg = strings.passwordEmptyError
       } else {
          this.errorMsg = null
-         this.isError = NO
          this.isLoading = YES
          const requestObject = {
             phonenumber: this.userName,
@@ -81,7 +99,11 @@ class SignInRoute extends Component {
          onChangePassword,
          isLoading,
          errorMsg,
-         isError
+         isError,
+         userName,
+         password,
+         isUserNameError,
+         isPasswordError
       } = this
 
       return (
@@ -92,6 +114,10 @@ class SignInRoute extends Component {
             isLoading={isLoading}
             isError={isError}
             errorMsg={errorMsg}
+            userName={userName}
+            password={password}
+            isPasswordError={isPasswordError}
+            isUserNameError={isUserNameError}
          />
       )
    }

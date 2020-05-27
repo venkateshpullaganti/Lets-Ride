@@ -1,7 +1,10 @@
 {
    "signInHeaderText": "Hi there, please sign in",
-   "UserNameLabelText": "USER NAME",
+   "MobileNumberLabelText": "MOBILE NUMBER",
    "PasswordLabelText": "PASSWORD",
    "DontHaveAccountSignup": "Don't Have an account?",
-   "BtnLoginText": "LOGIN"
+   "BtnLoginText": "LOGIN",
+   "SignUpText": "SIGN UP",
+   "userNameEmptyError": "MobileNumber Required",
+   "passwordEmptyError": "Password Required"
 }

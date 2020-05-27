@@ -1,5 +1,5 @@
 import React from 'react'
-import strings from '../../i18n/strings.json'
+import images from '../../themes/images'
 
 import { CustomLogo } from './styledComponents'
 
@@ -10,5 +10,5 @@ export function Logo(props) {
 Logo.defaultProps = {
    height: '64px',
    width: '64px',
-   src: strings.logo
+   src: images.mainLogo
 }

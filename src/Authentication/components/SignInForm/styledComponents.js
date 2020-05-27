@@ -3,7 +3,7 @@ import tw from 'tailwind.macro'
 
 // import { Typo12SteelHKGroteskSemiBold } from '../../'
 
-import { Typo14BrightBlueHKGroteskRegular } from '../../../styleGuide/Typos'
+import { Typo14BrightBlueHKGroteskRegular } from '../../../Common/styleGuide/Typos'
 
 import Colors from '../../../Common/themes/Colors'
 

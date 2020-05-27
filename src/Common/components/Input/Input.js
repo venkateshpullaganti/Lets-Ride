@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import images from '../../themes/images'
+
 import {
    CustomInput,
    CustomLabel,
@@ -23,13 +25,7 @@ class Input extends Component {
       return (
          <InputContainer>
             <CustomLabel htmlFor={id}>{labelText}</CustomLabel>
-            {isError ? (
-               <ErrorIcon
-                  src={
-                     'https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/6157cd12-2279-47dc-b3a6-68f6793f2c2b.svg'
-                  }
-               />
-            ) : null}
+            {isError ? <ErrorIcon src={images.errorIcon} /> : null}
             <CustomInput
                type={type}
                id={id}
