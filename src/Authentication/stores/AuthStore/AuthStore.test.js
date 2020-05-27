@@ -7,10 +7,10 @@ import {
    API_INITIAL
 } from '@ib/api-constants'
 
-import AuthAPI from '../../services/AuthService'
-import getUserSignInResponse from '../../../fixtures/getUserSignInResponse.json'
+import { AuthService } from '../../services/AuthService'
+import getUserSignInFixture from '../../fixtures/getUserSignInFixture.json'
 
-import AuthStore from '.'
+import { AuthStore } from '.'
 
 let mockSetCookie = jest.fn()
 let mockRemoveCookie = jest.fn()
@@ -23,7 +23,7 @@ describe('AuthStore Tests', () => {
    let authStore
 
    beforeEach(() => {
-      authAPI = new AuthAPI()
+      authAPI = new AuthService()
       authStore = new AuthStore(authAPI)
    })
 
@@ -63,7 +63,7 @@ describe('AuthStore Tests', () => {
          password: 'test-password'
       }
 
-      const mockSuccessPromise = Promise.resolve(getUserSignInResponse)
+      const mockSuccessPromise = Promise.resolve(getUserSignInFixture)
 
       const mockSignInAPI = jest.fn()
       mockSignInAPI.mockReturnValue(mockSuccessPromise)

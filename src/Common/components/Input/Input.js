@@ -19,7 +19,8 @@ class Input extends Component {
          labelText,
          errorMsg,
          isError,
-         placeholder
+         placeholder,
+         value
       } = this.props
 
       return (
@@ -32,6 +33,7 @@ class Input extends Component {
                placeholder={placeholder}
                onChange={onChange}
                isError={isError}
+               value={value}
             />
 
             <Error>{isError ? errorMsg : ''}</Error>

@@ -22,7 +22,7 @@ class SignInForm extends Component {
          isLoading,
          OnChangeUserName,
          onChangePassword,
-         userName,
+         mobileNumber,
          password,
          isUserNameError,
          isPasswordError
@@ -41,7 +41,7 @@ class SignInForm extends Component {
                   onChange={OnChangeUserName}
                   errorMsg={errorMsg}
                   Required={'Required'}
-                  value={userName}
+                  value={mobileNumber}
                />
                <Input
                   type={'password'}

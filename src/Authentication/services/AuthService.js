@@ -3,7 +3,7 @@ import { create } from 'apisauce'
 import { networkCallWithApisauce } from '../../Common/utils/APIUtils'
 import { apiMethods } from '../../Common/constants/APIConstants'
 
-import SignInFixture from '../fixtures/SignInFixture.json'
+import getUserSignInFixture from '../fixtures/getUserSignInFixture.json'
 
 class AuthService {
    api
@@ -14,7 +14,7 @@ class AuthService {
    }
    signInAPI = requestObject => {
       return new Promise((resolve, reject) => {
-         resolve(SignInFixture)
+         resolve(getUserSignInFixture)
       })
       //   return networkCallWithApisauce(
       //      this.api,

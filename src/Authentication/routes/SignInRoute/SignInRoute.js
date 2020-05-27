@@ -14,7 +14,7 @@ import { SignInForm } from '../../components/SignInForm'
 @inject('authStore')
 @observer
 class SignInRoute extends Component {
-   @observable userName
+   @observable mobileNumber
    @observable password
    @observable isLoading
    @observable errorMsg
@@ -26,7 +26,7 @@ class SignInRoute extends Component {
       this.onFailure = this.onFailure.bind(this)
    }
    init = () => {
-      this.userName = ''
+      this.mobileNumber = ''
       this.password = ''
       this.isLoading = false
       this.errorMsg = null
@@ -37,7 +37,7 @@ class SignInRoute extends Component {
    }
 
    OnChangeUserName = event => {
-      this.userName = event.target.value
+      this.mobileNumber = event.target.value
    }
    onChangePassword = event => {
       this.password = event.target.value
@@ -56,7 +56,7 @@ class SignInRoute extends Component {
    }
 
    onSubmit = () => {
-      if (this.userName === '') {
+      if (this.mobileNumber === '') {
          // this.signinFormRef.current.usernameRef.current.focus()
 
          this.errorMsg = strings.userNameEmptyError
@@ -67,7 +67,7 @@ class SignInRoute extends Component {
          this.errorMsg = null
          this.isLoading = YES
          const requestObject = {
-            phonenumber: this.userName,
+            phonenumber: this.mobileNumber,
             password: this.password
          }
          this.authStore().userSignIn(
@@ -100,7 +100,7 @@ class SignInRoute extends Component {
          isLoading,
          errorMsg,
          isError,
-         userName,
+         mobileNumber,
          password,
          isUserNameError,
          isPasswordError
@@ -114,7 +114,7 @@ class SignInRoute extends Component {
             isLoading={isLoading}
             isError={isError}
             errorMsg={errorMsg}
-            userName={userName}
+            mobileNumber={mobileNumber}
             password={password}
             isPasswordError={isPasswordError}
             isUserNameError={isUserNameError}
