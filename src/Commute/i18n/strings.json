@@ -1,0 +1,10 @@
+{
+   "rideRequestFormHeading": "RIDE REQUEST",
+   "fromText": "FROM",
+   "toText": "TO",
+   "dateAndTimeText": "DATE AND TIME",
+   "flexibleTimingsText": "FLEXIBLE TIMINGS",
+   "noOfSeatsText": "NO.OF SEATS",
+   "laguageQuantity": "LAGUAGE QUANTITY",
+   "btnText": "REQUEST"
+}

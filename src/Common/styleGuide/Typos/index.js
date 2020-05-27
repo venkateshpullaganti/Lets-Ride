@@ -1,5 +1,7 @@
 import { css } from '@emotion/core'
 
+import Colors from '../../themes/Colors'
+
 export const Typo32DarkBlueGreyRubikRegular = css`
    ${'' /* font-family: Rubik-Regular, Rubik;
    src: local(Rubik-Regular),
@@ -52,4 +54,14 @@ export const Typo14WhiteRubikMedium = css`
    font-style: normal;
    line-height: 1.71;
    letter-spacing: normal;
+`
+export const Typo20DarkBlueGreyHKGrotestBold = css`
+   font-family: HKGrotesk;
+   font-size: 20px;
+   font-weight: bold;
+   font-stretch: normal;
+   font-style: normal;
+   line-height: 1.6;
+   letter-spacing: normal;
+   color: ${Colors.darkBlueGrey};
 `

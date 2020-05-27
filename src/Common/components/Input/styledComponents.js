@@ -18,7 +18,6 @@ const CustomInput = styled.input`
    }
 `
 const CustomLabel = styled.label`
-   margin-bottom: 8px;
    color: ${Colors.steel};
 `
 const Error = styled.span`
@@ -33,7 +32,7 @@ const ErrorIcon = styled.img`
 `
 const InputContainer = styled.div`
    width: 100%;
-   margin-top: 48px;
+   margin-top: 20px;
    ${tw`relative `};
 `
 
