@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
-import moment from 'moment'
 import { Header } from '../Header'
 
 import 'react-datepicker/dist/react-datepicker.css'
@@ -21,10 +20,7 @@ import { RideRequest, Form } from './styledComponents'
 @observer
 class RideRequestForm extends Component {
    @observable date = new Date()
-   onChangeDate = date => {
-      const dateInp = moment(date).format('YYYY-MM-DD HH:MM:SS')
-      console.log(dateInp)
-   }
+
    render() {
       const {
          onChangeSource,
@@ -34,16 +30,26 @@ class RideRequestForm extends Component {
          sourcePlace,
          isDestinationError,
          destinationPlace,
-         onChangeflexibleFromDate,
-         onChangeflexibleToDate,
+         onChangeFlexibleFromDate,
+         onChangeFlexibleToDate,
          onIncrementSeats,
          onDecrementSeats,
-         onChangeSeats
+         onChangeSeats,
+         toggleIsFlexible,
+         isFlexible,
+         seatCount,
+         isLoading,
+         laguageCount,
+         onIncrementLaguage,
+         onDecrementLaguage,
+         onChangeLaguage,
+         onChangeDate,
+         onSubmit
       } = this.props
       return (
          <RideRequest>
             <Header />
-            <Form>
+            <Form onSubmit={onSubmit}>
                <Heading>{strings.rideRequestFormHeading}</Heading>
                <Input
                   type={'text'}
@@ -52,7 +58,7 @@ class RideRequestForm extends Component {
                   isError={isSourceError}
                   onChange={onChangeSource}
                   errorMsg={errorMsg}
-                  Required={'Required'}
+                  isRequired={true}
                   value={sourcePlace}
                />
                <Input
@@ -62,35 +68,41 @@ class RideRequestForm extends Component {
                   isError={isDestinationError}
                   onChange={onChangeDestination}
                   errorMsg={errorMsg}
-                  Required={'Required'}
+                  isRequired={true}
                   value={destinationPlace}
                />
 
                <DateAndTimePicker
                   date={this.date}
-                  onChange={this.onChangeDate}
-                  labelText={'Date and Time'}
+                  onChange={onChangeDate}
+                  labelText={strings.dateAndTimeLabel}
                />
                <FlexibleTimings
                   date={this.date}
-                  oChangeflexibleFromDate={onChangeflexibleFromDate}
-                  oChangeflexibleToDate={onChangeflexibleToDate}
+                  isFlexible={isFlexible}
+                  onChangeFlexibleFromDate={onChangeFlexibleFromDate}
+                  onChangeFlexibleToDate={onChangeFlexibleToDate}
+                  toggleIsFlexible={toggleIsFlexible}
                />
                <Counter
-                  labelText={'No of assets'}
-                  count={4}
+                  labelText={strings.noOfSeatsText}
+                  count={seatCount}
                   onIncrement={onIncrementSeats}
                   onDecrement={onDecrementSeats}
                   onChange={onChangeSeats}
                />
                <Counter
-                  labelText={'Luggage quantity'}
-                  count={4}
-                  onIncrement={onIncrementSeats}
-                  onDecrement={onDecrementSeats}
-                  onChange={onChangeSeats}
+                  key={strings.luggageQuantity}
+                  labelText={strings.luggageQuantity}
+                  count={laguageCount}
+                  onIncrement={onIncrementLaguage}
+                  onDecrement={onDecrementLaguage}
+                  onChange={onChangeLaguage}
                />
-               <Button displayText={'Request'} />
+               <Button
+                  isLoading={isLoading}
+                  displayText={strings.requestBtnText}
+               />
             </Form>
          </RideRequest>
       )

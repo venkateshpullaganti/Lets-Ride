@@ -1,48 +1,48 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import { observer } from 'mobx-react'
-import { observable } from 'mobx'
 
 import { DateAndTimePicker } from '../../../Common/components/DateAndTimePicker'
+
+import strings from '../../i18n/strings.json'
 
 import { DatePickers, FlexibleContainer } from './styledComponents'
 
 @observer
 class FlexibleTimings extends Component {
-   @observable isFlexible = false
    fromTime
    toTime
 
-   onClickCheckbox = () => {
-      this.isFlexible = !this.isFlexible
-   }
-
    render() {
       const {
-         onChangeflexibleToDate,
-         onChangeflexibleFromDate,
+         onChangeFlexibleFromDate,
+         onChangeFlexibleToDate,
+         toggleIsFlexible,
+         isFlexible,
          date
       } = this.props
       return (
          <FlexibleContainer>
-            <DatePickers shouldShow={this.isFlexible}>
+            <DatePickers shouldShow={isFlexible}>
                <DateAndTimePicker
                   date={date}
-                  onChange={onChangeflexibleFromDate}
-                  labelText={'FROM'}
+                  onChange={onChangeFlexibleFromDate}
+                  labelText={strings.fromText}
                />
                <DateAndTimePicker
                   date={date}
-                  onChange={onChangeflexibleToDate}
-                  labelText={'TO'}
+                  onChange={onChangeFlexibleToDate}
+                  labelText={strings.toText}
                />
             </DatePickers>
-            <input
-               type='checkbox'
-               id='flexibleTime'
-               onClick={this.onClickCheckbox}
-               defaultChecked={this.isFlexible}
-            />
-            <label htmlFor={'flexibleTime'}>{'Flexible Timings'}</label>
+            <span>
+               <input
+                  type='checkbox'
+                  id='flexibleTime'
+                  onClick={toggleIsFlexible}
+                  defaultChecked={isFlexible}
+               />
+               <label htmlFor={'flexibleTime'}>{'Flexible Timings'}</label>
+            </span>
          </FlexibleContainer>
       )
    }

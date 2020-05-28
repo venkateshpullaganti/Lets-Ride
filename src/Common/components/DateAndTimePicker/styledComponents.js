@@ -4,12 +4,13 @@ import tw from 'tailwind.macro'
 import Colors from '../../themes/Colors'
 
 const DateInput = styled.div`
-   ${tw``};
+   ${tw`text-sm m-2`};
 `
 const Label = styled.label`
    color: ${Colors.steel};
-   margin-left: 0px;
-   margin-right: 4px;
+`
+const Picker = styled.span`
+   ${tw``};
 `
 
-export { DateInput, Label }
+export { DateInput, Label, Picker }

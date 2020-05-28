@@ -35,5 +35,8 @@ const InputContainer = styled.div`
    margin-top: 20px;
    ${tw`relative `};
 `
+const Required = styled.span`
+   ${tw`text-red-500`};
+`
 
-export { CustomInput, CustomLabel, Error, ErrorIcon, InputContainer }
+export { CustomInput, CustomLabel, Error, ErrorIcon, InputContainer, Required }

@@ -40,8 +40,8 @@ class SignInForm extends Component {
                   isError={isUserNameError}
                   onChange={OnChangeUserName}
                   errorMsg={errorMsg}
-                  Required={'Required'}
                   value={mobileNumber}
+                  isRequired={true}
                />
                <Input
                   type={'password'}
@@ -50,7 +50,7 @@ class SignInForm extends Component {
                   isError={isPasswordError}
                   onChange={onChangePassword}
                   errorMsg={errorMsg}
-                  Required={'Required'}
+                  isRequired={true}
                   value={password}
                />
 

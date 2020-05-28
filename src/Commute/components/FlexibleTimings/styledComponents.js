@@ -7,6 +7,6 @@ const DatePickers = styled.div`
    ${tw`flex items-center m-2`};
 `
 const FlexibleContainer = styled.div`
-   ${tw`flex flex-wrap justify-center items-center`};
+   ${tw`flex  flex-wrap  items-center m-1`};
 `
 export { DatePickers, FlexibleContainer }

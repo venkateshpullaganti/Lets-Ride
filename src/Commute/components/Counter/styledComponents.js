@@ -12,14 +12,17 @@ const Btn = styled.button`
 `
 
 const CounterContainer = styled.div`
-   ${tw`flex `};
+   ${tw`flex m-1`};
 `
-const Label = styled.label``
+const Label = styled.label`
+   margin-right: 15px;
+   ${tw``}
+`
 const Input = styled.input`
    height: 40px;
-   width: 40px;
+   width: 45px;
    border: 1px solid lightgrey;
-   ${tw`text-center`};
+   ${tw`text-center pl-2`};
    &:focus {
       outline: none;
    }

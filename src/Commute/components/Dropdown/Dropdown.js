@@ -28,7 +28,7 @@ class Dropdown extends Component {
    renderLinks = () => {
       const { links } = this.props
       return links.map(link => (
-         <LinkItem>
+         <LinkItem key={link.path}>
             <Link key={link.path} to={link.path}>
                {link.name}
             </Link>

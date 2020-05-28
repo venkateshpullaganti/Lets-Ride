@@ -6,5 +6,10 @@
    "flexibleTimingsText": "FLEXIBLE TIMINGS",
    "noOfSeatsText": "NO.OF SEATS",
    "laguageQuantity": "LAGUAGE QUANTITY",
-   "btnText": "REQUEST"
+   "requestBtnText": "REQUEST",
+   "dateAndTimeLabel": "DATE AND TIME",
+   "noOfAssets": "NO OF ASSETS",
+   "luggageQuantity": "LUGGAGE QUANTITY",
+   "sourcePlaceError": "SOURCE PLACE REQUIRED",
+   "destinationPlaceError": "DESTINATION PLACE REQUIRED"
 }

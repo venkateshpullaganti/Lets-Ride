@@ -7,7 +7,8 @@ import {
    CustomLabel,
    Error,
    ErrorIcon,
-   InputContainer
+   InputContainer,
+   Required
 } from './styledComponents'
 
 class Input extends Component {
@@ -20,12 +21,16 @@ class Input extends Component {
          errorMsg,
          isError,
          placeholder,
-         value
+         value,
+         isRequired
       } = this.props
 
       return (
          <InputContainer>
-            <CustomLabel htmlFor={id}>{labelText}</CustomLabel>
+            <CustomLabel htmlFor={id}>
+               {labelText}
+               <Required>{isRequired ? '*' : null}</Required>
+            </CustomLabel>
             {isError ? <ErrorIcon src={images.errorIcon} /> : null}
             <CustomInput
                type={type}
@@ -36,7 +41,7 @@ class Input extends Component {
                value={value}
             />
 
-            <Error>{isError ? errorMsg : ''}</Error>
+            <Error>{isError ? errorMsg : null}</Error>
          </InputContainer>
       )
    }

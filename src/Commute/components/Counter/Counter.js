@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { observer, inject } from 'mobx-react'
+import { observer } from 'mobx-react'
 
 import { Btn, CounterContainer, Label, Input } from './styledComponents'
 
 @observer
-class Counter extends Component<Props> {
+class Counter extends Component {
    render() {
       const {
          labelText,
@@ -16,17 +16,26 @@ class Counter extends Component<Props> {
       return (
          <CounterContainer>
             <Label htmlFor={'input'}>{labelText}</Label>
-            <Btn onClick={onIncrement}>+</Btn>
+            <Btn type='button' onClick={onDecrement}>
+               -
+            </Btn>
             <Input
+               key={labelText}
                id={'input'}
                type={'number'}
                value={count}
                onChange={onChange}
             />
-            <Btn onClick={onDecrement}>-</Btn>
+            <Btn type='button' onClick={onIncrement}>
+               +
+            </Btn>
          </CounterContainer>
       )
    }
 }
 
 export { Counter }
+
+Counter.defaultProps = {
+   count: 0
+}
