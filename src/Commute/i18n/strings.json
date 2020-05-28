@@ -11,5 +11,7 @@
    "noOfAssets": "NO OF ASSETS",
    "luggageQuantity": "LUGGAGE QUANTITY",
    "sourcePlaceError": "SOURCE PLACE REQUIRED",
-   "destinationPlaceError": "DESTINATION PLACE REQUIRED"
+   "destinationPlaceError": "DESTINATION PLACE REQUIRED",
+   "rideShareHeaderText": "SHARE RIDE",
+   "shareBtnText": "SHARE"
 }

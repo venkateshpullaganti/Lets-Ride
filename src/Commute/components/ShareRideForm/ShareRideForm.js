@@ -15,10 +15,10 @@ import strings from '../../i18n/strings.json'
 import { Counter } from '../Counter'
 import { FlexibleTimings } from '../FlexibleTimings'
 
-import { RideRequest, Form } from './styledComponents'
+import { ShareRide, Form } from './styledComponents'
 
 @observer
-class RideRequestForm extends Component {
+class ShareRideForm extends Component {
    @observable date = new Date()
 
    render() {
@@ -48,10 +48,12 @@ class RideRequestForm extends Component {
       } = this.props
 
       return (
-         <RideRequest>
+         <ShareRide>
             <Header />
             <Form onSubmit={onSubmit}>
-               <Heading>{strings.rideRequestFormHeading}</Heading>
+               <Heading className='self-center'>
+                  {strings.rideShareHeaderText}
+               </Heading>
                <Input
                   type={'text'}
                   labelText={strings.fromText}
@@ -102,12 +104,12 @@ class RideRequestForm extends Component {
                />
                <Button
                   isLoading={isLoading}
-                  displayText={strings.requestBtnText}
+                  displayText={strings.shareBtnText}
                />
             </Form>
-         </RideRequest>
+         </ShareRide>
       )
    }
 }
 
-export { RideRequestForm }
+export { ShareRideForm }

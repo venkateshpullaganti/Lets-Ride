@@ -1,5 +1,3 @@
-import Cookie from 'js-cookie'
-
 import {
    API_SUCCESS,
    API_FAILED,
@@ -7,95 +5,80 @@ import {
    API_INITIAL
 } from '@ib/api-constants'
 
-import { AuthService } from '../../services/AuthService'
-import getUserSignInFixture from '../../fixtures/getUserSignInFixture.json'
+import { CommuteService } from '../../services/CommuteService'
 
-import { AuthStore } from '.'
+import { ShareStore } from '.'
 
-let mockSetCookie = jest.fn()
-let mockRemoveCookie = jest.fn()
-
-Cookie.set = mockSetCookie
-Cookie.remove = mockRemoveCookie
-
-describe('AuthStore Tests', () => {
-   let authAPI
-   let authStore
+describe('ShareStore Tests', () => {
+   let comuteAPI
+   let shareStore
 
    beforeEach(() => {
-      authAPI = new AuthService()
-      authStore = new AuthStore(authAPI)
+      comuteAPI = new CommuteService()
+      shareStore = new ShareStore(comuteAPI)
    })
 
-   it('should test initialising auth store', () => {
-      expect(authStore.getUserSignInAPIStatus).toBe(API_INITIAL)
-      expect(authStore.getUserSignInAPIError).toBe(null)
+   it('should test initialising share store', () => {
+      expect(shareStore.getRideRequestAPIStatus).toBe(API_INITIAL)
+      expect(shareStore.getRideRequestAPIError).toBe(null)
    })
 
-   it('should test userSignInAPI data fetching state', () => {
+   it('should test rideRequest loading state whle sending data', () => {
       const onSuccess = jest.fn()
       const onFailure = jest.fn()
 
-      const requestObject = {
-         username: 'test-user',
-         password: 'test-password'
+      const requestObj = {
+         source: 'sourcePlace',
+         destination: 'destinationPlace'
       }
 
       const mockLoadingPromise = new Promise(function(resolve, reject) {})
-      const mockSignInAPI = jest.fn()
-      mockSignInAPI.mockReturnValue(mockLoadingPromise)
-      authAPI.signInAPI = authStore.userSignIn(
-         requestObject,
+      const mockRideRequestAPI = jest.fn()
+      mockRideRequestAPI.mockReturnValue(mockLoadingPromise)
+      comuteAPI.rideRequest = shareStore.rideRequest(
+         requestObj,
          onSuccess,
          onFailure
       )
-      expect(authStore.getUserSignInAPIStatus).toBe(API_FETCHING)
+      expect(shareStore.getRideRequestAPIStatus).toBe(API_FETCHING)
       expect(onSuccess).not.toBeCalled()
       expect(onFailure).not.toBeCalled()
    })
 
-   it('should test the userSignInAPI success state', async () => {
+   it('should test the RideRequestAPI success state', async () => {
       const onSuccess = jest.fn()
       const onFailure = jest.fn()
 
-      const requestObject = {
-         username: 'test-user',
-         password: 'test-password'
+      const requestObj = {
+         source: 'sourcePlace',
+         destination: 'destinationPlace'
       }
 
-      const mockSuccessPromise = Promise.resolve(getUserSignInFixture)
+      const mockSuccessPromise = Promise.resolve()
 
-      const mockSignInAPI = jest.fn()
-      mockSignInAPI.mockReturnValue(mockSuccessPromise)
-      authAPI.signInAPI = mockSignInAPI
+      const mockRideRequest = jest.fn()
+      mockRideRequest.mockReturnValue(mockSuccessPromise)
+      comuteAPI.rideRequest = mockRideRequest
 
-      await authStore.userSignIn(requestObject, onSuccess, onFailure)
-      expect(authStore.getUserSignInAPIStatus).toBe(API_SUCCESS)
-      expect(mockSetCookie).toBeCalled()
+      await shareStore.rideRequest(requestObj, onSuccess, onFailure)
+      expect(shareStore.getRideRequestAPIStatus).toBe(API_SUCCESS)
       expect(onSuccess).toBeCalled()
    })
 
-   it('should test userSignInAPI failure state', async () => {
+   it('should test rideRequestAPI failure state', async () => {
       const onSuccess = jest.fn()
       const onFailure = jest.fn()
-      const requestObject = {
-         username: 'test-user',
-         password: 'test-password'
+      const requestObj = {
+         source: 'sourcePlace',
+         destination: 'destinationPlace'
       }
 
       jest
-         .spyOn(authAPI, 'signInAPI')
+         .spyOn(comuteAPI, 'rideRequest')
          .mockImplementation(() => Promise.reject())
 
-      await authStore.userSignIn(requestObject, onSuccess, onFailure)
-      expect(authStore.getUserSignInAPIStatus).toBe(API_FAILED)
+      await shareStore.rideRequest(requestObj, onSuccess, onFailure)
+      expect(shareStore.getRideRequestAPIStatus).toBe(API_FAILED)
       expect(onFailure).toBeCalled()
-   })
-
-   it('should test user sign-out', () => {
-      authStore.userSignOut()
-      expect(mockRemoveCookie).toBeCalled()
-      expect(authStore.getUserSignInAPIStatus).toBe(API_INITIAL)
-      expect(authStore.getUserSignInAPIError).toBe(null)
    })
 })

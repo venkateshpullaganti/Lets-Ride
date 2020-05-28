@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 
-import { RideRequestForm } from '../../components/RideRequestForm'
+import { ShareRideForm } from '../../components/ShareRideForm'
 import strings from '../../i18n/strings.json'
 
 import { observer, inject } from 'mobx-react'
 import { observable, computed } from 'mobx'
 
-@inject('requestStore')
+@inject('shareStore')
 @observer
-class RideRequestRoute extends Component {
+class ShareRideRoute extends Component {
    @observable destinationPlace
    @observable sourcePlace
    @observable errorMsg
@@ -37,8 +37,8 @@ class RideRequestRoute extends Component {
       this.isLoading = false
    }
 
-   get requestStore() {
-      return this.props.requestStore
+   get shareStore() {
+      return this.props.shareStore
    }
 
    onChangeSource = event => {
@@ -81,6 +81,7 @@ class RideRequestRoute extends Component {
    }
    onSubmit(event) {
       event.preventDefault()
+
       const { sourcePlace, destinationPlace } = this
       if (sourcePlace === '') {
          this.errorMsg = strings.sourcePlaceError
@@ -88,11 +89,11 @@ class RideRequestRoute extends Component {
          this.errorMsg = strings.destinationPlaceError
       } else {
          this.errorMsg = null
-
-         this.doNetworkCalls()
+         this.doNetworkCall()
       }
    }
-   doNetworkCalls = () => {
+
+   doNetworkCall = () => {
       this.isLoading = true
       const { sourcePlace, destinationPlace } = this
       let mainDate, fromDate, toDate
@@ -118,16 +119,15 @@ class RideRequestRoute extends Component {
          laguage_quantity: this.laguageCount
       }
       console.log(requestObj)
-
-      this.requestStore.rideRequest(requestObj, this.onSuccess, this.onFailure)
+      this.shareStore.rideShare(requestObj, this.onSuccess, this.onFailure)
    }
    onSuccess = () => {
       this.isLoading = false
+      alert('successfully added')
       this.init()
    }
    onFailure = error => {
       this.isLoading = false
-      console.log('error', error)
    }
 
    @computed
@@ -149,6 +149,7 @@ class RideRequestRoute extends Component {
          sourcePlace,
          destinationPlace,
          isDestinationError,
+         isLoading,
          onChangeSource,
          onChangeDestination,
          onChangeFlexibleFromDate,
@@ -161,7 +162,6 @@ class RideRequestRoute extends Component {
          onDecrementLaguage,
          onChangeLaguage,
          onChangeDate,
-         isLoading,
          onSubmit
       } = this
       const formProps = {
@@ -189,8 +189,8 @@ class RideRequestRoute extends Component {
          onSubmit
       }
 
-      return <RideRequestForm {...formProps} />
+      return <ShareRideForm {...formProps} />
    }
 }
 
-export { RideRequestRoute }
+export { ShareRideRoute }
