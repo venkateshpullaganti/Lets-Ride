@@ -65,7 +65,7 @@ class RideRequestRoute extends Component {
       this.seatCount++
    }
    onDecrementSeats = () => {
-      this.seatCount--
+      if (this.seatCount > 0) this.seatCount--
    }
    onChangeSeats = event => {
       this.seatCount = parseInt(event.target.value)
@@ -74,7 +74,7 @@ class RideRequestRoute extends Component {
       this.laguageCount++
    }
    onDecrementLaguage = () => {
-      this.laguageCount--
+      if (this.laguageCount > 0) this.laguageCount--
    }
    onChangeLaguage = event => {
       this.laguageCount = parseInt(event.target.value)

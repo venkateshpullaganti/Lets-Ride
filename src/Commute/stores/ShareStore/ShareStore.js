@@ -5,15 +5,15 @@ import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
 class ShareStore {
-   @observable getRideShareApiStatus
-   @observable getRideShareApiError
+   @observable getRideShareAPIStatus
+   @observable getRideShareAPIError
 
-   @observable getTravelInfoApiStatus
-   @observable getTravelInfoApiError
-   commuteApiService
+   @observable getTravelInfoAPIStatus
+   @observable getTravelInfoAPIError
+   commuteAPIService
 
    constructor(CommuteService) {
-      this.commuteApiService = CommuteService
+      this.commuteAPIService = CommuteService
       this.init()
    }
 
@@ -22,25 +22,25 @@ class ShareStore {
 
    @action.bound
    setGetRideShareAPIError(APIError) {
-      this.getRideShareApiError = APIError
+      this.getRideShareAPIError = APIError
    }
 
    @action.bound
    setGetRideShareAPIStatus(APIStatus) {
-      this.getRideShareApiStatus = APIStatus
+      this.getRideShareAPIStatus = APIStatus
    }
 
    @action.bound
    init() {
-      this.getRideShareApiStatus = API_INITIAL
-      this.getRideShareApiError = null
+      this.getRideShareAPIStatus = API_INITIAL
+      this.getRideShareAPIError = null
 
-      this.getTravelInfoApiStatus = API_INITIAL
-      this.getTravelInfoApiError = null
+      this.getTravelInfoAPIStatus = API_INITIAL
+      this.getTravelInfoAPIError = null
    }
    @action.bound
    rideShare(requestObject, onSuccess, onFailure) {
-      const rideSharePromise = this.commuteApiService.rideShare(requestObject)
+      const rideSharePromise = this.commuteAPIService.rideShare(requestObject)
 
       return bindPromiseWithOnSuccess(rideSharePromise)
          .to(this.setGetRideShareAPIStatus, response => {
@@ -58,17 +58,17 @@ class ShareStore {
 
    @action.bound
    setGetTravelInfoAPIError(APIError) {
-      this.getTravelInfoApiError = APIError
+      this.getTravelInfoAPIError = APIError
    }
 
    @action.bound
    setGetTravelInfoAPIStatus(APIStatus) {
-      this.getTravelInfoApiStatus = APIStatus
+      this.getTravelInfoAPIStatus = APIStatus
    }
 
    @action.bound
    travelInfo(requestObject, onSuccess, onFailure) {
-      const travelInfoPromise = this.commuteApiService.travelInfo(requestObject)
+      const travelInfoPromise = this.commuteAPIService.travelInfo(requestObject)
 
       return bindPromiseWithOnSuccess(travelInfoPromise)
          .to(this.setGetTravelInfoAPIStatus, response => {

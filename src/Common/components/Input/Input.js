@@ -27,10 +27,8 @@ class Input extends Component {
 
       return (
          <InputContainer>
-            <CustomLabel htmlFor={id}>
-               {labelText}
-               <Required>{isRequired ? '*' : null}</Required>
-            </CustomLabel>
+            <CustomLabel htmlFor={id}>{labelText}</CustomLabel>
+            <Required>{isRequired ? '*' : null}</Required>
             {isError ? <ErrorIcon src={images.errorIcon} /> : null}
             <CustomInput
                type={type}

@@ -46,6 +46,7 @@ class RideRequestForm extends Component {
          onChangeDate,
          onSubmit
       } = this.props
+      console.log(sourcePlace)
       return (
          <RideRequest>
             <Header />

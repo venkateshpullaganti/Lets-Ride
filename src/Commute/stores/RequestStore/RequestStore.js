@@ -5,15 +5,15 @@ import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
 class RequestStore {
-   @observable getRideRequestApiStatus
-   @observable getRideRequestApiError
+   @observable getRideRequestAPIStatus
+   @observable getRideRequestAPIError
 
-   @observable getAssetRequestApiStatus
-   @observable getAssetRequestApiError
-   commuteApiService
+   @observable getAssetRequestAPIStatus
+   @observable getAssetRequestAPIError
+   commuteAPIService
 
    constructor(CommuteService) {
-      this.commuteApiService = CommuteService
+      this.commuteAPIService = CommuteService
       this.init()
    }
 
@@ -22,25 +22,25 @@ class RequestStore {
 
    @action.bound
    setGetRideRequestAPIError(APIError) {
-      this.getRideRequestApiError = APIError
+      this.getRideRequestAPIError = APIError
    }
 
    @action.bound
    setGetRideRequestAPIStatus(APIStatus) {
-      this.getRideRequestApiStatus = APIStatus
+      this.getRideRequestAPIStatus = APIStatus
    }
 
    @action.bound
    init() {
-      this.getRideRequestApiStatus = API_INITIAL
-      this.getRideRequestApiError = null
+      this.getRideRequestAPIStatus = API_INITIAL
+      this.getRideRequestAPIError = null
 
-      this.getAssetRequestApiStatus = API_INITIAL
-      this.getAssetRequestApiError = null
+      this.getAssetRequestAPIStatus = API_INITIAL
+      this.getAssetRequestAPIError = null
    }
    @action.bound
    rideRequest(requestObject, onSuccess, onFailure) {
-      const rideRequestPromise = this.commuteApiService.rideRequest(
+      const rideRequestPromise = this.commuteAPIService.rideRequest(
          requestObject
       )
 
@@ -60,17 +60,17 @@ class RequestStore {
 
    @action.bound
    setGetAssetRequestAPIError(APIError) {
-      this.getAssetRequestApiError = APIError
+      this.getAssetRequestAPIError = APIError
    }
 
    @action.bound
    setGetAssetRequestAPIStatus(APIStatus) {
-      this.getAssetRequestApiStatus = APIStatus
+      this.getAssetRequestAPIStatus = APIStatus
    }
 
    @action.bound
    assetRequest(requestObject, onSuccess, onFailure) {
-      const assetRequestPromise = this.commuteApiService.assetRequest(
+      const assetRequestPromise = this.commuteAPIService.assetRequest(
          requestObject
       )
 
