@@ -7,4 +7,7 @@ const Root = styled.div`
    background: ${Colors.whiteTwo};
    ${tw``};
 `
-export { Root }
+const Body = styled.div`
+   ${tw`p-2`};
+`
+export { Root, Body }

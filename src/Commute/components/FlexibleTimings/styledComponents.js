@@ -9,4 +9,7 @@ const DatePickers = styled.div`
 const FlexibleContainer = styled.div`
    ${tw`flex  flex-wrap  items-center m-1`};
 `
-export { DatePickers, FlexibleContainer }
+const Checkbox = styled.input`
+   ${tw`mr-2`};
+`
+export { DatePickers, FlexibleContainer, Checkbox }

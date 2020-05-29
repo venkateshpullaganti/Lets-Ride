@@ -13,5 +13,8 @@
    "sourcePlaceError": "SOURCE PLACE REQUIRED",
    "destinationPlaceError": "DESTINATION PLACE REQUIRED",
    "rideShareHeaderText": "SHARE RIDE",
-   "shareBtnText": "SHARE"
+   "shareBtnText": "SHARE",
+   "myRequests": "My Requests",
+   "ride": "RIDE",
+   "asset": "ASSET"
 }

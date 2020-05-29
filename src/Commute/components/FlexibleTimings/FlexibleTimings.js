@@ -5,7 +5,7 @@ import { DateAndTimePicker } from '../../../Common/components/DateAndTimePicker'
 
 import strings from '../../i18n/strings.json'
 
-import { DatePickers, FlexibleContainer } from './styledComponents'
+import { DatePickers, FlexibleContainer, Checkbox } from './styledComponents'
 
 @observer
 class FlexibleTimings extends Component {
@@ -35,7 +35,7 @@ class FlexibleTimings extends Component {
                />
             </DatePickers>
             <span>
-               <input
+               <Checkbox
                   type='checkbox'
                   id='flexibleTime'
                   onClick={toggleIsFlexible}

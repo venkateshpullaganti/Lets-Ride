@@ -4,7 +4,7 @@ import tw from 'tailwind.macro'
 import Colors from '../../themes/Colors'
 
 const DateInput = styled.div`
-   ${tw`text-sm m-2`};
+   ${tw`text-sm`};
 `
 const Label = styled.label`
    color: ${Colors.steel};

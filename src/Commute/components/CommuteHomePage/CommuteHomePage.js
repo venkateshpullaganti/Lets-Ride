@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 
 import { Header } from '../Header'
+import { MyRequests } from '../MyRequests'
 
-import { Root } from './styledComponents'
+import { Root, Body } from './styledComponents'
 
 class CommuteHomePage extends Component {
    render() {
       return (
          <Root>
             <Header />
-            <div>Home Page</div>
+            <Body>
+               <MyRequests />
+            </Body>
          </Root>
       )
    }

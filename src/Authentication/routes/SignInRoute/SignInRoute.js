@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import { observable, computed } from 'mobx'
 import { action } from '@storybook/addon-actions'
+
+import { isLoggedIn } from '../../../Common/utils/AuthUtils'
 
 import { HOMEPAGE_PATH } from '../../../Commute/constants/NavigationConstants'
 
@@ -105,7 +107,9 @@ class SignInRoute extends Component {
          isUserNameError,
          isPasswordError
       } = this
-
+      // if (!isLoggedIn()) {
+      //    return <Redirect to={{ pathname: HOMEPAGE_PATH }} />
+      // }
       return (
          <SignInForm
             onSubmit={onSubmit}

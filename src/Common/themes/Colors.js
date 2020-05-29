@@ -8,5 +8,9 @@ export default {
    duckEggBlue: '#b3f4e1',
    turquoiseBlue: '#00b2ca',
    darkBlueGrey: ' #171f46',
-   whiteTwo: '#fbfbfb'
+   whiteTwo: '#fbfbfb',
+   steel60: 'rgba(126, 133, 142, 0.6)',
+   yellowOrange: '#ffb800',
+   greenishTeal: '#2dca73',
+   lightBlueGrey40: 'rgba(215, 223, 233, 0.4)'
 }
