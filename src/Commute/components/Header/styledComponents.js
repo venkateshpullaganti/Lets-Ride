@@ -8,7 +8,8 @@ const Container = styled.div`
    width: 100%;
    background: ${Colors.white};
    padding: 0px 48px 0px 48px;
-   ${tw`flex justify-between items-center`};
+   top: 0px;
+   ${tw`flex justify-between items-center sticky z-30`};
 `
 const Actions = styled.div`
    ${tw`flex`};

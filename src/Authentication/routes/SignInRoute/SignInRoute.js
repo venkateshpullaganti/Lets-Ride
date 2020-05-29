@@ -2,15 +2,12 @@ import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 import { withRouter, Redirect } from 'react-router-dom'
 import { observable, computed } from 'mobx'
-import { action } from '@storybook/addon-actions'
-
-import { isLoggedIn } from '../../../Common/utils/AuthUtils'
+import { API_FETCHING } from '@ib/api-constants'
 
 import { HOMEPAGE_PATH } from '../../../Commute/constants/NavigationConstants'
 
 import strings from '../../i18n/strings.json'
-
-import { YES, NO } from '../../constants/SignInConstants'
+import { MOBILE_NUMBER_LENGTH } from '../../constants/SignInConstants'
 import { SignInForm } from '../../components/SignInForm'
 
 @inject('authStore')
@@ -18,7 +15,6 @@ import { SignInForm } from '../../components/SignInForm'
 class SignInRoute extends Component {
    @observable mobileNumber
    @observable password
-   @observable isLoading
    @observable errorMsg
 
    constructor(props) {
@@ -30,7 +26,6 @@ class SignInRoute extends Component {
    init = () => {
       this.mobileNumber = ''
       this.password = ''
-      this.isLoading = false
       this.errorMsg = null
    }
 
@@ -38,15 +33,15 @@ class SignInRoute extends Component {
       return this.props.authStore
    }
 
-   OnChangeUserName = event => {
+   OnChangeMobileNumber = event => {
       this.mobileNumber = event.target.value
    }
    onChangePassword = event => {
       this.password = event.target.value
    }
    @computed
-   get isUserNameError() {
-      return this.errorMsg === strings.userNameEmptyError
+   get isMobileNumberError() {
+      return this.errorMsg === strings.mobileNumberEmptyError
    }
    @computed
    get isPasswordError() {
@@ -58,16 +53,13 @@ class SignInRoute extends Component {
    }
 
    onSubmit = () => {
-      if (this.mobileNumber === '') {
-         // this.signinFormRef.current.usernameRef.current.focus()
-
-         this.errorMsg = strings.userNameEmptyError
+      if (this.mobileNumber.length !== MOBILE_NUMBER_LENGTH) {
+         this.errorMsg = strings.mobileNumberEmptyError
       } else if (this.password === '') {
-         // this.signinFormRef.current.passwordRef.current.focus()
          this.errorMsg = strings.passwordEmptyError
       } else {
          this.errorMsg = null
-         this.isLoading = YES
+
          const requestObject = {
             phonenumber: this.mobileNumber,
             password: this.password
@@ -80,15 +72,11 @@ class SignInRoute extends Component {
       }
    }
 
-   @action
-   onFailure(APIError) {
-      this.isLoading = NO
-      this.errorMsg = APIError.message
+   onFailure(apiError) {
+      this.errorMsg = apiError.message
    }
 
-   @action
    onSuccess() {
-      this.isLoading = NO
       const { history } = this.props
 
       history.replace({ pathname: HOMEPAGE_PATH })
@@ -97,31 +85,31 @@ class SignInRoute extends Component {
    render() {
       const {
          onSubmit,
-         OnChangeUserName,
+         OnChangeMobileNumber,
          onChangePassword,
-         isLoading,
          errorMsg,
          isError,
          mobileNumber,
          password,
-         isUserNameError,
+         isMobileNumberError,
          isPasswordError
       } = this
+
       // if (!isLoggedIn()) {
       //    return <Redirect to={{ pathname: HOMEPAGE_PATH }} />
       // }
       return (
          <SignInForm
             onSubmit={onSubmit}
-            OnChangeUserName={OnChangeUserName}
+            OnChangeMobileNumber={OnChangeMobileNumber}
             onChangePassword={onChangePassword}
-            isLoading={isLoading}
+            isLoading={this.authStore.getUserSignInAPIStatus === API_FETCHING}
             isError={isError}
             errorMsg={errorMsg}
             mobileNumber={mobileNumber}
             password={password}
             isPasswordError={isPasswordError}
-            isUserNameError={isUserNameError}
+            isMobileNumberError={isMobileNumberError}
          />
       )
    }

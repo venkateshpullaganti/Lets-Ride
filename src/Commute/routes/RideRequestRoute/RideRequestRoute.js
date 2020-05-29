@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import moment from 'moment'
+import { observer, inject } from 'mobx-react'
+import { observable, computed } from 'mobx'
+import { API_FETCHING } from '@ib/api-constants'
 
 import { RideRequestForm } from '../../components/RideRequestForm'
 import strings from '../../i18n/strings.json'
-
-import { observer, inject } from 'mobx-react'
-import { observable, computed } from 'mobx'
 
 @inject('requestStore')
 @observer
@@ -16,15 +16,17 @@ class RideRequestRoute extends Component {
    @observable isFlexible
    @observable seatCount
    @observable laguageCount
-   @observable isLoading
    travelDate
    flexibleFromDate
    flexibleToDate
+   @observable btnDisplayText
+   @observable date = new Date()
 
    constructor(props) {
       super(props)
       this.init()
       this.onSubmit = this.onSubmit.bind(this)
+      this.onFailure = this.onFailure.bind(this)
    }
 
    init = () => {
@@ -34,7 +36,10 @@ class RideRequestRoute extends Component {
       this.destinationPlace = ''
       this.sourcePlace = ''
       this.errorMsg = null
-      this.isLoading = false
+      this.travelDate = ''
+      this.flexibleFromDate = ''
+      this.flexibleToDate = ''
+      this.btnDisplayText = strings.requestBtnText
    }
 
    get requestStore() {
@@ -79,20 +84,42 @@ class RideRequestRoute extends Component {
    onChangeLaguage = event => {
       this.laguageCount = parseInt(event.target.value)
    }
+
    onSubmit(event) {
       event.preventDefault()
-      const { sourcePlace, destinationPlace } = this
+      console.log('submit')
+
+      const {
+         sourcePlace,
+         destinationPlace,
+         isFlexible,
+         flexibleFromDate,
+         flexibleToDate,
+         seatCount
+      } = this
+
       if (sourcePlace === '') {
          this.errorMsg = strings.sourcePlaceError
       } else if (destinationPlace === '') {
          this.errorMsg = strings.destinationPlaceError
+      } else if (!isFlexible && this.travelDate === '') {
+         this.errorMsg = strings.travelDateError
+      } else if (
+         isFlexible &&
+         (flexibleFromDate === '' || flexibleToDate === '')
+      ) {
+         this.errorMsg = strings.flexibleTimingsError
+      } else if (seatCount === 0) {
+         this.errorMsg = strings.seatCountError
       } else {
          this.errorMsg = null
 
          this.doNetworkCalls()
       }
    }
+
    doNetworkCalls = () => {
+      console.log('network call')
       this.isLoading = true
       const { sourcePlace, destinationPlace } = this
       let mainDate, fromDate, toDate
@@ -121,13 +148,13 @@ class RideRequestRoute extends Component {
 
       this.requestStore.rideRequest(requestObj, this.onSuccess, this.onFailure)
    }
-   onSuccess = () => {
-      this.isLoading = false
+   onSuccess() {
       this.init()
    }
-   onFailure = error => {
-      this.isLoading = false
-      console.log('error', error)
+
+   onFailure(error) {
+      this.btnDisplayText = strings.retry
+      console.log('failed')
    }
 
    @computed
@@ -137,6 +164,18 @@ class RideRequestRoute extends Component {
    @computed
    get isDestinationError() {
       return this.errorMsg === strings.destinationPlaceError
+   }
+   @computed
+   get isTravelDateError() {
+      return this.errorMsg === strings.travelDateError
+   }
+   @computed
+   get isFlexibleTimingsError() {
+      return this.errorMsg === strings.flexibleTimingsError && this.isFlexible
+   }
+   @computed
+   get isSeatCountError() {
+      return this.errorMsg === strings.seatCountError
    }
 
    render() {
@@ -149,6 +188,11 @@ class RideRequestRoute extends Component {
          sourcePlace,
          destinationPlace,
          isDestinationError,
+         isTravelDateError,
+         isFlexibleTimingsError,
+         isSeatCountError,
+         btnDisplayText,
+         date,
          onChangeSource,
          onChangeDestination,
          onChangeFlexibleFromDate,
@@ -161,7 +205,6 @@ class RideRequestRoute extends Component {
          onDecrementLaguage,
          onChangeLaguage,
          onChangeDate,
-         isLoading,
          onSubmit
       } = this
       const formProps = {
@@ -173,7 +216,11 @@ class RideRequestRoute extends Component {
          isFlexible,
          seatCount,
          laguageCount,
-         isLoading,
+         isTravelDateError,
+         isFlexibleTimingsError,
+         date,
+         btnDisplayText,
+         isSeatCountError,
          onChangeSource,
          onChangeDestination,
          onChangeFlexibleFromDate,
@@ -189,7 +236,14 @@ class RideRequestRoute extends Component {
          onSubmit
       }
 
-      return <RideRequestForm {...formProps} />
+      return (
+         <RideRequestForm
+            {...formProps}
+            isLoading={
+               this.requestStore.getRideRequestAPIStatus === API_FETCHING
+            }
+         />
+      )
    }
 }
 

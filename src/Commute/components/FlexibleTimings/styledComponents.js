@@ -7,9 +7,13 @@ const DatePickers = styled.div`
    ${tw`flex items-center m-2`};
 `
 const FlexibleContainer = styled.div`
-   ${tw`flex  flex-wrap  items-center m-1`};
+   ${tw`flex flex-wrap items-center m-1`};
 `
 const Checkbox = styled.input`
-   ${tw`mr-2`};
+   ${tw`mr-2 `};
 `
-export { DatePickers, FlexibleContainer, Checkbox }
+const Error = styled.span`
+   visibility: ${props => (props.isError ? 'visible' : 'hidden')};
+   ${tw`text-red-500`};
+`
+export { DatePickers, FlexibleContainer, Checkbox, Error }

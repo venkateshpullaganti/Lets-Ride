@@ -14,7 +14,6 @@ const Form = styled.form`
    background: ${Colors.white};
    padding: 50px;
    border-radius: 6px;
-
    box-sizing: border-box;
    ${tw`flex m-4 items-start flex-col self-center shadow-2xl`};
 `

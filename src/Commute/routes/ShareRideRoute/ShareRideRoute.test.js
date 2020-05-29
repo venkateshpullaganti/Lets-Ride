@@ -75,34 +75,156 @@ describe('ShareRideRoute Tests', () => {
 
       waitFor(() => getByRole('button', { disabled: true }))
    })
+   it('should render destination place empty error message', () => {
+      const sourcePlace = 'krnl'
+      const { getByText, getByLabelText } = render(
+         <Router history={createMemoryHistory()}>
+            <ShareRideRoute shareStore={shareStore} />
+         </Router>
+      )
+      const sourcePlaceField = getByLabelText(strings.fromText)
+      const shareBtn = getByText('SHARE')
 
-   // it('should render network failure state', () => {
-   //    const sourcePlace = 'source-place'
-   //    const destinationPlace = 'test-destinationPlace'
+      fireEvent.change(sourcePlaceField, { target: { value: sourcePlace } })
+      fireEvent.click(shareBtn)
+      getByText(strings.destinationPlaceError)
+   })
 
-   //    const mockLoadingPromise = new Promise(function(resolve, reject) {
-   //       reject(new Error('error'))
-   //    }).catch(() => {})
+   it('should render travelDate empty error message', () => {
+      const sourcePlace = 'krnl'
+      const destinationPlace = 'test-destinationPlace'
+      const { getByText, getByLabelText } = render(
+         <Router history={createMemoryHistory()}>
+            <ShareRideRoute shareStore={shareStore} />
+         </Router>
+      )
+      const sourcePlaceField = getByLabelText(strings.fromText)
+      const destinationPlaceField = getByLabelText(strings.toText)
+      const shareBtn = getByText('SHARE')
 
-   //    const mockRideRequestApi = jest.fn()
-   //    mockRideRequestApi.mockReturnValue(mockLoadingPromise)
-   //    commuteAPI.rideRequest = mockRideRequestApi
+      fireEvent.change(sourcePlaceField, { target: { value: sourcePlace } })
+      fireEvent.change(destinationPlaceField, {
+         target: { value: destinationPlace }
+      })
+      fireEvent.click(shareBtn)
+      getByText('Required')
+   })
+   it('should render error message on zero seatCount  ', () => {
+      const sourcePlace = 'krnl'
+      const destinationPlace = 'test-destinationPlace'
+      const dateAndTime = new Date()
 
-   //    const { getByLabelText, getByRole } = render(
-   //       <Router history={createMemoryHistory()}>
-   //          <ShareRideRoute shareStore={shareStore} />
-   //       </Router>
-   //    )
-   //    const sourcePlaceField = getByLabelText(strings.fromText)
-   //    const destinationPlaceField = getByLabelText(strings.toText)
-   //    const shareBtn = getByRole('button', { name: strings.shareBtnText })
+      const { getByText, getByLabelText, getAllByPlaceholderText } = render(
+         <Router history={createMemoryHistory()}>
+            <ShareRideRoute shareStore={shareStore} />
+         </Router>
+      )
+      const sourcePlaceField = getByLabelText(strings.fromText)
+      const destinationPlaceField = getByLabelText(strings.toText)
+      const dateAndTimeFields = getAllByPlaceholderText('Select Date and Time')
+      const shareBtn = getByText('SHARE')
 
-   //    fireEvent.change(sourcePlaceField, { target: { value: sourcePlace } })
-   //    fireEvent.change(destinationPlaceField, { target: { value: destinationPlace } })
-   //    fireEvent.click(shareBtn)
+      fireEvent.change(sourcePlaceField, { target: { value: sourcePlace } })
+      fireEvent.change(destinationPlaceField, {
+         target: { value: destinationPlace }
+      })
+      fireEvent.change(dateAndTimeFields[0], { target: { value: dateAndTime } })
+      fireEvent.click(shareBtn)
+      getByText('Required Seats')
+   })
 
-   //    waitFor(() => {
-   //       getByText(/NETWORK_ERROR/i)
-   //    })
-   // })
+   it('should render error message on selecting Flexible timings and not from and to dates  ', () => {
+      const sourcePlace = 'krnl'
+      const destinationPlace = 'test-destinationPlace'
+
+      const { getByText, getByLabelText, getByRole } = render(
+         <Router history={createMemoryHistory()}>
+            <ShareRideRoute shareStore={shareStore} />
+         </Router>
+      )
+      const sourcePlaceField = getByLabelText(strings.fromText)
+      const destinationPlaceField = getByLabelText(strings.toText)
+      const checkBox = getByRole('checkbox')
+      const shareBtn = getByText('SHARE')
+
+      fireEvent.change(sourcePlaceField, { target: { value: sourcePlace } })
+      fireEvent.change(destinationPlaceField, {
+         target: { value: destinationPlace }
+      })
+      fireEvent.click(checkBox)
+
+      fireEvent.click(shareBtn)
+      getByText('Required Seats')
+   })
+
+   it('should render loading state', async () => {
+      const sourcePlace = 'sourceplace'
+      const destinationPlace = 'test-destinationPlace'
+      const dateAndTime = new Date()
+      const seatCount = 3
+      const { getByLabelText, getByText, getAllByPlaceholderText } = render(
+         <Router history={createMemoryHistory()}>
+            <ShareRideRoute shareStore={shareStore} />
+         </Router>
+      )
+      const sourcePlaceField = getByLabelText(strings.fromText)
+      const destinationPlaceField = getByLabelText(strings.toText)
+      const dateAndTimeFields = getAllByPlaceholderText('Select Date and Time')
+      const seatCountField = getByLabelText(strings.noOfSeatsText)
+
+      const shareBtn = getByText('SHARE')
+
+      const mockLoadingPromise = new Promise(function(resolve, reject) {})
+      const mockRideRequestApi = jest.fn()
+      mockRideRequestApi.mockReturnValue(mockLoadingPromise)
+      commuteAPI.rideRequest = mockRideRequestApi
+
+      fireEvent.change(sourcePlaceField, { target: { value: sourcePlace } })
+      fireEvent.change(destinationPlaceField, {
+         target: { value: destinationPlace }
+      })
+      fireEvent.change(dateAndTimeFields[0], { target: { value: dateAndTime } })
+      fireEvent.change(seatCountField, { target: { value: seatCount } })
+      fireEvent.click(shareBtn)
+
+      await waitFor(() => expect(shareBtn).toBeDisabled)
+   })
+
+   it('should render network failure state', async () => {
+      const sourcePlace = 'source-place'
+      const destinationPlace = 'test-destinationPlace'
+      const dateAndTime = new Date()
+      const seatCount = 3
+
+      const mockLoadingPromise = new Promise(function(resolve, reject) {
+         reject(new Error('error'))
+      }).catch(() => {})
+
+      const mockRideRequestApi = jest.fn()
+      mockRideRequestApi.mockReturnValue(mockLoadingPromise)
+      commuteAPI.rideRequest = mockRideRequestApi
+
+      const { getByLabelText, getAllByPlaceholderText, getByText } = render(
+         <Router history={createMemoryHistory()}>
+            <ShareRideRoute shareStore={shareStore} />
+         </Router>
+      )
+      const sourcePlaceField = getByLabelText(strings.fromText)
+      const destinationPlaceField = getByLabelText(strings.toText)
+      const dateAndTimeFields = getAllByPlaceholderText('Select Date and Time')
+      const seatCountField = getByLabelText(strings.noOfSeatsText)
+      const shareBtn = getByText('SHARE')
+
+      fireEvent.change(sourcePlaceField, { target: { value: sourcePlace } })
+      fireEvent.change(destinationPlaceField, {
+         target: { value: destinationPlace }
+      })
+      fireEvent.change(dateAndTimeFields[0], { target: { value: dateAndTime } })
+      fireEvent.change(seatCountField, { target: { value: seatCount } })
+      fireEvent.click(shareBtn)
+
+      await waitFor(() => {
+         getByText(/Retry/i)
+      })
+   })
 })

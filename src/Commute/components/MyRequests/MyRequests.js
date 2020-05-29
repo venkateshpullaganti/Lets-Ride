@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { observable, computed } from 'mobx'
 import { observer } from 'mobx-react'
 
-import { HomePageHeader } from '../../styledComponents'
+import { Heading } from '../../styledComponents'
+import { Table } from '../Table'
 import strings from '../../i18n/strings.json'
 import { FilterBar } from '../FilterBar'
 import { Selector } from '../Selector'
@@ -84,11 +85,32 @@ class MyRequests extends Component {
          </RequestsHeader>
       )
    }
+   renderSelectedTable = () => {
+      if (this.isSelectedRide) {
+         return (
+            <>
+               <RequestTable>
+                  {this.renderRequestsHeader()}
+                  {this.renderRequests()}
+               </RequestTable>
+               <TableFooter>
+                  <AddRequest>
+                     <span>{'+'}</span>
+                     {' ADD Request'}
+                  </AddRequest>
+                  <TotalPages>{`PAGE 1 of 1`}</TotalPages>
+                  <Pagination></Pagination>
+               </TableFooter>
+            </>
+         )
+      }
+      return <Table />
+   }
 
    render() {
       return (
          <RequestsContainer>
-            <HomePageHeader>{strings.myRequests}</HomePageHeader>
+            <Heading>{strings.myRequests}</Heading>
             <Navigator>
                <NavBtn isSelected={this.isSelectedRide} onClick={this.showRide}>
                   {strings.ride}
@@ -105,18 +127,7 @@ class MyRequests extends Component {
                onChangeSort={this.onChangeSort}
                onChangeFilter={this.onChangeFilter}
             />
-            <RequestTable>
-               {this.renderRequestsHeader()}
-               {this.renderRequests()}
-            </RequestTable>
-            <TableFooter>
-               <AddRequest>
-                  <span>{'+'}</span>
-                  {' ADD Request'}
-               </AddRequest>
-               <TotalPages>{`PAGE 1 of 30`}</TotalPages>
-               <Pagination></Pagination>
-            </TableFooter>
+            {this.renderSelectedTable()}
          </RequestsContainer>
       )
    }

@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
-import { observable } from 'mobx'
-import { Header } from '../Header'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
 import { Button } from '../../../Common/components/Button'
 import { Input } from '../../../Common/components/Input'
 import { DateAndTimePicker } from '../../../Common/components/DateAndTimePicker'
-
 import { Heading } from '../../styledComponents'
+
 import strings from '../../i18n/strings.json'
 
+import { Header } from '../Header'
 import { Counter } from '../Counter'
 import { FlexibleTimings } from '../FlexibleTimings'
 
@@ -19,8 +18,6 @@ import { ShareRide, Form } from './styledComponents'
 
 @observer
 class ShareRideForm extends Component {
-   @observable date = new Date()
-
    render() {
       const {
          onChangeSource,
@@ -29,6 +26,8 @@ class ShareRideForm extends Component {
          errorMsg,
          sourcePlace,
          isDestinationError,
+         isTravelDateError,
+         isFlexibleTimingsError,
          destinationPlace,
          onChangeFlexibleFromDate,
          onChangeFlexibleToDate,
@@ -44,7 +43,9 @@ class ShareRideForm extends Component {
          onDecrementLaguage,
          onChangeLaguage,
          onChangeDate,
-         onSubmit
+         onSubmit,
+         isSeatCountError,
+         btnDisplayText
       } = this.props
 
       return (
@@ -76,16 +77,19 @@ class ShareRideForm extends Component {
                />
 
                <DateAndTimePicker
-                  date={this.date}
                   onChange={onChangeDate}
                   labelText={strings.dateAndTimeLabel}
+                  isError={isTravelDateError}
+                  errorMsg={errorMsg}
+                  isRequired={!isFlexible}
                />
                <FlexibleTimings
-                  date={this.date}
                   isFlexible={isFlexible}
                   onChangeFlexibleFromDate={onChangeFlexibleFromDate}
                   onChangeFlexibleToDate={onChangeFlexibleToDate}
                   toggleIsFlexible={toggleIsFlexible}
+                  isError={isFlexibleTimingsError}
+                  errorMsg={errorMsg}
                />
                <Counter
                   labelText={strings.noOfSeatsText}
@@ -93,6 +97,8 @@ class ShareRideForm extends Component {
                   onIncrement={onIncrementSeats}
                   onDecrement={onDecrementSeats}
                   onChange={onChangeSeats}
+                  isError={isSeatCountError}
+                  errorMsg={errorMsg}
                />
                <Counter
                   key={strings.luggageQuantity}
@@ -104,7 +110,8 @@ class ShareRideForm extends Component {
                />
                <Button
                   isLoading={isLoading}
-                  displayText={strings.shareBtnText}
+                  displayText={btnDisplayText}
+                  disabled={isLoading}
                />
             </Form>
          </ShareRide>

@@ -1,7 +1,6 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import { Router } from 'react-router-dom'
-
 import { createMemoryHistory } from 'history'
 
 import strings from '../../i18n/strings.json'
@@ -40,7 +39,7 @@ describe('Sign in form tests', () => {
    })
 
    it('should render the sourcePlace error', () => {
-      const { getByText, getByRole } = render(
+      const { getByText } = render(
          <Router history={createMemoryHistory()}>
             <ShareRideForm
                isSourceError={true}
@@ -49,22 +48,22 @@ describe('Sign in form tests', () => {
             />
          </Router>
       )
-      const shareBtn = getByRole('button', { name: strings.shareBtnText })
+      const shareBtn = getByText('SHARE')
       fireEvent.click(shareBtn)
       getByText(strings.sourcePlaceError)
    })
-   //    it('should render destination place empty error message', () => {
-   //       const { getByText, getByRole } = render(
-   //          <Router history={createMemoryHistory()}>
-   //             <ShareRideForm sourcePlace={'source'} onChange={() => {}} />
-   //          </Router>
-   //       )
+   it('should render destination place empty error message', () => {
+      const { getByText, getByRole } = render(
+         <Router history={createMemoryHistory()}>
+            <ShareRideForm sourcePlace={'source'} onChange={() => {}} />
+         </Router>
+      )
 
-   //       const shareBtn = getByRole('button', { name: strings.shareBtnText })
+      const shareBtn = getByText('SHARE')
 
-   //       fireEvent.click(shareBtn)
+      fireEvent.click(shareBtn)
 
-   //       getByText(/source/i)
-   //       getByText(strings.destinationPlaceError)
-   //    })
+      getByText(/source/i)
+      getByText(strings.destinationPlaceError)
+   })
 })

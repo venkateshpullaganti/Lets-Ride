@@ -31,10 +31,10 @@ class Input extends Component {
             <Required>{isRequired ? '*' : null}</Required>
             {isError ? <ErrorIcon src={images.errorIcon} /> : null}
             <CustomInput
+               onChange={onChange}
                type={type}
                id={id}
                placeholder={placeholder}
-               onChange={onChange}
                isError={isError}
                value={value}
             />

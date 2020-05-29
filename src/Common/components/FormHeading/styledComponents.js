@@ -3,9 +3,9 @@ import tw from 'tailwind.macro'
 
 import { Typo32DarkBlueGreyRubikRegular } from '../../styleGuide/Typos'
 
-const Heading = styled.p`
+const Heading = styled.div`
    ${Typo32DarkBlueGreyRubikRegular};
-   ${tw``};
+   ${tw`flex flex-wrap`};
 `
 
 export { Heading }

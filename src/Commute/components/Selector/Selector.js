@@ -32,20 +32,25 @@ class Selector extends Component {
          </Item>
       ))
    }
+   onBlur = () => {
+      this.shouldShowDropdown = false
+   }
 
    render() {
-      const { dropdownName } = this.props
+      const { dropdownName, icon, shouldRotateIcon } = this.props
       return (
          <Container>
             <ArrowIcon
-               shouldRotate={this.shouldShowDropdown}
-               src={images.filterIcon}
+               shouldRotate={this.shouldShowDropdown && shouldRotateIcon}
+               src={icon}
                width='16px'
                height='16px'
             />
             <DisplayName
+               type='button'
                onClick={this.toggleDropdown}
-               isSelected={this.shouldShowDropdown}
+               onBlur={this.onBlur}
+               isSelected={this.shouldShowDropdown && shouldRotateIcon}
             >
                {dropdownName}
             </DisplayName>

@@ -3,7 +3,7 @@ import { create } from 'apisauce'
 import { networkCallWithApisauce } from '../../Common/utils/APIUtils'
 import { apiMethods } from '../../Common/constants/APIConstants'
 
-class CommuteService {
+class FixtureService {
    rideRequestApi
    assetRequestApi
 
@@ -26,35 +26,22 @@ class CommuteService {
       })
    }
    rideRequest = requestObject => {
-      return networkCallWithApisauce(
-         '/ride_request/v1/ ',
-         requestObject,
-         apiMethods.get
-      )
+      return new Promise((resolve, reject) => {})
    }
    assetRequest = requestObject => {
-      return networkCallWithApisauce(
-         this.api,
-         '/asset_request/v1/',
-         requestObject,
-         apiMethods.get
-      )
+      return new Promise((resolve, reject) => {
+         resolve()
+      })
    }
    rideShare = requestObject => {
-      return networkCallWithApisauce(
-         this.api,
-         '/share_ride/v1/',
-         requestObject,
-         apiMethods.get
-      )
+      return new Promise((resolve, reject) => {
+         reject()
+      })
    }
    travelInfo = requestObject => {
-      return networkCallWithApisauce(
-         this.api,
-         '/share_travel_info/v1/',
-         requestObject,
-         apiMethods.get
-      )
+      return new Promise((resolve, reject) => {
+         resolve()
+      })
    }
 }
-export { CommuteService }
+export { FixtureService }

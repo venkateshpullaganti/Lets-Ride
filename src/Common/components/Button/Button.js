@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import ReactLoading from 'react-loading'
 
+import strings from '../../i18n/strings.json'
+
 import { Btn, BtnTypo } from './styledComponents'
 
 class Button extends Component {
@@ -17,7 +19,7 @@ class Button extends Component {
                   alt='loader'
                />
             ) : (
-               <BtnTypo>{displayText ?? 'Button'}</BtnTypo>
+               <BtnTypo>{displayText ?? strings.btnText}</BtnTypo>
             )}
          </Btn>
       )

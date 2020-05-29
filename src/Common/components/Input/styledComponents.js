@@ -13,6 +13,9 @@ const CustomInput = styled.input`
    border-color: ${props => (props.isError ? Colors.neonRed : Colors.steel)};
    background: ${props => (props.isError ? Colors.neonRed5 : Colors.white)};
    border-radius: 2px;
+   ::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+   }
    &:focus {
       outline: none;
    }

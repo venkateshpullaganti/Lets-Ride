@@ -18,19 +18,21 @@ const List = styled.div`
 const ArrowIcon = styled.img`
    ${props =>
       props.shouldRotate
-         ? `transform:rotate(0deg);
-          
+         ? `transform:rotate(180deg);
+          filter: grayscale(80%); 
          `
-         : `transform:rotate(180deg);
-          filter: grayscale(80%);`};
+         : `transform:rotate(0deg)`};
 
    ${tw`mx-1 inline-block`};
 `
-const DisplayName = styled.span`
+const DisplayName = styled.button`
    cursor: pointer;
    color: ${props =>
       props.isSelected ? `${Colors.darkBlueGrey}` : `${Colors.steel}`};
    ${tw``}
+   &:focus {
+      outline: none;
+   }
 `
 const Item = styled.span`
    width: 120px;

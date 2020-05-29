@@ -8,7 +8,7 @@ import strings from '../../i18n/strings.json'
 
 import { RideRequestForm } from '.'
 
-describe('Sign in form tests', () => {
+describe('Ride Request form tests', () => {
    it('should render given source place', () => {
       let expectedOutput = 'krnl'
       const { getByLabelText } = render(
@@ -53,18 +53,18 @@ describe('Sign in form tests', () => {
       fireEvent.click(requestBtn)
       getByText(strings.sourcePlaceError)
    })
-   //    it('should render destination place empty error message', () => {
-   //       const { getByText, getByRole } = render(
-   //          <Router history={createMemoryHistory()}>
-   //             <RideRequestForm sourcePlace={'source'} onChange={() => {}} />
-   //          </Router>
-   //       )
+   it('should render destination place empty error message', () => {
+      const { getByText, getByRole } = render(
+         <Router history={createMemoryHistory()}>
+            <RideRequestForm sourcePlace={'source'} onChange={() => {}} />
+         </Router>
+      )
 
-   //       const requestBtn = getByRole('button', { name: strings.requestBtnText })
+      const requestBtn = getByRole('button', { name: strings.requestBtnText })
 
-   //       fireEvent.click(requestBtn)
+      fireEvent.click(requestBtn)
 
-   //       getByText(/source/i)
-   //       getByText(strings.destinationPlaceError)
-   //    })
+      getByText(/source/i)
+      getByText(strings.destinationPlaceError)
+   })
 })

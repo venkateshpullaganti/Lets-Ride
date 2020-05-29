@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import moment from 'moment'
+import { observer, inject } from 'mobx-react'
+import { observable, computed } from 'mobx'
+import { API_FETCHING } from '@ib/api-constants'
 
 import { ShareRideForm } from '../../components/ShareRideForm'
 import strings from '../../i18n/strings.json'
-
-import { observer, inject } from 'mobx-react'
-import { observable, computed } from 'mobx'
 
 @inject('shareStore')
 @observer
@@ -16,15 +16,16 @@ class ShareRideRoute extends Component {
    @observable isFlexible
    @observable seatCount
    @observable laguageCount
-   @observable isLoading
    travelDate
    flexibleFromDate
    flexibleToDate
+   @observable btnDisplayText
 
    constructor(props) {
       super(props)
       this.init()
       this.onSubmit = this.onSubmit.bind(this)
+      this.onFailure = this.onFailure.bind(this)
    }
 
    init = () => {
@@ -34,7 +35,10 @@ class ShareRideRoute extends Component {
       this.destinationPlace = ''
       this.sourcePlace = ''
       this.errorMsg = null
-      this.isLoading = false
+      this.travelDate = ''
+      this.flexibleFromDate = ''
+      this.flexibleToDate = ''
+      this.btnDisplayText = strings.shareBtnText
    }
 
    get shareStore() {
@@ -44,12 +48,15 @@ class ShareRideRoute extends Component {
    onChangeSource = event => {
       this.sourcePlace = event.target.value
    }
+
    onChangeDestination = event => {
       this.destinationPlace = event.target.value
    }
+
    toggleIsFlexible = () => {
       this.isFlexible = !this.isFlexible
    }
+
    onChangeDate = dateObj => {
       this.travelDate = moment(dateObj).format('YYYY-MM-DD hh:mm A')
    }
@@ -57,6 +64,7 @@ class ShareRideRoute extends Component {
    onChangeFlexibleFromDate = date => {
       this.flexibleFromDate = moment(date).format('YYYY-MM-DD hh:mm A')
    }
+
    onChangeFlexibleToDate = date => {
       this.flexibleToDate = moment(date).format('YYYY-MM-DD hh:mm A')
    }
@@ -64,37 +72,59 @@ class ShareRideRoute extends Component {
    onIncrementSeats = () => {
       this.seatCount++
    }
+
    onDecrementSeats = () => {
       if (this.seatCount > 0) this.seatCount--
    }
+
    onChangeSeats = event => {
       this.seatCount = parseInt(event.target.value)
    }
+
    onIncrementLaguage = () => {
       this.laguageCount++
    }
+
    onDecrementLaguage = () => {
       if (this.laguageCount > 0) this.laguageCount--
    }
+
    onChangeLaguage = event => {
       this.laguageCount = parseInt(event.target.value)
    }
+
    onSubmit(event) {
       event.preventDefault()
-
-      const { sourcePlace, destinationPlace } = this
+      console.log(this.isFlexible, this.isFlexibleTimingsError)
+      const {
+         sourcePlace,
+         destinationPlace,
+         isFlexible,
+         flexibleToDate,
+         flexibleFromDate,
+         seatCount
+      } = this
       if (sourcePlace === '') {
          this.errorMsg = strings.sourcePlaceError
       } else if (destinationPlace === '') {
          this.errorMsg = strings.destinationPlaceError
+      } else if (!isFlexible && this.travelDate === '') {
+         this.errorMsg = strings.travelDateError
+      } else if (
+         isFlexible &&
+         (flexibleFromDate === '' || flexibleToDate === '')
+      ) {
+         this.errorMsg = strings.flexibleTimingsError
+      } else if (seatCount === 0) {
+         this.errorMsg = strings.seatCountError
       } else {
          this.errorMsg = null
          this.doNetworkCall()
       }
+      console.log(this.errorMsg)
    }
 
    doNetworkCall = () => {
-      this.isLoading = true
       const { sourcePlace, destinationPlace } = this
       let mainDate, fromDate, toDate
 
@@ -122,12 +152,11 @@ class ShareRideRoute extends Component {
       this.shareStore.rideShare(requestObj, this.onSuccess, this.onFailure)
    }
    onSuccess = () => {
-      this.isLoading = false
       alert('successfully added')
       this.init()
    }
-   onFailure = error => {
-      this.isLoading = false
+   onFailure(error) {
+      this.btnDisplayText = strings.retry
    }
 
    @computed
@@ -137,6 +166,18 @@ class ShareRideRoute extends Component {
    @computed
    get isDestinationError() {
       return this.errorMsg === strings.destinationPlaceError
+   }
+   @computed
+   get isTravelDateError() {
+      return this.errorMsg === strings.travelDateError
+   }
+   @computed
+   get isFlexibleTimingsError() {
+      return this.errorMsg === strings.flexibleTimingsError && this.isFlexible
+   }
+   @computed
+   get isSeatCountError() {
+      return this.errorMsg === strings.seatCountError
    }
 
    render() {
@@ -149,7 +190,10 @@ class ShareRideRoute extends Component {
          sourcePlace,
          destinationPlace,
          isDestinationError,
-         isLoading,
+         isTravelDateError,
+         isFlexibleTimingsError,
+         isSeatCountError,
+         btnDisplayText,
          onChangeSource,
          onChangeDestination,
          onChangeFlexibleFromDate,
@@ -173,7 +217,10 @@ class ShareRideRoute extends Component {
          isFlexible,
          seatCount,
          laguageCount,
-         isLoading,
+         isTravelDateError,
+         isFlexibleTimingsError,
+         isSeatCountError,
+         btnDisplayText,
          onChangeSource,
          onChangeDestination,
          onChangeFlexibleFromDate,
@@ -189,7 +236,12 @@ class ShareRideRoute extends Component {
          onSubmit
       }
 
-      return <ShareRideForm {...formProps} />
+      return (
+         <ShareRideForm
+            {...formProps}
+            isLoading={this.shareStore.getRideShareAPIStatus === API_FETCHING}
+         />
+      )
    }
 }
 

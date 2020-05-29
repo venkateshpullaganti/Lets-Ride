@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
-import { observable } from 'mobx'
-import { Header } from '../Header'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
@@ -12,6 +10,7 @@ import { DateAndTimePicker } from '../../../Common/components/DateAndTimePicker'
 import { Heading } from '../../styledComponents'
 import strings from '../../i18n/strings.json'
 
+import { Header } from '../Header'
 import { Counter } from '../Counter'
 import { FlexibleTimings } from '../FlexibleTimings'
 
@@ -19,8 +18,6 @@ import { RideRequest, Form } from './styledComponents'
 
 @observer
 class RideRequestForm extends Component {
-   @observable date = new Date()
-
    render() {
       const {
          onChangeSource,
@@ -28,6 +25,8 @@ class RideRequestForm extends Component {
          isSourceError,
          errorMsg,
          sourcePlace,
+         isTravelDateError,
+         isFlexibleTimingsError,
          isDestinationError,
          destinationPlace,
          onChangeFlexibleFromDate,
@@ -44,6 +43,8 @@ class RideRequestForm extends Component {
          onDecrementLaguage,
          onChangeLaguage,
          onChangeDate,
+         isSeatCountError,
+         btnDisplayText,
          onSubmit
       } = this.props
 
@@ -74,16 +75,19 @@ class RideRequestForm extends Component {
                />
 
                <DateAndTimePicker
-                  date={this.date}
                   onChange={onChangeDate}
                   labelText={strings.dateAndTimeLabel}
+                  isError={isTravelDateError}
+                  errorMsg={errorMsg}
+                  isRequired={!isFlexible}
                />
                <FlexibleTimings
-                  date={this.date}
                   isFlexible={isFlexible}
                   onChangeFlexibleFromDate={onChangeFlexibleFromDate}
                   onChangeFlexibleToDate={onChangeFlexibleToDate}
                   toggleIsFlexible={toggleIsFlexible}
+                  isError={isFlexibleTimingsError}
+                  errorMsg={errorMsg}
                />
                <Counter
                   labelText={strings.noOfSeatsText}
@@ -91,6 +95,8 @@ class RideRequestForm extends Component {
                   onIncrement={onIncrementSeats}
                   onDecrement={onDecrementSeats}
                   onChange={onChangeSeats}
+                  isError={isSeatCountError}
+                  errorMsg={errorMsg}
                />
                <Counter
                   key={strings.luggageQuantity}
@@ -102,7 +108,8 @@ class RideRequestForm extends Component {
                />
                <Button
                   isLoading={isLoading}
-                  displayText={strings.requestBtnText}
+                  displayText={btnDisplayText}
+                  disabled={isLoading}
                />
             </Form>
          </RideRequest>

@@ -12,8 +12,8 @@ class AuthStore {
    @observable getUserSignInAPIError
    authAPIService
 
-   constructor(AuthService) {
-      this.authAPIService = AuthService
+   constructor(authService) {
+      this.authAPIService = authService
       this.init()
    }
 
@@ -23,13 +23,13 @@ class AuthStore {
    }
 
    @action.bound
-   setGetUserSignInAPIError(APIError) {
-      this.getUserSignInAPIError = APIError
+   setGetUserSignInAPIError(apiError) {
+      this.getUserSignInAPIError = apiError
    }
 
    @action.bound
-   setGetUserSignInAPIStatus(APIStatus) {
-      this.getUserSignInAPIStatus = APIStatus
+   setGetUserSignInAPIStatus(apiStatus) {
+      this.getUserSignInAPIStatus = apiStatus
    }
 
    @action.bound
@@ -46,9 +46,9 @@ class AuthStore {
             this.setUserSignInAPIResponse(response)
             onSuccess()
          })
-         .catch(APIError => {
-            this.setGetUserSignInAPIError(APIError)
-            onFailure(APIError)
+         .catch(apiError => {
+            this.setGetUserSignInAPIError(apiError)
+            onFailure(apiError)
          })
    }
 

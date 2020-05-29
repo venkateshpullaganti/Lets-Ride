@@ -1,6 +1,8 @@
 import styled from '@emotion/styled'
 import tw from 'tailwind.macro'
 
+import Colors from '../../../Common/themes/Colors'
+
 const Btn = styled.button`
    height: 40px;
    width: 40px;
@@ -12,7 +14,8 @@ const Btn = styled.button`
 `
 
 const CounterContainer = styled.div`
-   ${tw`flex m-1`};
+   color: ${Colors.steel};
+   ${tw`flex my-4`};
 `
 const Label = styled.label`
    margin-right: 15px;
@@ -21,10 +24,21 @@ const Label = styled.label`
 const Input = styled.input`
    height: 40px;
    width: 45px;
-   border: 1px solid lightgrey;
-   ${tw`text-center pl-2`};
+   ${props =>
+      props.isError
+         ? ` border:1px solid red;background:${Colors.neonRed5}`
+         : `border:1px solid lightgrey;`};
+
+   ${tw`text-center`};
    &:focus {
       outline: none;
    }
+   ::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+   }
 `
-export { Btn, CounterContainer, Label, Input }
+const Error = styled.span`
+   color: ${Colors.neonRed};
+   ${tw`text-sm ml-1`};
+`
+export { Btn, CounterContainer, Label, Input, Error }

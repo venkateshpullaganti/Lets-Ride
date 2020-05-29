@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
+import { observer } from 'mobx-react'
+import { observable } from 'mobx'
 
 import {
    Container,
@@ -10,8 +12,6 @@ import {
 } from './styledComponents'
 
 import images from '../../../Common/themes/images'
-import { observer } from 'mobx-react'
-import { observable } from 'mobx'
 
 @observer
 class Dropdown extends Component {
@@ -25,13 +25,23 @@ class Dropdown extends Component {
    toggleDropdown = () => {
       this.shouldShowDropdown = !this.shouldShowDropdown
    }
+   onBlur = () => {
+      this.shouldShowDropdown = false
+   }
+   navigateToPath = path => {
+      console.log('object')
+      const { history } = this.props
+      history.push(path)
+   }
    renderLinks = () => {
       const { links } = this.props
+
       return links.map(link => (
-         <LinkItem key={link.path}>
-            <Link key={link.path} to={link.path}>
-               {link.name}
-            </Link>
+         <LinkItem
+            key={link.path}
+            onClick={() => this.navigateToPath(link.path)}
+         >
+            {link.name}
          </LinkItem>
       ))
    }
@@ -39,10 +49,10 @@ class Dropdown extends Component {
    render() {
       const { dropdownName } = this.props
       return (
-         <Container>
+         <Container onBlur={this.onBlur} type='button'>
             <DisplayName
-               onClick={this.toggleDropdown}
                isBlueColor={this.shouldShowDropdown}
+               onClick={this.toggleDropdown}
             >
                {dropdownName}
             </DisplayName>

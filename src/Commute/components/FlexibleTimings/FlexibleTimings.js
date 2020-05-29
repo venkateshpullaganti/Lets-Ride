@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 
 import { DateAndTimePicker } from '../../../Common/components/DateAndTimePicker'
@@ -9,29 +9,31 @@ import { DatePickers, FlexibleContainer, Checkbox } from './styledComponents'
 
 @observer
 class FlexibleTimings extends Component {
-   fromTime
-   toTime
-
    render() {
       const {
          onChangeFlexibleFromDate,
          onChangeFlexibleToDate,
          toggleIsFlexible,
          isFlexible,
-         date
+         isError,
+         errorMsg
       } = this.props
       return (
          <FlexibleContainer>
             <DatePickers shouldShow={isFlexible}>
                <DateAndTimePicker
-                  date={date}
                   onChange={onChangeFlexibleFromDate}
                   labelText={strings.fromText}
+                  isRequired={isFlexible}
+                  isError={isError}
+                  errorMsg={errorMsg}
                />
                <DateAndTimePicker
-                  date={date}
                   onChange={onChangeFlexibleToDate}
                   labelText={strings.toText}
+                  isRequired={isFlexible}
+                  isError={isError}
+                  errorMsg={errorMsg}
                />
             </DatePickers>
             <span>
@@ -41,7 +43,7 @@ class FlexibleTimings extends Component {
                   onClick={toggleIsFlexible}
                   defaultChecked={isFlexible}
                />
-               <label htmlFor={'flexibleTime'}>{'Flexible Timings'}</label>
+               <label htmlFor={'flexibleTime'}>{strings.flexibleTimings}</label>
             </span>
          </FlexibleContainer>
       )

@@ -1,24 +1,41 @@
-import React from 'react'
+import React, { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
-import { DateInput, Label, Picker } from './styledComponents'
+import { DateInput, Label, Error, Required } from './styledComponents'
 
 function DateAndTimePicker(props) {
+   const { isError, errorMsg, isRequired, onChange } = props
+   const [startDate, setStartDate] = useState(null)
+
+   // const Input = () => <input onClick={onChange} className='w-64 h-8' />
+
    return (
-      <DateInput>
-         <Label htmlfor={'datePicker'}>{props.labelText}</Label>
+      <DateInput shouldShow={isRequired}>
+         <Label>
+            {props.labelText} <Required isRequired={isRequired}>*</Required>
+         </Label>
+
          <DatePicker
-            className={'border border-gray-500 border-solid rounded mx-2 '}
+            className={
+               isError
+                  ? 'border border-red-500  border-solid rounded h-10 '
+                  : 'border border-gray-500 border-solid rounded h-10 '
+            }
+            placeholderText={'Select Date and Time'}
             id={'datePicker'}
-            selected={props.date}
-            onChange={props.onChange}
+            selected={startDate}
+            onChange={date => {
+               setStartDate(date)
+               onChange(date)
+            }}
             showTimeSelect
             timeFormat='HH:mm'
             timeIntervals={15}
-            timeCaption='time'
+            timeCaption='TIME'
             dateFormat='dd/MM/yyyy h:mm aa'
          />
+         <Error isError={isError}> {isError ? errorMsg : null}</Error>
       </DateInput>
    )
 }

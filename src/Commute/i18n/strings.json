@@ -16,5 +16,14 @@
    "shareBtnText": "SHARE",
    "myRequests": "My Requests",
    "ride": "RIDE",
-   "asset": "ASSET"
+   "asset": "ASSET",
+   "flexibleTimings": "Flexible Timings",
+   "travelDateError": "Required",
+   "flexibleTimingsError": "Required.",
+   "sort": "SORT",
+   "filter": "FILTER",
+   "requests": "Requests",
+   "share": "Share",
+   "seatCountError": "Required Seats",
+   "retry": "Retry"
 }

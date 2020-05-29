@@ -4,7 +4,7 @@ import { Button } from '../../../Common/components/Button'
 import { FormHeading } from '../../../Common/components/FormHeading'
 import { Input } from '../../../Common/components/Input'
 import { Logo } from '../../../Common/components/Logo'
-
+import { SIGN_UP_PATH } from '../../constants/NavigationConstants'
 import strings from '../../i18n/strings.json'
 
 import { Container, Form, AskSignUp, SignUpLink } from './styledComponents'
@@ -20,11 +20,11 @@ class SignInForm extends Component {
       const {
          errorMsg,
          isLoading,
-         OnChangeUserName,
+         OnChangeMobileNumber,
          onChangePassword,
          mobileNumber,
          password,
-         isUserNameError,
+         isMobileNumberError,
          isPasswordError
       } = this.props
 
@@ -35,18 +35,18 @@ class SignInForm extends Component {
                <FormHeading headingText={strings.signInHeaderText} />
                <Input
                   type={'number'}
-                  labelText={strings.MobileNumberLabelText}
-                  id={'username'}
-                  isError={isUserNameError}
-                  onChange={OnChangeUserName}
+                  labelText={strings.mobileNumberLabelText}
+                  id={'signinMobileNumber'}
+                  isError={isMobileNumberError}
+                  onChange={OnChangeMobileNumber}
                   errorMsg={errorMsg}
                   value={mobileNumber}
                   isRequired={true}
                />
                <Input
                   type={'password'}
-                  labelText={strings.PasswordLabelText}
-                  id={'password'}
+                  labelText={strings.passwordLabelText}
+                  id={'signinpassword'}
                   isError={isPasswordError}
                   onChange={onChangePassword}
                   errorMsg={errorMsg}
@@ -56,12 +56,12 @@ class SignInForm extends Component {
 
                <Button
                   isLoading={isLoading}
-                  displayText={strings.BtnLoginText}
+                  displayText={strings.btnLoginText}
                />
                <AskSignUp>
-                  {strings.DontHaveAccountSignup}
-                  <SignUpLink href='SignUpLocationUrl'>
-                     {strings.SignUpText}
+                  {strings.dontHaveAccountSignup}
+                  <SignUpLink href={SIGN_UP_PATH}>
+                     {strings.signUpText}
                   </SignUpLink>
                </AskSignUp>
             </Form>

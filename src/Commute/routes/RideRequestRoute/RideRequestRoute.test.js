@@ -1,5 +1,11 @@
 import React from 'react'
-import { render, fireEvent, waitFor } from '@testing-library/react'
+import {
+   render,
+   fireEvent,
+   waitFor,
+   getByPlaceholderText,
+   getAllByAltText
+} from '@testing-library/react'
 import { Router } from 'react-router-dom'
 
 import { Provider } from 'mobx-react'
@@ -39,30 +45,84 @@ describe('RideRequestRoute Tests', () => {
 
    it('should render destination place empty error message', () => {
       const sourcePlace = 'krnl'
-      const { getByText, getByRole, getByLabelText } = render(
+      const { getByText, getByLabelText } = render(
          <Router history={createMemoryHistory()}>
             <RideRequestRoute requestStore={requestStore} />
          </Router>
       )
       const sourcePlaceField = getByLabelText(strings.fromText)
-      const requestBtn = getByRole('button', { name: strings.requestBtnText })
+      const requestBtn = getByText('REQUEST')
 
       fireEvent.change(sourcePlaceField, { target: { value: sourcePlace } })
       fireEvent.click(requestBtn)
       getByText(strings.destinationPlaceError)
    })
 
-   it('should render loading state', () => {
-      const sourcePlace = 'sourceplace'
+   it('should render travelDate empty error message', () => {
+      const sourcePlace = 'krnl'
       const destinationPlace = 'test-destinationPlace'
-      const { getByLabelText, getByRole } = render(
+      const { getByText, getByLabelText } = render(
          <Router history={createMemoryHistory()}>
             <RideRequestRoute requestStore={requestStore} />
          </Router>
       )
       const sourcePlaceField = getByLabelText(strings.fromText)
       const destinationPlaceField = getByLabelText(strings.toText)
-      const requestBtn = getByRole('button', { name: strings.requestBtnText })
+      const requestBtn = getByText('REQUEST')
+
+      fireEvent.change(sourcePlaceField, { target: { value: sourcePlace } })
+      fireEvent.change(destinationPlaceField, {
+         target: { value: destinationPlace }
+      })
+      fireEvent.click(requestBtn)
+      getByText('Required')
+   })
+   it('should render error message on zero seatCount  ', () => {
+      const sourcePlace = 'krnl'
+      const destinationPlace = 'test-destinationPlace'
+      const dateAndTime = new Date()
+
+      const { getByText, getByLabelText, getAllByPlaceholderText } = render(
+         <Router history={createMemoryHistory()}>
+            <RideRequestRoute requestStore={requestStore} />
+         </Router>
+      )
+      const sourcePlaceField = getByLabelText(strings.fromText)
+      const destinationPlaceField = getByLabelText(strings.toText)
+      const dateAndTimeFields = getAllByPlaceholderText('Select Date and Time')
+      const requestBtn = getByText('REQUEST')
+
+      fireEvent.change(sourcePlaceField, { target: { value: sourcePlace } })
+      fireEvent.change(destinationPlaceField, {
+         target: { value: destinationPlace }
+      })
+      fireEvent.change(dateAndTimeFields[0], { target: { value: dateAndTime } })
+      fireEvent.click(requestBtn)
+      getByText('Required Seats')
+   })
+
+   it('should render loading state', async () => {
+      const sourcePlace = 'sourceplace'
+      const destinationPlace = 'test-destinationPlace'
+      const dateAndTime = new Date()
+      const seatCount = 3
+      const {
+         getByLabelText,
+         debug,
+         getByText,
+         getByAltText,
+         getAllByPlaceholderText
+      } = render(
+         <Router history={createMemoryHistory()}>
+            <RideRequestRoute requestStore={requestStore} />
+         </Router>
+      )
+      const sourcePlaceField = getByLabelText(strings.fromText)
+      const destinationPlaceField = getByLabelText(strings.toText)
+      const dateAndTimeFields = getAllByPlaceholderText('Select Date and Time')
+      const seatCountField = getByLabelText(strings.noOfSeatsText)
+
+      const requestBtn = getByText('REQUEST')
 
       const mockLoadingPromise = new Promise(function(resolve, reject) {})
       const mockRideRequestApi = jest.fn()
@@ -73,38 +133,48 @@ describe('RideRequestRoute Tests', () => {
       fireEvent.change(destinationPlaceField, {
          target: { value: destinationPlace }
       })
+      fireEvent.change(dateAndTimeFields[0], { target: { value: dateAndTime } })
+      fireEvent.change(seatCountField, { target: { value: seatCount } })
       fireEvent.click(requestBtn)
 
-      waitFor(() => getByRole('button', { disabled: true }))
+      await waitFor(() => expect(requestBtn).toBeDisabled)
    })
 
-   // it('should render network failure state', () => {
-   //    const sourcePlace = 'source-place'
-   //    const destinationPlace = 'test-destinationPlace'
+   it('should render network failure state', async () => {
+      const sourcePlace = 'source-place'
+      const destinationPlace = 'test-destinationPlace'
+      const dateAndTime = new Date()
+      const seatCount = 3
 
-   //    const mockLoadingPromise = new Promise(function(resolve, reject) {
-   //       reject(new Error('error'))
-   //    }).catch(() => {})
+      const mockLoadingPromise = new Promise(function(resolve, reject) {
+         reject(new Error('error'))
+      }).catch(() => {})
 
-   //    const mockRideRequestApi = jest.fn()
-   //    mockRideRequestApi.mockReturnValue(mockLoadingPromise)
-   //    commuteAPI.rideRequest = mockRideRequestApi
+      const mockRideRequestApi = jest.fn()
+      mockRideRequestApi.mockReturnValue(mockLoadingPromise)
+      commuteAPI.rideRequest = mockRideRequestApi
 
-   //    const { getByLabelText, getByRole } = render(
-   //       <Router history={createMemoryHistory()}>
-   //          <RideRequestRoute requestStore={requestStore} />
-   //       </Router>
-   //    )
-   //    const sourcePlaceField = getByLabelText(strings.fromText)
-   //    const destinationPlaceField = getByLabelText(strings.toText)
-   //    const requestBtn = getByRole('button', { name: strings.requestBtnText })
+      const { getByLabelText, getAllByPlaceholderText, getByText } = render(
+         <Router history={createMemoryHistory()}>
+            <RideRequestRoute requestStore={requestStore} />
+         </Router>
+      )
+      const sourcePlaceField = getByLabelText(strings.fromText)
+      const destinationPlaceField = getByLabelText(strings.toText)
+      const dateAndTimeFields = getAllByPlaceholderText('Select Date and Time')
+      const seatCountField = getByLabelText(strings.noOfSeatsText)
+      const requestBtn = getByText('REQUEST')
 
-   //    fireEvent.change(sourcePlaceField, { target: { value: sourcePlace } })
-   //    fireEvent.change(destinationPlaceField, { target: { value: destinationPlace } })
-   //    fireEvent.click(requestBtn)
+      fireEvent.change(sourcePlaceField, { target: { value: sourcePlace } })
+      fireEvent.change(destinationPlaceField, {
+         target: { value: destinationPlace }
+      })
+      fireEvent.change(dateAndTimeFields[0], { target: { value: dateAndTime } })
+      fireEvent.change(seatCountField, { target: { value: seatCount } })
+      fireEvent.click(requestBtn)
 
-   //    waitFor(() => {
-   //       getByText(/NETWORK_ERROR/i)
-   //    })
-   // })
+      await waitFor(() => {
+         getByText(/Retry/i)
+      })
+   })
 })

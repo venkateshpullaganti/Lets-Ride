@@ -8,12 +8,12 @@ import { Typo14BrightBlueHKGroteskRegular } from '../../../Common/styleGuide/Typ
 import Colors from '../../../Common/themes/Colors'
 
 const Container = styled.div`
+   height: 687px;
+   width: 536px;
    background: ${Colors.iceBlue};
    ${tw`p-2 flex justify-center items-center h-screen`};
 `
 const Form = styled.form`
-   height: 687px;
-   width: 536px;
    max-height: 687px;
    max-width: 536px;
    background: ${Colors.white};
