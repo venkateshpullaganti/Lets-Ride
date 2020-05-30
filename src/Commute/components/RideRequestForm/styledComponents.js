@@ -9,13 +9,12 @@ const RideRequest = styled.div`
    ${tw`flex flex-col`};
 `
 const Form = styled.form`
-   max-height: 656px;
-   max-width: 497px;
+   width: 450px;
    background: ${Colors.white};
    padding: 50px;
    border-radius: 6px;
-   box-sizing: border-box;
-   ${tw`flex m-4 items-start flex-col self-center shadow-2xl`};
+   box-sizing: content-box;
+   ${tw`flex m-4 items-start  flex-col self-center shadow-2xl`};
 `
 
 export { RideRequest, Form }

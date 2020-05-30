@@ -8,7 +8,7 @@ import { Typo20DarkBlueGreyHKGrotestBold } from '../../Common/styleGuide/Typos'
 const Heading = styled.p`
    ${Typo20DarkBlueGreyHKGrotestBold};
    height: 32px;
-   ${tw`p-1`}
+   ${tw`p-1 self-center`}
 `
 
 const Form = styled.form`

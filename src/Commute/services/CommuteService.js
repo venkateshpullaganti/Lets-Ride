@@ -10,6 +10,8 @@ class CommuteService {
    rideShareApi
    travelInfoApi
 
+   myRequestsApi
+
    constructor() {
       this.rideRequestApi = create({
          baseURL: 'localhost:8000/api'
@@ -24,9 +26,13 @@ class CommuteService {
       this.travelInfoApi = create({
          baseURL: 'localhost:8000/api'
       })
+      this.myRequestsApi = create({
+         baseURL: 'localhost:8000/api/lets_ride'
+      })
    }
    rideRequest = requestObject => {
       return networkCallWithApisauce(
+         this.rideRequestApi,
          '/ride_request/v1/ ',
          requestObject,
          apiMethods.get
@@ -34,7 +40,7 @@ class CommuteService {
    }
    assetRequest = requestObject => {
       return networkCallWithApisauce(
-         this.api,
+         this.assetRequestApi,
          '/asset_request/v1/',
          requestObject,
          apiMethods.get
@@ -42,7 +48,7 @@ class CommuteService {
    }
    rideShare = requestObject => {
       return networkCallWithApisauce(
-         this.api,
+         this.rideShareApi,
          '/share_ride/v1/',
          requestObject,
          apiMethods.get
@@ -50,8 +56,16 @@ class CommuteService {
    }
    travelInfo = requestObject => {
       return networkCallWithApisauce(
-         this.api,
+         this.travelInfoApi,
          '/share_travel_info/v1/',
+         requestObject,
+         apiMethods.get
+      )
+   }
+   myRequests = requestObject => {
+      return networkCallWithApisauce(
+         this.myRequestsApi,
+         '/my_rquests/v1',
          requestObject,
          apiMethods.get
       )

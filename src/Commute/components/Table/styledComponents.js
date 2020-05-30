@@ -29,14 +29,4 @@ const TotalPages = styled.div`
    ${tw``};
 `
 
-export {
-   RequestsContainer,
-   Navigator,
-   NavBtn,
-   TableContainer,
-   Col,
-   Header,
-   TableFooter,
-   AddRequest,
-   TotalPages
-}
+export { TableContainer, Col, Header, TableFooter, AddRequest, TotalPages }
