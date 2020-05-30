@@ -10,7 +10,7 @@ const ShareRide = styled.div`
    ${tw`flex flex-col`};
 `
 const Form = styled.form`
-   width: 497px;
+   width: 500px;
    background: ${Colors.white};
    padding: 50px;
    border-radius: 6px;

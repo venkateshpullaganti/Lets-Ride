@@ -1,5 +1,5 @@
 import React from 'react'
-import images from '../../themes/images'
+import images from '../../themes/Images'
 
 import { CustomLogo } from './styledComponents'
 

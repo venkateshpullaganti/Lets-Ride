@@ -19,8 +19,8 @@ function DateAndTimePicker(props) {
          <DatePicker
             className={
                isError
-                  ? 'border border-red-500  border-solid rounded h-10 '
-                  : 'border border-gray-500 border-solid rounded h-10 '
+                  ? 'border border-red-500  border-solid rounded w-48 h-10 '
+                  : 'border border-gray-500 border-solid rounded w-48 h-10 '
             }
             placeholderText={'Select Date and Time'}
             id={'datePicker'}

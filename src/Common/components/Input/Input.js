@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import images from '../../themes/images'
+import images from '../../themes/Images'
 
 import {
    CustomInput,

@@ -11,7 +11,7 @@ import {
    LinkItem
 } from './styledComponents'
 
-import images from '../../../Common/themes/images'
+import images from '../../../Common/themes/Images'
 
 @observer
 class Dropdown extends Component {

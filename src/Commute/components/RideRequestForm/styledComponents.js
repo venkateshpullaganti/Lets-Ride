@@ -9,11 +9,11 @@ const RideRequest = styled.div`
    ${tw`flex flex-col`};
 `
 const Form = styled.form`
-   width: 450px;
+   width: 500px;
    background: ${Colors.white};
    padding: 50px;
    border-radius: 6px;
-   box-sizing: content-box;
+   box-sizing: border-box;
    ${tw`flex m-4 items-start  flex-col self-center shadow-2xl`};
 `
 
