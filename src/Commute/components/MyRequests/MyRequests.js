@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
 import { observable, computed } from 'mobx'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 
 import { Heading } from '../../styledComponents'
-import { Table } from '../Table'
 import strings from '../../i18n/strings.json'
+
+import { Table } from '../Table'
 import { FilterBar } from '../FilterBar'
 import { Selector } from '../Selector'
 import { Pagination } from '../Pagination'
+
+import {
+   RIDE_TABLE_COLUMNS,
+   ASSET_TABLE_COLUMNS
+} from '../../constants/MyRequestsConstants'
 
 import {
    RequestsContainer,
@@ -23,6 +29,7 @@ import {
 
 import { Item } from './Item'
 
+@inject('commuteStore')
 @observer
 class MyRequests extends Component {
    @observable selectedField
@@ -30,9 +37,28 @@ class MyRequests extends Component {
    constructor(props) {
       super(props)
       this.init()
+      this.onSuccess = this.onSuccess.bind(this)
+      this.onFailure = this.onFailure.bind(this)
    }
    init = () => {
       this.selectedField = strings.ride
+   }
+   get commuteStore() {
+      return this.props.commuteStore
+   }
+
+   componentDidMount() {
+      this.doNetworkCalls()
+   }
+   doNetworkCalls = () => {
+      this.commuteStore.myRequests({}, this.onSuccess, this.onFailure)
+   }
+   onSuccess() {
+      console.log('success')
+   }
+
+   onFailure(error) {
+      console.log('failed')
    }
 
    @computed
@@ -57,24 +83,15 @@ class MyRequests extends Component {
       console.log(v)
    }
    renderRequests = () => {
-      const { requests } = this.props
-      return requests.map(request => (
-         <Item key={Math.random()} request={request} />
+      return this.commuteStore.rideRequests.map(request => (
+         <Item key={request.id} request={request} />
       ))
    }
    renderRequestsHeader = () => {
-      const columns = [
-         'FROM',
-         'TO',
-         'DATE AND TIME',
-         'NO.OF PEOPLE',
-         'LAGUAGE QUANTITY',
-         'ACCEPTED PERSON DETAILS'
-      ]
       const { filterByStatus } = this.props
       return (
          <RequestsHeader key={'Table Header'}>
-            {columns.map(item => (
+            {RIDE_TABLE_COLUMNS.map(item => (
                <Col key={item}>{item}</Col>
             ))}
             <Selector
@@ -104,7 +121,12 @@ class MyRequests extends Component {
             </>
          )
       }
-      return <Table />
+      return (
+         <Table
+            headerItems={ASSET_TABLE_COLUMNS}
+            tableData={this.commuteStore.assetRequests}
+         />
+      )
    }
 
    render() {

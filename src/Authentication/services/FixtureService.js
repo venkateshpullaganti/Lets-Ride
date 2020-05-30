@@ -4,7 +4,7 @@ import { apiMethods } from '../../Common/constants/APIConstants'
 
 import getUserSignInFixture from '../fixtures/getUserSignInFixture.json'
 
-class AuthService {
+class FixtureService {
    api
    constructor() {
       this.api = create({
@@ -12,7 +12,11 @@ class AuthService {
       })
    }
    signInAPI = requestObject => {
-      return new Promise((resolve, reject) => {})
+      return new Promise((resolve, reject) => {
+         setTimeout(() => {
+            resolve(getUserSignInFixture)
+         }, 1000)
+      })
    }
 }
-export { AuthService }
+export { FixtureService }

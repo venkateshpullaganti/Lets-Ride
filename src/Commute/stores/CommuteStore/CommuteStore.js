@@ -1,17 +1,19 @@
 import React from 'react'
+import uuid from 'react-uuid'
 
-import { observable, action } from 'mobx'
+import { observable, action, computed } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
+import RideRequestModel from '../models/RideRequestModel'
+import AssetRequestModel from '../models/AssetRequestModel'
+
 class CommuteStore {
-   @observable getMyRideRequestsAPIStatus
-   @observable getMyRideRequestsAPIError
+   @observable getMyRequestsAPIStatus
+   @observable getMyRequestsAPIError
    @observable myRideRequests
    @observable totalMyRideRequests
 
-   @observable getMyAssetRequestsAPIStatus
-   @observable getMyAssetRequestsAPIError
    @observable myAssetRequests
    @observable totalMyAssetRequests
 
@@ -23,71 +25,58 @@ class CommuteStore {
    }
 
    @action.bound
-   setRideRequestAPIResponse(response) {}
+   setRequestsAPIResponse(response) {
+      this.totalMyRideRequests = response.total_rides
+      this.totalMyAssetRequests = response.total_assets
+      this.myRideRequests = response.rides.map(eachRide => {
+         return new RideRequestModel({ ...eachRide, id: uuid().toString() })
+      })
 
-   @action.bound
-   setGetMyRideRequestsAPIError(APIError) {
-      this.getMyRideRequestsAPIError = APIError
+      this.myAssetRequests = response.assets.map(eachRide => {
+         return new AssetRequestModel({ ...eachRide, id: uuid().toString() })
+      })
+      console.log(this.myAssetRequests)
+      console.log(this.myRideRequests[2].travelDate)
    }
 
    @action.bound
-   setGetMyRideRequestsAPIStatus(APIStatus) {
-      this.getMyRideRequestsAPIStatus = APIStatus
+   setGetMyRequestsAPIError(APIError) {
+      this.getMyRequestsAPIError = APIError
+   }
+
+   @action.bound
+   setGetMyRequestsAPIStatus(APIStatus) {
+      this.getMyRequestsAPIStatus = APIStatus
    }
 
    @action.bound
    init() {
-      this.getMyRideRequestsAPIStatus = API_INITIAL
-      this.getMyRideRequestsAPIError = null
-
-      this.getMyAssetRequestsAPIStatus = API_INITIAL
-      this.getMyAssetRequestsAPIError = null
+      this.getMyRequestsAPIStatus = API_INITIAL
+      this.getMyRequestsAPIError = null
+      this.myRideRequests = []
+      this.myAssetRequests = []
    }
    @action.bound
-   myRideRequests(requestObject, onSuccess, onFailure) {
-      const rideRequestPromise = this.commuteAPIService.rideRequest(
-         requestObject
-      )
+   myRequests(requestObject, onSuccess, onFailure) {
+      const myRequestsPromise = this.commuteAPIService.myRequests(requestObject)
 
-      return bindPromiseWithOnSuccess(rideRequestPromise)
-         .to(this.setGetMyRideRequestsAPIStatus, response => {
-            this.setRideRequestAPIResponse(response)
+      return bindPromiseWithOnSuccess(myRequestsPromise)
+         .to(this.setGetMyRequestsAPIStatus, response => {
+            this.setRequestsAPIResponse(response)
             onSuccess()
          })
          .catch(APIError => {
-            this.setGetMyRideRequestsAPIError(APIError)
+            this.setGetMyRequestsAPIError(APIError)
             onFailure(APIError)
          })
    }
-
-   @action.bound
-   setMyAssetRequestsAPIResponse(response) {}
-
-   @action.bound
-   setGetMyAssetRequestsAPIError(APIError) {
-      this.getMyAssetRequestsAPIError = APIError
+   @computed
+   get assetRequests() {
+      return this.myAssetRequests
    }
-
-   @action.bound
-   setGetMyAssetRequestsAPIStatus(APIStatus) {
-      this.getMyAssetRequestsAPIStatus = APIStatus
-   }
-
-   @action.bound
-   assetRequest(requestObject, onSuccess, onFailure) {
-      const assetRequestPromise = this.commuteAPIService.assetRequest(
-         requestObject
-      )
-
-      return bindPromiseWithOnSuccess(assetRequestPromise)
-         .to(this.setGetMyAssetRequestsAPIStatus, response => {
-            this.setMyAssetRequestsAPIResponse(response)
-            onSuccess()
-         })
-         .catch(APIError => {
-            this.setGetMyAssetRequestsAPIError(APIError)
-            onFailure(APIError)
-         })
+   @computed
+   get rideRequests() {
+      return this.myRideRequests
    }
 
    @action.bound
@@ -96,3 +85,84 @@ class CommuteStore {
    }
 }
 export { CommuteStore }
+
+// const tableData = [
+//    [
+//       'sourcePlace',
+//       'destinationPlace',
+//       false,
+//       'mainDate',
+//       'fromDate',
+//       'toDate',
+//       'toDate',
+//       'toDate',
+//       'accept per',
+//       '123456',
+//       'pending'
+//    ],
+//    [
+//       'sourcePlace',
+//       'destinationPlace',
+//       true,
+//       'mainDate',
+//       'fromDate',
+//       'toDate',
+//       '4',
+//       '9',
+//       'accept per',
+//       '123456',
+//       'pending'
+//    ],
+//    [
+//       'sourcePlace',
+//       'destinationPlace',
+//       true,
+//       'mainDate',
+//       'fromDate',
+//       'toDate',
+//       '4',
+//       '9',
+//       'accept per',
+//       '123456',
+//       'expired'
+//    ],
+//    [
+//       'sourcePlace',
+//       'destinationPlace',
+//       true,
+//       'mainDate',
+//       'fromDate',
+//       'toDate',
+//       '4',
+//       '9',
+//       'accept per',
+//       '123456',
+//       'pending'
+//    ],
+//    [
+//       'sourcePlace',
+//       'destinationPlace',
+//       true,
+//       'mainDate',
+//       'fromDate',
+//       'toDate',
+//       '4',
+//       '9',
+//       'accept per',
+//       '123456',
+//       'pending'
+//    ],
+//    [
+//       'sourcePlace',
+//       'destinationPlace',
+//       true,
+//       'mainDate',
+//       'fromDate',
+//       'toDate',
+//       '4',
+//       '9',
+//       'accept per',
+//       '123456',
+//       'Confirmed'
+//    ]
+// ]

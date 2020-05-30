@@ -34,7 +34,9 @@ class Table extends Component {
    }
    renderRows = () => {
       const { tableData } = this.props
-      return tableData.map(eachRow => <Item row={eachRow} />)
+      return tableData.map(eachRow => (
+         <Item key={Math.random()} row={eachRow} />
+      ))
    }
 
    render() {
@@ -68,85 +70,5 @@ Table.defaultProps = {
       'NO.OF PEOPLE',
       'LAGUAGE QUANTITY',
       'ACCEPTED PERSON DETAILS'
-   ],
-   tableData: [
-      [
-         'sourcePlace',
-         'destinationPlace',
-         false,
-         'mainDate',
-         'fromDate',
-         'toDate',
-         'toDate',
-         'toDate',
-         'accept per',
-         '123456',
-         'pending'
-      ],
-      [
-         'sourcePlace',
-         'destinationPlace',
-         true,
-         'mainDate',
-         'fromDate',
-         'toDate',
-         '4',
-         '9',
-         'accept per',
-         '123456',
-         'pending'
-      ],
-      [
-         'sourcePlace',
-         'destinationPlace',
-         true,
-         'mainDate',
-         'fromDate',
-         'toDate',
-         '4',
-         '9',
-         'accept per',
-         '123456',
-         'pending'
-      ],
-      [
-         'sourcePlace',
-         'destinationPlace',
-         true,
-         'mainDate',
-         'fromDate',
-         'toDate',
-         '4',
-         '9',
-         'accept per',
-         '123456',
-         'pending'
-      ],
-      [
-         'sourcePlace',
-         'destinationPlace',
-         true,
-         'mainDate',
-         'fromDate',
-         'toDate',
-         '4',
-         '9',
-         'accept per',
-         '123456',
-         'pending'
-      ],
-      [
-         'sourcePlace',
-         'destinationPlace',
-         true,
-         'mainDate',
-         'fromDate',
-         'toDate',
-         '4',
-         '9',
-         'accept per',
-         '123456',
-         'pending'
-      ]
    ]
 }

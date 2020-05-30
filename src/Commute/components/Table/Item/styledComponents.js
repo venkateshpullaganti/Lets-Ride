@@ -17,8 +17,13 @@ const Data = styled.div`
 const Badge = styled.div`
    height: 18px;
    width: 80px;
+   color: ${Colors.steel};
    background: ${props =>
-      props.isConfirmed ? `${Colors.greenishTeal}` : `${Colors.yellowOrange}`};
+      props.isAccepted
+         ? `${Colors.greenishTeal}`
+         : props.isExpired
+         ? `${Colors.lightBlueGrey40}`
+         : `${Colors.yellowOrange}`};
    border-radius: 10px;
    ${tw`text-xs flex items-center justify-center pb-1`};
 `

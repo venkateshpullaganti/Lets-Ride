@@ -4,31 +4,45 @@ import { Row, Data, Badge } from './styledComponents'
 
 export function Item(props) {
    const {
+      id,
       sourcePlace,
       destinationPlace,
       isFlexible,
-      mainDate,
-      fromDate,
-      toDate,
+      travelDate,
+      flexibleFromDate,
+      flexibleToDate,
       seatCount,
       laguageCount,
       acceptedPerson,
-      acceptedPersonPhone,
+      acceptedPersonPhoneNumber,
       status
    } = props.request
    return (
-      <Row>
+      <Row key={id}>
          <Data>{sourcePlace}</Data>
          <Data>{destinationPlace}</Data>
-         <Data>{isFlexible ? `${fromDate} to ${toDate}` : `${mainDate}`}</Data>
+         <Data>
+            {isFlexible
+               ? `${flexibleFromDate} to ${flexibleToDate}`
+               : `${travelDate}`}
+         </Data>
          <Data>{seatCount}</Data>
          <Data>{laguageCount}</Data>
          <Data>
-            {acceptedPerson}
-            {acceptedPersonPhone}
+            {status === 'ACCEPTED' ? (
+               <>
+                  <span className='block'>{acceptedPerson}</span>
+                  {acceptedPersonPhoneNumber}
+               </>
+            ) : (
+               '--'
+            )}
          </Data>
 
-         <Badge isConfirmed={status.toLowerCase() === 'confirmed'}>
+         <Badge
+            isAccepted={status === 'ACCEPTED'}
+            isExpired={status === 'EXPIRED'}
+         >
             {status}
          </Badge>
       </Row>

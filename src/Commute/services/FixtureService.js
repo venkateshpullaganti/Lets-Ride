@@ -3,6 +3,8 @@ import { create } from 'apisauce'
 import { networkCallWithApisauce } from '../../Common/utils/APIUtils'
 import { apiMethods } from '../../Common/constants/APIConstants'
 
+import myRequestsFixtures from '../fixtures/myRequestsFixtures.json'
+
 class FixtureService {
    rideRequestApi
    assetRequestApi
@@ -41,6 +43,13 @@ class FixtureService {
    travelInfo = requestObject => {
       return new Promise((resolve, reject) => {
          resolve()
+      })
+   }
+   myRequests = requestObject => {
+      return new Promise((resolve, reject) => {
+         setTimeout(() => {
+            resolve(myRequestsFixtures)
+         }, 1000)
       })
    }
 }

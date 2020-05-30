@@ -34,7 +34,7 @@ const Col = styled.div`
    color: ${Colors.steel};
    height: 48px;
    width: 130px;
-   ${tw``};
+   ${tw`text-center`};
 `
 const RequestsHeader = styled.div`
    height: 64px;
