@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { Router } from 'react-router-dom'
 
 import { createMemoryHistory } from 'history'
@@ -37,34 +37,5 @@ describe('Ride Request form tests', () => {
       )
       const actualOutput = getByLabelText(strings.toText).value
       expect(actualOutput).toBe(expectedOutput)
-   })
-
-   it('should render the sourcePlace error', () => {
-      const { getByText, getByRole } = render(
-         <Router history={createMemoryHistory()}>
-            <RideRequestForm
-               isSourceError={true}
-               errorMsg={strings.sourcePlaceError}
-               onChangeSource={() => {}}
-            />
-         </Router>
-      )
-      const requestBtn = getByRole('button', { name: strings.requestBtnText })
-      fireEvent.click(requestBtn)
-      getByText(strings.sourcePlaceError)
-   })
-   it('should render destination place empty error message', () => {
-      const { getByText, getByRole } = render(
-         <Router history={createMemoryHistory()}>
-            <RideRequestForm sourcePlace={'source'} onChange={() => {}} />
-         </Router>
-      )
-
-      const requestBtn = getByRole('button', { name: strings.requestBtnText })
-
-      fireEvent.click(requestBtn)
-
-      getByText(/source/i)
-      getByText(strings.destinationPlaceError)
    })
 })

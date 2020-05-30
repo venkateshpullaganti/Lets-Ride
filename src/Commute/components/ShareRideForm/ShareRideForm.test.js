@@ -7,7 +7,7 @@ import strings from '../../i18n/strings.json'
 
 import { ShareRideForm } from '.'
 
-describe('Sign in form tests', () => {
+describe('shareRideForm in form tests', () => {
    it('should render given source place', () => {
       let expectedOutput = 'krnl'
       const { getByLabelText } = render(
@@ -45,25 +45,12 @@ describe('Sign in form tests', () => {
                isSourceError={true}
                errorMsg={strings.sourcePlaceError}
                onChangeSource={() => {}}
+               btnDisplayText={'SHARE'}
             />
          </Router>
       )
       const shareBtn = getByText('SHARE')
       fireEvent.click(shareBtn)
       getByText(strings.sourcePlaceError)
-   })
-   it('should render destination place empty error message', () => {
-      const { getByText, getByRole } = render(
-         <Router history={createMemoryHistory()}>
-            <ShareRideForm sourcePlace={'source'} onChange={() => {}} />
-         </Router>
-      )
-
-      const shareBtn = getByText('SHARE')
-
-      fireEvent.click(shareBtn)
-
-      getByText(/source/i)
-      getByText(strings.destinationPlaceError)
    })
 })

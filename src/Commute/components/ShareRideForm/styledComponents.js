@@ -4,7 +4,7 @@ import tw from 'tailwind.macro'
 import Colors from '../../../Common/themes/Colors'
 
 const ShareRide = styled.div`
-   height: 100vh;
+   min-height: 100vh;
 
    background: ${Colors.whiteTwo};
    ${tw`flex flex-col`};

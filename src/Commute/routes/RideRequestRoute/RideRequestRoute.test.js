@@ -106,13 +106,7 @@ describe('RideRequestRoute Tests', () => {
       const destinationPlace = 'test-destinationPlace'
       const dateAndTime = new Date()
       const seatCount = 3
-      const {
-         getByLabelText,
-         debug,
-         getByText,
-         getByAltText,
-         getAllByPlaceholderText
-      } = render(
+      const { getByLabelText, getByText, getAllByPlaceholderText } = render(
          <Router history={createMemoryHistory()}>
             <RideRequestRoute requestStore={requestStore} />
          </Router>

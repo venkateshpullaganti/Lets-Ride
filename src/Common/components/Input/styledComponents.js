@@ -13,12 +13,14 @@ const CustomInput = styled.input`
    border-color: ${props => (props.isError ? Colors.neonRed : Colors.steel)};
    background: ${props => (props.isError ? Colors.neonRed5 : Colors.white)};
    border-radius: 2px;
+   bx-sizing: border-box;
    ::-webkit-inner-spin-button {
       -webkit-appearance: none;
    }
    &:focus {
       outline: none;
    }
+   ${tw`pl-3`}
 `
 const CustomLabel = styled.label`
    color: ${Colors.steel};
@@ -36,7 +38,7 @@ const ErrorIcon = styled.img`
 const InputContainer = styled.div`
    width: 100%;
    margin-top: 20px;
-   ${tw`relative `};
+   ${tw`relative`};
 `
 const Required = styled.span`
    ${tw`text-red-500`};

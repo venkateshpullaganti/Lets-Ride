@@ -8,6 +8,7 @@ import {
 import { CommuteService } from '../../services/CommuteService'
 
 import { RequestStore } from '.'
+import { waitFor } from '@testing-library/react'
 
 describe('RequestStore Tests', () => {
    let comuteAPI
@@ -23,7 +24,7 @@ describe('RequestStore Tests', () => {
       expect(requestStore.getRideRequestAPIError).toBe(null)
    })
 
-   it('should test rideRequest loading state whle sending data', () => {
+   it('should test rideRequest loading state whle sending data', async () => {
       const onSuccess = jest.fn()
       const onFailure = jest.fn()
 
@@ -40,9 +41,11 @@ describe('RequestStore Tests', () => {
          onSuccess,
          onFailure
       )
-      expect(requestStore.getRideRequestAPIStatus).toBe(API_FETCHING)
-      expect(onSuccess).not.toBeCalled()
-      expect(onFailure).not.toBeCalled()
+      await waitFor(() => {
+         expect(requestStore.getRideRequestAPIStatus).toBe(API_FETCHING)
+         expect(onSuccess).not.toBeCalled()
+         expect(onFailure).not.toBeCalled()
+      })
    })
 
    it('should test the RideRequestAPI success state', async () => {

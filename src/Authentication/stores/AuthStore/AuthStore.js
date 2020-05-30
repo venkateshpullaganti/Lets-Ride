@@ -39,6 +39,7 @@ class AuthStore {
    }
    @action.bound
    userSignIn(requestObject, onSuccess, onFailure) {
+      console.log('userSignin', this.getUserSignInAPIStatus)
       const userSignInPromise = this.authAPIService.signInAPI(requestObject)
 
       return bindPromiseWithOnSuccess(userSignInPromise)

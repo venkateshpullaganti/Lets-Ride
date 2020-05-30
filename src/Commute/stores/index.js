@@ -7,8 +7,8 @@ import { ShareStore } from './ShareStore'
 const commuteService = new CommuteService()
 const fixtureService = new FixtureService()
 
-const requestStore = new RequestStore(fixtureService)
-const shareStore = new ShareStore(fixtureService)
+const requestStore = new RequestStore(commuteService)
+const shareStore = new ShareStore(commuteService)
 
 export default {
    requestStore,

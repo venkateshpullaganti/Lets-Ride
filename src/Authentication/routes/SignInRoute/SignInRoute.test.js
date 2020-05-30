@@ -40,11 +40,11 @@ describe('SignInRoute Tests', () => {
       )
       const signInBtn = getByRole('button', { name: 'LOGIN' })
       fireEvent.click(signInBtn)
-      getByText(/MobileNumber Required/i)
+      getByText(/10 digit Mobile Number Required/i)
    })
 
    it('should render password empty error message', () => {
-      const mobileNumber = '123456'
+      const mobileNumber = '1234560909'
       const { getByText, getByRole, getByLabelText } = render(
          <Router history={createMemoryHistory()}>
             <SignInRoute authStore={authStore} />
@@ -86,7 +86,7 @@ describe('SignInRoute Tests', () => {
       const route = SIGN_IN_PATH
       history.push(route)
 
-      const mobileNumber = '123456'
+      const mobileNumber = '1234568890'
       const password = 'test-password'
 
       const { getByTestId, getByLabelText, getByRole } = render(
@@ -127,33 +127,33 @@ describe('SignInRoute Tests', () => {
       })
    })
 
-   // it('should render network failure state', () => {
-   //    const mobileNumber = '123456'
-   //    const password = 'test-password'
+   it('should render network failure state', () => {
+      const mobileNumber = '123456'
+      const password = 'test-password'
 
-   //    const mockLoadingPromise = new Promise(function(resolve, reject) {
-   //       reject(new Error('error'))
-   //    }).catch(() => {})
+      const mockLoadingPromise = new Promise(function(resolve, reject) {
+         reject(new Error('error'))
+      }).catch(() => {})
 
-   //    const mockSignInApi = jest.fn()
-   //    mockSignInApi.mockReturnValue(mockLoadingPromise)
-   //    authAPI.signInAPI = mockSignInApi
+      const mockSignInApi = jest.fn()
+      mockSignInApi.mockReturnValue(mockLoadingPromise)
+      authAPI.signInAPI = mockSignInApi
 
-   //    const { getByLabelText, getByRole } = render(
-   //       <Router history={createMemoryHistory()}>
-   //          <SignInRoute authStore={authStore} />
-   //       </Router>
-   //    )
-   //    const mobileNumberField = getByLabelText('MOBILE NUMBER')
-   //    const passwordField = getByLabelText('PASSWORD')
-   //    const signInBtn = getByRole('button', { name: 'LOGIN' })
+      const { getByLabelText, getByRole, getByText } = render(
+         <Router history={createMemoryHistory()}>
+            <SignInRoute authStore={authStore} />
+         </Router>
+      )
+      const mobileNumberField = getByLabelText('MOBILE NUMBER')
+      const passwordField = getByLabelText('PASSWORD')
+      const signInBtn = getByRole('button', { name: 'LOGIN' })
 
-   //    fireEvent.change(mobileNumberField, { target: { value: mobileNumber } })
-   //    fireEvent.change(passwordField, { target: { value: password } })
-   //    fireEvent.click(signInBtn)
+      fireEvent.change(mobileNumberField, { target: { value: mobileNumber } })
+      fireEvent.change(passwordField, { target: { value: password } })
+      fireEvent.click(signInBtn)
 
-   //    waitFor(() => {
-   //       getByText(/NETWORK_ERROR/i)
-   //    })
-   // })
+      waitFor(() => {
+         getByText(/Retry/i)
+      })
+   })
 })

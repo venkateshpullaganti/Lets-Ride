@@ -120,3 +120,7 @@ class ShareRideForm extends Component {
 }
 
 export { ShareRideForm }
+
+ShareRideForm.defaultProps = {
+   btnDisplayText: 'SHARE'
+}

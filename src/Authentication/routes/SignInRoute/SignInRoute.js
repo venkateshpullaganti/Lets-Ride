@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
-import { withRouter, Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { observable, computed } from 'mobx'
 import { API_FETCHING } from '@ib/api-constants'
 
@@ -22,6 +22,7 @@ class SignInRoute extends Component {
       this.init()
       this.onSuccess = this.onSuccess.bind(this)
       this.onFailure = this.onFailure.bind(this)
+      this.onSubmit = this.onSubmit.bind(this)
    }
    init = () => {
       this.mobileNumber = ''
@@ -29,7 +30,7 @@ class SignInRoute extends Component {
       this.errorMsg = null
    }
 
-   authStore = () => {
+   get authStore() {
       return this.props.authStore
    }
 
@@ -52,7 +53,7 @@ class SignInRoute extends Component {
       return this.errorMsg !== null
    }
 
-   onSubmit = () => {
+   onSubmit() {
       if (this.mobileNumber.length !== MOBILE_NUMBER_LENGTH) {
          this.errorMsg = strings.mobileNumberEmptyError
       } else if (this.password === '') {
@@ -64,7 +65,7 @@ class SignInRoute extends Component {
             phonenumber: this.mobileNumber,
             password: this.password
          }
-         this.authStore().userSignIn(
+         this.authStore.userSignIn(
             requestObject,
             this.onSuccess,
             this.onFailure
@@ -98,6 +99,7 @@ class SignInRoute extends Component {
       // if (!isLoggedIn()) {
       //    return <Redirect to={{ pathname: HOMEPAGE_PATH }} />
       // }
+      console.log(Math.random(), this.authStore.getUserSignInAPIStatus)
       return (
          <SignInForm
             onSubmit={onSubmit}

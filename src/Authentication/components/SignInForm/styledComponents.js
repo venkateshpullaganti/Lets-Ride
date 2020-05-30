@@ -8,21 +8,21 @@ import { Typo14BrightBlueHKGroteskRegular } from '../../../Common/styleGuide/Typ
 import Colors from '../../../Common/themes/Colors'
 
 const Container = styled.div`
-   height: 687px;
-   width: 536px;
+   min-height: 100vh;
+   min-width: 100vw;
    background: ${Colors.iceBlue};
-   ${tw`p-2 flex justify-center items-center h-screen`};
+   border: 1px solid green;
+   box-sizing: border-box;
+   ${tw`p-4 flex justify-center items-center h-screen`};
 `
 const Form = styled.form`
-   max-height: 687px;
-   max-width: 536px;
+   height: 587px;
+   width: 400px;
    background: ${Colors.white};
-   padding-top: 48px;
+   padding: 50px;
    box-sizing: border-box;
-   padding-left: 108px;
-   padding-right: 108px;
-   padding-bottom: 141px;
-   ${tw`flex items-center flex-col`};
+
+   ${tw`flex items-center flex-col shadow-lg rounded`};
 `
 const AskSignUp = styled.div`
    ${Typo14BrightBlueHKGroteskRegular}

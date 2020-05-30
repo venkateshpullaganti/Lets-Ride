@@ -26,19 +26,4 @@ describe('Sign in form tests', () => {
       const actualOutput = getByLabelText('PASSWORD').value
       expect(actualOutput).toBe(expectedOutput)
    })
-
-   it('should render the mobilenumber error', () => {
-      const { getByText } = render(
-         <SignInForm isUserNameError={true} errorMsg='Invalid Username' />
-      )
-
-      getByText(/Invalid Username/i)
-   })
-   it('should render the password error', () => {
-      const { getByText } = render(
-         <SignInForm isPasswordError={true} errorMsg='Invalid Password' />
-      )
-
-      getByText(/Invalid Password/i)
-   })
 })
