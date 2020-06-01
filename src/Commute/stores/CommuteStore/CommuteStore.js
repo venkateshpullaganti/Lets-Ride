@@ -11,6 +11,13 @@ import AssetRequestModel from '../models/AssetRequestModel'
 class CommuteStore {
    @observable getMyRequestsAPIStatus
    @observable getMyRequestsAPIError
+
+   @observable getMyAssetRequestsAPIStatus
+   @observable getMyAssetRequestsAPIError
+
+   @observable getMyRideRequestsAPIStatus
+   @observable getMyRideRequestsAPIError
+
    @observable myRideRequests
    @observable totalMyRideRequests
 
@@ -25,6 +32,14 @@ class CommuteStore {
    }
 
    @action.bound
+   init() {
+      this.getMyRequestsAPIStatus = API_INITIAL
+      this.getMyRequestsAPIError = null
+      this.myRideRequests = []
+      this.myAssetRequests = []
+   }
+
+   @action.bound
    setRequestsAPIResponse(response) {
       this.totalMyRideRequests = response.total_rides
       this.totalMyAssetRequests = response.total_assets
@@ -35,8 +50,6 @@ class CommuteStore {
       this.myAssetRequests = response.assets.map(eachRide => {
          return new AssetRequestModel({ ...eachRide, id: uuid().toString() })
       })
-      console.log(this.myAssetRequests)
-      console.log(this.myRideRequests[2].travelDate)
    }
 
    @action.bound
@@ -49,13 +62,6 @@ class CommuteStore {
       this.getMyRequestsAPIStatus = APIStatus
    }
 
-   @action.bound
-   init() {
-      this.getMyRequestsAPIStatus = API_INITIAL
-      this.getMyRequestsAPIError = null
-      this.myRideRequests = []
-      this.myAssetRequests = []
-   }
    @action.bound
    myRequests(requestObject, onSuccess, onFailure) {
       const myRequestsPromise = this.commuteAPIService.myRequests(requestObject)
@@ -70,6 +76,58 @@ class CommuteStore {
             onFailure(APIError)
          })
    }
+
+   setGetMyAssetRequestsAPIResponse = () => {}
+   setGetMyAssetRequestsAPIStatus = status => {
+      this.getMyAssetRequestsAPIStatus = status
+   }
+   setGetMyAssetRequestsAPIError = error => {
+      this.getMyAssetRequestsAPIError = error
+   }
+
+   myAssetsRequests(requestObject, onSuccess, onFailure, paginationObj) {
+      const myAssetRequestsPromise = this.commuteAPIService.myAssetsRequestsApi(
+         requestObject,
+         paginationObj
+      )
+
+      return bindPromiseWithOnSuccess(myAssetRequestsPromise)
+         .to(this.setGetMyAssetRequestsAPIStatus, response => {
+            this.setGetMyAssetRequestsAPIResponse(response)
+            onSuccess()
+         })
+         .catch(APIError => {
+            this.setGetMyAssetRequestsAPIError(APIError)
+            onFailure(APIError)
+         })
+   }
+
+   setGetRideRequestsAPIResponse = () => {}
+
+   setGetMyRideRequestsAPIStatus = status => {
+      this.getMyRideRequestsAPIStatus = status
+   }
+   setGetMyRideRequestsAPIError = error => {
+      this.getMyRideRequestsAPIError = error
+   }
+
+   myRideRequests(requestObject, onSuccess, onFailure, paginationObj) {
+      const myRideRequestsPromise = this.commuteAPIService.myRideRequestsApi(
+         requestObject,
+         paginationObj
+      )
+
+      return bindPromiseWithOnSuccess(myRideRequestsPromise)
+         .to(this.setGetMyRideRequestsAPIStatus, response => {
+            this.setGetRideRequestsAPIResponse(response)
+            onSuccess()
+         })
+         .catch(APIError => {
+            this.setGetMyRideRequestsAPIError(APIError)
+            onFailure(APIError)
+         })
+   }
+
    @computed
    get assetRequests() {
       return this.myAssetRequests
@@ -85,84 +143,3 @@ class CommuteStore {
    }
 }
 export { CommuteStore }
-
-// const tableData = [
-//    [
-//       'sourcePlace',
-//       'destinationPlace',
-//       false,
-//       'mainDate',
-//       'fromDate',
-//       'toDate',
-//       'toDate',
-//       'toDate',
-//       'accept per',
-//       '123456',
-//       'pending'
-//    ],
-//    [
-//       'sourcePlace',
-//       'destinationPlace',
-//       true,
-//       'mainDate',
-//       'fromDate',
-//       'toDate',
-//       '4',
-//       '9',
-//       'accept per',
-//       '123456',
-//       'pending'
-//    ],
-//    [
-//       'sourcePlace',
-//       'destinationPlace',
-//       true,
-//       'mainDate',
-//       'fromDate',
-//       'toDate',
-//       '4',
-//       '9',
-//       'accept per',
-//       '123456',
-//       'expired'
-//    ],
-//    [
-//       'sourcePlace',
-//       'destinationPlace',
-//       true,
-//       'mainDate',
-//       'fromDate',
-//       'toDate',
-//       '4',
-//       '9',
-//       'accept per',
-//       '123456',
-//       'pending'
-//    ],
-//    [
-//       'sourcePlace',
-//       'destinationPlace',
-//       true,
-//       'mainDate',
-//       'fromDate',
-//       'toDate',
-//       '4',
-//       '9',
-//       'accept per',
-//       '123456',
-//       'pending'
-//    ],
-//    [
-//       'sourcePlace',
-//       'destinationPlace',
-//       true,
-//       'mainDate',
-//       'fromDate',
-//       'toDate',
-//       '4',
-//       '9',
-//       'accept per',
-//       '123456',
-//       'Confirmed'
-//    ]
-// ]

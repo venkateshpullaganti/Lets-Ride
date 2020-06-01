@@ -35,8 +35,6 @@ const DisplayName = styled.button`
    }
 `
 const Item = styled.span`
-   width: 120px;
-   margin: 3px;
    padding: 5px 10px 5px 10px;
    ${tw``};
    &:hover {

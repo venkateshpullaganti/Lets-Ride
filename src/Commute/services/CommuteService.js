@@ -12,6 +12,8 @@ class CommuteService {
 
    myRequestsApi
 
+   myAssetsRequestsAPI
+
    constructor() {
       this.rideRequestApi = create({
          baseURL: 'localhost:8000/api'
@@ -28,6 +30,12 @@ class CommuteService {
       })
       this.myRequestsApi = create({
          baseURL: 'localhost:8000/api/lets_ride'
+      })
+      this.myAssetsRequestsAPI = create({
+         baseURL: 'localhost:8000/api/lets_ride/assets/v1'
+      })
+      this.myRideRequestsAPI = create({
+         baseURL: 'localhost:8000/api/lets_ride/ride/v1'
       })
    }
    rideRequest = requestObject => {
@@ -66,6 +74,22 @@ class CommuteService {
       return networkCallWithApisauce(
          this.myRequestsApi,
          '/my_rquests/v1',
+         requestObject,
+         apiMethods.get
+      )
+   }
+   myAssetsRequestsApi = (requestObject, paginationObj) => {
+      return networkCallWithApisauce(
+         this.myAssetsRequestsAPI,
+         '',
+         requestObject,
+         apiMethods.get
+      )
+   }
+   myRideRequestsApi = (requestObject, paginationObj) => {
+      return networkCallWithApisauce(
+         this.myRideRequestsAPI,
+         '',
          requestObject,
          apiMethods.get
       )

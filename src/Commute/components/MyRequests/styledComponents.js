@@ -41,16 +41,6 @@ const RequestsHeader = styled.div`
    border: 1px solid ${Colors.lightBlueGrey40};
    ${tw`flex p-2 justify-between items-center`};
 `
-const TableFooter = styled.div`
-   color: ${Colors.steel};
-   ${tw`flex justify-between`};
-`
-const AddRequest = styled.button`
-   ${tw``};
-`
-const TotalPages = styled.div`
-   ${tw``};
-`
 
 export {
    RequestsContainer,
@@ -58,8 +48,5 @@ export {
    NavBtn,
    RequestTable,
    Col,
-   RequestsHeader,
-   TableFooter,
-   AddRequest,
-   TotalPages
+   RequestsHeader
 }

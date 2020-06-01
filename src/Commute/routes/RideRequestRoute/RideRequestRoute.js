@@ -87,7 +87,6 @@ class RideRequestRoute extends Component {
 
    onSubmit(event) {
       event.preventDefault()
-      console.log('submit')
 
       const {
          sourcePlace,
@@ -119,7 +118,6 @@ class RideRequestRoute extends Component {
    }
 
    doNetworkCalls = () => {
-      console.log('network call')
       this.isLoading = true
       const { sourcePlace, destinationPlace } = this
       let mainDate, fromDate, toDate

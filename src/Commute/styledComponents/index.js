@@ -23,4 +23,18 @@ const Form = styled.form`
 const HomePageHeader = styled.p`
    ${tw`text-lg p-2`}
 `
-export { Heading, Form, HomePageHeader }
+const AddRequestBtn = styled.button`
+   border: 1px solid blue;
+   height: 24px;
+   ${tw`focus:outline-none`}
+`
+const TotalPages = styled.div`
+   height: 24px;
+   ${tw``};
+`
+const TableFooter = styled.div`
+   color: ${Colors.steel};
+   ${tw`flex justify-between items-center`};
+`
+
+export { Heading, Form, HomePageHeader, AddRequestBtn, TotalPages, TableFooter }

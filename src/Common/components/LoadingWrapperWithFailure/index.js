@@ -8,6 +8,8 @@ import { getUserDisplayableErrorMessage } from '../../../Common/utils/APIUtils'
 import LoadingView from './LoadingView'
 import FailureView from './FailureView'
 
+import NetworkErrorView from './NetworkErrorView'
+
 @observer
 class LoadingWrapperWithFailure extends React.Component {
    render() {
@@ -17,7 +19,7 @@ class LoadingWrapperWithFailure extends React.Component {
          onRetryClick,
          apiError
       } = this.props
-      const errorMessage = getUserDisplayableErrorMessage(apiError)
+      const errorMsg = getUserDisplayableErrorMessage(apiError)
 
       switch (apiStatus) {
          case API_FETCHING:
@@ -26,11 +28,9 @@ class LoadingWrapperWithFailure extends React.Component {
             return <RenderSuccessUI />
          case API_FAILED:
             return (
-               <FailureView
-                  onRetryClick={onRetryClick}
-                  errorMessage={errorMessage}
-               />
+               <FailureView onRetryClick={onRetryClick} errorMsg={errorMsg} />
             )
+
          default:
             return null
       }
@@ -38,3 +38,9 @@ class LoadingWrapperWithFailure extends React.Component {
 }
 
 export default LoadingWrapperWithFailure
+
+// (
+//    <NetworkErrorView onRetryClick={onRetryClick} errorMsg={errorMsg} />
+// )
+
+/* <FailureView onRetryClick={onRetryClick} errorMsg={errorMsg} /> */

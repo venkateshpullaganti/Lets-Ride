@@ -25,5 +25,8 @@
    "requests": "Requests",
    "share": "Share",
    "seatCountError": "Required Seats",
-   "retry": "Retry"
+   "retry": "Retry",
+   "addRequest": "+ ADD Request",
+   "status": "STATUS",
+   "backToHome": "Back to Home"
 }

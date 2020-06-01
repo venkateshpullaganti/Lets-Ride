@@ -22,9 +22,9 @@
          "flexible_to_date_time": "2020-05-12 12:30 PM",
          "seats": "5",
          "laguage_quantity": 10,
-         "status": "ACCEPTED",
-         "accepted_person": "Pushpa",
-         "accepted_person_phone_number": "1234567890"
+         "status": "PENDING",
+         "accepted_person": "",
+         "accepted_person_phone_number": ""
       },
       {
          "source": "sourcePlace",
@@ -88,8 +88,8 @@
          "seats": "5",
          "laguage_quantity": 10,
          "status": "ACCEPTED",
-         "accepted_person": "",
-         "accepted_person_phone_number": ""
+         "accepted_person": "RaviTeja",
+         "accepted_person_phone_number": "765678765234"
       },
       {
          "source": "sourcePlace",
@@ -179,8 +179,8 @@
          "asset_quantity": 10,
          "asset_type_others": "Bottle",
          "status": "EXPIRED",
-         "accepted_person": "mukunda",
-         "accepted_person_phone_number": "1234567890",
+         "accepted_person": "",
+         "accepted_person_phone_number": "",
          "deliver_to": "ganesh",
          "phone_number": "123456789"
       },

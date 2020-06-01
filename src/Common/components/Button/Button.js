@@ -7,10 +7,10 @@ import { Btn, BtnTypo } from './styledComponents'
 
 class Button extends Component {
    render() {
-      const { displayText, type, onClick, isLoading } = this.props
+      const { displayText, type, onClick, isLoading, ...rest } = this.props
 
       return (
-         <Btn onClick={onClick} type={type} disabled={isLoading}>
+         <Btn onClick={onClick} type={type} disabled={isLoading} {...rest}>
             {isLoading ? (
                <ReactLoading
                   type='spin'

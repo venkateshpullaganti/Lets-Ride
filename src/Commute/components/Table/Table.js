@@ -1,23 +1,18 @@
 import React, { Component } from 'react'
 
 import { Selector } from '../Selector'
+import { Pagination } from '../../../Common/components/Pagination'
 
-import { Pagination } from '../Pagination'
+import strings from '../../i18n/strings.json'
+import { AddRequestBtn, TotalPages, TableFooter } from '../../styledComponents'
 
 import { Item } from './Item'
 
-import {
-   TableContainer,
-   Header,
-   Col,
-   TableFooter,
-   AddRequest,
-   TotalPages
-} from './styledComponents'
+import { TableContainer, Header, Col } from './styledComponents'
 
 class Table extends Component {
    renderHeader = () => {
-      const { headerItems, filterByStatus } = this.props
+      const { headerItems, filterByStatus, statusFilterOptions } = this.props
 
       return (
          <Header key={'Table Header'}>
@@ -25,7 +20,7 @@ class Table extends Component {
                <Col key={item}>{item}</Col>
             ))}
             <Selector
-               dropdownName={'STATUS'}
+               dropdownName={strings.status}
                options={['Active', 'Expired']}
                onChange={filterByStatus}
             />
@@ -40,7 +35,12 @@ class Table extends Component {
    }
 
    render() {
-      const { dropdownName } = this.props
+      const {
+         onClickAddRequest,
+         totalAssetPages,
+         currentAssetPage,
+         handleAssetPageClick
+      } = this.props
       return (
          <div>
             <TableContainer>
@@ -48,12 +48,14 @@ class Table extends Component {
                {this.renderRows()}
             </TableContainer>
             <TableFooter>
-               <AddRequest>
-                  <span>{'+'}</span>
-                  {' ADD Request'}
-               </AddRequest>
-               <TotalPages>{`PAGE 1 of 1`}</TotalPages>
-               <Pagination></Pagination>
+               <AddRequestBtn onClick={onClickAddRequest}>
+                  {strings.addRequest}
+               </AddRequestBtn>
+               <TotalPages>{`PAGE ${currentAssetPage} OF ${totalAssetPages}`}</TotalPages>
+               <Pagination
+                  handlePageClick={handleAssetPageClick}
+                  totoalPages={totalAssetPages}
+               />
             </TableFooter>
          </div>
       )

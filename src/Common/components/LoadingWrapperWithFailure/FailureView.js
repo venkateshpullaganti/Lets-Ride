@@ -1,20 +1,24 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 
+import images from '../../themes/Images'
+
 import {
    FailureViewContainer,
    FailureViewMessage,
-   RetryButton
+   RetryButton,
+   Image
 } from './styledComponents'
 
 @observer
 class FailureView extends React.Component {
    render() {
-      const { onRetryClick, errorMessage } = this.props
+      const { onRetryClick, errorMsg } = this.props
 
       return (
          <FailureViewContainer>
-            <FailureViewMessage>{errorMessage}</FailureViewMessage>
+            <Image src={images.noInternetImage} />
+            <FailureViewMessage>{errorMsg}</FailureViewMessage>
             <RetryButton onClick={onRetryClick}>Retry</RetryButton>
          </FailureViewContainer>
       )

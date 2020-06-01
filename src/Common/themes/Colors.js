@@ -12,5 +12,6 @@ export default {
    steel60: 'rgba(126, 133, 142, 0.6)',
    yellowOrange: '#ffb800',
    greenishTeal: '#2dca73',
-   lightBlueGrey40: 'rgba(215, 223, 233, 0.4)'
+   lightBlueGrey40: 'rgba(215, 223, 233, 0.4)',
+   lightBlueGrey: '#d7dfe9'
 }

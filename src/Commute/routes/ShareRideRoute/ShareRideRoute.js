@@ -58,15 +58,16 @@ class ShareRideRoute extends Component {
    }
 
    onChangeDate = dateObj => {
-      this.travelDate = moment(dateObj).format('YYYY-MM-DD hh:mm A')
+      this.travelDate = moment(dateObj).format('DD/MM/YYYY hh:mm A')
+      console.log(this.travelDate)
    }
 
    onChangeFlexibleFromDate = date => {
-      this.flexibleFromDate = moment(date).format('YYYY-MM-DD hh:mm A')
+      this.flexibleFromDate = moment(date).format('DD/MM/YYYY hh:mm A')
    }
 
    onChangeFlexibleToDate = date => {
-      this.flexibleToDate = moment(date).format('YYYY-MM-DD hh:mm A')
+      this.flexibleToDate = moment(date).format('DD/MM/YYYY hh:mm A')
    }
 
    onIncrementSeats = () => {
@@ -95,7 +96,7 @@ class ShareRideRoute extends Component {
 
    onSubmit(event) {
       event.preventDefault()
-      console.log(this.isFlexible, this.isFlexibleTimingsError)
+
       const {
          sourcePlace,
          destinationPlace,
@@ -148,7 +149,7 @@ class ShareRideRoute extends Component {
          seats: this.seatCount,
          laguage_quantity: this.laguageCount
       }
-      console.log(requestObj)
+
       this.shareStore.rideShare(requestObj, this.onSuccess, this.onFailure)
    }
    onSuccess = () => {

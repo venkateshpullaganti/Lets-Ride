@@ -1,19 +1,30 @@
 import React, { Component } from 'react'
-import { observable, computed } from 'mobx'
+import { observable, computed, action } from 'mobx'
+import { withRouter } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
 
-import { Heading } from '../../styledComponents'
+import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
+import { Pagination } from '../../../Common/components/Pagination'
+
+import {
+   Heading,
+   AddRequestBtn,
+   TotalPages,
+   TableFooter
+} from '../../styledComponents'
 import strings from '../../i18n/strings.json'
-
-import { Table } from '../Table'
-import { FilterBar } from '../FilterBar'
-import { Selector } from '../Selector'
-import { Pagination } from '../Pagination'
-
 import {
    RIDE_TABLE_COLUMNS,
    ASSET_TABLE_COLUMNS
 } from '../../constants/MyRequestsConstants'
+import {
+   RIDE_REQUEST_PATH,
+   ASSET_TRANSPORT_REQUEST_PATH
+} from '../../constants/NavigationConstants'
+
+import { Table } from '../Table'
+import { FilterBar } from '../FilterBar'
+import { Selector } from '../Selector'
 
 import {
    RequestsContainer,
@@ -21,18 +32,22 @@ import {
    NavBtn,
    RequestTable,
    RequestsHeader,
-   Col,
-   TableFooter,
-   AddRequest,
-   TotalPages
+   Col
 } from './styledComponents'
-
 import { Item } from './Item'
+
+const PAGINATION_LIMIT = 16
 
 @inject('commuteStore')
 @observer
 class MyRequests extends Component {
    @observable selectedField
+
+   assetCurrentPage
+   assetPaginationOffset
+
+   rideCurrentPage
+   ridePaginationOffset
 
    constructor(props) {
       super(props)
@@ -46,6 +61,14 @@ class MyRequests extends Component {
    get commuteStore() {
       return this.props.commuteStore
    }
+   get totalAssetPages() {
+      return Math.ceil(
+         this.commuteStore.totalMyAssetRequests / PAGINATION_LIMIT
+      )
+   }
+   get totalRidePages() {
+      return Math.ceil(this.commuteStore.totalMyRideRequests / PAGINATION_LIMIT)
+   }
 
    componentDidMount() {
       this.doNetworkCalls()
@@ -53,6 +76,7 @@ class MyRequests extends Component {
    doNetworkCalls = () => {
       this.commuteStore.myRequests({}, this.onSuccess, this.onFailure)
    }
+
    onSuccess() {
       console.log('success')
    }
@@ -61,27 +85,79 @@ class MyRequests extends Component {
       console.log('failed')
    }
 
-   @computed
-   get isSelectedRide() {
-      return this.selectedField === strings.ride
-   }
-   @computed
-   get isSelectedAsset() {
-      return this.selectedField === strings.asset
-   }
-
+   @action
    showRide = () => {
       this.selectedField = strings.ride
    }
+
+   @action
    showAsset = () => {
       this.selectedField = strings.asset
    }
+
    onChangeFilter = selected => {
       console.log(selected)
    }
    onChangeSort = v => {
       console.log(v)
    }
+
+   navigateToRideRequestForm = () => {
+      const { history } = this.props
+      history.push(RIDE_REQUEST_PATH)
+   }
+   navigateToAssetRequestForm = () => {
+      const { history } = this.props
+      history.push(ASSET_TRANSPORT_REQUEST_PATH)
+   }
+
+   handleAssetPageClick = event => {
+      this.assetCurrentPage = event.selected
+      this.assetPaginationOffset = this.assetCurrentPage * PAGINATION_LIMIT
+      this.doMyAssetsRequestApiCall()
+   }
+   handleRidePageClick = event => {
+      this.rideCurrentPage = event.selected
+      this.ridePaginationOffset = this.rideCurrentPage * PAGINATION_LIMIT
+      this.doMyRideRequestApiCall()
+   }
+
+   doMyAssetsRequestApiCall = () => {
+      const responseObj = {}
+
+      const paginationObj = {
+         PAGINATION_LIMIT,
+         offset: this.assetPaginationOffset
+      }
+      this.commuteStore.myAssetsRequests(
+         responseObj,
+         this.onSuccessAssetApiCall,
+         this.onFailureAssetApiCall,
+         paginationObj
+      )
+   }
+
+   doMyRideRequestApiCall = () => {
+      const responseObj = {}
+
+      const paginationObj = {
+         PAGINATION_LIMIT,
+         offset: this.ridePaginationOffset
+      }
+      this.commuteStore.myRideRequests(
+         responseObj,
+         this.onSuccessRideApiCall,
+         this.onFailureRideApiCall,
+         paginationObj
+      )
+   }
+
+   onSuccessAssetApiCall = () => {}
+   onFailureAssetApiCall = () => {}
+
+   onSuccessRideApiCall = () => {}
+   onFailureRideApiCall = () => {}
+
    renderRequests = () => {
       return this.commuteStore.rideRequests.map(request => (
          <Item key={request.id} request={request} />
@@ -102,29 +178,58 @@ class MyRequests extends Component {
          </RequestsHeader>
       )
    }
-   renderSelectedTable = () => {
-      if (this.isSelectedRide) {
-         return (
-            <>
-               <RequestTable>
-                  {this.renderRequestsHeader()}
-                  {this.renderRequests()}
-               </RequestTable>
-               <TableFooter>
-                  <AddRequest>
-                     <span>{'+'}</span>
-                     {' ADD Request'}
-                  </AddRequest>
-                  <TotalPages>{`PAGE 1 of 1`}</TotalPages>
-                  <Pagination></Pagination>
-               </TableFooter>
-            </>
-         )
-      }
+
+   renderRidesTable = () => {
+      return (
+         <>
+            <RequestTable>
+               {this.renderRequestsHeader()}
+               {this.renderRequests()}
+            </RequestTable>
+            <TableFooter>
+               <AddRequestBtn onClick={this.navigateToRideRequestForm}>
+                  {strings.addRequest}
+               </AddRequestBtn>
+               <TotalPages>{`PAGE 1 of 1`}</TotalPages>
+               <Pagination
+                  handlePageClick={this.handleRidePageClick}
+                  totoalPages={this.totalRidePages}
+               />
+            </TableFooter>
+         </>
+      )
+   }
+
+   renderAssetsTable = () => {
       return (
          <Table
             headerItems={ASSET_TABLE_COLUMNS}
             tableData={this.commuteStore.assetRequests}
+            onClickAddRequest={this.navigateToAssetRequestForm}
+            totalAssetPages={this.totalAssetPages}
+            currentAssetPage={this.assetCurrentPage}
+            handleAssetPageClick={this.handleAssetPageClick}
+         />
+      )
+   }
+
+   renderSelectedTable = () => {
+      if (this.selectedField === strings.ride) {
+         return (
+            <LoadingWrapperWithFailure
+               apiStatus={this.commuteStore.getMyRequestsAPIStatus}
+               onRetryClick={this.doNetworkCalls}
+               apiError={this.commuteStore.getMyRequestsAPIError}
+               renderSuccessUI={this.renderRidesTable}
+            />
+         )
+      }
+      return (
+         <LoadingWrapperWithFailure
+            apiStatus={this.commuteStore.getMyRequestsAPIStatus}
+            onRetryClick={this.doNetworkCalls}
+            apiError={this.commuteStore.getMyRequestsAPIError}
+            renderSuccessUI={this.renderAssetsTable}
          />
       )
    }
@@ -134,11 +239,14 @@ class MyRequests extends Component {
          <RequestsContainer>
             <Heading>{strings.myRequests}</Heading>
             <Navigator>
-               <NavBtn isSelected={this.isSelectedRide} onClick={this.showRide}>
+               <NavBtn
+                  isSelected={this.selectedField === strings.ride}
+                  onClick={this.showRide}
+               >
                   {strings.ride}
                </NavBtn>
                <NavBtn
-                  isSelected={this.isSelectedAsset}
+                  isSelected={this.selectedField === strings.asset}
                   onClick={this.showAsset}
                >
                   {strings.asset}
@@ -155,87 +263,17 @@ class MyRequests extends Component {
    }
 }
 
-export { MyRequests }
+export default withRouter(MyRequests)
 
-MyRequests.defaultProps = {
-   requests: [
-      {
-         sourcePlace: 'sourcePlace',
-         destinationPlace: 'destinationPlace',
-         isFlexible: false,
-         mainDate: 'mainDate',
-         fromDate: 'fromDate',
-         toDate: 'toDate',
-         seatCount: 'toDate',
-         laguageCount: 'toDate',
-         acceptedPerson: 'accept per',
-         acceptedPersonPhone: '123456',
-         status: 'pending'
-      },
-      {
-         sourcePlace: 'sourcePlace',
-         destinationPlace: 'destinationPlace',
-         isFlexible: true,
-         mainDate: 'mainDate',
-         fromDate: 'fromDate',
-         toDate: 'toDate',
-         seatCount: '4',
-         laguageCount: '9',
-         acceptedPerson: 'accept per',
-         acceptedPersonPhone: '123456',
-         status: 'pending'
-      },
-      {
-         sourcePlace: 'sourcePlace',
-         destinationPlace: 'destinationPlace',
-         isFlexible: false,
-         mainDate: 'mainDate',
-         fromDate: 'fromDate',
-         toDate: 'toDate',
-         seatCount: '4',
-         laguageCount: '8',
-         acceptedPerson: 'accept per',
-         acceptedPersonPhone: '123456',
-         status: 'pending'
-      },
-      {
-         sourcePlace: 'sourcePlace',
-         destinationPlace: 'destinationPlace',
-         isFlexible: true,
-         mainDate: 'mainDate',
-         fromDate: 'fromDate',
-         toDate: 'toDate',
-         seatCount: '1',
-         laguageCount: '0',
-         acceptedPerson: 'accept per',
-         acceptedPersonPhone: '123456',
-         status: 'pending'
-      },
-      {
-         sourcePlace: 'sourcePlace',
-         destinationPlace: 'destinationPlace',
-         isFlexible: false,
-         mainDate: 'mainDate',
-         fromDate: 'fromDate',
-         toDate: 'toDate',
-         seatCount: '6',
-         laguageCount: '3',
-         acceptedPerson: 'accept per',
-         acceptedPersonPhone: '123456',
-         status: 'pending'
-      },
-      {
-         sourcePlace: 'sourcePlace',
-         destinationPlace: 'destinationPlace',
-         isFlexible: true,
-         mainDate: 'mainDate',
-         fromDate: 'fromDate',
-         toDate: 'toDate',
-         seatCount: '5',
-         laguageCount: '6  ',
-         acceptedPerson: 'accept per',
-         acceptedPersonPhone: '123456',
-         status: 'Confirmed'
-      }
-   ]
-}
+// onChangeRideFilter = selected => {
+//    console.log(selected)
+// }
+// onChangeRideSort = v => {
+//    console.log(v)
+// }
+// onChangeAssetFilter = selected => {
+//    console.log(selected)
+// }
+// onChangeAssetSort = v => {
+//    console.log(v)
+// }
