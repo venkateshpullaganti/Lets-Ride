@@ -7,7 +7,10 @@ import { getUserDisplayableErrorMessage } from '../../../Common/utils/APIUtils'
 
 import LoadingView from './LoadingView'
 import FailureView from './FailureView'
+<<<<<<< HEAD
 import NoDataView from '../NoDataView'
+=======
+>>>>>>> cf45a74c092498b617f5fb22d3de1dea1a38b833
 
 import NetworkErrorView from './NetworkErrorView'
 
@@ -18,21 +21,30 @@ class LoadingWrapperWithFailure extends React.Component {
          apiStatus,
          renderSuccessUI: RenderSuccessUI,
          onRetryClick,
+<<<<<<< HEAD
          apiError,
          isNoData
       } = this.props
 
       console.log('isNodata', isNoData)
 
+=======
+         apiError
+      } = this.props
+>>>>>>> cf45a74c092498b617f5fb22d3de1dea1a38b833
       const errorMsg = getUserDisplayableErrorMessage(apiError)
 
       switch (apiStatus) {
          case API_FETCHING:
             return <LoadingView />
          case API_SUCCESS:
+<<<<<<< HEAD
             if (isNoData) return <NoDataView />
             else return <RenderSuccessUI />
 
+=======
+            return <RenderSuccessUI />
+>>>>>>> cf45a74c092498b617f5fb22d3de1dea1a38b833
          case API_FAILED:
             return (
                <FailureView onRetryClick={onRetryClick} errorMsg={errorMsg} />

@@ -16,7 +16,6 @@ class FilterBar extends Component {
          filterOptions,
          sortOptions
       } = this.props
-
       return (
          <Bar>
             <TaskCount>{taskCount} Tasks</TaskCount>

@@ -22,7 +22,11 @@ const CustomInput = styled.input`
    }
    ${tw`pl-3`}
 `
+<<<<<<< HEAD
 const Label = styled.label`
+=======
+const CustomLabel = styled.label`
+>>>>>>> cf45a74c092498b617f5fb22d3de1dea1a38b833
    color: ${Colors.steel};
 `
 const Error = styled.span`
@@ -37,10 +41,19 @@ const ErrorIcon = styled.img`
 `
 const InputContainer = styled.div`
    width: 100%;
+<<<<<<< HEAD
    ${tw`relative my-3`};
+=======
+   margin-top: 20px;
+   ${tw`relative`};
+>>>>>>> cf45a74c092498b617f5fb22d3de1dea1a38b833
 `
 const Required = styled.span`
    ${tw`text-red-500`};
 `
 
+<<<<<<< HEAD
 export { CustomInput, Label, Error, ErrorIcon, InputContainer, Required }
+=======
+export { CustomInput, CustomLabel, Error, ErrorIcon, InputContainer, Required }
+>>>>>>> cf45a74c092498b617f5fb22d3de1dea1a38b833
