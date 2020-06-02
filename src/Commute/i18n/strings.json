@@ -1,9 +1,6 @@
 {
    "rideRequestFormHeading": "RIDE REQUEST",
-<<<<<<< HEAD
    "assetRequestFormHeading": "ASSET TRANSPORT REQUEST",
-=======
->>>>>>> cf45a74c092498b617f5fb22d3de1dea1a38b833
    "fromText": "FROM",
    "toText": "TO",
    "dateAndTimeText": "DATE AND TIME",

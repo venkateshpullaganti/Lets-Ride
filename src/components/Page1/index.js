@@ -40,17 +40,12 @@ class Page1 extends React.Component {
                previousLabel={'<'}
                nextLabel={'>'}
                breakLabel={'...'}
-<<<<<<< HEAD
                pageCount={this.pageCount}
-=======
-               pageCount={10}
->>>>>>> cf45a74c092498b617f5fb22d3de1dea1a38b833
                marginPagesDisplayed={2}
                pageRangeDisplayed={1}
                onPageChange={this.handlePageClick}
                containerClassName={'pagination'}
             />
-<<<<<<< HEAD
 
             <div>
                <ReactPaginate
@@ -83,8 +78,6 @@ class Page1 extends React.Component {
                   <option>KJFskdf</option>
                </select>
             </div>
-=======
->>>>>>> cf45a74c092498b617f5fb22d3de1dea1a38b833
          </>
       )
    }
