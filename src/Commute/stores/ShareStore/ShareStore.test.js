@@ -18,13 +18,17 @@ describe('ShareStore Tests', () => {
       comuteAPI = new CommuteService()
       shareStore = new ShareStore(comuteAPI)
    })
+   afterEach(() => jest.resetAllMocks())
 
    it('should test initialising share store', () => {
       expect(shareStore.getTravelInfoAPIStatus).toBe(API_INITIAL)
       expect(shareStore.getRideShareAPIError).toBe(null)
+
+      expect(shareStore.getRideShareAPIStatus).toBe(API_INITIAL)
+      expect(shareStore.getTravelInfoAPIError).toBe(null)
    })
 
-   it('should test rideShare loading state whle sending data', async () => {
+   it('should test rideShareApi loading state while sending data', async () => {
       const onSuccess = jest.fn()
       const onFailure = jest.fn()
 
@@ -48,7 +52,7 @@ describe('ShareStore Tests', () => {
       })
    })
 
-   it('should test the RideRequestAPI success state', async () => {
+   it('should test the rideShareApi success state', async () => {
       const onSuccess = jest.fn()
       const onFailure = jest.fn()
 
@@ -85,7 +89,7 @@ describe('ShareStore Tests', () => {
       expect(onFailure).toBeCalled()
    })
 
-   it('should test travelInfo loading state whle sending data', async () => {
+   it('should test travelInfoAPI loading state while sending data', async () => {
       const onSuccess = jest.fn()
       const onFailure = jest.fn()
 
@@ -97,11 +101,9 @@ describe('ShareStore Tests', () => {
       const mockLoadingPromise = new Promise(function(resolve, reject) {})
       const mockTravelInfoApi = jest.fn()
       mockTravelInfoApi.mockReturnValue(mockLoadingPromise)
-      comuteAPI.travelInfo = shareStore.travelInfo(
-         requestObj,
-         onSuccess,
-         onFailure
-      )
+      comuteAPI.shareTravelInfoApi = mockTravelInfoApi
+
+      shareStore.shareTravelInfo(requestObj, onSuccess, onFailure)
       await waitFor(() => {
          expect(shareStore.getTravelInfoAPIStatus).toBe(API_FETCHING)
          expect(onSuccess).not.toBeCalled()
@@ -109,7 +111,7 @@ describe('ShareStore Tests', () => {
       })
    })
 
-   it('should test the TravelInfoApi success state', async () => {
+   it('should test the travelInfoAPI success state', async () => {
       const onSuccess = jest.fn()
       const onFailure = jest.fn()
 
@@ -118,13 +120,13 @@ describe('ShareStore Tests', () => {
          destination: 'destinationPlace'
       }
 
-      const mockSuccessPromise = Promise.resolve()
+      const mockSuccessPromise = new Promise(resolve => resolve())
 
-      const mockRideRequest = jest.fn()
-      mockRideRequest.mockReturnValue(mockSuccessPromise)
-      comuteAPI.travelInfo = mockRideRequest
+      const mockshareTravelInfoApi = jest.fn()
+      mockshareTravelInfoApi.mockReturnValue(mockSuccessPromise)
+      comuteAPI.shareTravelInfoApi = mockshareTravelInfoApi
 
-      await shareStore.travelInfo(requestObj, onSuccess, onFailure)
+      await shareStore.shareTravelInfo(requestObj, onSuccess, onFailure)
       expect(shareStore.getTravelInfoAPIStatus).toBe(API_SUCCESS)
       expect(onSuccess).toBeCalled()
    })
@@ -138,10 +140,10 @@ describe('ShareStore Tests', () => {
       }
 
       jest
-         .spyOn(comuteAPI, 'travelInfo')
+         .spyOn(comuteAPI, 'shareTravelInfoApi')
          .mockImplementation(() => Promise.reject())
 
-      await shareStore.travelInfo(requestObj, onSuccess, onFailure)
+      await shareStore.shareTravelInfo(requestObj, onSuccess, onFailure)
       expect(shareStore.getTravelInfoAPIStatus).toBe(API_FAILED)
       expect(onFailure).toBeCalled()
    })

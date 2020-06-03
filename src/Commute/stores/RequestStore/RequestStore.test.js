@@ -18,10 +18,13 @@ describe('RequestStore Tests', () => {
       comuteAPI = new CommuteService()
       requestStore = new RequestStore(comuteAPI)
    })
+   afterEach(() => jest.resetAllMocks())
 
    it('should test initialising request store', () => {
       expect(requestStore.getRideRequestAPIStatus).toBe(API_INITIAL)
       expect(requestStore.getRideRequestAPIError).toBe(null)
+      expect(requestStore.getAssetRequestAPIStatus).toBe(API_INITIAL)
+      expect(requestStore.getAssetRequestAPIError).toBe(null)
    })
 
    it('should test rideRequest loading state whle sending data', async () => {
@@ -68,7 +71,46 @@ describe('RequestStore Tests', () => {
       expect(onSuccess).toBeCalled()
    })
 
-   it('should test rideRequestAPI failure state', async () => {
+   it('should test assetRequest loading state whle sending data', async () => {
+      const onSuccess = jest.fn()
+      const onFailure = jest.fn()
+
+      const requestObject = {
+         source: 'sourcePlace',
+         destination: 'destinationPlace'
+      }
+
+      const mockLoadingPromise = new Promise(function(resolve, reject) {})
+      const mockAssetRequestAPI = jest.fn()
+      mockAssetRequestAPI.mockReturnValue(mockLoadingPromise)
+      comuteAPI.assetRequest = mockAssetRequestAPI
+      requestStore.assetRequest(requestObject, onSuccess, onFailure)
+      await waitFor(() => {
+         expect(requestStore.getAssetRequestAPIStatus).toBe(API_FETCHING)
+         expect(onSuccess).not.toBeCalled()
+         expect(onFailure).not.toBeCalled()
+      })
+   })
+   it('should test the AssetRequestApi success state', async () => {
+      const onSuccess = jest.fn()
+      const onFailure = jest.fn()
+
+      const requestObject = {
+         source: 'sourcePlace',
+         destination: 'destinationPlace'
+      }
+
+      const mockSuccessPromise = new Promise(resolve => resolve())
+
+      const mockAssetRequest = jest.fn()
+      mockAssetRequest.mockReturnValue(mockSuccessPromise)
+      comuteAPI.assetRequest = mockAssetRequest
+
+      await requestStore.assetRequest(requestObject, onSuccess, onFailure)
+      expect(requestStore.getAssetRequestAPIStatus).toBe(API_SUCCESS)
+      expect(onSuccess).toBeCalled()
+   })
+   it('should test assetRequestApi failure state', async () => {
       const onSuccess = jest.fn()
       const onFailure = jest.fn()
       const requestObject = {
@@ -77,11 +119,11 @@ describe('RequestStore Tests', () => {
       }
 
       jest
-         .spyOn(comuteAPI, 'rideRequest')
+         .spyOn(comuteAPI, 'assetRequest')
          .mockImplementation(() => Promise.reject())
 
-      await requestStore.rideRequest(requestObject, onSuccess, onFailure)
-      expect(requestStore.getRideRequestAPIStatus).toBe(API_FAILED)
+      await requestStore.assetRequest(requestObject, onSuccess, onFailure)
+      expect(requestStore.getAssetRequestAPIStatus).toBe(API_FAILED)
       expect(onFailure).toBeCalled()
    })
 })

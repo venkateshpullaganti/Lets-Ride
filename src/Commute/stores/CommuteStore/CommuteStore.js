@@ -132,6 +132,7 @@ class CommuteStore {
    }
 
    convertCamelCaseToUpperCase = str => str.replace('_', ' ').toUpperCase()
+
    @action
    getMyRideRequests(requestObject, paginationObj) {
       const myRideRequestsPromise = this.commuteAPIService.myRideRequestsApi(

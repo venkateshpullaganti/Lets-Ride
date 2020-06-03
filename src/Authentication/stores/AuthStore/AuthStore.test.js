@@ -44,7 +44,7 @@ describe('AuthStore Tests', () => {
       const mockLoadingPromise = new Promise(function(resolve, reject) {})
       const mockSignInAPI = jest.fn()
       mockSignInAPI.mockReturnValue(mockLoadingPromise)
-      authAPI.signInAPI = authStore.userSignIn(
+      authAPI.signInApi = authStore.userSignIn(
          requestObject,
          onSuccess,
          onFailure
@@ -67,7 +67,7 @@ describe('AuthStore Tests', () => {
 
       const mockSignInAPI = jest.fn()
       mockSignInAPI.mockReturnValue(mockSuccessPromise)
-      authAPI.signInAPI = mockSignInAPI
+      authAPI.signInApi = mockSignInAPI
 
       await authStore.userSignIn(requestObject, onSuccess, onFailure)
       expect(authStore.getUserSignInAPIStatus).toBe(API_SUCCESS)
@@ -84,7 +84,7 @@ describe('AuthStore Tests', () => {
       }
 
       jest
-         .spyOn(authAPI, 'signInAPI')
+         .spyOn(authAPI, 'signInApi')
          .mockImplementation(() => Promise.reject())
 
       await authStore.userSignIn(requestObject, onSuccess, onFailure)

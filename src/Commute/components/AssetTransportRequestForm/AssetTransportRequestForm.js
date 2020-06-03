@@ -15,7 +15,7 @@ import { Input } from '../../../Common/components/Input'
 import { DateAndTimePicker } from '../../../Common/components/DateAndTimePicker'
 import { Selector } from '../../../Common/components/Selector'
 
-import { Heading, Label } from '../../styledComponents'
+import { Heading } from '../../styledComponents'
 import strings from '../../i18n/strings.json'
 
 import { Header } from '../Header'
