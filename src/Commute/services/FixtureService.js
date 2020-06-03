@@ -36,6 +36,7 @@ class FixtureService {
       })
    }
    assetRequest = requestObject => {
+      console.log('service', requestObject)
       return new Promise(resolve => {
          setTimeout(() => {
             resolve()
@@ -49,7 +50,7 @@ class FixtureService {
          }, 2000)
       })
    }
-   travelInfo = requestObject => {
+   shareTravelInfoApi = requestObject => {
       return new Promise((resolve, reject) => {
          resolve()
       })

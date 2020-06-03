@@ -29,7 +29,6 @@ class Page1 extends React.Component {
    }
 
    render() {
-      console.log('render', this.page)
       return (
          <>
             <Loader type='Puff' color='#00BFFF' height={100} width={100} />

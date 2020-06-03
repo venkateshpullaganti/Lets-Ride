@@ -1,6 +1,11 @@
 import getData from '@ib/api'
 
-import { apiMethods, statusCodes, resStatuses } from '../constants/APIConstants'
+import {
+   apiMethods,
+   statusCodes,
+   resStatuses,
+   apiErrorProblems
+} from '../Common/constants/APIConstants'
 
 import { getAccessToken } from './StorageUtils'
 
@@ -29,7 +34,7 @@ export const getUserDisplayableErrorMessage = error => {
    return formattedError.description
 }
 
-export function isNetworkError(error): boolean {
+export function isNetworkError(error) {
    const apiError = JSON.parse(error)
    const { networkError, timeoutError } = apiErrorProblems
    return apiError.problem === networkError || apiError.problem === timeoutError

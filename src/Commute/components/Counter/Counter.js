@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 
-import { Btn, CounterContainer, Label, Input, Error } from './styledComponents'
+import {
+   Btn,
+   CounterContainer,
+   Label,
+   Input,
+   Error,
+   Required
+} from './styledComponents'
 
 @observer
 class Counter extends Component {
@@ -13,11 +20,15 @@ class Counter extends Component {
          onDecrement,
          onChange,
          isError,
-         errorMsg
+         errorMsg,
+         isRequired
       } = this.props
       return (
          <CounterContainer>
-            <Label htmlFor={'input'}>{labelText}</Label>
+            <Label htmlFor={'input'}>
+               {labelText}
+               <Required>{isRequired ? '*' : null}</Required>
+            </Label>
             <Btn type='button' onClick={onDecrement}>
                {'-'}
             </Btn>

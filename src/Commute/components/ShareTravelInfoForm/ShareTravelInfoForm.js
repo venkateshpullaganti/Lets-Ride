@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
-
-import Select from 'react-select'
+import moment from 'moment'
+import { observable, computed } from 'mobx'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
-import {
-   ASSET_SENSITIVITY_OPTIONS,
-   ASSET_TYPES
-} from '../../constants/CommuteConstants'
+import { TRAVEL_MEDIUM_OPTIONS } from '../../constants/CommuteConstants'
 
 import { Button } from '../../../Common/components/Button'
 import { Input } from '../../../Common/components/Input'
@@ -26,113 +23,217 @@ import { AssetRequest, Form } from './styledComponents'
 
 @observer
 class ShareTravelInfoForm extends Component {
-   render() {
+   @observable destinationPlace
+   @observable sourcePlace
+   @observable errorMsg
+   @observable isFlexible
+   @observable assetCount
+
+   @observable travelMedium
+
+   travelDate
+   flexibleFromDate
+   flexibleToDate
+
+   @observable date = new Date()
+   constructor(props) {
+      super(props)
+      this.init()
+   }
+
+   init = () => {
+      this.assetCount = 0
+      this.isFlexible = false
+      this.destinationPlace = ''
+      this.sourcePlace = ''
+      this.errorMsg = null
+      this.travelDate = ''
+      this.flexibleFromDate = ''
+      this.flexibleToDate = ''
+      this.travelMedium = ''
+   }
+   onChangeSource = event => {
+      this.sourcePlace = event.target.value
+   }
+   onChangeDestination = event => {
+      this.destinationPlace = event.target.value
+   }
+   toggleIsFlexible = () => {
+      this.isFlexible = !this.isFlexible
+   }
+   onChangeDate = dateObj => {
+      this.travelDate = moment(dateObj).format('YYYY-MM-DD hh:mm A')
+   }
+
+   onChangeFlexibleFromDate = date => {
+      this.flexibleFromDate = moment(date).format('YYYY-MM-DD hh:mm A')
+   }
+   onChangeFlexibleToDate = date => {
+      this.flexibleToDate = moment(date).format('YYYY-MM-DD hh:mm A')
+   }
+
+   onIncrementAssetsCount = () => {
+      this.assetCount++
+   }
+   onDecrementAssetsCount = () => {
+      if (this.assetCount > 0) this.assetCount--
+   }
+   onChangeAssetsCount = event => {
+      this.assetCount = parseInt(event.target.value)
+   }
+
+   onSubmit = event => {
+      event.preventDefault()
       const {
-         onChangeSource,
-         onChangeDestination,
-         isSourceError,
-         errorMsg,
          sourcePlace,
-         isTravelDateError,
-         isFlexibleTimingsError,
-         isDestinationError,
          destinationPlace,
-         onChangeFlexibleFromDate,
-         onChangeFlexibleToDate,
-         onIncrementAssetsCount,
-         onDecrementAssetsCount,
-         onChangeAssetsCount,
-         toggleIsFlexible,
          isFlexible,
-         assetCount,
-         isLoading,
-         onChangeDate,
-         isSeatCountError,
-         btnDisplayText,
-         onSubmit,
-         onChangeAssetType,
-         selectedAssetType,
-         onChangeAssetSensitivity,
-         selectedAssetSensitivity,
-         isWhomToDeliverError,
-         onChangeWhomToDeliver,
-         whomToDeliver
-      } = this.props
+         flexibleFromDate,
+         flexibleToDate,
+         assetCount
+      } = this
+      const { onSubmit } = this.props
+
+      if (sourcePlace === '') {
+         this.errorMsg = strings.sourcePlaceError
+      } else if (destinationPlace === '') {
+         this.errorMsg = strings.destinationPlaceError
+      } else if (!isFlexible && this.travelDate === '') {
+         this.errorMsg = strings.travelDateError
+      } else if (
+         isFlexible &&
+         (flexibleFromDate === '' || flexibleToDate === '')
+      ) {
+         this.errorMsg = strings.flexibleTimingsError
+      } else if (this.travelMedium === '') {
+         this.errorMsg = strings.travelMediumError
+      } else if (assetCount === 0) {
+         this.errorMsg = strings.assetCountError
+      } else {
+         this.errorMsg = null
+
+         // this.doNetworkCalls()  create obj and send to route
+
+         const {
+            sourcePlace,
+            destinationPlace,
+            isFlexible,
+            flexibleFromDate,
+            flexibleToDate,
+            assetCount,
+            travelDate,
+            travelMedium
+         } = this
+
+         const data = {
+            sourcePlace,
+            destinationPlace,
+            isFlexible,
+            flexibleFromDate,
+            flexibleToDate,
+            assetCount,
+            travelDate,
+            travelMedium
+         }
+         console.log('data', data)
+
+         onSubmit(data)
+      }
+   }
+   @computed
+   get isSourceError() {
+      return this.errorMsg === strings.sourcePlaceError
+   }
+   @computed
+   get isDestinationError() {
+      return this.errorMsg === strings.destinationPlaceError
+   }
+   @computed
+   get isTravelDateError() {
+      return this.errorMsg === strings.travelDateError
+   }
+   @computed
+   get isFlexibleTimingsError() {
+      return this.errorMsg === strings.flexibleTimingsError && this.isFlexible
+   }
+
+   @computed
+   get isTravelMediumError() {
+      return this.errorMsg === strings.travelMediumError
+   }
+   @computed
+   get isAssetCountError() {
+      return this.errorMsg === strings.assetCountError
+   }
+
+   onChangeAssetSensitivity = selectedSensitivity => {
+      this.travelMedium = selectedSensitivity.value
+   }
+
+   render() {
+      const { isLoading, btnDisplayText } = this.props
 
       return (
          <AssetRequest>
             <Header />
-            <Form onSubmit={onSubmit}>
-               <Heading>{strings.assetRequestFormHeading}</Heading>
+            <Form onSubmit={this.onSubmit}>
+               <Heading>{strings.shareTravelInfoHeading}</Heading>
                <Input
                   type={'text'}
                   labelText={strings.fromText}
                   id={'sourcePlace'}
-                  isError={isSourceError}
-                  onChange={onChangeSource}
-                  errorMsg={errorMsg}
+                  isError={this.isSourceError}
+                  onChange={this.onChangeSource}
+                  errorMsg={this.errorMsg}
                   isRequired={true}
-                  value={sourcePlace}
+                  value={this.sourcePlace}
                />
                <Input
                   type={'text'}
                   labelText={strings.toText}
                   id={'destination'}
-                  isError={isDestinationError}
-                  onChange={onChangeDestination}
-                  errorMsg={errorMsg}
+                  isError={this.isDestinationError}
+                  onChange={this.onChangeDestination}
+                  errorMsg={this.errorMsg}
                   isRequired={true}
-                  value={destinationPlace}
+                  value={this.destinationPlace}
                />
 
                <DateAndTimePicker
-                  onChange={onChangeDate}
+                  onChange={this.onChangeDate}
                   labelText={strings.dateAndTimeLabel}
-                  isError={isTravelDateError}
-                  errorMsg={errorMsg}
-                  isRequired={!isFlexible}
+                  isError={this.isTravelDateError}
+                  errorMsg={this.errorMsg}
+                  isRequired={!this.isFlexible}
                />
                <FlexibleTimings
-                  isFlexible={isFlexible}
-                  onChangeFlexibleFromDate={onChangeFlexibleFromDate}
-                  onChangeFlexibleToDate={onChangeFlexibleToDate}
-                  toggleIsFlexible={toggleIsFlexible}
-                  isError={isFlexibleTimingsError}
-                  errorMsg={errorMsg}
+                  isFlexible={this.isFlexible}
+                  onChangeFlexibleFromDate={this.onChangeFlexibleFromDate}
+                  onChangeFlexibleToDate={this.onChangeFlexibleToDate}
+                  toggleIsFlexible={this.toggleIsFlexible}
+                  isError={this.isFlexibleTimingsError}
+                  errorMsg={this.errorMsg}
+               />
+
+               <Selector
+                  options={TRAVEL_MEDIUM_OPTIONS}
+                  label={strings.travelMedium}
+                  placeholder={strings.travelMediumPlaceholder}
+                  value={this.travelMedium}
+                  onChange={this.onChangeAssetSensitivity}
+                  isRequired={true}
+                  isError={this.isTravelMediumError}
+                  errorMsg={this.errorMsg}
                />
                <Counter
-                  labelText={strings.noOfAssets}
-                  count={assetCount}
-                  onIncrement={onIncrementAssetsCount}
-                  onDecrement={onDecrementAssetsCount}
-                  onChange={onChangeAssetsCount}
-                  isError={isSeatCountError}
-                  errorMsg={errorMsg}
-               />
-               <Selector
-                  options={ASSET_TYPES}
-                  label={strings.assetType}
-                  placeholder={strings.selectAssetType}
-                  value={selectedAssetType}
-                  onChange={onChangeAssetType}
-               />
-               <Selector
-                  options={ASSET_SENSITIVITY_OPTIONS}
-                  label={strings.assetSensitivity}
-                  placeholder={strings.selectAssetSensitivity}
-                  value={selectedAssetSensitivity}
-                  onChange={onChangeAssetSensitivity}
-               />
-               <Input
-                  type={'text'}
-                  labelText={strings.whomToDeliver}
-                  id={'whomToDeliver'}
-                  isError={isWhomToDeliverError}
-                  onChange={onChangeWhomToDeliver}
-                  errorMsg={errorMsg}
+                  labelText={strings.assetQuantity}
+                  count={this.assetCount}
+                  onIncrement={this.onIncrementAssetsCount}
+                  onDecrement={this.onDecrementAssetsCount}
+                  onChange={this.onChangeAssetsCount}
+                  isError={this.isAssetCountError}
+                  errorMsg={this.errorMsg}
                   isRequired={true}
-                  value={whomToDeliver}
-                  placeholder={strings.nameMobile}
                />
 
                <Button
@@ -147,9 +248,3 @@ class ShareTravelInfoForm extends Component {
 }
 
 export { ShareTravelInfoForm }
-
-const options = [
-   { value: 'chocolate', label: 'Chocolate' },
-   { value: 'strawberry', label: 'Strawberry' },
-   { value: 'vanilla', label: 'Vanilla' }
-]

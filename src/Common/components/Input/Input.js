@@ -22,11 +22,12 @@ class Input extends Component {
          isError,
          placeholder,
          value,
-         isRequired
+         isRequired,
+         shouldShow
       } = this.props
 
       return (
-         <InputContainer>
+         <InputContainer shouldShow={shouldShow}>
             <Label htmlFor={id}>{labelText}</Label>
             <Required>{isRequired ? '*' : null}</Required>
             {isError ? <ErrorIcon src={images.errorIcon} /> : null}
@@ -47,7 +48,7 @@ class Input extends Component {
 Input.defaultProps = {
    type: 'text',
    id: '21',
-
+   shouldShow: true,
    labelText: 'Enter Text',
    errorMsg: 'input error',
    isError: false

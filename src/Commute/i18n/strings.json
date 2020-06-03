@@ -36,5 +36,17 @@
    "selectAssetSensitivity": "Select Asset Sensitivity",
    "assetSensitivity": "ASSET SENSITIVITY",
    "nameMobile": "Name-mobile number",
-   "whomToDeliver": "WHOM TO DELIVER"
+   "whomToDeliver": "WHOM TO DELIVER",
+   "shareTravelInfo": "SHARE TRAVEL INFO",
+   "assetTypeError": "Asset Type Required.",
+   "assetSensitivityError": "Asset Sensitivity Required.",
+   "whomToDeliverError": "Whom To Deliver ..?",
+   "assetTypeOthers": "Others",
+   "assetTypeOthersPlaceholder": "laptop",
+   "assetTypeOthersError": "please specify Asset Type.",
+   "travelMediumError": "Travel Medium Required",
+   "shareTravelInfoHeading": "SHARE TRAVEL INFO",
+   "travelMediumPlaceholder": "Select medium",
+   "travelMedium": "TRAVEL MEDIUM",
+   "assetQuantity": "ASSETS QUANTITY"
 }

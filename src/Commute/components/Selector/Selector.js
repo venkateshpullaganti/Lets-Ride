@@ -17,7 +17,8 @@ import images from '../../../Common/themes/Images'
 @observer
 class Selector extends Component {
    @observable shouldShowDropdown
-   @observable shouldShowSortOptions
+
+   // @observable shouldShowSortOptions
 
    constructor(props) {
       super(props)
@@ -28,18 +29,17 @@ class Selector extends Component {
    toggleDropdown = event => {
       this.shouldShowDropdown = !this.shouldShowDropdown
    }
-   toggleSortOptions = () => {
-      this.shouldShowSortOptions = !this.shouldShowSortOptions
-   }
+   // toggleSortOptions = () => {
+   //    this.shouldShowSortOptions = !this.shouldShowSortOptions
+   // }
 
    renderOptions = () => {
-      const { options, onChange, isSorter } = this.props
+      const { options, onChange } = this.props
       return options.map(option => (
          <Item
             key={uuid()}
             id={option.value}
-            onMouseEnter={this.toggleSortOptions}
-            onMouseLeave={this.toggleSortOptions}
+            onClick={() => onChange(option.value)}
          >
             {option.label}
          </Item>
@@ -48,7 +48,7 @@ class Selector extends Component {
    onBlur = () => {
       setTimeout(() => {
          this.shouldShowDropdown = false
-      }, 300)
+      }, 250)
    }
 
    render() {

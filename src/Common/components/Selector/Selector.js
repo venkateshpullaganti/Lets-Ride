@@ -1,23 +1,39 @@
 import React from 'react'
 import Select from 'react-select'
 
-import { Label } from '../Input/styledComponents'
+import { Label, Required, Error } from '../Input/styledComponents'
 
 export function Selector(props) {
-   const { options, label, placeholder, value, onChange } = props
+   const {
+      options,
+      label,
+      placeholder,
+      value,
+      onChange,
+      isRequired,
+      isError,
+      errorMsg
+   } = props
    return (
       <>
          <Label className='mt-6' htmlFor={label}>
             {label}
+            <Required>{isRequired ? '*' : null}</Required>
          </Label>
          <Select
             id={label}
-            value={value}
-            className='selector-styles'
+            // styles={customStyles}
+            className={
+               isError
+                  ? `selector-styles border border-red-500 border-solid rounded`
+                  : `selector-styles rounded`
+            }
             onChange={onChange}
             options={options}
             placeholder={placeholder}
+            selectedValue={options.filter(opt => opt.value === value)}
          />
+         <Error>{isError ? 'Required' : null}</Error>
       </>
    )
 }
@@ -25,12 +41,11 @@ export function Selector(props) {
 const customStyles = {
    option: (provided, state) => ({
       ...provided,
-      borderBottom: '1px dotted pink',
-      color: state.isSelected ? 'red' : 'blue',
-      padding: 20
+      border: '1px solid transparent'
    }),
    control: () => ({
       // none of react-select's styles are passed to <Control />
+      border: '1px solid transparent',
       width: 200
    }),
    singleValue: (provided, state) => {

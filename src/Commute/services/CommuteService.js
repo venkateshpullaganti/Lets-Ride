@@ -62,7 +62,8 @@ class CommuteService {
          apiMethods.get
       )
    }
-   travelInfo = requestObject => {
+   shareTravelInfoApi = requestObject => {
+      console.log('api', requestObject)
       return networkCallWithApisauce(
          this.travelInfoApi,
          '/share_travel_info/v1/',
@@ -78,21 +79,61 @@ class CommuteService {
          apiMethods.get
       )
    }
-   myAssetRequestsApi = (requestObject, paginationObj) => {
+   myAssetRequestsApi = (requestObject, otherParams) => {
+      const limtAndOffset = `offset=${otherParams.offset}&limit=${otherParams.limit}`
+      let status = ``
+
+      let sortParams = ``
+
+      if (otherParams.sort_key !== '' || otherParams.sort_key !== null)
+         sortParams = `&sort_key=${otherParams.sort_key}&sort_value=${otherParams.sort_value}`
+
+      if (otherParams.status !== '' && otherParams.status !== null)
+         status = `&status=${otherParams.status}`
+
+      let endPoint = `${limtAndOffset}`
+      if (status !== '') endPoint = `${endPoint}${status}`
+      if (sortParams !== '') endPoint = `${endPoint}${sortParams}`
+
       return networkCallWithApisauce(
          this.myAssetsRequestsAPI,
-         '',
+         `/asets/v1/?${endPoint}`,
          requestObject,
          apiMethods.get
       )
    }
-   myRideRequestsApi = (requestObject, paginationObj) => {
+   myRideRequestsApi = (requestObject, otherParams) => {
+      const limtAndOffset = `offset=${otherParams.offset}&limit=${otherParams.limit}`
+      let status = ``
+
+      let sortParams = ``
+
+      if (otherParams.sort_key !== '' || otherParams.sort_key !== null)
+         sortParams = `&sort_key=${otherParams.sort_key}&sort_value=${otherParams.sort_value}`
+
+      if (otherParams.status !== '' && otherParams.status !== null)
+         status = `&status=${otherParams.status}`
+
+      let endPoint = `${limtAndOffset}`
+      if (status !== '') endPoint = `${endPoint}${status}`
+      if (sortParams !== '') endPoint = `${endPoint}${sortParams}`
+
       return networkCallWithApisauce(
          this.myRideRequestsAPI,
-         '',
+         `/rides/v1/?${endPoint}`,
          requestObject,
          apiMethods.get
       )
    }
 }
 export { CommuteService }
+
+//  /rides/v1/?offset=1&limit=5&status=filtervalue&sort_key=sortvalue&sort_value=ASC
+
+//  otherParams = {
+//     limit: PAGINATION_LIMIT,
+//     offset: this.assetPaginationOffset,
+//     status: this.assetSelectedFilter,
+//     sort_key: this.assetSelectedSort,
+//     sort_value: 'ASC'
+//  }

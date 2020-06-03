@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
+import moment from 'moment'
 import { observer, inject } from 'mobx-react'
-import { observable } from 'mobx'
+import { observable, computed } from 'mobx'
 import { API_FETCHING } from '@ib/api-constants'
 
-import { AssetTransportRequestForm } from '../../components/AssetTransportRequestForm'
+import { ShareTravelInfoForm } from '../../components/ShareTravelInfoForm'
 import strings from '../../i18n/strings.json'
 
-@inject('requestStore')
+@inject('shareStore')
 @observer
-class AssetTransportRequestRoute extends Component {
+class ShareTravelInfoRoute extends Component {
    @observable btnDisplayText
 
    constructor(props) {
@@ -19,30 +20,27 @@ class AssetTransportRequestRoute extends Component {
    }
 
    init = () => {
-      this.btnDisplayText = strings.requestBtnText
+      this.btnDisplayText = strings.shareBtnText
    }
 
-   get requestStore() {
-      return this.props.requestStore
+   get shareStore() {
+      return this.props.shareStore
    }
 
    onSubmit(formData) {
-      this.doNetworkCalls(formData)
+      this.doNetworkCall(formData)
    }
 
-   doNetworkCalls = formData => {
+   doNetworkCall = formData => {
       const {
          sourcePlace,
          destinationPlace,
          isFlexible,
          flexibleFromDate,
          flexibleToDate,
-         assetCount,
          travelDate,
-         selectedAssetSensitivity,
-         selectedAssetType,
-         whomToDeliver,
-         assetTypeOthers
+         travelMedium,
+         assetCount
       } = formData
       let mainDate, fromDate, toDate
 
@@ -63,37 +61,34 @@ class AssetTransportRequestRoute extends Component {
          travel_date_time: mainDate,
          flexible_from_date_time: fromDate,
          flexible_to_date_time: toDate,
-         asset_quantity: assetCount,
-         asset_type: selectedAssetType,
-         asset_sensitivity: selectedAssetSensitivity,
-         asset_type_others: assetTypeOthers,
-         deliver_to: whomToDeliver.split('-')[0],
-         phone_number: whomToDeliver.split('-')[1]
+         travel_medium: travelMedium,
+         asset_quantity: assetCount
       }
-      console.log('route', requestObj)
+      console.log(requestObj)
 
-      this.requestStore.assetRequest(requestObj, this.onSuccess, this.onFailure)
+      this.shareStore.shareTravelInfo(
+         requestObj,
+         this.onSuccess,
+         this.onFailure
+      )
    }
-   onSuccess() {
+   onSuccess = () => {
+      alert('successfully added')
       this.init()
    }
-
    onFailure(error) {
       this.btnDisplayText = strings.retry
-      console.log('failed')
    }
 
    render() {
       return (
-         <AssetTransportRequestForm
+         <ShareTravelInfoForm
             onSubmit={this.onSubmit}
             btnDisplayText={this.btnDisplayText}
-            isLoading={
-               this.requestStore.getAssetRequestAPIStatus === API_FETCHING
-            }
+            isLoading={this.shareStore.getRideShareAPIStatus === API_FETCHING}
          />
       )
    }
 }
 
-export { AssetTransportRequestRoute }
+export { ShareTravelInfoRoute }

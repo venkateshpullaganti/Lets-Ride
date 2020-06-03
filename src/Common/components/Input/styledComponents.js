@@ -36,6 +36,7 @@ const ErrorIcon = styled.img`
    ${tw`absolute`}
 `
 const InputContainer = styled.div`
+   display: ${props => (props.shouldShow ? 'block' : 'none')};
    width: 100%;
    ${tw`relative my-3`};
 `

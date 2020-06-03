@@ -41,4 +41,8 @@ const Error = styled.span`
    color: ${Colors.neonRed};
    ${tw`text-sm ml-1`};
 `
-export { Btn, CounterContainer, Label, Input, Error }
+
+const Required = styled.span`
+   ${tw`text-red-500`};
+`
+export { Btn, CounterContainer, Label, Input, Error, Required }

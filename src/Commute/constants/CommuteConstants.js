@@ -12,3 +12,8 @@ export const ASSET_SENSITIVITY_OPTIONS = [
    { value: 'MEDIUM', label: 'Medium' },
    { value: 'LOW', label: 'Low' }
 ]
+export const TRAVEL_MEDIUM_OPTIONS = [
+   { value: 'BUS', label: 'Bus' },
+   { value: 'TRAIN', label: 'Train' },
+   { value: 'FLIGHT', label: 'Flight' }
+]

@@ -34,7 +34,7 @@ const DisplayName = styled.button`
       outline: none;
    }
 `
-const Item = styled.div`
+const Item = styled.button`
    font-size: 14px;
 
    width: 100%;

@@ -1,0 +1,1 @@
+export { ShareTravelInfoRoute } from './ShareTravelInfoRoute'
