@@ -14,6 +14,8 @@ class AuthStore {
    @observable getUserProfileAPIStatus
    @observable getUserProfileAPIError
 
+   @observable userProfile
+
    authAPIService
 
    constructor(authService) {
@@ -42,6 +44,7 @@ class AuthStore {
       this.getUserSignInAPIError = null
       this.getUserProfileAPIStatus = API_INITIAL
       this.getUserProfileAPIError = null
+      this.userProfile = {}
    }
    @action.bound
    userSignIn(requestObject, onSuccess, onFailure) {
@@ -60,7 +63,9 @@ class AuthStore {
 
    @action.bound
    setUserProfileAPIResponse(response) {
-      
+      this.userProfile.userName = response.username
+      this.userProfile.phoneNumber = response.phone_number
+      this.userProfile.profileImage = response.profile_pic_url
    }
 
    @action.bound
@@ -74,18 +79,16 @@ class AuthStore {
    }
 
    @action.bound
-   getUserProfile(requestObject, onSuccess, onFailure) {
+   getUserProfile(requestObject) {
       const userProfilePromise = this.authAPIService.userProfileApi(
          requestObject
       )
       return bindPromiseWithOnSuccess(userProfilePromise)
          .to(this.setGetUserProfileAPIStatus, response => {
             this.setUserProfileAPIResponse(response)
-            onSuccess()
          })
          .catch(apiError => {
             this.setGetUserProfileAPIError(apiError)
-            onFailure()
          })
    }
 

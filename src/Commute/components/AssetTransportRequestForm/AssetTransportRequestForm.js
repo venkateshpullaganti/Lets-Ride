@@ -5,6 +5,8 @@ import { observable, computed } from 'mobx'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
+import withHeader from '../Common/hocs/withHeader'
+
 import {
    ASSET_SENSITIVITY_OPTIONS,
    ASSET_TYPES
@@ -209,7 +211,7 @@ class AssetTransportRequestForm extends Component {
 
       return (
          <AssetRequest>
-            <Header />
+            {/* <Header /> */}
             <Form onSubmit={this.onSubmit}>
                <Heading>{strings.assetRequestFormHeading}</Heading>
                <Input
@@ -309,7 +311,7 @@ class AssetTransportRequestForm extends Component {
    }
 }
 
-export { AssetTransportRequestForm }
+export default withHeader(AssetTransportRequestForm)
 
 const options = [
    { value: 'chocolate', label: 'Chocolate' },

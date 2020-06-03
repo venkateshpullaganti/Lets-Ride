@@ -12,6 +12,8 @@ import strings from '../../i18n/strings.json'
 
 import { Header } from '../Header'
 import { Counter } from '../Counter'
+
+import withHeader from '../Common/hocs/withHeader'
 import { FlexibleTimings } from '../FlexibleTimings'
 
 import { RideRequest, Form } from './styledComponents'
@@ -117,4 +119,4 @@ class RideRequestForm extends Component {
    }
 }
 
-export { RideRequestForm }
+export default withHeader(RideRequestForm)

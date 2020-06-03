@@ -1,8 +1,7 @@
 import { create } from 'apisauce'
 
-import { apiMethods } from '../../Common/constants/APIConstants'
-
 import getUserSignInFixture from '../fixtures/getUserSignInFixture.json'
+import getUserProfileFIxture from '../fixtures/getUserProfileFIxture.json'
 
 class FixtureService {
    api
@@ -12,9 +11,16 @@ class FixtureService {
       })
    }
    signInAPI = requestObject => {
-      return new Promise((resolve, reject) => {
+      return new Promise(resolve => {
          setTimeout(() => {
             resolve(getUserSignInFixture)
+         }, 1000)
+      })
+   }
+   userProfileApi = requestObject => {
+      return new Promise(resolve => {
+         setTimeout(() => {
+            resolve(getUserProfileFIxture)
          }, 1000)
       })
    }

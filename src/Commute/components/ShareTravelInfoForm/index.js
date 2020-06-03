@@ -1,1 +1,2 @@
-export { ShareTravelInfoForm } from './ShareTravelInfoForm'
+import ShareTravelInfoForm from './ShareTravelInfoForm'
+export { ShareTravelInfoForm }

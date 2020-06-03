@@ -1,1 +1,2 @@
-export { AssetTransportRequestForm } from './AssetTransportRequestForm'
+import AssetTransportRequestForm from './AssetTransportRequestForm'
+export { AssetTransportRequestForm }

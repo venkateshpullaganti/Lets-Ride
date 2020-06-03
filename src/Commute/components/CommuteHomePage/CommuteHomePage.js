@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 
-import { Header } from '../Header'
 import { MyRequests } from '../MyRequests'
+
+import withHeader from '../Common/hocs/withHeader'
 
 import { Root, Body } from './styledComponents'
 
@@ -9,7 +10,6 @@ class CommuteHomePage extends Component {
    render() {
       return (
          <Root>
-            <Header />
             <Body>
                <MyRequests />
             </Body>
@@ -18,4 +18,4 @@ class CommuteHomePage extends Component {
    }
 }
 
-export { CommuteHomePage }
+export default withHeader(CommuteHomePage)

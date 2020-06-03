@@ -18,6 +18,7 @@ import strings from '../../i18n/strings.json'
 import { Header } from '../Header'
 import { Counter } from '../Counter'
 import { FlexibleTimings } from '../FlexibleTimings'
+import withHeader from '../Common/hocs/withHeader'
 
 import { AssetRequest, Form } from './styledComponents'
 
@@ -175,7 +176,6 @@ class ShareTravelInfoForm extends Component {
 
       return (
          <AssetRequest>
-            <Header />
             <Form onSubmit={this.onSubmit}>
                <Heading>{strings.shareTravelInfoHeading}</Heading>
                <Input
@@ -247,4 +247,4 @@ class ShareTravelInfoForm extends Component {
    }
 }
 
-export { ShareTravelInfoForm }
+export default withHeader(ShareTravelInfoForm)

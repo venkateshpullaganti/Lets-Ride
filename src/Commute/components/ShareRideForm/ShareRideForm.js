@@ -3,6 +3,8 @@ import { observer } from 'mobx-react'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
+import withHeader from '../Common/hocs/withHeader'
+
 import { Button } from '../../../Common/components/Button'
 import { Input } from '../../../Common/components/Input'
 import { DateAndTimePicker } from '../../../Common/components/DateAndTimePicker'
@@ -47,10 +49,10 @@ class ShareRideForm extends Component {
          isSeatCountError,
          btnDisplayText
       } = this.props
-
+      console.log('form render object')
       return (
          <ShareRide>
-            <Header />
+            {/* <Header /> */}
             <Form onSubmit={onSubmit}>
                <Heading className='self-center'>
                   {strings.rideShareHeaderText}
@@ -119,7 +121,7 @@ class ShareRideForm extends Component {
    }
 }
 
-export { ShareRideForm }
+export default withHeader(ShareRideForm)
 
 ShareRideForm.defaultProps = {
    btnDisplayText: 'SHARE'
