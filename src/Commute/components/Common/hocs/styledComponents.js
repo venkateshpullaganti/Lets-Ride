@@ -3,7 +3,7 @@ import tw from 'tailwind.macro'
 
 import Colors from '../../../../Common/themes/Colors'
 
-const Container = styled.div`
+const Header = styled.div`
    height: 70px;
    width: 100%;
    background: ${Colors.white};
@@ -22,7 +22,8 @@ const ProfileIcon = styled.img`
    background: ${Colors.duckEggBlue};
    ${tw`rounded-full m-2 flex justify-center items-center`};
 `
-const profileImage = styled.img`
-   ${tw``};
+
+const Body = styled.div`
+   ${tw`h-screen w-screen`};
 `
-export { Container, Actions, ProfileIcon }
+export { Header, Actions, ProfileIcon, Body }

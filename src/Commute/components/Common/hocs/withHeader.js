@@ -3,59 +3,55 @@ import { inject, observer } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 
 import LoadingWrapperWithFailure from '../../../../Common/components/LoadingWrapperWithFailure'
-
 import { Logo } from '../../../../Common/components/Logo'
+
+import images from '../../../../Common/themes/Images'
+
 import {
    REQUEST_PATHS,
    SHARE_PATHS,
    HOMEPAGE_PATH
 } from '../../../constants/NavigationConstants'
-
 import strings from '../../../i18n/strings.json'
 
 import { Dropdown } from '../../Dropdown'
 
-import { Container, Actions, ProfileIcon } from './styledComponents'
-import { observable } from 'mobx'
+import { Header, Actions, ProfileIcon, Body } from './styledComponents'
 
 function withHeader(WrappedComponent) {
    @inject('authStore')
    @observer
    class EnhancedComponent extends Component {
-      @observable userProfile
+      get authStore() {
+         return this.props.authStore
+      }
 
-      constructor(props) {
-         super(props)
-         this.userProfile = null
+      componentDidMount() {
+         if (this.authStore.userProfile === null) {
+            this.doNetworkCalls()
+         }
       }
 
       onClickProfile = () => {
          console.log(this.authStore.userProfile)
       }
+
       navigateToHome = () => {
          const { history } = this.props
          history.push(HOMEPAGE_PATH)
       }
-      get authStore() {
-         return this.props.authStore
-      }
-      componentDidMount() {
-         if (this.authStore.userProfile === null) {
-            this.doNetworkCalls()
-         } else {
-            this.userProfile = this.authStore.userProfile
-         }
-      }
 
       doNetworkCalls = async () => {
-         console.log('network call')
          await this.authStore.getUserProfile()
-         this.userProfile = this.authStore.userProfile
       }
-      renderSuccessUi = () => {
+
+      renderSuccessUi = observer(() => {
+         const profileImage =
+            this.authStore.userProfile.profileImage ||
+            images.defaultProfileImage
          return (
-            <div className='w-screen h-screen'>
-               <Container>
+            <Body>
+               <Header>
                   <Logo
                      onClick={this.navigateToHome}
                      width={'90px'}
@@ -71,58 +67,32 @@ function withHeader(WrappedComponent) {
                         links={SHARE_PATHS}
                      />
                      <ProfileIcon
-                        src={this.userProfile.profileImage}
+                        src={profileImage}
                         onClick={this.onClickProfile}
                      />
                   </Actions>
-               </Container>
+               </Header>
                <WrappedComponent {...this.props} />
-            </div>
+            </Body>
          )
-      }
+      })
       render() {
-         console.log(this.authStore.userProfile)
-         if (this.userProfile !== null)
-            return (
-               <div className='w-screen h-screen'>
-                  <Container>
-                     <Logo
-                        onClick={this.navigateToHome}
-                        width={'90px'}
-                        height={'81px'}
-                     />
-                     <Actions>
-                        <Dropdown
-                           dropdownName={strings.requests}
-                           links={REQUEST_PATHS}
-                        />
-                        <Dropdown
-                           dropdownName={strings.share}
-                           links={SHARE_PATHS}
-                        />
-                        <ProfileIcon
-                           src={this.userProfile.profileImage}
-                           onClick={this.onClickProfile}
-                        />
-                     </Actions>
-                  </Container>
-                  <WrappedComponent {...this.props} />
-               </div>
-            )
+         const {
+            getUserProfileAPIStatus,
+            getUserProfileAPIError
+         } = this.authStore
+         const { doNetworkCalls, renderSuccessUi } = this
+
          return (
-            <div className='h-screen w-screen flex items-center justify-center'>
-               Loading
-            </div>
+            <LoadingWrapperWithFailure
+               apiStatus={getUserProfileAPIStatus}
+               onRetryClick={doNetworkCalls}
+               apiError={getUserProfileAPIError}
+               renderSuccessUI={renderSuccessUi}
+            />
          )
       }
    }
    return withRouter(EnhancedComponent)
 }
 export default withHeader
-
-// <LoadingWrapperWithFailure
-//    apiStatus={this.authStore.getUserProfileAPIStatus}
-//    onRetryClick={this.doNetworkCalls}
-//    apiError={this.authStore.getUserProfileAPIError}
-//    renderSuccessUI={this.renderSuccessUi}
-// />

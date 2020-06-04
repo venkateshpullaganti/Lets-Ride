@@ -10,7 +10,7 @@ class FixtureService {
          baseURL: 'https://5ea1a14db9f5ca00166c1f27.mockapi.io/api/lets_ride/'
       })
    }
-   signInAPI = requestObject => {
+   signInApi = requestObject => {
       return new Promise(resolve => {
          setTimeout(() => {
             resolve(getUserSignInFixture)

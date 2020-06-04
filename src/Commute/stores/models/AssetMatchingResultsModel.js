@@ -1,4 +1,4 @@
-class AssetRequestModel {
+class AssetMatchingResultsModel {
    id
    source
    destination
@@ -15,6 +15,8 @@ class AssetRequestModel {
    acceptedPerson
    acceptedPersonPhoneNumber
    status
+   username
+   userPhoneNumber
    constructor(assetObj) {
       this.id = assetObj.asset_request_id
       this.source = assetObj.source
@@ -32,7 +34,9 @@ class AssetRequestModel {
       this.status = assetObj.status
       this.deliverTo = assetObj.deliver_to
       this.receiverPhoneNumber = assetObj.phone_number
+      this.username = assetObj.username
+      this.userPhoneNumber = assetObj.user_phone_number
    }
 }
 
-export default AssetRequestModel
+export default AssetMatchingResultsModel

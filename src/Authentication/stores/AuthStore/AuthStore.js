@@ -76,7 +76,7 @@ class AuthStore {
 
    @action.bound
    setGetUserProfileAPIStatus(apiStatus) {
-      this.getUserSignInAPIStatus = apiStatus
+      this.getUserProfileAPIStatus = apiStatus
    }
 
    @action.bound

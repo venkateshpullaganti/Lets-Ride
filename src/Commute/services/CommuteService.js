@@ -43,7 +43,7 @@ class CommuteService {
          this.rideRequestApi,
          '/ride_request/v1/ ',
          requestObject,
-         apiMethods.get
+         apiMethods.post
       )
    }
    assetRequest = requestObject => {
@@ -51,7 +51,7 @@ class CommuteService {
          this.assetRequestApi,
          '/asset_request/v1/',
          requestObject,
-         apiMethods.get
+         apiMethods.post
       )
    }
    rideShare = requestObject => {
@@ -59,7 +59,7 @@ class CommuteService {
          this.rideShareApi,
          '/share_ride/v1/',
          requestObject,
-         apiMethods.get
+         apiMethods.post
       )
    }
    shareTravelInfoApi = requestObject => {
@@ -68,17 +68,10 @@ class CommuteService {
          this.travelInfoApi,
          '/share_travel_info/v1/',
          requestObject,
-         apiMethods.get
+         apiMethods.post
       )
    }
-   myRequests = requestObject => {
-      return networkCallWithApisauce(
-         this.myRequestsApi,
-         '/my_rquests/v1/',
-         requestObject,
-         apiMethods.get
-      )
-   }
+
    myAssetRequestsApi = (requestObject, otherParams) => {
       const limtAndOffset = `offset=${otherParams.offset}&limit=${otherParams.limit}`
       let status = ``
@@ -121,6 +114,15 @@ class CommuteService {
       return networkCallWithApisauce(
          this.myRideRequestsAPI,
          `/rides/v1/?${endPoint}`,
+         requestObject,
+         apiMethods.get
+      )
+   }
+   matchingResultsApi = (requestObject, otherParams) => {
+      const limtAndOffset = `offset=${otherParams.offset}&limit=${otherParams.limit}`
+      return networkCallWithApisauce(
+         this.myRideRequestsAPI,
+         `/matching_results/v1/?${limtAndOffset}`,
          requestObject,
          apiMethods.get
       )

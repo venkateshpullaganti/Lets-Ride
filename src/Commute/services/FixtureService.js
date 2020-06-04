@@ -5,6 +5,7 @@ import { apiMethods } from '../../Common/constants/APIConstants'
 
 import myRideRequestsFixtures from '../fixtures/myRideRequestsFixtures.json'
 import myAssetRequestsFixtures from '../fixtures/myAssetRequestsFixtures.json'
+import matchingResultsFixtures from '../fixtures/matchingResultsFixtures.json'
 
 class FixtureService {
    rideRequestApi
@@ -83,6 +84,29 @@ class FixtureService {
       let response = {
          ...myRideRequestsFixtures,
          rides: myRides
+      }
+
+      return new Promise(resolve => {
+         setTimeout(() => {
+            resolve(response)
+         }, 1000)
+      })
+   }
+   matchingResultsApi = (requestObj, paginationObj) => {
+      console.log(paginationObj)
+      const myRides = matchingResultsFixtures.rides.slice(
+         paginationObj.offset,
+         paginationObj.limit + paginationObj.offset
+      )
+      const myAssets = matchingResultsFixtures.assets.slice(
+         paginationObj.offset,
+         paginationObj.limit + paginationObj.offset
+      )
+
+      let response = {
+         ...matchingResultsFixtures,
+         rides: myRides,
+         assets: myAssets
       }
 
       return new Promise(resolve => {

@@ -12,17 +12,24 @@ class CommuteStore {
 
    @observable myAssetRequests
    @observable totalMyAssetRequests
-   myRideRequestsSortOptions
-   myRideRequestsFilterOptions
+
+   myAssetRequestsSortOptions
+   myAssetRequestsFilterOptions
 
    @observable getMyRideRequestsAPIStatus
    @observable getMyRideRequestsAPIError
 
+   myRideRequestsSortOptions
+   myRideRequestsFilterOptions
+
    @observable myRideRequests
    @observable totalMyRideRequests
 
-   myAssetRequestsSortOptions
-   myAssetRequestsFilterOptions
+   @observable getMatchingResultsAPIStatus
+   @observable getMatchingResultsAPIError
+
+   @observable matchingRideRequests
+   @observable matchingAssetReqests
 
    commuteAPIService
 
@@ -43,6 +50,11 @@ class CommuteStore {
       this.myRideRequestsFilterOptions = []
       this.myAssetRequestsSortOptions = []
       this.myAssetRequestsFilterOptions = []
+
+      this.getMatchingResultsAPIStatus = API_INITIAL
+      this.getMatchingResultsAPIError = null
+      this.matchingRideRequests = []
+      this.matchingAssetReqests = []
    }
 
    @action
@@ -148,6 +160,32 @@ class CommuteStore {
          .catch(this.setGetMyRideRequestsAPIError)
    }
 
+   @action.bound
+   setGetMatchingResultsAPIStatus(status) {
+      this.getMatchingResultsAPIStatus = status
+   }
+
+   @action.bound
+   setGetMatchingResultsAPIError(error) {
+      this.getMatchingResultsAPIError = error
+   }
+
+   @action.bound
+   setGetMatchingResultsAPIResponse(response) {}
+
+   @action
+   getMatchingResults(requestObject, otherParams) {
+      const myMatchingResultsPromise = this.commuteAPIService.matchingResultsApi(
+         requestObject,
+         otherParams
+      )
+      return bindPromiseWithOnSuccess(myMatchingResultsPromise)
+         .to(
+            this.setGetMatchingResultsAPIStatus,
+            this.setGetMatchingResultsAPIResponse
+         )
+         .catch(this.setGetMatchingResultsAPIError)
+   }
    @computed
    get assetRequests() {
       return this.myAssetRequests

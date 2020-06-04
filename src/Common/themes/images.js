@@ -10,5 +10,7 @@ export default {
    sortIcon:
       'https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/dbb6969d-a0d8-4c04-a6e1-749c29dc399a.svg',
    noInternetImage:
-      'https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/b874fa48-bdc7-4992-8944-436a3b309904.png'
+      'https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/b874fa48-bdc7-4992-8944-436a3b309904.png',
+   defaultProfileImage:
+      'https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/5d8d8d25-10da-49ef-9ea0-d57e2558520c.png'
 }
