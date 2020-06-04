@@ -5,6 +5,8 @@ import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
 import RideRequestModel from '../models/RideRequestModel'
 import AssetRequestModel from '../models/AssetRequestModel'
+import AssetMatchingResultsModel from '../models/AssetMatchingResultsModel'
+import RideMatchingResultsModel from '../models/RideMatchingResultsModel'
 
 class CommuteStore {
    @observable getMyAssetRequestsAPIStatus
@@ -31,6 +33,12 @@ class CommuteStore {
    @observable matchingRideRequests
    @observable matchingAssetReqests
 
+   @observable totalMatchingRides
+   @observable totalMatchingAssets
+
+   filterOptions
+   sortOptions
+
    commuteAPIService
 
    constructor(CommuteService) {
@@ -55,6 +63,8 @@ class CommuteStore {
       this.getMatchingResultsAPIError = null
       this.matchingRideRequests = []
       this.matchingAssetReqests = []
+      this.totalMatchingRides = 0
+      this.totalMatchingAssets = 0
    }
 
    @action
@@ -76,11 +86,6 @@ class CommuteStore {
          this.myAssetRequests = response.assets.map(eachRide => {
             return new AssetRequestModel(eachRide)
          })
-         console.log(
-            'filter',
-            this.myAssetRequestsFilterOptions,
-            this.myAssetRequestsSortOptions
-         )
       }
    }
 
@@ -171,7 +176,17 @@ class CommuteStore {
    }
 
    @action.bound
-   setGetMatchingResultsAPIResponse(response) {}
+   setGetMatchingResultsAPIResponse(response) {
+      this.totalMatchingAssets = response.total_assets
+      this.totalMatchingRides = response.total_rides
+
+      this.matchingRideRequests = response.rides.map(ride => {
+         return new RideMatchingResultsModel(ride)
+      })
+      this.matchingAssetReqests = response.assets.map(asset => {
+         return new AssetMatchingResultsModel(asset)
+      })
+   }
 
    @action
    getMatchingResults(requestObject, otherParams) {

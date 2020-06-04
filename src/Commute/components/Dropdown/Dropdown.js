@@ -29,7 +29,6 @@ class Dropdown extends Component {
       this.shouldShowDropdown = false
    }
    navigateToPath = path => {
-      console.log('object')
       const { history } = this.props
       history.push(path)
    }

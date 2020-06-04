@@ -1,3 +1,3 @@
-import MyRequests from './MyRequests'
+import MatchingResults from './MatchingResults'
 
-export { MyRequests }
+export { MatchingResults }

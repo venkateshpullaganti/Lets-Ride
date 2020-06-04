@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Tabs, TabBtn } from './styledComponents'
+import { Tabs, Tab } from './styledComponents'
 
 function TabBar(props) {
    const { onChange, tabs, selectedTab } = props
@@ -30,9 +30,9 @@ class TabButton extends Component {
    render() {
       const { isSelected, title } = this.props
       return (
-         <TabBtn onClick={this.onClick} isSelected={isSelected}>
+         <Tab onClick={this.onClick} isSelected={isSelected}>
             {title}
-         </TabBtn>
+         </Tab>
       )
    }
 }

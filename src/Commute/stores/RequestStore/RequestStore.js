@@ -40,7 +40,6 @@ class RequestStore {
    }
    @action.bound
    rideRequest(requestObject, onSuccess, onFailure) {
-      console.log('store', requestObject)
       const rideRequestPromise = this.commuteAPIService.rideRequest(
          requestObject
       )
@@ -71,7 +70,6 @@ class RequestStore {
 
    @action.bound
    assetRequest(requestObject, onSuccess, onFailure) {
-      console.log('store', requestObject)
       const assetRequestPromise = this.commuteAPIService.assetRequest(
          requestObject
       )

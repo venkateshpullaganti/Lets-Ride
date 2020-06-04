@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 import { observable, computed } from 'mobx'
 
-import { MyRequests } from '../MyRequests'
-
 import {
    SHARED_DETAILS,
    MY_REQUESTS,
@@ -14,9 +12,11 @@ import strings from '../../i18n/strings.json'
 import { TabBar } from '../TabBar'
 import withHeader from '../Common/hocs/withHeader'
 
-import { Root, Body, NavBar, NavBtn } from './styledComponents'
 import { Header } from '../Header'
+import { MyRequests } from '../MyRequests'
+import { MatchingResults } from '../MatchingResults'
 
+import { Root, Body } from './styledComponents'
 @observer
 class CommuteHomePage extends Component {
    @observable selectedCategory
@@ -31,15 +31,18 @@ class CommuteHomePage extends Component {
 
    renderSelectedCategory = () => {
       if (this.selectedCategory === MATCHING_RESULTS) {
-         return <div>Matching Results</div>
+         return <MatchingResults />
       } else if (this.selectedCategory === MY_REQUESTS) {
          return <MyRequests />
       }
-      return <div>shared Details</div>
+      return (
+         <div className='text-center'>
+            This Page is Under Development. Sorry for inconvience.
+         </div>
+      )
    }
    onChangeSelectedCategory = selectedTab => {
       this.selectedCategory = selectedTab
-      console.log(this.selectedCategory)
    }
 
    render() {

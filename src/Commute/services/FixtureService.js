@@ -37,7 +37,6 @@ class FixtureService {
       })
    }
    assetRequest = requestObject => {
-      console.log('service', requestObject)
       return new Promise(resolve => {
          setTimeout(() => {
             resolve()
@@ -75,7 +74,6 @@ class FixtureService {
       })
    }
    myRideRequestsApi = (requestObj, paginationObj) => {
-      console.log(paginationObj)
       const myRides = myRideRequestsFixtures.rides.slice(
          paginationObj.offset,
          paginationObj.limit + paginationObj.offset
@@ -93,7 +91,6 @@ class FixtureService {
       })
    }
    matchingResultsApi = (requestObj, paginationObj) => {
-      console.log(paginationObj)
       const myRides = matchingResultsFixtures.rides.slice(
          paginationObj.offset,
          paginationObj.limit + paginationObj.offset

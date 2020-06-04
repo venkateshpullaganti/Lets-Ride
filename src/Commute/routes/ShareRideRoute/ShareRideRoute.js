@@ -59,7 +59,6 @@ class ShareRideRoute extends Component {
 
    onChangeDate = dateObj => {
       this.travelDate = moment(dateObj).format('DD/MM/YYYY hh:mm A')
-      console.log(this.travelDate)
    }
 
    onChangeFlexibleFromDate = date => {
@@ -122,7 +121,6 @@ class ShareRideRoute extends Component {
          this.errorMsg = null
          this.doNetworkCall()
       }
-      console.log(this.errorMsg)
    }
 
    doNetworkCall = () => {

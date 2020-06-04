@@ -62,7 +62,7 @@ class SignInRoute extends Component {
          this.errorMsg = null
 
          const requestObject = {
-            phonenumber: this.mobileNumber,
+            phone_number: this.mobileNumber,
             password: this.password
          }
          this.authStore.userSignIn(
@@ -98,8 +98,8 @@ class SignInRoute extends Component {
 
       // if (!isLoggedIn()) {
       //    return <Redirect to={{ pathname: HOMEPAGE_PATH }} />
-      // }
-      console.log(Math.random(), this.authStore.getUserSignInAPIStatus)
+      // // }
+      // console.log(Math.random(), this.authStore.getUserSignInAPIStatus)
       return (
          <SignInForm
             onSubmit={onSubmit}

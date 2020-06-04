@@ -7,18 +7,18 @@ class AuthService {
    api
    constructor() {
       this.api = create({
-         baseURL: 'https://5ea1a14db9f5ca00166c1f27.mockapi.io/api/lets_ride/'
+         baseURL: 'https://54.179.25.78'
       })
       this.profileApi = create({
-         baseURL: 'https://5ea1a14db9f5ca00166c1f27.mockapi.io/api/lets_ride/'
+         baseURL: 'https://54.179.25.78'
       })
    }
    signInApi = requestObject => {
       return networkCallWithApisauce(
          this.api,
-         'sign_in/v1',
+         '/sign_in/v1',
          requestObject,
-         apiMethods.get
+         apiMethods.post
       )
    }
    userProfileApi = requestObject => {

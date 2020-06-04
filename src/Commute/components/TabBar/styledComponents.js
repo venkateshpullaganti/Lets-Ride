@@ -3,7 +3,6 @@ import tw from 'tailwind.macro'
 
 import Colors from '../../../Common/themes/Colors'
 
-const Container = styled.div``
 const Tabs = styled.ul`
    button:first-of-type {
       border-radius: 6px 0px 0px 6px;
@@ -11,13 +10,16 @@ const Tabs = styled.ul`
    button:last-of-type {
       border-radius: 0px 6px 6px 0px;
    }
-   ${tw``};
+
+   ${tw`flex items-center justify-center my-12`};
 `
-const TabBtn = styled.button`
+const Tab = styled.button`
    border: 1px solid ${Colors.lightBlueGrey};
-   background: ${props =>
-      props.isSelected ? Colors.brightBlue : Colors.white};
+   ${props =>
+      props.isSelected
+         ? `color:${Colors.white};background:${Colors.brightBlue}`
+         : `color:${Colors.darkBlueGrey};background:${Colors.white}`};
    ${tw`p-2 focus:outline-none`};
 `
 
-export { Container, Tabs, TabBtn }
+export { Tabs, Tab }

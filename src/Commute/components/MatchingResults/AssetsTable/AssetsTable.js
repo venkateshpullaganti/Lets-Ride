@@ -1,57 +1,57 @@
 import React, { Component } from 'react'
 
-import { Pagination } from '../../../Common/components/Pagination'
+import { Pagination } from '../../../../Common/components/Pagination'
 
-import strings from '../../i18n/strings.json'
-import { AddRequestBtn, TotalPages, TableFooter } from '../../styledComponents'
+import strings from '../../../i18n/strings.json'
+import {
+   AddRequestBtn,
+   TotalPages,
+   TableFooter
+} from '../../../styledComponents'
 
-import { Selector } from '../Selector'
-import { FilterBar } from '../FilterBar'
+import { Selector } from '../../Selector'
+import { FilterBar } from '../../FilterBar'
 
-import { Item } from './Item'
+import { EachRow } from './EachRow'
 import { TableContainer, Header, Col } from './styledComponents'
+import { observer } from 'mobx-react'
 
-class Table extends Component {
+@observer
+class AssetsTable extends Component {
    renderHeader = () => {
       const { headerItems, filterByStatus } = this.props
 
       return (
-         <Header key={'Table Header'}>
+         <Header key={'AssetsTable Header'}>
             {headerItems.map(item => (
                <Col key={item}>{item}</Col>
             ))}
-            <Selector
-               dropdownName={strings.status}
-               options={['Active', 'Expired']}
-               onChange={filterByStatus}
-            />
          </Header>
       )
    }
    renderRows = () => {
       const { tableData } = this.props
       return tableData.map(eachRow => (
-         <Item key={Math.random()} row={eachRow} />
+         <EachRow key={Math.random()} row={eachRow} />
       ))
    }
 
    render() {
       const {
          onClickAddRequest,
-         totalAssetPages,
          handleAssetPageClick,
          currentPage,
          taskCount,
          onChangeSort,
          onChangeFilter,
          filterOptions,
-         sortOptions
+         sortOptions,
+         totalPages
       } = this.props
-
       return (
          <>
             <FilterBar
-               taskCount={taskCount ?? 10}
+               taskCount={taskCount ?? 0}
                onChangeSort={onChangeSort}
                onChangeFilter={onChangeFilter}
                filterOptions={filterOptions}
@@ -65,10 +65,10 @@ class Table extends Component {
                <AddRequestBtn onClick={onClickAddRequest}>
                   {strings.addRequest}
                </AddRequestBtn>
-               <TotalPages>{`PAGE ${currentPage} OF ${totalAssetPages}`}</TotalPages>
+               <TotalPages>{`PAGE ${currentPage} OF ${totalPages}`}</TotalPages>
                <Pagination
                   handlePageClick={handleAssetPageClick}
-                  totalPages={totalAssetPages}
+                  totalPages={totalPages}
                   currentPage={currentPage}
                />
             </TableFooter>
@@ -77,4 +77,4 @@ class Table extends Component {
    }
 }
 
-export { Table }
+export { AssetsTable }

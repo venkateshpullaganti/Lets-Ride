@@ -3,7 +3,7 @@ import tw from 'tailwind.macro'
 
 import Colors from '../../../Common/themes/Colors'
 
-const RequestsContainer = styled.div`
+const MatchingResultsRoot = styled.div`
    ${'' /* border: 1px solid green; */}
    ${tw``};
 `
@@ -42,7 +42,7 @@ const RequestsHeader = styled.div`
 `
 
 export {
-   RequestsContainer,
+   MatchingResultsRoot,
    Navigator,
    NavBtn,
    RequestTable,

@@ -76,6 +76,21 @@ class Page1 extends React.Component {
                   <option>KJFskdf</option>
                   <option>KJFskdf</option>
                </select>
+               <div
+                  style={{
+                     width: '32px',
+                     height: '32px',
+                     border: '1px solid green',
+                     borderRadius: '50%'
+                  }}
+               >
+                  <img
+                     alt='l'
+                     width='12px'
+                     height='10px'
+                     src='https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/d0d01fec-772f-4a27-b355-e5e121ddd26c.svg'
+                  />
+               </div>
             </div>
          </>
       )

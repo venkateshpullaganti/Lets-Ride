@@ -63,7 +63,6 @@ class CommuteService {
       )
    }
    shareTravelInfoApi = requestObject => {
-      console.log('api', requestObject)
       return networkCallWithApisauce(
          this.travelInfoApi,
          '/share_travel_info/v1/',

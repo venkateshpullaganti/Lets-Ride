@@ -8,8 +8,8 @@ class RideMatchingResultsModel {
    flexibleToDate
    seatCount
    laguageCount
-   acceptedPerson
-   acceptedPersonPhoneNumber
+   requestedPerson
+   requestedPersonMobile
    isAccepted
    constructor(rideObj) {
       this.id = rideObj.ride_request_id
@@ -21,8 +21,8 @@ class RideMatchingResultsModel {
       this.flexibleToDate = rideObj.flexible_to_date_time
       this.seatCount = rideObj.seats
       this.laguageCount = rideObj.laguage_quantity
-      this.acceptedPerson = rideObj.accepted_person
-      this.acceptedPersonPhoneNumber = rideObj.accepted_person_phone_number
+      this.requestedPerson = rideObj.username
+      this.requestedPersonMobile = rideObj.user_phone_number
       this.isAccepted = false
    }
 }

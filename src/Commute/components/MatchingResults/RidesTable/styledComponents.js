@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import tw from 'tailwind.macro'
 
-import Colors from '../../../Common/themes/Colors'
+import Colors from '../../../../Common/themes/Colors'
 
 const TableContainer = styled.div`
    border: 1px solid ${Colors.lightBlueGrey};
@@ -9,13 +9,11 @@ const TableContainer = styled.div`
 `
 const Col = styled.div`
    color: ${Colors.steel};
-   height: 48px;
-   width: 130px;
-   ${tw``};
+   width: 14.2%;
+   ${tw`text-center`};
 `
 const Header = styled.div`
    height: 64px;
-   border: 1px solid ${Colors.lightBlueGrey};
    ${tw`flex p-2 justify-between items-center`};
 `
 const TableFooter = styled.div`

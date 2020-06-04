@@ -106,20 +106,16 @@ class MyRequests extends Component {
 
    onChangeRideFilter = selectedFilter => {
       this.rideSelectedFilter = selectedFilter
-      console.log(this.rideSelectedFilter)
    }
    onChangeRideSort = selectedSort => {
       this.rideSelectedSort = selectedSort
-      console.log(this.rideSelectedSort)
    }
 
    onChangeAssetFilter = selectedFilter => {
       this.assetSelectedFilter = selectedFilter
-      console.log(this.assetSelectedFilter)
    }
    onChangeAssetSort = selectedSort => {
       this.assetSelectedSort = selectedSort
-      console.log(this.assetSelectedSort)
    }
 
    navigateToRideRequestForm = () => {

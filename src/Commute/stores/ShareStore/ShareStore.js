@@ -67,7 +67,6 @@ class ShareStore {
 
    @action.bound
    shareTravelInfo(requestObject, onSuccess, onFailure) {
-      console.log('store', requestObject)
       const travelInfoPromise = this.commuteAPIService.shareTravelInfoApi(
          requestObject
       )

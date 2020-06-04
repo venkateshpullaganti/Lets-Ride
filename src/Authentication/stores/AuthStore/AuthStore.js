@@ -81,7 +81,6 @@ class AuthStore {
 
    @action.bound
    getUserProfile(requestObject) {
-      console.log('store')
       const userProfilePromise = this.authAPIService.userProfileApi(
          requestObject
       )

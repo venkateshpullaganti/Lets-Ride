@@ -12,5 +12,9 @@ export default {
    noInternetImage:
       'https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/b874fa48-bdc7-4992-8944-436a3b309904.png',
    defaultProfileImage:
-      'https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/5d8d8d25-10da-49ef-9ea0-d57e2558520c.png'
+      'https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/5d8d8d25-10da-49ef-9ea0-d57e2558520c.png',
+   addIcon:
+      'https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/2e16fb4b-ab59-4deb-bbd5-da390084debb.svg',
+   correctIcon:
+      'https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/d0d01fec-772f-4a27-b355-e5e121ddd26c.svg'
 }

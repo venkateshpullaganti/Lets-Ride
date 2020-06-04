@@ -49,7 +49,7 @@ class ShareRideForm extends Component {
          isSeatCountError,
          btnDisplayText
       } = this.props
-      console.log('form render object')
+
       return (
          <ShareRide>
             {/* <Header /> */}
