@@ -265,6 +265,7 @@ class MyRequests extends Component {
    render() {
       return (
          <RequestsContainer>
+            <Heading>{strings.myRequests}</Heading>
             <Navigator>
                <NavBtn
                   isSelected={this.selectedField === strings.ride}

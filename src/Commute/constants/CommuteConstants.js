@@ -1,5 +1,9 @@
 export const DATE_FORMAT = 'YYYY-MM-DD hh:mm A'
 
+export const MATCHING_RESULTS = 'MATCHING RESULTS'
+export const MY_REQUESTS = 'MY REQUESTS'
+export const SHARED_DETAILS = 'SHARED DETAILS'
+
 export const ASSET_TYPES = [
    { value: 'LAPTOP', label: 'Laptop' },
    { value: 'BAG', label: 'Bag' },

@@ -52,7 +52,6 @@ class RideRequestForm extends Component {
 
       return (
          <RideRequest>
-            <Header />
             <Form onSubmit={onSubmit}>
                <Heading>{strings.rideRequestFormHeading}</Heading>
                <Input

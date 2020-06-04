@@ -48,5 +48,7 @@
    "shareTravelInfoHeading": "SHARE TRAVEL INFO",
    "travelMediumPlaceholder": "Select medium",
    "travelMedium": "TRAVEL MEDIUM",
-   "assetQuantity": "ASSETS QUANTITY"
+   "assetQuantity": "ASSETS QUANTITY",
+   "matchingResults": "Matching Results",
+   "sharedDetails": "Shared Details"
 }

@@ -40,14 +40,17 @@ function withHeader(WrappedComponent) {
          return this.props.authStore
       }
       componentDidMount() {
-         if (this.userProfile === null) this.doNetworkCalls()
+         if (this.authStore.userProfile === null) {
+            this.doNetworkCalls()
+         } else {
+            this.userProfile = this.authStore.userProfile
+         }
       }
 
       doNetworkCalls = async () => {
          console.log('network call')
          await this.authStore.getUserProfile()
          this.userProfile = this.authStore.userProfile
-         console.log(this.userProfile)
       }
       renderSuccessUi = () => {
          return (

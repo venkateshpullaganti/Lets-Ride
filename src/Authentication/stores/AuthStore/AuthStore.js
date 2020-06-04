@@ -44,7 +44,7 @@ class AuthStore {
       this.getUserSignInAPIError = null
       this.getUserProfileAPIStatus = API_INITIAL
       this.getUserProfileAPIError = null
-      this.userProfile = {}
+      this.userProfile = null // Will save an userProfile object in this variable
    }
    @action.bound
    userSignIn(requestObject, onSuccess, onFailure) {
@@ -63,6 +63,7 @@ class AuthStore {
 
    @action.bound
    setUserProfileAPIResponse(response) {
+      this.userProfile = {}
       this.userProfile.userName = response.username
       this.userProfile.phoneNumber = response.phone_number
       this.userProfile.profileImage = response.profile_pic_url
@@ -80,6 +81,7 @@ class AuthStore {
 
    @action.bound
    getUserProfile(requestObject) {
+      console.log('store')
       const userProfilePromise = this.authAPIService.userProfileApi(
          requestObject
       )
@@ -103,3 +105,5 @@ class AuthStore {
    }
 }
 export { AuthStore }
+
+// console.log(Object.entries(this.userProfile).length === 0, 'store obj')

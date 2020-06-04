@@ -8,11 +8,7 @@ import { Typo20DarkBlueGreyHKGrotestBold } from '../../Common/styleGuide/Typos'
 const Heading = styled.p`
    ${Typo20DarkBlueGreyHKGrotestBold};
    height: 32px;
-<<<<<<< HEAD
    ${tw`p-1 m-2 self-center`}
-=======
-   ${tw`p-1 self-center`}
->>>>>>> cf45a74c092498b617f5fb22d3de1dea1a38b833
 `
 
 const Form = styled.form`
@@ -43,6 +39,16 @@ const Label = styled.label`
    color: ${Colors.steel};
    ${tw``};
 `
+const TableContainer = styled.div`
+   border: 1px solid ${Colors.lightBlueGrey};
+   ${tw`m-2 `};
+`
+const Col = styled.div`
+   color: ${Colors.steel};
+   height: 48px;
+   width: 130px;
+   ${tw``};
+`
 
 export {
    Heading,
@@ -51,5 +57,7 @@ export {
    AddRequestBtn,
    TotalPages,
    TableFooter,
-   Label
+   Label,
+   TableContainer,
+   Col
 }
