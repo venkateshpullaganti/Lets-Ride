@@ -159,16 +159,6 @@ class ShareRideForm extends Component {
       return this.errorMsg === strings.seatCountError
    }
 
-   successReaction = reaction(
-      () => {
-         return this.props.apiStatus === API_SUCCESS
-      },
-      () => {
-         alert('Success')
-         this.init()
-      }
-   )
-
    render() {
       const {
          onChangeSource,
@@ -195,7 +185,7 @@ class ShareRideForm extends Component {
          onChangeDate,
          isSeatCountError
       } = this
-      const { btnDisplayText, apiStatus } = this.props
+      const { apiStatus } = this.props
       const isLoading = apiStatus === API_FETCHING
       return (
          <ShareRide>
@@ -259,7 +249,7 @@ class ShareRideForm extends Component {
                />
                <Button
                   isLoading={isLoading}
-                  displayText={btnDisplayText}
+                  displayText={strings.shareBtnText}
                   disabled={isLoading}
                />
             </Form>
@@ -269,7 +259,3 @@ class ShareRideForm extends Component {
 }
 
 export default withHeader(ShareRideForm)
-
-ShareRideForm.defaultProps = {
-   btnDisplayText: 'SHARE'
-}

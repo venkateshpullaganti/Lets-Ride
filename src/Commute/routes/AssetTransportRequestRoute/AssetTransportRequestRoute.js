@@ -3,23 +3,19 @@ import { observer, inject } from 'mobx-react'
 import { observable } from 'mobx'
 import { API_FETCHING } from '@ib/api-constants'
 
+import { displayToaster } from '../../../Common/components/Toaster'
+
 import { AssetTransportRequestForm } from '../../components/AssetTransportRequestForm'
 import strings from '../../i18n/strings.json'
 
 @inject('requestStore')
 @observer
 class AssetTransportRequestRoute extends Component {
-   @observable btnDisplayText
-
    constructor(props) {
       super(props)
-      this.init()
+
       this.onSubmit = this.onSubmit.bind(this)
       this.onFailure = this.onFailure.bind(this)
-   }
-
-   init = () => {
-      this.btnDisplayText = strings.requestBtnText
    }
 
    get requestStore() {
@@ -75,19 +71,17 @@ class AssetTransportRequestRoute extends Component {
       this.requestStore.assetRequest(requestObj, this.onSuccess, this.onFailure)
    }
    onSuccess() {
-      this.init()
+      displayToaster(strings.requestAddedSuccessfully, false)
    }
 
    onFailure(error) {
-      this.btnDisplayText = strings.retry
-      console.log('failed')
+      displayToaster(strings.somethingWentWrong, true, error)
    }
 
    render() {
       return (
          <AssetTransportRequestForm
             onSubmit={this.onSubmit}
-            btnDisplayText={this.btnDisplayText}
             isLoading={
                this.requestStore.getAssetRequestAPIStatus === API_FETCHING
             }

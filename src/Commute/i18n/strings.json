@@ -50,5 +50,9 @@
    "travelMedium": "TRAVEL MEDIUM",
    "assetQuantity": "ASSETS QUANTITY",
    "matchingResults": "Matching Results",
-   "sharedDetails": "Shared Details"
+   "sharedDetails": "Shared Details",
+   "requestAddedSuccessfully": "Request Addedd Successfully. :)",
+   "somethingWentWrong": "Something went wrong.",
+   "rideSharedSuccessfully": "Ride Shared Successfully.",
+   "travelInfoSharedSuccessfully": "Shared Successfully."
 }

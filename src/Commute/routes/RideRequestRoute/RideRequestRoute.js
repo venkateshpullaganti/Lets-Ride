@@ -3,24 +3,19 @@ import { observer, inject } from 'mobx-react'
 import { observable, computed, action } from 'mobx'
 import { API_FETCHING } from '@ib/api-constants'
 
+import { displayToaster } from '../../../Common/components/Toaster'
+
 import { RideRequestForm } from '../../components/RideRequestForm'
 import strings from '../../i18n/strings.json'
 
 @inject('requestStore')
 @observer
 class RideRequestRoute extends Component {
-   @observable btnDisplayText
-
    constructor(props) {
       super(props)
       this.onSubmit = this.onSubmit.bind(this)
       this.onFailure = this.onFailure.bind(this)
       this.onSuccess = this.onSuccess.bind(this)
-      this.init()
-   }
-
-   init = () => {
-      this.btnDisplayText = strings.requestBtnText
    }
 
    get requestStore() {
@@ -65,18 +60,17 @@ class RideRequestRoute extends Component {
          seats: seatCount,
          laguage_quantity: laguageCount
       }
-      console.log('req obj', requestObj)
 
       this.requestStore.rideRequest(requestObj, this.onSuccess, this.onFailure)
    }
    @action
    onSuccess() {
-      this.init()
+      displayToaster(strings.requestAddedSuccessfully, false)
    }
 
    @action
    onFailure(error) {
-      this.btnDisplayText = strings.retry
+      displayToaster(strings.somethingWentWrong, true, error)
    }
 
    render() {

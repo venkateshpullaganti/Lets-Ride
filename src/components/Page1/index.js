@@ -4,6 +4,7 @@ import Loader from 'react-loader-spinner'
 
 import Select from 'react-select'
 
+import { displayToaster } from './toaster'
 // import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css
 
 import ReactPaginate from 'react-paginate'

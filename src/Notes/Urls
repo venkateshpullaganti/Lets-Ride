@@ -85,10 +85,15 @@ homePage :
     
 }
 
-    
 
 
 
-    
 
-    
+
+
+import { displayToaster } from '../../../Common/components/Toaster'
+
+
+displayToaster(strings.requestAddedSuccessfully, false)
+     
+ displayToaster(strings.somethingWentWrong, true, error)

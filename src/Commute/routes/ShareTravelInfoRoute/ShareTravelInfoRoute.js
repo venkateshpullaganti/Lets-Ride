@@ -4,23 +4,19 @@ import { observer, inject } from 'mobx-react'
 import { observable, computed } from 'mobx'
 import { API_FETCHING } from '@ib/api-constants'
 
+import { displayToaster } from '../../../Common/components/Toaster'
+
 import { ShareTravelInfoForm } from '../../components/ShareTravelInfoForm'
 import strings from '../../i18n/strings.json'
 
 @inject('shareStore')
 @observer
 class ShareTravelInfoRoute extends Component {
-   @observable btnDisplayText
-
    constructor(props) {
       super(props)
-      this.init()
+
       this.onSubmit = this.onSubmit.bind(this)
       this.onFailure = this.onFailure.bind(this)
-   }
-
-   init = () => {
-      this.btnDisplayText = strings.shareBtnText
    }
 
    get shareStore() {
@@ -73,18 +69,16 @@ class ShareTravelInfoRoute extends Component {
       )
    }
    onSuccess = () => {
-      alert('successfully added')
-      this.init()
+      displayToaster(strings.travelInfoSharedSuccessfully, false)
    }
    onFailure(error) {
-      this.btnDisplayText = strings.retry
+      displayToaster(strings.somethingWentWrong, true, error)
    }
 
    render() {
       return (
          <ShareTravelInfoForm
             onSubmit={this.onSubmit}
-            btnDisplayText={this.btnDisplayText}
             isLoading={this.shareStore.getRideShareAPIStatus === API_FETCHING}
          />
       )

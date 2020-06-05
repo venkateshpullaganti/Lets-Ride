@@ -25,7 +25,7 @@ function DateAndTimePicker(props) {
             placeholderText={'Select Date and Time'}
             id={'datePicker'}
             selected={startDate}
-            onChange={date => {
+            onChange={(date) => {
                setStartDate(date)
                onChange(date)
             }}
@@ -34,6 +34,7 @@ function DateAndTimePicker(props) {
             timeIntervals={15}
             timeCaption='TIME'
             dateFormat='dd/MM/yyyy h:mm aa'
+            minDate={new Date()}
          />
          <Error isError={isError}> {isError ? errorMsg : null}</Error>
       </DateInput>

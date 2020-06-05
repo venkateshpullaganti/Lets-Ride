@@ -3,33 +3,20 @@ import { observer, inject } from 'mobx-react'
 import { observable, computed } from 'mobx'
 import { API_FETCHING } from '@ib/api-constants'
 
+import { displayToaster } from '../../../Common/components/Toaster'
+
 import { ShareRideForm } from '../../components/ShareRideForm'
 import strings from '../../i18n/strings.json'
 
 @inject('shareStore')
 @observer
 class ShareRideRoute extends Component {
-   @observable btnDisplayText
-
    constructor(props) {
       super(props)
-      this.init()
+
       this.onSubmit = this.onSubmit.bind(this)
       this.onFailure = this.onFailure.bind(this)
       this.onSuccess = this.onSuccess.bind(this)
-   }
-
-   init = () => {
-      this.seatCount = 0
-      this.laguageCount = 0
-      this.isFlexible = false
-      this.destinationPlace = ''
-      this.sourcePlace = ''
-      this.errorMsg = null
-      this.travelDate = ''
-      this.flexibleFromDate = ''
-      this.flexibleToDate = ''
-      this.btnDisplayText = strings.shareBtnText
    }
 
    get shareStore() {
@@ -78,19 +65,17 @@ class ShareRideRoute extends Component {
       this.shareStore.rideShare(requestObj, this.onSuccess, this.onFailure)
    }
    onSuccess = () => {
-      this.init()
+      displayToaster(strings.requestAddedSuccessfully, false)
    }
-   onFailure(error) {
-      this.btnDisplayText = strings.retry
+   onFailure(Apierror) {
+      displayToaster(strings.somethingWentWrong, true, Apierror)
    }
 
    render() {
-      const { onSubmit, btnDisplayText } = this
-
+      const { onSubmit } = this
       return (
          <ShareRideForm
             onSubmit={onSubmit}
-            btnDisplayText={btnDisplayText}
             apiStatus={this.shareStore.getRideShareAPIStatus}
          />
       )

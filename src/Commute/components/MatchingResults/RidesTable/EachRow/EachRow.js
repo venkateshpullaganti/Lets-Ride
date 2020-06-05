@@ -3,13 +3,14 @@ import { observer } from 'mobx-react'
 import { API_SUCCESS, API_FAILED } from '@ib/api-constants'
 import { reaction } from 'mobx'
 
-import { Row, Data, Accepted, AcceptRequest } from './styledComponents'
 import Images from '../../../../../Common/themes/Images'
+import { displayToaster } from '../../../../../Common/components/Toaster'
+
+import { Row, Data, Accepted, AcceptRequest } from './styledComponents'
 @observer
 class EachRow extends React.Component {
    onClickAddBtn = () => {
-      const { acceptRequest, rideRequestApiStatus } = this.props.row
-      const { renderTable } = this.props
+      const { acceptRequest } = this.props.row
       acceptRequest()
    }
    successReaction = reaction(
@@ -17,8 +18,9 @@ class EachRow extends React.Component {
          return this.props.row.rideRequestApiStatus === API_SUCCESS
       },
       boole => {
-         alert('You accepted the ride.Happy Riding.')
          setTimeout(() => {
+            displayToaster('Ride Request Accepted.', false)
+
             this.props.renderTable()
          }, 500)
       }
@@ -28,7 +30,7 @@ class EachRow extends React.Component {
          return this.props.row.rideRequestApiError
       },
       error => {
-         alert(error)
+         displayToaster('Something Went Wrong', true, error)
       }
    )
    componentWillUnmount() {
