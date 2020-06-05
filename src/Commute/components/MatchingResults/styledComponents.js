@@ -7,11 +7,11 @@ const MatchingResultsRoot = styled.div`
    ${'' /* border: 1px solid green; */}
    ${tw``};
 `
-const Navigator = styled.div`
+const TabBar = styled.div`
    border-bottom: 1px solid ${Colors.steel60};
    ${tw`my-4 mx-2`};
 `
-const NavBtn = styled.button`
+const TabBtn = styled.button`
    font-size: 12px;
    height: 100%;
    ${props =>
@@ -43,8 +43,8 @@ const RequestsHeader = styled.div`
 
 export {
    MatchingResultsRoot,
-   Navigator,
-   NavBtn,
+   TabBar,
+   TabBtn,
    RequestTable,
    Col,
    RequestsHeader

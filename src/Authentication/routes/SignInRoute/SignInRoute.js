@@ -75,6 +75,7 @@ class SignInRoute extends Component {
 
    onFailure(apiError) {
       this.errorMsg = apiError.message
+      console.log(apiError)
    }
 
    onSuccess() {

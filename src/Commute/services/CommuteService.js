@@ -16,26 +16,27 @@ class CommuteService {
 
    constructor() {
       this.rideRequestApi = create({
-         baseURL: 'localhost:8000/api'
+         baseURL: 'https://f3ade051cc9a.ngrok.io/api/lets_ride'
       })
       this.assetRequestApi = create({
-         baseURL: 'localhost:8000/api'
+         baseURL: 'https://f3ade051cc9a.ngrok.io/api/lets_ride'
       })
 
       this.rideShareApi = create({
-         baseURL: 'localhost:8000/api'
+         baseURL: 'https://f3ade051cc9a.ngrok.io/api/lets_ride'
       })
       this.travelInfoApi = create({
-         baseURL: 'localhost:8000/api'
+         baseURL: 'https://f3ade051cc9a.ngrok.io/api/lets_ride'
       })
-      this.myRequestsApi = create({
-         baseURL: 'localhost:8000/api/lets_ride'
-      })
+
       this.myAssetsRequestsAPI = create({
-         baseURL: 'localhost:8000/api/lets_ride/assets/v1'
+         baseURL: 'https://f3ade051cc9a.ngrok.io/api/lets_ride/my_requests'
       })
       this.myRideRequestsAPI = create({
-         baseURL: 'localhost:8000/api/lets_ride/ride/v1'
+         baseURL: 'https://f3ade051cc9a.ngrok.io/api/lets_ride/my_requests'
+      })
+      this.matchingResults = create({
+         baseURL: 'https://f3ade051cc9a.ngrok.io/api/lets_ride'
       })
    }
    rideRequest = requestObject => {
@@ -89,7 +90,7 @@ class CommuteService {
 
       return networkCallWithApisauce(
          this.myAssetsRequestsAPI,
-         `/asets/v1/?${endPoint}`,
+         `/assets/v1/?${endPoint}`,
          requestObject,
          apiMethods.get
       )
@@ -120,7 +121,7 @@ class CommuteService {
    matchingResultsApi = (requestObject, otherParams) => {
       const limtAndOffset = `offset=${otherParams.offset}&limit=${otherParams.limit}`
       return networkCallWithApisauce(
-         this.myRideRequestsAPI,
+         this.matchingResults,
          `/matching_results/v1/?${limtAndOffset}`,
          requestObject,
          apiMethods.get

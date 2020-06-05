@@ -19,7 +19,8 @@ import {
 } from '../../constants/MyRequestsConstants'
 import {
    RIDE_REQUEST_PATH,
-   ASSET_TRANSPORT_REQUEST_PATH
+   ASSET_TRANSPORT_REQUEST_PATH,
+   PAGINATION_LIMIT
 } from '../../constants/NavigationConstants'
 
 import { Table } from '../Table'
@@ -35,8 +36,6 @@ import {
    Col
 } from './styledComponents'
 import { Item } from './Item'
-
-const PAGINATION_LIMIT = 5
 
 @inject('commuteStore')
 @observer

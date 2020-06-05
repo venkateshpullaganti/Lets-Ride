@@ -77,7 +77,6 @@ class CommuteStore {
                label: this.convertCamelCaseToUpperCase(option)
             }
          })
-
          this.myAssetRequestsFilterOptions = response.filter_options.map(
             option => {
                return { value: option, label: option }
@@ -118,20 +117,17 @@ class CommuteStore {
    setGetRideRequestsAPIResponse = response => {
       if (response !== undefined) {
          this.totalMyRideRequests = response.total_rides
-
          this.myRideRequestsSortOptions = response.sort_options.map(option => {
             return {
                value: option,
                label: this.convertCamelCaseToUpperCase(option)
             }
          })
-
          this.myRideRequestsFilterOptions = response.filter_options.map(
             option => {
                return { value: option, label: option }
             }
          )
-
          this.myRideRequests = response.rides.map(eachRide => {
             return new RideRequestModel(eachRide)
          })

@@ -49,7 +49,6 @@ class CommuteHomePage extends Component {
       return (
          <Root>
             <Body>
-               <Header />
                <TabBar
                   onChange={this.onChangeSelectedCategory}
                   tabs={[MATCHING_RESULTS, MY_REQUESTS, SHARED_DETAILS]}
@@ -63,7 +62,7 @@ class CommuteHomePage extends Component {
    }
 }
 
-export default CommuteHomePage
+export default withHeader(CommuteHomePage)
 
 // <NavBar>
 //                   <NavBtn

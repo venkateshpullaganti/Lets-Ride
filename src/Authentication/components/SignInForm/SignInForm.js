@@ -63,6 +63,7 @@ class SignInForm extends Component {
                   <SignUpLink href={SIGN_UP_PATH}>
                      {strings.signUpText}
                   </SignUpLink>
+                  <p className='text-red-500 font-semibold'>{errorMsg}</p>
                </AskSignUp>
             </Form>
          </Container>

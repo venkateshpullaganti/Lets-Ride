@@ -1,3 +1,5 @@
+export const PAGINATION_LIMIT = 2
+
 export const HOMEPAGE_PATH = '/home'
 
 export const RIDE_REQUEST_PATH = '/request-ride'

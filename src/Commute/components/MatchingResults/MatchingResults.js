@@ -14,15 +14,16 @@ import {
 } from '../../constants/MyRequestsConstants'
 import {
    RIDE_REQUEST_PATH,
-   ASSET_TRANSPORT_REQUEST_PATH
+   ASSET_TRANSPORT_REQUEST_PATH,
+   PAGINATION_LIMIT
 } from '../../constants/NavigationConstants'
 
 import { RidesTable } from './RidesTable'
 import { AssetsTable } from './AssetsTable'
 
-import { MatchingResultsRoot, Navigator, NavBtn } from './styledComponents'
+import { MatchingResultsRoot, TabBar, TabBtn } from './styledComponents'
 
-const PAGINATION_LIMIT = 2
+const ZERO = 0
 
 @inject('commuteStore')
 @observer
@@ -204,20 +205,20 @@ class MatchingResults extends Component {
    render() {
       return (
          <MatchingResultsRoot>
-            <Navigator>
-               <NavBtn
+            <TabBar>
+               <TabBtn
                   isSelected={this.selectedField === strings.ride}
                   onClick={this.showRide}
                >
                   {strings.ride}
-               </NavBtn>
-               <NavBtn
+               </TabBtn>
+               <TabBtn
                   isSelected={this.selectedField === strings.asset}
                   onClick={this.showAsset}
                >
                   {strings.asset}
-               </NavBtn>
-            </Navigator>
+               </TabBtn>
+            </TabBar>
             {this.renderSelectedTable()}
          </MatchingResultsRoot>
       )

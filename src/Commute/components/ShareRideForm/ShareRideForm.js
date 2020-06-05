@@ -52,7 +52,7 @@ class ShareRideForm extends Component {
 
       return (
          <ShareRide>
-            {/* <Header /> */}
+            <Header />
             <Form onSubmit={onSubmit}>
                <Heading className='self-center'>
                   {strings.rideShareHeaderText}
@@ -121,7 +121,7 @@ class ShareRideForm extends Component {
    }
 }
 
-export default withHeader(ShareRideForm)
+export default ShareRideForm
 
 ShareRideForm.defaultProps = {
    btnDisplayText: 'SHARE'
