@@ -98,6 +98,6 @@
       "jest-environment-jsdom-sixteen": "1.0.3",
       "lint-staged": "10.2.6",
       "react-app-rewired": "2.1.5",
-      "tailwindcss": "^1.2.0"
+      "tailwindcss": "1.4.6"
    }
 }

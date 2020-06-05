@@ -18,8 +18,6 @@ import images from '../../../Common/themes/Images'
 class Selector extends Component {
    @observable shouldShowDropdown
 
-   // @observable shouldShowSortOptions
-
    constructor(props) {
       super(props)
       this.shouldShowDropdown = false
@@ -29,9 +27,6 @@ class Selector extends Component {
    toggleDropdown = event => {
       this.shouldShowDropdown = !this.shouldShowDropdown
    }
-   // toggleSortOptions = () => {
-   //    this.shouldShowSortOptions = !this.shouldShowSortOptions
-   // }
 
    renderOptions = () => {
       const { options, onChange } = this.props

@@ -10,8 +10,8 @@ const Tabs = styled.ul`
    button:last-of-type {
       border-radius: 0px 6px 6px 0px;
    }
-
-   ${tw`flex items-center justify-center my-12`};
+   box-sizing: border-box;
+   ${tw`flex items-center justify-center my-12 `};
 `
 const Tab = styled.button`
    border: 1px solid ${Colors.lightBlueGrey};

@@ -11,7 +11,7 @@ const List = styled.div`
    display: ${props => (props.shouldShow ? 'flex' : 'none')};
    background: ${Colors.white};
    top: 110%;
-   left: 10%;
+   right: 5%;
    border-radius: 4px;
    ${tw` flex-col items-start p-2 absolute shadow-lg z-20`};
 `
@@ -36,10 +36,9 @@ const DisplayName = styled.button`
 `
 const Item = styled.button`
    font-size: 14px;
-
    width: 100%;
    color: ${Colors.steel};
-   ${tw`p-2 focus:outline-none`};
+   ${tw`p-2 focus:outline-none text-left`};
    &:hover {
       background: lightgray;
       cursor: pointer;

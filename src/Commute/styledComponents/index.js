@@ -33,7 +33,8 @@ const TotalPages = styled.div`
 `
 const TableFooter = styled.div`
    color: ${Colors.steel};
-   ${tw`flex justify-between items-center`};
+   box-sizing: border-box;
+   ${tw`flex justify-between items-center p-4`};
 `
 const Label = styled.label`
    color: ${Colors.steel};

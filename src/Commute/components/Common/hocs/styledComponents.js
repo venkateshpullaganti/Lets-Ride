@@ -12,7 +12,7 @@ const Header = styled.div`
    ${tw`flex justify-between items-center sticky z-30`};
 `
 const Actions = styled.div`
-   ${tw`flex`};
+   ${tw`flex `};
 `
 const ProfileIcon = styled.img`
    cursor: pointer;
@@ -24,6 +24,6 @@ const ProfileIcon = styled.img`
 `
 
 const Body = styled.div`
-   ${tw`h-screen w-screen`};
+   ${tw`h-100 w-100`};
 `
 export { Header, Actions, ProfileIcon, Body }

@@ -10,7 +10,7 @@ const TaskCount = styled.p`
    ${tw`m-2 flex`};
 `
 const Filters = styled.div`
-   ${tw`flex`};
+   ${tw`flex mr-4 p-2`};
 `
 
 export { Bar, TaskCount, Filters }

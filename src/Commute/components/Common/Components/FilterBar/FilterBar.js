@@ -20,13 +20,13 @@ class FilterBar extends Component {
          <Bar>
             <TaskCount>{taskCount} Tasks</TaskCount>
             <Filters>
-               {/* <Selector
+               <Selector
                   dropdownName={strings.sort}
                   options={sortOptions}
                   onChange={onChangeSort}
                   icon={images.sortIcon}
                   shouldRotateIcon={false}
-               /> */}
+               />
                <Selector
                   dropdownName={strings.filter}
                   options={filterOptions}
