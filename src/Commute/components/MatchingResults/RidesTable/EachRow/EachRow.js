@@ -5,6 +5,7 @@ import { reaction } from 'mobx'
 
 import Images from '../../../../../Common/themes/Images'
 import { displayToaster } from '../../../../../Common/components/Toaster'
+import strings from '../../../../i18n/strings.json'
 
 import { Row, Data, Accepted, AcceptRequest } from './styledComponents'
 @observer
@@ -13,24 +14,26 @@ class EachRow extends React.Component {
       const { acceptRequest } = this.props.row
       acceptRequest()
    }
+
    successReaction = reaction(
       () => {
          return this.props.row.rideRequestApiStatus === API_SUCCESS
       },
       boole => {
          setTimeout(() => {
-            displayToaster('Ride Request Accepted.', false)
+            displayToaster(strings.rideAcceptedSuccessfully, false)
 
             this.props.renderTable()
          }, 500)
       }
    )
+
    failureReaction = reaction(
       () => {
          return this.props.row.rideRequestApiError
       },
       error => {
-         displayToaster('Something Went Wrong', true, error)
+         displayToaster(strings.somethingWentWrong, true, error)
       }
    )
    componentWillUnmount() {

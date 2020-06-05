@@ -54,5 +54,7 @@
    "requestAddedSuccessfully": "Request Addedd Successfully. :)",
    "somethingWentWrong": "Something went wrong.",
    "rideSharedSuccessfully": "Ride Shared Successfully.",
-   "travelInfoSharedSuccessfully": "Shared Successfully."
+   "travelInfoSharedSuccessfully": "Shared Successfully.",
+   "assetRequestAccepted": "Asset Request Accepted Successfully.",
+   "rideAcceptedSuccessfully": "Ride Request Accepted."
 }

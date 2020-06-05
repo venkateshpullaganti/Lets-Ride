@@ -6,6 +6,8 @@ import { reaction } from 'mobx'
 import Images from '../../../../../Common/themes/Images'
 import { displayToaster } from '../../../../../Common/components/Toaster'
 
+import strings from '../../../../i18n/strings.json'
+
 import { Row, Data, Accepted, AcceptRequest } from './styledComponents'
 
 @observer
@@ -19,7 +21,7 @@ class EachRow extends React.Component {
          return this.props.row.assetRequestApiStatus === API_SUCCESS
       },
       boole => {
-         displayToaster('Asset Request Accepted Successfully.', false)
+         displayToaster(strings.assetRequestAccepted, false)
          setTimeout(() => {
             this.props.renderTable()
          }, 500)
@@ -30,7 +32,7 @@ class EachRow extends React.Component {
          return this.props.row.assetRequestApiError
       },
       error => {
-         displayToaster('Something went werong.', true, error)
+         displayToaster(strings.somethingWentWrong, true, error)
       }
    )
    componentWillUnmount() {
