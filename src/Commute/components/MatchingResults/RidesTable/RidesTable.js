@@ -28,9 +28,9 @@ class RidesTable extends Component {
       )
    }
    renderRows = () => {
-      const { tableData } = this.props
+      const { tableData, renderTable } = this.props
       return tableData.map(eachRow => (
-         <EachRow key={Math.random()} row={eachRow} />
+         <EachRow key={Math.random()} row={eachRow} renderTable={renderTable} />
       ))
    }
 
@@ -44,7 +44,8 @@ class RidesTable extends Component {
          onChangeFilter,
          filterOptions,
          sortOptions,
-         totalPages
+         totalPages,
+         renderTable
       } = this.props
       return (
          <>

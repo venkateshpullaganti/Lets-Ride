@@ -1,3 +1,7 @@
+import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
+import { API_INITIAL, API_SUCCESS } from '@ib/api-constants'
+import { observable, action } from 'mobx'
+
 class RideMatchingResultsModel {
    id
    sourcePlace
@@ -10,9 +14,14 @@ class RideMatchingResultsModel {
    laguageCount
    requestedPerson
    requestedPersonMobile
-   isAccepted
    rideMatchingId
-   constructor(rideObj) {
+   commuteService
+
+   @observable isAccepted
+   @observable rideRequestApiStatus
+   @observable rideRequestApiError
+
+   constructor(rideObj, commuteAPIService) {
       this.id = rideObj.ride_request_id
       this.sourcePlace = rideObj.source
       this.destinationPlace = rideObj.destination
@@ -26,6 +35,37 @@ class RideMatchingResultsModel {
       this.requestedPersonMobile = rideObj.user_phone_number
       this.isAccepted = false
       this.rideMatchingId = rideObj.ride_matching_id
+
+      this.commuteService = commuteAPIService
+      this.rideRequestApiStatus = API_INITIAL
+      this.rideRequestApiError = null
+   }
+
+   @action
+   setGetRideRequestApiStatus = status => {
+      this.rideRequestApiStatus = status
+   }
+   @action
+   setGetRideRequestApiError = error => {
+      this.rideRequestApiError = error
+      console.log(error)
+   }
+   setGetRideRequestApiResponse = response => {}
+
+   acceptRideRequest = () => {
+      const requestObj = {
+         ride_request_id: this.id,
+         ride_matching_id: this.rideMatchingId
+      }
+      const requestPromise = this.commuteService.acceptRideRequest(requestObj)
+      return bindPromiseWithOnSuccess(requestPromise)
+         .to(this.setGetRideRequestApiStatus, this.setGetRideRequestApiResponse)
+         .catch(this.setGetRideRequestApiError)
+   }
+
+   acceptRequest = async () => {
+      await this.acceptRideRequest()
+      if (this.rideRequestApiStatus === API_SUCCESS) this.isAccepted = true
    }
 }
 

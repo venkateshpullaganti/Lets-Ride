@@ -30,9 +30,9 @@ class AssetsTable extends Component {
       )
    }
    renderRows = () => {
-      const { tableData } = this.props
+      const { tableData, renderTable } = this.props
       return tableData.map(eachRow => (
-         <EachRow key={Math.random()} row={eachRow} />
+         <EachRow key={Math.random()} row={eachRow} renderTable={renderTable} />
       ))
    }
 

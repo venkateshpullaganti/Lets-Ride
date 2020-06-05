@@ -30,9 +30,9 @@ class FixtureService {
       })
    }
    rideRequest = requestObject => {
-      return new Promise((_, reject) => {
+      return new Promise((resolve, reject) => {
          setTimeout(() => {
-            reject()
+            resolve()
          }, 1000)
       })
    }
@@ -46,7 +46,7 @@ class FixtureService {
    rideShare = requestObject => {
       return new Promise((resolve, reject) => {
          setTimeout(() => {
-            reject()
+            resolve()
          }, 2000)
       })
    }
@@ -111,6 +111,20 @@ class FixtureService {
       return new Promise(resolve => {
          setTimeout(() => {
             resolve(response)
+         }, 1000)
+      })
+   }
+   acceptRideRequest = requestObj => {
+      return new Promise((resolve, reject) => {
+         setTimeout(() => {
+            reject(new Error('Network failure'))
+         }, 500)
+      })
+   }
+   acceptAssetTransportRequest = requestObj => {
+      return new Promise(resolve => {
+         setTimeout(() => {
+            resolve()
          }, 1000)
       })
    }

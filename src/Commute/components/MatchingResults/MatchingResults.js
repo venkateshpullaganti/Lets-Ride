@@ -127,11 +127,12 @@ class MatchingResults extends Component {
    }
 
    doMatchingResultsApiCall = offset => {
+      console.log('network call matching')
       const responseObj = {}
 
       const paginationObj = {
          limit: PAGINATION_LIMIT,
-         offset: offset || this.ridePaginationOffset,
+         offset: offset || 0,
          status: this.rideSelectedFilter,
          sort_key: this.rideSelectedSort,
          sort_value: 'ASC'
@@ -155,13 +156,13 @@ class MatchingResults extends Component {
             onChangeFilter={this.onChangeRideFilter}
             filterOptions={FILTER_OPTIONS}
             sortOptions={SORT_OPTIONS}
+            renderTable={this.doMatchingResultsApiCall}
          />
       )
    }
 
    renderAssetsTable = () => {
       const { matchingAssetReqests } = this.commuteStore
-
       return (
          <AssetsTable
             headerItems={MATCHING_ASSETS_COLUMN}
@@ -175,6 +176,7 @@ class MatchingResults extends Component {
             onChangeFilter={this.onChangeAssetFilter}
             filterOptions={FILTER_OPTIONS}
             sortOptions={SORT_OPTIONS}
+            renderTable={this.doMatchingResultsApiCall}
          />
       )
    }

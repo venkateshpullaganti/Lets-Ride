@@ -1,3 +1,9 @@
+import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
+import { API_INITIAL, API_SUCCESS } from '@ib/api-constants'
+import { observable, action } from 'mobx'
+
+import { FixtureService } from '../../services/FixtureService'
+
 class AssetMatchingResultsModel {
    id
    sourcePlace
@@ -15,7 +21,14 @@ class AssetMatchingResultsModel {
    isAccepted
    requestedPerson
    requestedPersonMobile
-   constructor(assetObj) {
+   travelMatchingId
+   rideMatchingId
+
+   @observable isAccepted
+   @observable assetRequestApiStatus
+   @observable assetRequestApiError
+
+   constructor(assetObj, commuteAPIService) {
       this.id = assetObj.asset_request_id
       this.sourcePlace = assetObj.source
       this.destinationPlace = assetObj.destination
@@ -32,10 +45,44 @@ class AssetMatchingResultsModel {
       this.requestedPerson = assetObj.username
       this.requestedPersonMobile = assetObj.user_phone_number
       this.isAccepted = false
+      this.travelMatchingId = assetObj.travel_matching_id
+      this.rideMatchingId = assetObj.ride_matching_id
+
+      this.commuteService = commuteAPIService
+      this.assetRequestApiStatus = API_INITIAL
+      this.assetRequestApiError = null
    }
-   onAcceptRequest = () => {
-      console.log('You accepted the request:', this.id)
-      this.isAccepted = true
+   @action
+   setGetAssetRequestApiStatus = status => {
+      this.assetRequestApiStatus = status
+   }
+   @action
+   setGetAssetRequestApiError = error => {
+      this.assetRequestApiError = error
+      console.log(error)
+   }
+   setGetRideRequestApiResponse = response => {}
+
+   acceptAssetRequest = () => {
+      const requestObj = {
+         asset_request_id: this.id,
+         travel_matching_id: this.travelMatchingId,
+         ride_matching_id: this.rideMatchingId
+      }
+      const requestPromise = this.commuteService.acceptAssetTransportRequest(
+         requestObj
+      )
+      return bindPromiseWithOnSuccess(requestPromise)
+         .to(
+            this.setGetAssetRequestApiStatus,
+            this.setGetRideRequestApiResponse
+         )
+         .catch(this.setGetAssetRequestApiError)
+   }
+
+   acceptRequest = async () => {
+      await this.acceptAssetRequest()
+      if (this.assetRequestApiStatus === API_SUCCESS) this.isAccepted = true
    }
 }
 

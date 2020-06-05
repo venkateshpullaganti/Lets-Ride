@@ -16,27 +16,33 @@ class CommuteService {
 
    constructor() {
       this.rideRequestApi = create({
-         baseURL: 'https://60c1c3c0ef6a.ngrok.io/api/lets_ride'
+         baseURL: 'https://e00689426b42.ngrok.io/api/lets_ride'
       })
       this.assetRequestApi = create({
-         baseURL: 'https://60c1c3c0ef6a.ngrok.io/api/lets_ride'
+         baseURL: 'https://e00689426b42.ngrok.io/api/lets_ride'
       })
 
       this.rideShareApi = create({
-         baseURL: 'https://60c1c3c0ef6a.ngrok.io/api/lets_ride'
+         baseURL: 'https://e00689426b42.ngrok.io/api/lets_ride'
       })
       this.travelInfoApi = create({
-         baseURL: 'https://60c1c3c0ef6a.ngrok.io/api/lets_ride'
+         baseURL: 'https://e00689426b42.ngrok.io/api/lets_ride'
       })
 
       this.myAssetsRequestsAPI = create({
-         baseURL: 'https://60c1c3c0ef6a.ngrok.io/api/lets_ride/my_requests'
+         baseURL: 'https://e00689426b42.ngrok.io/api/lets_ride/my_requests'
       })
       this.myRideRequestsAPI = create({
-         baseURL: 'https://60c1c3c0ef6a.ngrok.io/api/lets_ride/my_requests'
+         baseURL: 'https://e00689426b42.ngrok.io/api/lets_ride/my_requests'
       })
       this.matchingResults = create({
-         baseURL: 'https://60c1c3c0ef6a.ngrok.io/api/lets_ride'
+         baseURL: 'https://e00689426b42.ngrok.io/api/lets_ride'
+      })
+      this.acceptRideRequestApi = create({
+         baseURL: 'https://e00689426b42.ngrok.io/api/lets_ride'
+      })
+      this.acceptAssetRequestApi = create({
+         baseURL: 'https://e00689426b42.ngrok.io/api/lets_ride'
       })
    }
    rideRequest = requestObject => {
@@ -127,15 +133,25 @@ class CommuteService {
          apiMethods.get
       )
    }
+   acceptRideRequest = requestObj => {
+      console.log('service', requestObj)
+
+      return networkCallWithApisauce(
+         this.acceptRideRequestApi,
+         '/accept_ride_request/v1/',
+         requestObj,
+         apiMethods.put
+      )
+   }
+   acceptAssetTransportRequest = requestObj => {
+      console.log('service', requestObj)
+
+      return networkCallWithApisauce(
+         this.acceptAssetRequestApi,
+         `/accept_asset_request/v1/`,
+         requestObj,
+         apiMethods.put
+      )
+   }
 }
 export { CommuteService }
-
-//  /rides/v1/?offset=1&limit=5&status=filtervalue&sort_key=sortvalue&sort_value=ASC
-
-//  otherParams = {
-//     limit: PAGINATION_LIMIT,
-//     offset: this.assetPaginationOffset,
-//     status: this.assetSelectedFilter,
-//     sort_key: this.assetSelectedSort,
-//     sort_value: 'ASC'
-//  }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect } from 'react'
 import { observer, inject } from 'mobx-react'
 import { observable, computed } from 'mobx'
 import { API_FETCHING } from '@ib/api-constants'
@@ -51,6 +51,7 @@ class ShareRideRoute extends Component {
          travelDate,
          laguageCount
       } = formData
+
       let mainDate, fromDate, toDate
 
       if (isFlexible) {
@@ -77,7 +78,6 @@ class ShareRideRoute extends Component {
       this.shareStore.rideShare(requestObj, this.onSuccess, this.onFailure)
    }
    onSuccess = () => {
-      alert('successfully added')
       this.init()
    }
    onFailure(error) {
@@ -86,11 +86,12 @@ class ShareRideRoute extends Component {
 
    render() {
       const { onSubmit, btnDisplayText } = this
+
       return (
          <ShareRideForm
             onSubmit={onSubmit}
             btnDisplayText={btnDisplayText}
-            isLoading={this.shareStore.getRideShareAPIStatus === API_FETCHING}
+            apiStatus={this.shareStore.getRideShareAPIStatus}
          />
       )
    }

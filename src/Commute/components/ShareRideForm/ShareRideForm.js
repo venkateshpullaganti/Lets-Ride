@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
-import { observable, computed } from 'mobx'
+import { observable, computed, reaction } from 'mobx'
 
 import { DateFormatter } from '../../utils/DateFormatter'
 
@@ -20,6 +20,7 @@ import { Counter } from '../Counter'
 import { FlexibleTimings } from '../FlexibleTimings'
 
 import { ShareRide, Form } from './styledComponents'
+import { API_SUCCESS, API_FETCHING } from '@ib/api-constants'
 
 @observer
 class ShareRideForm extends Component {
@@ -124,7 +125,7 @@ class ShareRideForm extends Component {
          this.errorMsg = strings.seatCountError
       } else {
          this.errorMsg = null
-         const entereData = {
+         const enteredData = {
             sourcePlace,
             destinationPlace,
             isFlexible,
@@ -134,7 +135,7 @@ class ShareRideForm extends Component {
             travelDate,
             laguageCount
          }
-         onSubmit(entereData)
+         onSubmit(enteredData)
       }
    }
    @computed
@@ -157,6 +158,16 @@ class ShareRideForm extends Component {
    get isSeatCountError() {
       return this.errorMsg === strings.seatCountError
    }
+
+   successReaction = reaction(
+      () => {
+         return this.props.apiStatus === API_SUCCESS
+      },
+      () => {
+         alert('Success')
+         this.init()
+      }
+   )
 
    render() {
       const {
@@ -184,7 +195,8 @@ class ShareRideForm extends Component {
          onChangeDate,
          isSeatCountError
       } = this
-      const { btnDisplayText, isLoading } = this.props
+      const { btnDisplayText, apiStatus } = this.props
+      const isLoading = apiStatus === API_FETCHING
       return (
          <ShareRide>
             {/* <Header /> */}

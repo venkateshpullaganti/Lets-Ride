@@ -187,7 +187,7 @@ class RideRequestForm extends Component {
       const { btnDisplayText, isLoading } = this.props
       return (
          <RideRequest>
-            <Form onSubmit={onSubmit}>
+            <Form onSubmit={this.onSubmit}>
                <Heading>{strings.rideRequestFormHeading}</Heading>
                <Input
                   type={'text'}

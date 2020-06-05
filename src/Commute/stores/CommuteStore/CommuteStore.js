@@ -175,14 +175,15 @@ class CommuteStore {
    @action.bound
    setGetMatchingResultsAPIResponse(response) {
       console.log(response)
+      const commuteAPIService = this.commuteAPIService
       this.totalMatchingAssets = response.total_assets
       this.totalMatchingRides = response.total_rides
 
       this.matchingRideRequests = response.rides.map(ride => {
-         return new RideMatchingResultsModel(ride)
+         return new RideMatchingResultsModel(ride, commuteAPIService)
       })
       this.matchingAssetReqests = response.assets.map(asset => {
-         return new AssetMatchingResultsModel(asset)
+         return new AssetMatchingResultsModel(asset, commuteAPIService)
       })
    }
 

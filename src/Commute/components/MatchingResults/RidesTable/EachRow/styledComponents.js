@@ -24,7 +24,7 @@ const Accepted = styled(StatusCircle)`
    border: 1px solid ${Colors.greenishTeal};
 `
 const AcceptRequest = styled(StatusCircle)`
-   ${tw``};
+   ${tw`cursor-pointer`};
    border: 1px solid ${Colors.lightBlueGrey};
 `
 

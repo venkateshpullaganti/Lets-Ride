@@ -3,8 +3,8 @@ import { css } from '@emotion/core'
 import Colors from '../../themes/Colors'
 
 export const Typo32DarkBlueGreyRubikRegular = css`
-   ${'' /* font-family: Rubik-Regular, Rubik;
-   src: local(Rubik-Regular),
+   font-family: 'Rubik-Regular', 'Rubik';
+   ${'' /* src: local(Rubik-Regular),
       url(../Common/fonts/Rubik-Regular.ttf) format('ttf'); */}
    font-size: 32px;
    font-weight: normal;
@@ -14,9 +14,9 @@ export const Typo32DarkBlueGreyRubikRegular = css`
    letter-spacing: normal;
 `
 export const Typo12SteelHKGroteskSemiBold = css`
-   font-family: HKGrotesk;
-   src: local(HKGrotesk-SemiBold),
-      url(../Common/fonts/HKGrotesk-SemiBold.woff) format('woff');
+   font-family: 'HK Grotesk';
+   ${'' /* src: local(HKGrotesk-SemiBold),
+      url(../Common/fonts/HKGrotesk-SemiBold.woff) format('woff'); */}
    font-size: 12px;
    font-weight: 600;
    font-stretch: normal;
@@ -25,9 +25,9 @@ export const Typo12SteelHKGroteskSemiBold = css`
    letter-spacing: 0.12px;
 `
 export const Typo12NeonRedHKGroteskRegular = css`
-   font-family: HKGrotesk;
-   src: local(HKGrotesk-Regular),
-      url(../Common/fonts/HKGrotesk-Regular.woff) format('woff');
+   font-family: 'HK Grotesk';
+   ${'' /* src: local(HKGrotesk-Regular),
+      url(../Common/fonts/HKGrotesk-Regular.woff) format('woff'); */}
    font-size: 12px;
    font-weight: normal;
    font-stretch: normal;
@@ -36,9 +36,9 @@ export const Typo12NeonRedHKGroteskRegular = css`
    letter-spacing: normal;
 `
 export const Typo14BrightBlueHKGroteskRegular = css`
-   font-family: HKGrotesk;
-   src: local(HKGrotesk-Regular),
-      url(../Common/fonts/HKGrotesk-Regular.woff) format('woff');
+   font-family: 'HK Grotesk';
+   ${'' /* src: local(HKGrotesk-Regular),
+      url(../Common/fonts/HKGrotesk-Regular.woff) format('woff'); */}
    font-size: 14px;
    font-weight: normal;
    font-stretch: normal;
@@ -47,7 +47,7 @@ export const Typo14BrightBlueHKGroteskRegular = css`
    letter-spacing: normal;
 `
 export const Typo14WhiteRubikMedium = css`
-   font-family: Rubik;
+   font-family: 'Rubik';
    font-size: 14px;
    font-weight: 500;
    font-stretch: normal;
@@ -56,7 +56,7 @@ export const Typo14WhiteRubikMedium = css`
    letter-spacing: normal;
 `
 export const Typo20DarkBlueGreyHKGrotestBold = css`
-   font-family: HKGrotesk;
+   font-family: 'HK Grotesk';
    font-size: 20px;
    font-weight: bold;
    font-stretch: normal;

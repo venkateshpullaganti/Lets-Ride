@@ -8,7 +8,7 @@ import { CommuteStore } from './CommuteStore'
 const commuteService = new CommuteService()
 const fixtureService = new FixtureService()
 
-const changableService = fixtureService // change the service here
+const changableService = commuteService // change the service here
 
 const requestStore = new RequestStore(changableService)
 const shareStore = new ShareStore(changableService)
