@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import tw from 'tailwind.macro'
 
-import Colors from '../../../Common/themes/Colors'
+import Colors from '../../../../../Common/themes/Colors'
 
 const Bar = styled.div`
    ${tw`flex justify-between my-2 `};

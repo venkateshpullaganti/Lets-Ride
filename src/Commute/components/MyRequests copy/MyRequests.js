@@ -23,7 +23,7 @@ import {
 } from '../../constants/NavigationConstants'
 
 import { Table } from '../Table'
-import { FilterBar } from '../FilterBar'
+import { FilterBar } from '../Common/Components/FilterBar'
 import { Selector } from '../Selector'
 
 import {

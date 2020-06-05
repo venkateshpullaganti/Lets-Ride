@@ -69,6 +69,7 @@ class CommuteStore {
 
    @action
    setGetMyAssetRequestsAPIResponse = response => {
+      console.log(response)
       if (response !== undefined) {
          this.totalMyAssetRequests = response.total_assets
          this.myAssetRequestsSortOptions = response.sort_options.map(option => {
@@ -173,6 +174,7 @@ class CommuteStore {
 
    @action.bound
    setGetMatchingResultsAPIResponse(response) {
+      console.log(response)
       this.totalMatchingAssets = response.total_assets
       this.totalMatchingRides = response.total_rides
 

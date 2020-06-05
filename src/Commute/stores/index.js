@@ -8,9 +8,11 @@ import { CommuteStore } from './CommuteStore'
 const commuteService = new CommuteService()
 const fixtureService = new FixtureService()
 
-const requestStore = new RequestStore(fixtureService)
-const shareStore = new ShareStore(fixtureService)
-const commuteStore = new CommuteStore(fixtureService)
+const changableService = fixtureService // change the service here
+
+const requestStore = new RequestStore(changableService)
+const shareStore = new ShareStore(changableService)
+const commuteStore = new CommuteStore(changableService)
 
 export default {
    requestStore,

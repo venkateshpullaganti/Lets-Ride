@@ -6,17 +6,15 @@ import { observable, computed } from 'mobx'
 import 'react-datepicker/dist/react-datepicker.css'
 
 import withHeader from '../Common/hocs/withHeader'
-
 import {
    ASSET_SENSITIVITY_OPTIONS,
    ASSET_TYPES
 } from '../../constants/CommuteConstants'
-
+import { DateFormatter } from '../../utils/DateFormatter'
 import { Button } from '../../../Common/components/Button'
 import { Input } from '../../../Common/components/Input'
 import { DateAndTimePicker } from '../../../Common/components/DateAndTimePicker'
 import { Selector } from '../../../Common/components/Selector'
-
 import { Heading } from '../../styledComponents'
 import strings from '../../i18n/strings.json'
 
@@ -73,14 +71,14 @@ class AssetTransportRequestForm extends Component {
       this.isFlexible = !this.isFlexible
    }
    onChangeDate = dateObj => {
-      this.travelDate = moment(dateObj).format('YYYY-MM-DD hh:mm A')
+      this.travelDate = DateFormatter(dateObj)
    }
 
-   onChangeFlexibleFromDate = date => {
-      this.flexibleFromDate = moment(date).format('YYYY-MM-DD hh:mm A')
+   onChangeFlexibleFromDate = dateObj => {
+      this.flexibleFromDate = DateFormatter(dateObj)
    }
-   onChangeFlexibleToDate = date => {
-      this.flexibleToDate = moment(date).format('YYYY-MM-DD hh:mm A')
+   onChangeFlexibleToDate = dateObj => {
+      this.flexibleToDate = DateFormatter(dateObj)
    }
 
    onIncrementAssetsCount = () => {

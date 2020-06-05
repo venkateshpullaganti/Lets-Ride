@@ -52,7 +52,9 @@ class FixtureService {
    }
    shareTravelInfoApi = requestObject => {
       return new Promise((resolve, reject) => {
-         resolve()
+         setTimeout(() => {
+            resolve()
+         }, 1000)
       })
    }
 

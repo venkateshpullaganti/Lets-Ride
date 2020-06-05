@@ -10,7 +10,7 @@ import {
 } from '../../../styledComponents'
 
 import { Selector } from '../../Selector'
-import { FilterBar } from '../../FilterBar'
+import { FilterBar } from '../../Common/Components/FilterBar'
 
 import { EachRow } from './EachRow'
 import { TableContainer, Header, Col } from './styledComponents'

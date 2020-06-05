@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
+import { observable, computed } from 'mobx'
+
+import { DateFormatter } from '../../utils/DateFormatter'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
@@ -20,6 +23,139 @@ import { RideRequest, Form } from './styledComponents'
 
 @observer
 class RideRequestForm extends Component {
+   @observable destinationPlace
+   @observable sourcePlace
+   @observable errorMsg
+   @observable isFlexible
+   @observable seatCount
+   @observable laguageCount
+   travelDate
+   flexibleFromDate
+   flexibleToDate
+
+   @observable date = new Date()
+
+   constructor(props) {
+      super(props)
+      this.init()
+   }
+   init = () => {
+      this.seatCount = 0
+      this.laguageCount = 0
+      this.isFlexible = false
+      this.destinationPlace = ''
+      this.sourcePlace = ''
+      this.errorMsg = null
+      this.travelDate = ''
+      this.flexibleFromDate = ''
+      this.flexibleToDate = ''
+   }
+   onChangeSource = event => {
+      this.sourcePlace = event.target.value
+   }
+   onChangeDestination = event => {
+      this.destinationPlace = event.target.value
+   }
+   toggleIsFlexible = () => {
+      this.isFlexible = !this.isFlexible
+   }
+   onChangeDate = dateObj => {
+      this.travelDate = DateFormatter(dateObj)
+   }
+
+   onChangeFlexibleFromDate = dateObj => {
+      this.flexibleFromDate = DateFormatter(dateObj)
+   }
+   onChangeFlexibleToDate = dateObj => {
+      this.flexibleToDate = DateFormatter(dateObj)
+   }
+
+   onIncrementSeats = () => {
+      this.seatCount++
+   }
+   onDecrementSeats = () => {
+      if (this.seatCount > 0) this.seatCount--
+   }
+   onChangeSeats = event => {
+      this.seatCount = parseInt(event.target.value)
+   }
+   onIncrementLaguage = () => {
+      this.laguageCount++
+   }
+   onDecrementLaguage = () => {
+      if (this.laguageCount > 0) this.laguageCount--
+   }
+   onChangeLaguage = event => {
+      this.laguageCount = parseInt(event.target.value)
+   }
+   onSubmit = event => {
+      event.preventDefault()
+      const {
+         sourcePlace,
+         destinationPlace,
+         isFlexible,
+         flexibleFromDate,
+         flexibleToDate,
+         seatCount,
+         laguageCount,
+         travelDate
+      } = this
+
+      const { onSubmit } = this.props
+
+      if (sourcePlace === '') {
+         this.errorMsg = strings.sourcePlaceError
+      } else if (destinationPlace === '') {
+         this.errorMsg = strings.destinationPlaceError
+      } else if (!isFlexible && this.travelDate === '') {
+         this.errorMsg = strings.travelDateError
+      } else if (
+         isFlexible &&
+         (flexibleFromDate === '' || flexibleToDate === '')
+      ) {
+         this.errorMsg = strings.flexibleTimingsError
+      } else if (seatCount === 0) {
+         this.errorMsg = strings.seatCountError
+      } else {
+         this.errorMsg = null
+
+         const enteredDetails = {
+            sourcePlace,
+            destinationPlace,
+            isFlexible,
+            flexibleFromDate,
+            flexibleToDate,
+            seatCount,
+            laguageCount,
+            travelDate
+         }
+         console.log(enteredDetails)
+
+         onSubmit(enteredDetails)
+         this.init()
+      }
+   }
+   @computed
+   get isSourceError() {
+      return this.errorMsg === strings.sourcePlaceError
+   }
+   @computed
+   get isDestinationError() {
+      return this.errorMsg === strings.destinationPlaceError
+   }
+   @computed
+   get isTravelDateError() {
+      return this.errorMsg === strings.travelDateError
+   }
+   @computed
+   get isFlexibleTimingsError() {
+      return this.errorMsg === strings.flexibleTimingsError && this.isFlexible
+   }
+   @computed
+   get isSeatCountError() {
+      return this.errorMsg === strings.seatCountError
+   }
+
    render() {
       const {
          onChangeSource,
@@ -39,17 +175,16 @@ class RideRequestForm extends Component {
          toggleIsFlexible,
          isFlexible,
          seatCount,
-         isLoading,
          laguageCount,
          onIncrementLaguage,
          onDecrementLaguage,
          onChangeLaguage,
          onChangeDate,
          isSeatCountError,
-         btnDisplayText,
          onSubmit
-      } = this.props
+      } = this
 
+      const { btnDisplayText, isLoading } = this.props
       return (
          <RideRequest>
             <Form onSubmit={onSubmit}>

@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
-import moment from 'moment'
+
 import { observable, computed } from 'mobx'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
 import { TRAVEL_MEDIUM_OPTIONS } from '../../constants/CommuteConstants'
+
+import { DateFormatter } from '../../utils/DateFormatter'
 
 import { Button } from '../../../Common/components/Button'
 import { Input } from '../../../Common/components/Input'
@@ -63,14 +65,14 @@ class ShareTravelInfoForm extends Component {
       this.isFlexible = !this.isFlexible
    }
    onChangeDate = dateObj => {
-      this.travelDate = moment(dateObj).format('YYYY-MM-DD hh:mm A')
+      this.travelDate = DateFormatter(dateObj)
    }
 
-   onChangeFlexibleFromDate = date => {
-      this.flexibleFromDate = moment(date).format('YYYY-MM-DD hh:mm A')
+   onChangeFlexibleFromDate = dateObj => {
+      this.flexibleFromDate = DateFormatter(dateObj)
    }
-   onChangeFlexibleToDate = date => {
-      this.flexibleToDate = moment(date).format('YYYY-MM-DD hh:mm A')
+   onChangeFlexibleToDate = dateObj => {
+      this.flexibleToDate = DateFormatter(dateObj)
    }
 
    onIncrementAssetsCount = () => {

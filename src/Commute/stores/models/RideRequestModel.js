@@ -11,6 +11,7 @@ class RideRequestModel {
    acceptedPerson
    acceptedPersonPhoneNumber
    status
+
    constructor(rideObj) {
       this.id = rideObj.ride_request_id
       this.sourcePlace = rideObj.source

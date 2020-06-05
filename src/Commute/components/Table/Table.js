@@ -6,7 +6,7 @@ import strings from '../../i18n/strings.json'
 import { AddRequestBtn, TotalPages, TableFooter } from '../../styledComponents'
 
 import { Selector } from '../Selector'
-import { FilterBar } from '../FilterBar'
+import { FilterBar } from '../Common/Components/FilterBar'
 
 import { Item } from './Item'
 import { TableContainer, Header, Col } from './styledComponents'

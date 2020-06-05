@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 
-import { Selector } from '../Selector'
+import { Selector } from '../../../Selector'
 import { Bar, TaskCount, Filters } from './styledComponents'
 
-import images from '../../../Common/themes/Images'
+import images from '../../../../../Common/themes/Images'
 
-import strings from '../../i18n/strings.json'
+import strings from '../../../../i18n/strings.json'
 
 class FilterBar extends Component {
    render() {
@@ -20,13 +20,13 @@ class FilterBar extends Component {
          <Bar>
             <TaskCount>{taskCount} Tasks</TaskCount>
             <Filters>
-               <Selector
+               {/* <Selector
                   dropdownName={strings.sort}
                   options={sortOptions}
                   onChange={onChangeSort}
                   icon={images.sortIcon}
                   shouldRotateIcon={false}
-               />
+               /> */}
                <Selector
                   dropdownName={strings.filter}
                   options={filterOptions}

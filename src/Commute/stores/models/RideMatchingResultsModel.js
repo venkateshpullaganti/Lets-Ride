@@ -11,6 +11,7 @@ class RideMatchingResultsModel {
    requestedPerson
    requestedPersonMobile
    isAccepted
+   rideMatchingId
    constructor(rideObj) {
       this.id = rideObj.ride_request_id
       this.sourcePlace = rideObj.source
@@ -24,6 +25,7 @@ class RideMatchingResultsModel {
       this.requestedPerson = rideObj.username
       this.requestedPersonMobile = rideObj.user_phone_number
       this.isAccepted = false
+      this.rideMatchingId = rideObj.ride_matching_id
    }
 }
 

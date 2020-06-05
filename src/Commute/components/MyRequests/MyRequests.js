@@ -24,7 +24,7 @@ import {
 } from '../../constants/NavigationConstants'
 
 import { Table } from '../Table'
-import { FilterBar } from '../FilterBar'
+import { FilterBar } from '../Common/Components/FilterBar'
 import { Selector } from '../Selector'
 
 import {
@@ -103,18 +103,26 @@ class MyRequests extends Component {
       this.doMyAssetsRequestApiCall()
    }
 
+   @action
    onChangeRideFilter = selectedFilter => {
       this.rideSelectedFilter = selectedFilter
+      this.doMyRideRequestApiCall()
    }
+   @action
    onChangeRideSort = selectedSort => {
       this.rideSelectedSort = selectedSort
+      this.doMyRideRequestApiCall()
    }
 
+   @action
    onChangeAssetFilter = selectedFilter => {
       this.assetSelectedFilter = selectedFilter
+      this.doMyAssetsRequestApiCall()
    }
+   @action
    onChangeAssetSort = selectedSort => {
       this.assetSelectedSort = selectedSort
+      this.doMyAssetsRequestApiCall()
    }
 
    navigateToRideRequestForm = () => {
@@ -199,7 +207,13 @@ class MyRequests extends Component {
             />
             <RequestTable>
                {this.renderRequestsHeader()}
-               {this.renderRequests()}
+               <LoadingWrapperWithFailure
+                  apiStatus={this.commuteStore.getMyRideRequestsAPIStatus}
+                  onRetryClick={this.doMyRideRequestApiCall}
+                  apiError={this.commuteStore.getMyRideRequestsAPIError}
+                  renderSuccessUI={this.renderRequests}
+                  isNoData={this.commuteStore.myRideRequests.length === 0}
+               />
             </RequestTable>
             <TableFooter>
                <AddRequestBtn onClick={this.navigateToRideRequestForm}>
@@ -236,15 +250,7 @@ class MyRequests extends Component {
 
    renderSelectedTable = () => {
       if (this.selectedField === strings.ride) {
-         return (
-            <LoadingWrapperWithFailure
-               apiStatus={this.commuteStore.getMyRideRequestsAPIStatus}
-               onRetryClick={this.doMyRideRequestApiCall}
-               apiError={this.commuteStore.getMyRideRequestsAPIError}
-               renderSuccessUI={this.renderRidesTable}
-               isNoData={this.commuteStore.myRideRequests.length === 0}
-            />
-         )
+         return this.renderRidesTable()
       }
       return (
          <LoadingWrapperWithFailure

@@ -16,27 +16,27 @@ class CommuteService {
 
    constructor() {
       this.rideRequestApi = create({
-         baseURL: 'https://f3ade051cc9a.ngrok.io/api/lets_ride'
+         baseURL: 'https://60c1c3c0ef6a.ngrok.io/api/lets_ride'
       })
       this.assetRequestApi = create({
-         baseURL: 'https://f3ade051cc9a.ngrok.io/api/lets_ride'
+         baseURL: 'https://60c1c3c0ef6a.ngrok.io/api/lets_ride'
       })
 
       this.rideShareApi = create({
-         baseURL: 'https://f3ade051cc9a.ngrok.io/api/lets_ride'
+         baseURL: 'https://60c1c3c0ef6a.ngrok.io/api/lets_ride'
       })
       this.travelInfoApi = create({
-         baseURL: 'https://f3ade051cc9a.ngrok.io/api/lets_ride'
+         baseURL: 'https://60c1c3c0ef6a.ngrok.io/api/lets_ride'
       })
 
       this.myAssetsRequestsAPI = create({
-         baseURL: 'https://f3ade051cc9a.ngrok.io/api/lets_ride/my_requests'
+         baseURL: 'https://60c1c3c0ef6a.ngrok.io/api/lets_ride/my_requests'
       })
       this.myRideRequestsAPI = create({
-         baseURL: 'https://f3ade051cc9a.ngrok.io/api/lets_ride/my_requests'
+         baseURL: 'https://60c1c3c0ef6a.ngrok.io/api/lets_ride/my_requests'
       })
       this.matchingResults = create({
-         baseURL: 'https://f3ade051cc9a.ngrok.io/api/lets_ride'
+         baseURL: 'https://60c1c3c0ef6a.ngrok.io/api/lets_ride'
       })
    }
    rideRequest = requestObject => {

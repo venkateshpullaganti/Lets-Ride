@@ -26,7 +26,7 @@ class CommuteHomePage extends Component {
       this.init()
    }
    init = () => {
-      this.selectedCategory = MATCHING_RESULTS
+      this.selectedCategory = MY_REQUESTS
    }
 
    renderSelectedCategory = () => {
