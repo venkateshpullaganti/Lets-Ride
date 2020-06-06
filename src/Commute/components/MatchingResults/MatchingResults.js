@@ -21,9 +21,9 @@ import {
 import { RidesTable } from './RidesTable'
 import { AssetsTable } from './AssetsTable'
 
-import { MatchingResultsRoot, TabBar, TabBtn } from './styledComponents'
+import { MatchingResultsRoot } from './styledComponents'
 
-const ZERO = 0
+import { TableTabBar } from '../Common/Components/TableTabBar'
 
 @inject('commuteStore')
 @observer
@@ -127,7 +127,6 @@ class MatchingResults extends Component {
    }
 
    doMatchingResultsApiCall = offset => {
-      console.log('network call matching')
       const responseObj = {}
 
       const paginationObj = {
@@ -207,20 +206,11 @@ class MatchingResults extends Component {
    render() {
       return (
          <MatchingResultsRoot>
-            <TabBar>
-               <TabBtn
-                  isSelected={this.selectedField === strings.ride}
-                  onClick={this.showRide}
-               >
-                  {strings.ride}
-               </TabBtn>
-               <TabBtn
-                  isSelected={this.selectedField === strings.asset}
-                  onClick={this.showAsset}
-               >
-                  {strings.asset}
-               </TabBtn>
-            </TabBar>
+            <TableTabBar
+               selected={this.selectedField}
+               onClickRide={this.showRide}
+               onClickAsset={this.showAsset}
+            />
             {this.renderSelectedTable()}
          </MatchingResultsRoot>
       )

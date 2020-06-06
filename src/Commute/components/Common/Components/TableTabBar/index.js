@@ -1,0 +1,1 @@
+export { TableTabBar } from './TableTabBar'

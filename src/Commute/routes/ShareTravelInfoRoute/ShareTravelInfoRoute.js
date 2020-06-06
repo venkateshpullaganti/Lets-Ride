@@ -79,7 +79,7 @@ class ShareTravelInfoRoute extends Component {
       return (
          <ShareTravelInfoForm
             onSubmit={this.onSubmit}
-            isLoading={this.shareStore.getRideShareAPIStatus === API_FETCHING}
+            apiStatus={this.shareStore.getTravelInfoAPIStatus}
          />
       )
    }

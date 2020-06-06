@@ -205,11 +205,10 @@ class AssetTransportRequestForm extends Component {
    }
 
    render() {
-      const { isLoading, btnDisplayText } = this.props
+      const { isLoading } = this.props
 
       return (
          <AssetRequest>
-            {/* <Header /> */}
             <Form onSubmit={this.onSubmit}>
                <Heading>{strings.assetRequestFormHeading}</Heading>
                <Input
@@ -299,8 +298,8 @@ class AssetTransportRequestForm extends Component {
                />
 
                <Button
-                  isLoading={this.isLoading}
-                  displayText={btnDisplayText}
+                  isLoading={isLoading}
+                  displayText={strings.requestBtnText}
                   disabled={isLoading}
                />
             </Form>

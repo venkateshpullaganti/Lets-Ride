@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 
-import { observable, computed } from 'mobx'
+import { observable, computed, reaction } from 'mobx'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
@@ -23,6 +23,7 @@ import { FlexibleTimings } from '../FlexibleTimings'
 import withHeader from '../Common/hocs/withHeader'
 
 import { AssetRequest, Form } from './styledComponents'
+import { API_FETCHING, API_SUCCESS } from '@ib/api-constants'
 
 @observer
 class ShareTravelInfoForm extends Component {
@@ -138,7 +139,6 @@ class ShareTravelInfoForm extends Component {
             travelDate,
             travelMedium
          }
-         console.log('data', data)
 
          onSubmit(data)
       }
@@ -173,9 +173,21 @@ class ShareTravelInfoForm extends Component {
       this.travelMedium = selectedSensitivity.value
    }
 
-   render() {
-      const { isLoading, btnDisplayText } = this.props
+   successReaction = reaction(
+      () => {
+         return this.props.apiStatus === API_SUCCESS
+      },
+      boole => {
+         this.init()
+      }
+   )
+   componentWillUnmount() {
+      this.successReaction()
+   }
 
+   render() {
+      const { apiStatus } = this.props
+      const isLoading = apiStatus === API_FETCHING
       return (
          <AssetRequest>
             <Form onSubmit={this.onSubmit}>
@@ -240,7 +252,7 @@ class ShareTravelInfoForm extends Component {
 
                <Button
                   isLoading={isLoading}
-                  displayText={btnDisplayText}
+                  displayText={strings.shareBtnText}
                   disabled={isLoading}
                />
             </Form>

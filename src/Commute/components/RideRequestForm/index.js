@@ -1,2 +1,1 @@
-import RideRequestForm from './RideRequestForm'
-export { RideRequestForm }
+export { RideRequestForm } from './RideRequestForm'

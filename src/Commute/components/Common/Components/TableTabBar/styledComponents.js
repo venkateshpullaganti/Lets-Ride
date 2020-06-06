@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import tw from 'tailwind.macro'
 
-import Colors from '../../../Common/themes/Colors'
+import Colors from '../../../../../Common/themes/Colors'
 
 const RequestsContainer = styled.div`
    ${'' /* border: 1px solid green; */}
@@ -9,7 +9,7 @@ const RequestsContainer = styled.div`
 `
 const Navigator = styled.div`
    border-bottom: 1px solid ${Colors.steel60};
-   ${tw`my-4 mx-2`};
+   ${tw`my-4`};
 `
 const NavBtn = styled.button`
    font-size: 12px;

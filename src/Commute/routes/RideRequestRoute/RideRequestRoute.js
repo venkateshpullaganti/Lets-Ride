@@ -4,6 +4,7 @@ import { observable, computed, action } from 'mobx'
 import { API_FETCHING } from '@ib/api-constants'
 
 import { displayToaster } from '../../../Common/components/Toaster'
+import withHeader from '../../components/Common/hocs/withHeader'
 
 import { RideRequestForm } from '../../components/RideRequestForm'
 import strings from '../../i18n/strings.json'
@@ -78,11 +79,10 @@ class RideRequestRoute extends Component {
       return (
          <RideRequestForm
             onSubmit={this.onSubmit}
-            btnDisplayText={this.btnDisplayText}
-            isLoading={this.requestStore.getRideRequestAPIStatus === 100}
+            apiStatus={this.requestStore.getRideRequestAPIStatus}
          />
       )
    }
 }
 
-export { RideRequestRoute }
+export default withHeader(RideRequestRoute)

@@ -3,7 +3,10 @@ import tw from 'tailwind.macro'
 
 import Colors from '../../Common/themes/Colors'
 
-import { Typo20DarkBlueGreyHKGrotestBold } from '../../Common/styleGuide/Typos'
+import {
+   Typo20DarkBlueGreyHKGrotestBold,
+   Typo8WhiteHKGroteskSemiBold
+} from '../../Common/styleGuide/Typos'
 
 const Heading = styled.p`
    ${Typo20DarkBlueGreyHKGrotestBold};
@@ -51,6 +54,20 @@ const Col = styled.div`
    ${tw``};
 `
 
+const Badge = styled.div`
+   height: 16px;
+   width: 72px;
+   ${Typo8WhiteHKGroteskSemiBold};
+   background: ${props =>
+      props.isAccepted
+         ? `${Colors.greenishTeal}`
+         : props.isExpired
+         ? `${Colors.lightBlueGrey}`
+         : `${Colors.yellowOrange}`};
+   border-radius: 10px;
+   ${tw` flex items-center justify-center`};
+`
+
 export {
    Heading,
    Form,
@@ -60,5 +77,6 @@ export {
    TableFooter,
    Label,
    TableContainer,
-   Col
+   Col,
+   Badge
 }

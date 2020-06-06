@@ -14,6 +14,7 @@ export function Selector(props) {
       isError,
       errorMsg
    } = props
+   console.log(value)
    return (
       <>
          <Label className='mt-6' htmlFor={label}>
@@ -21,6 +22,7 @@ export function Selector(props) {
             <Required>{isRequired ? '*' : null}</Required>
          </Label>
          <Select
+            key={label}
             id={label}
             // styles={customStyles}
             className={

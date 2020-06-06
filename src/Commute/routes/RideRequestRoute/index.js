@@ -1,1 +1,2 @@
-export { RideRequestRoute } from './RideRequestRoute'
+import RideRequestRoute from './RideRequestRoute'
+export { RideRequestRoute }

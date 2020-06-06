@@ -1,21 +1,16 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
-import { observable, computed, reaction } from 'mobx'
-
-import { DateFormatter } from '../../utils/DateFormatter'
-
+import { observable, computed, reaction, action } from 'mobx'
 import 'react-datepicker/dist/react-datepicker.css'
 
-import withHeader from '../Common/hocs/withHeader'
-
+import { DateFormatter } from '../../utils/DateFormatter'
 import { Button } from '../../../Common/components/Button'
 import { Input } from '../../../Common/components/Input'
 import { DateAndTimePicker } from '../../../Common/components/DateAndTimePicker'
 import { Heading } from '../../styledComponents'
-
 import strings from '../../i18n/strings.json'
 
-import { Header } from '../Header'
+import withHeader from '../Common/hocs/withHeader'
 import { Counter } from '../Counter'
 import { FlexibleTimings } from '../FlexibleTimings'
 
@@ -38,6 +33,7 @@ class ShareRideForm extends Component {
       this.init()
    }
 
+   @action
    init = () => {
       this.seatCount = 0
       this.laguageCount = 0
@@ -45,7 +41,7 @@ class ShareRideForm extends Component {
       this.destinationPlace = ''
       this.sourcePlace = ''
       this.errorMsg = null
-      this.travelDate = ''
+      this.travelDate = undefined
       this.flexibleFromDate = ''
       this.flexibleToDate = ''
    }
@@ -159,6 +155,18 @@ class ShareRideForm extends Component {
       return this.errorMsg === strings.seatCountError
    }
 
+   successReaction = reaction(
+      () => {
+         return this.props.apiStatus === API_SUCCESS
+      },
+      bool => {
+         this.init()
+      }
+   )
+   componentWillUnmount() {
+      this.successReaction()
+   }
+
    render() {
       const {
          onChangeSource,
@@ -187,9 +195,9 @@ class ShareRideForm extends Component {
       } = this
       const { apiStatus } = this.props
       const isLoading = apiStatus === API_FETCHING
+
       return (
          <ShareRide>
-            {/* <Header /> */}
             <Form onSubmit={this.onSubmit}>
                <Heading className='self-center'>
                   {strings.rideShareHeaderText}

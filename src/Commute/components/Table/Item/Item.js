@@ -1,6 +1,8 @@
 import React from 'react'
 
-import { Row, Data, Badge } from './styledComponents'
+import { Row, Data } from './styledComponents'
+
+import { Badge } from '../../../styledComponents'
 
 export function Item(props) {
    const {

@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import tw from 'tailwind.macro'
 
 import Colors from '../../../Common/themes/Colors'
+import { Typo12SteelHKGroteskSemiBold } from '../../../Common/styleGuide/Typos'
 
 const DatePickers = styled.div`
    width: 100%;
@@ -11,6 +12,7 @@ const DatePickers = styled.div`
 `
 const FlexibleContainer = styled.div`
    color: ${Colors.steel};
+   ${Typo12SteelHKGroteskSemiBold}
    ${tw`flex flex-wrap items-start my-2`};
 `
 const Checkbox = styled.input`
@@ -18,6 +20,7 @@ const Checkbox = styled.input`
 `
 const Error = styled.span`
    visibility: ${props => (props.isError ? 'visible' : 'hidden')};
+   ${Typo12SteelHKGroteskSemiBold}
    ${tw`text-red-500`};
 `
 const CheckboxContainer = styled.div`

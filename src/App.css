@@ -64,10 +64,11 @@
    background-color: #fff;
    border: 1px solid #ddd;
    border-radius: 2px;
-   font-size: 14px;
    font-weight: 600;
    font-stretch: normal;
    font-style: normal;
+   font-family: 'HK Grotesk';
+   font-size: 12px;
 }
 
 .pagination > li:first-child > span {

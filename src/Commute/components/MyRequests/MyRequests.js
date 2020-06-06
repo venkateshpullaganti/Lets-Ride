@@ -37,6 +37,8 @@ import {
 } from './styledComponents'
 import { Item } from './Item'
 
+import { TableTabBar } from '../Common/Components/TableTabBar'
+
 @inject('commuteStore')
 @observer
 class MyRequests extends Component {
@@ -266,20 +268,11 @@ class MyRequests extends Component {
    render() {
       return (
          <RequestsContainer>
-            <Navigator>
-               <NavBtn
-                  isSelected={this.selectedField === strings.ride}
-                  onClick={this.showRide}
-               >
-                  {strings.ride}
-               </NavBtn>
-               <NavBtn
-                  isSelected={this.selectedField === strings.asset}
-                  onClick={this.showAsset}
-               >
-                  {strings.asset}
-               </NavBtn>
-            </Navigator>
+            <TableTabBar
+               selected={this.selectedField}
+               onClickRide={this.showRide}
+               onClickAsset={this.showAsset}
+            />
             {this.renderSelectedTable()}
          </RequestsContainer>
       )
@@ -300,3 +293,18 @@ export default withRouter(MyRequests)
 // onChangeAssetSort = v => {
 //    console.log(v)
 // }
+
+/* <Navigator>
+               <NavBtn
+                  isSelected={this.selectedField === strings.ride}
+                  onClick={this.showRide}
+               >
+                  {strings.ride}
+               </NavBtn>
+               <NavBtn
+                  isSelected={this.selectedField === strings.asset}
+                  onClick={this.showAsset}
+               >
+                  {strings.asset}
+               </NavBtn>
+            </Navigator> */

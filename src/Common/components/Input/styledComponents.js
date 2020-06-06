@@ -23,6 +23,7 @@ const CustomInput = styled.input`
    ${tw`pl-3`}
 `
 const Label = styled.label`
+   ${Typo12SteelHKGroteskSemiBold};
    color: ${Colors.steel};
 `
 const Error = styled.span`

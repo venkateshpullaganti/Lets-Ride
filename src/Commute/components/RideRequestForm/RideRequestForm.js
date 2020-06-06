@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
-import { observable, computed } from 'mobx'
+import { observable, computed, reaction } from 'mobx'
 
 import { DateFormatter } from '../../utils/DateFormatter'
 
@@ -13,13 +13,12 @@ import { DateAndTimePicker } from '../../../Common/components/DateAndTimePicker'
 import { Heading } from '../../styledComponents'
 import strings from '../../i18n/strings.json'
 
-import { Header } from '../Header'
 import { Counter } from '../Counter'
 
-import withHeader from '../Common/hocs/withHeader'
 import { FlexibleTimings } from '../FlexibleTimings'
 
 import { RideRequest, Form } from './styledComponents'
+import { API_SUCCESS, API_FETCHING } from '@ib/api-constants'
 
 @observer
 class RideRequestForm extends Component {
@@ -132,7 +131,6 @@ class RideRequestForm extends Component {
          console.log(enteredDetails)
 
          onSubmit(enteredDetails)
-         this.init()
       }
    }
    @computed
@@ -154,6 +152,17 @@ class RideRequestForm extends Component {
    @computed
    get isSeatCountError() {
       return this.errorMsg === strings.seatCountError
+   }
+   successReaction = reaction(
+      () => {
+         return this.props.apiStatus === API_SUCCESS
+      },
+      boole => {
+         this.init()
+      }
+   )
+   componentWillUnmount() {
+      this.successReaction()
    }
 
    render() {
@@ -180,11 +189,11 @@ class RideRequestForm extends Component {
          onDecrementLaguage,
          onChangeLaguage,
          onChangeDate,
-         isSeatCountError,
-         onSubmit
+         isSeatCountError
       } = this
 
-      const { btnDisplayText, isLoading } = this.props
+      const { apiStatus } = this.props
+      const isLoading = apiStatus === API_FETCHING
       return (
          <RideRequest>
             <Form onSubmit={this.onSubmit}>
@@ -244,7 +253,7 @@ class RideRequestForm extends Component {
                />
                <Button
                   isLoading={isLoading}
-                  displayText={btnDisplayText}
+                  displayText={strings.requestBtnText}
                   disabled={isLoading}
                />
             </Form>
@@ -253,4 +262,4 @@ class RideRequestForm extends Component {
    }
 }
 
-export default withHeader(RideRequestForm)
+export { RideRequestForm }

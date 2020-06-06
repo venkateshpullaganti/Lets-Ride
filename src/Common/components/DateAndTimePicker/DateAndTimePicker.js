@@ -25,7 +25,7 @@ function DateAndTimePicker(props) {
             placeholderText={'Select Date and Time'}
             id={'datePicker'}
             selected={startDate}
-            onChange={(date) => {
+            onChange={date => {
                setStartDate(date)
                onChange(date)
             }}

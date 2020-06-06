@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import tw from 'tailwind.macro'
 
 import Colors from '../../../Common/themes/Colors'
+import { Typo12SteelHKGroteskSemiBold } from '../../../Common/styleGuide/Typos'
 
 const Container = styled.button`
    ${tw`relative m-2 flex`}
