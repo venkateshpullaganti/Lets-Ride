@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 import moment from 'moment'
-import { observable, computed } from 'mobx'
+import { observable, computed, action, reaction } from 'mobx'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
@@ -18,11 +18,11 @@ import { Selector } from '../../../Common/components/Selector'
 import { Heading } from '../../styledComponents'
 import strings from '../../i18n/strings.json'
 
-import { Header } from '../Header'
 import { Counter } from '../Counter'
 import { FlexibleTimings } from '../FlexibleTimings'
 
 import { AssetRequest, Form } from './styledComponents'
+import { API_FETCHING, API_SUCCESS } from '@ib/api-constants'
 
 @observer
 class AssetTransportRequestForm extends Component {
@@ -47,6 +47,7 @@ class AssetTransportRequestForm extends Component {
       this.init()
    }
 
+   @action
    init = () => {
       this.assetCount = 0
       this.isFlexible = false
@@ -203,9 +204,18 @@ class AssetTransportRequestForm extends Component {
    onChangeWhomToDeliver = event => {
       this.whomToDeliver = event.target.value
    }
+   successReaction = reaction(
+      () => {
+         return this.props.apiStatus === API_SUCCESS
+      },
+      bool => {
+         this.init()
+      }
+   )
 
    render() {
-      const { isLoading } = this.props
+      const { apiStatus } = this.props
+      const isLoading = apiStatus === API_FETCHING
 
       return (
          <AssetRequest>

@@ -6,6 +6,8 @@ import { API_FETCHING } from '@ib/api-constants'
 
 import { HOMEPAGE_PATH } from '../../../Commute/constants/NavigationConstants'
 
+import { displayToaster } from '../../../Common/components/Toaster'
+
 import strings from '../../i18n/strings.json'
 import { MOBILE_NUMBER_LENGTH } from '../../constants/SignInConstants'
 import { SignInForm } from '../../components/SignInForm'
@@ -75,13 +77,15 @@ class SignInRoute extends Component {
 
    onFailure(apiError) {
       this.errorMsg = apiError.message
-      console.log(apiError)
+      displayToaster('', true, apiError)
    }
 
    onSuccess() {
       const { history } = this.props
 
       history.replace({ pathname: HOMEPAGE_PATH })
+
+      displayToaster('', false)
    }
 
    render() {

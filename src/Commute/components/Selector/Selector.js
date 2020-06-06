@@ -52,7 +52,7 @@ class Selector extends Component {
          <Container>
             <ArrowIcon
                shouldRotate={this.shouldShowDropdown && shouldRotateIcon}
-               src={icon}
+               src={icon || images.sortIcon}
                width='16px'
                height='16px'
             />

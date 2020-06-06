@@ -5,7 +5,7 @@ import Colors from '../../../Common/themes/Colors'
 
 const Root = styled.div`
    background: ${Colors.whiteTwo};
-   min-height: 100vh;
+   ${'' /* min-height: 100vh; */}
    ${tw`flex flex-col w-screen border-box`};
 `
 const Body = styled.div`

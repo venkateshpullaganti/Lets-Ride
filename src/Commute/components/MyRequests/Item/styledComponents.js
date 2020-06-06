@@ -13,7 +13,7 @@ const Data = styled.div`
    height: 60px;
    width: 140px;
    font-size: 14px;
-   ${tw`text-md`};
+   ${tw`text-md text-center`};
 `
 
 export { Row, Data }

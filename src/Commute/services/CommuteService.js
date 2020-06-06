@@ -8,7 +8,7 @@ class CommuteService {
 
    constructor() {
       this.commuteAPI = create({
-         baseURL: 'https://574fc2372ff2.ngrok.io/api/lets_ride'
+         baseURL: 'https://1a62330d2625.ngrok.io/api/lets_ride'
       })
    }
    rideRequest = requestObject => {

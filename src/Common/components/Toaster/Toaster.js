@@ -18,6 +18,6 @@ export const displayToaster = (msg, isFailure, error) => {
    if (isFailure) {
       toast.error(getUserDisplayableErrorMessage(error))
    } else {
-      toast.success(msg ?? 'Error occured. Try again later.')
+      toast.success(msg || 'Success')
    }
 }

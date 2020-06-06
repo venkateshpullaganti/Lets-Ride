@@ -5,9 +5,10 @@ import { Typo12SteelHKGroteskSemiBold } from '../../styleGuide/Typos'
 import Colors from '../../themes/Colors'
 
 export const LoadingViewContainer = styled.div`
-   height: 100%;
-   min-height: 400px;
-   ${tw`flex flex-col justify-center items-center `};
+   ${'' /* height: 50%; */}
+   height: 200px;
+   ${'' /* box-sizing: border-box; */}
+   ${tw`flex flex-col justify-center items-center self-center`};
 `
 
 export const FailureViewContainer = styled.div`

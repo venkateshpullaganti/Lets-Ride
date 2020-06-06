@@ -66,7 +66,6 @@ class AssetTransportRequestRoute extends Component {
          deliver_to: whomToDeliver.split('-')[0],
          phone_number: whomToDeliver.split('-')[1]
       }
-      console.log('route', requestObj)
 
       this.requestStore.assetRequest(requestObj, this.onSuccess, this.onFailure)
    }
@@ -82,9 +81,7 @@ class AssetTransportRequestRoute extends Component {
       return (
          <AssetTransportRequestForm
             onSubmit={this.onSubmit}
-            isLoading={
-               this.requestStore.getAssetRequestAPIStatus === API_FETCHING
-            }
+            apiStatus={this.requestStore.getAssetRequestAPIStatus}
          />
       )
    }

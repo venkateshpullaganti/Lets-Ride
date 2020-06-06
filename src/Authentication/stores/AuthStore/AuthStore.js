@@ -58,7 +58,6 @@ class AuthStore {
             onSuccess()
          })
          .catch(apiError => {
-            apiError = getUserDisplayableErrorMessage(apiError)
             this.setGetUserSignInAPIError(apiError)
             onFailure(apiError)
          })

@@ -14,7 +14,7 @@ export function Selector(props) {
       isError,
       errorMsg
    } = props
-   console.log(value)
+
    return (
       <>
          <Label className='mt-6' htmlFor={label}>
