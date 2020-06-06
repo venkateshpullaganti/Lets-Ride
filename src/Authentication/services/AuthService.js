@@ -7,10 +7,7 @@ class AuthService {
    api
    constructor() {
       this.api = create({
-         baseURL: 'https://e00689426b42.ngrok.io/api/lets_ride'
-      })
-      this.profileApi = create({
-         baseURL: 'https://e00689426b42.ngrok.io/api/lets_ride'
+         baseURL: 'https://574fc2372ff2.ngrok.io/api/lets_ride'
       })
    }
    signInApi = requestObject => {
@@ -23,7 +20,7 @@ class AuthService {
    }
    userProfileApi = requestObject => {
       return networkCallWithApisauce(
-         this.profileApi,
+         this.api,
          '/user/profile/v1/',
          requestObject,
          apiMethods.get

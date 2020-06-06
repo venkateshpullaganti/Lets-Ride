@@ -13,19 +13,7 @@ const Data = styled.div`
    height: 60px;
    width: 140px;
    font-size: 14px;
-   ${tw`text-center`};
-`
-const Badge = styled.div`
-   height: 18px;
-   width: 80px;
-   background: ${props =>
-      props.isAccepted
-         ? `${Colors.greenishTeal}`
-         : props.isExpired
-         ? `${Colors.steel60}`
-         : `${Colors.yellowOrange}`};
-   border-radius: 10px;
-   ${tw`text-xs flex items-center justify-center pb-1`};
+   ${tw`text-md`};
 `
 
-export { Row, Data, Badge }
+export { Row, Data }

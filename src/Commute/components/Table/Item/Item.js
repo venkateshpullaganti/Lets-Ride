@@ -37,6 +37,7 @@ export function Item(props) {
          <Data>{assetSensitivity}</Data>
          <Data>
             {deliverTo}
+            <br />
             {receiverPhoneNumber}
          </Data>
          <Data>

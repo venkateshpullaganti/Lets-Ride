@@ -158,7 +158,7 @@ class MyRequests extends Component {
          offset: this.assetPaginationOffset,
          status: this.assetSelectedFilter,
          sort_key: this.assetSelectedSort,
-         sort_value: 'ASC'
+         sort_value: 'DESC'
       }
       this.commuteStore.getMyAssetsRequests(responseObj, paginationObj)
    }
@@ -171,7 +171,7 @@ class MyRequests extends Component {
          offset: this.ridePaginationOffset,
          status: this.rideSelectedFilter,
          sort_key: this.rideSelectedSort,
-         sort_value: 'ASC'
+         sort_value: 'DESC'
       }
       this.commuteStore.getMyRideRequests(responseObj, paginationObj)
    }

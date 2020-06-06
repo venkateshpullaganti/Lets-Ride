@@ -75,3 +75,13 @@ export const Typo8WhiteHKGroteskSemiBold = css`
    letter-spacing: 0.32px;
    color: ${Colors.white};
 `
+export const Typo14SteelHKGroteskRegular = css`
+   font-family: 'HK Grotesk Regular';
+   font-size: 12px;
+   font-weight: normal;
+   font-stretch: normal;
+   font-style: normal;
+   line-height: 1.71;
+   letter-spacing: normal;
+   color: ${Colors.steel};
+`

@@ -4,58 +4,24 @@ import { networkCallWithApisauce } from '../../Common/utils/APIUtils'
 import { apiMethods } from '../../Common/constants/APIConstants'
 
 class CommuteService {
-   rideRequestApi
-   assetRequestApi
-
-   rideShareApi
-   travelInfoApi
-
-   myRequestsApi
-
-   myAssetsRequestsAPI
+   commuteAPI
 
    constructor() {
-      this.rideRequestApi = create({
-         baseURL: 'https://e00689426b42.ngrok.io/api/lets_ride'
-      })
-      this.assetRequestApi = create({
-         baseURL: 'https://e00689426b42.ngrok.io/api/lets_ride'
-      })
-
-      this.rideShareApi = create({
-         baseURL: 'https://e00689426b42.ngrok.io/api/lets_ride'
-      })
-      this.travelInfoApi = create({
-         baseURL: 'https://e00689426b42.ngrok.io/api/lets_ride'
-      })
-
-      this.myAssetsRequestsAPI = create({
-         baseURL: 'https://e00689426b42.ngrok.io/api/lets_ride/my_requests'
-      })
-      this.myRideRequestsAPI = create({
-         baseURL: 'https://e00689426b42.ngrok.io/api/lets_ride/my_requests'
-      })
-      this.matchingResults = create({
-         baseURL: 'https://e00689426b42.ngrok.io/api/lets_ride'
-      })
-      this.acceptRideRequestApi = create({
-         baseURL: 'https://e00689426b42.ngrok.io/api/lets_ride'
-      })
-      this.acceptAssetRequestApi = create({
-         baseURL: 'https://e00689426b42.ngrok.io/api/lets_ride'
+      this.commuteAPI = create({
+         baseURL: 'https://574fc2372ff2.ngrok.io/api/lets_ride'
       })
    }
    rideRequest = requestObject => {
       return networkCallWithApisauce(
-         this.rideRequestApi,
-         '/ride_request/v1/ ',
+         this.commuteAPI,
+         '/ride_request/v1/',
          requestObject,
          apiMethods.post
       )
    }
    assetRequest = requestObject => {
       return networkCallWithApisauce(
-         this.assetRequestApi,
+         this.commuteAPI,
          '/asset_request/v1/',
          requestObject,
          apiMethods.post
@@ -63,7 +29,7 @@ class CommuteService {
    }
    rideShare = requestObject => {
       return networkCallWithApisauce(
-         this.rideShareApi,
+         this.commuteAPI,
          '/share_ride/v1/',
          requestObject,
          apiMethods.post
@@ -71,7 +37,7 @@ class CommuteService {
    }
    shareTravelInfoApi = requestObject => {
       return networkCallWithApisauce(
-         this.travelInfoApi,
+         this.commuteAPI,
          '/share_travel_info/v1/',
          requestObject,
          apiMethods.post
@@ -95,8 +61,8 @@ class CommuteService {
       if (sortParams !== '') endPoint = `${endPoint}${sortParams}`
 
       return networkCallWithApisauce(
-         this.myAssetsRequestsAPI,
-         `/assets/v1/?${endPoint}`,
+         this.commuteAPI,
+         `/my_requests/assets/v1/?${endPoint}`,
          requestObject,
          apiMethods.get
       )
@@ -118,8 +84,8 @@ class CommuteService {
       if (sortParams !== '') endPoint = `${endPoint}${sortParams}`
 
       return networkCallWithApisauce(
-         this.myRideRequestsAPI,
-         `/rides/v1/?${endPoint}`,
+         this.commuteAPI,
+         `/my_requests/rides/v1/?${endPoint}`,
          requestObject,
          apiMethods.get
       )
@@ -127,7 +93,7 @@ class CommuteService {
    matchingResultsApi = (requestObject, otherParams) => {
       const limtAndOffset = `offset=${otherParams.offset}&limit=${otherParams.limit}`
       return networkCallWithApisauce(
-         this.matchingResults,
+         this.commuteAPI,
          `/matching_results/v1/?${limtAndOffset}`,
          requestObject,
          apiMethods.get
@@ -137,7 +103,7 @@ class CommuteService {
       console.log('service', requestObj)
 
       return networkCallWithApisauce(
-         this.acceptRideRequestApi,
+         this.commuteAPI,
          '/accept_ride_request/v1/',
          requestObj,
          apiMethods.put
@@ -147,7 +113,7 @@ class CommuteService {
       console.log('service', requestObj)
 
       return networkCallWithApisauce(
-         this.acceptAssetRequestApi,
+         this.commuteAPI,
          `/accept_asset_request/v1/`,
          requestObj,
          apiMethods.put

@@ -5,7 +5,8 @@ import Colors from '../../Common/themes/Colors'
 
 import {
    Typo20DarkBlueGreyHKGrotestBold,
-   Typo8WhiteHKGroteskSemiBold
+   Typo8WhiteHKGroteskSemiBold,
+   Typo14SteelHKGroteskRegular
 } from '../../Common/styleGuide/Typos'
 
 const Heading = styled.p`
@@ -67,6 +68,18 @@ const Badge = styled.div`
    border-radius: 10px;
    ${tw` flex items-center justify-center`};
 `
+const Data = styled.div`
+   ${Typo14SteelHKGroteskRegular};
+   height: 48px;
+   width: 130px;
+   ${tw``};
+`
+
+const Row = styled.div`
+   height: 64px;
+   border: 1px solid ${Colors.lightBlueGrey40};
+   ${tw`flex justify-between items-center p-2`};
+`
 
 export {
    Heading,
@@ -78,5 +91,7 @@ export {
    Label,
    TableContainer,
    Col,
-   Badge
+   Badge,
+   Data,
+   Row
 }

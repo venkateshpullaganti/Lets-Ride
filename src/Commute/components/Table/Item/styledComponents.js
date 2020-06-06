@@ -12,20 +12,7 @@ const Data = styled.div`
    color: ${Colors.steel};
    height: 48px;
    width: 130px;
-   ${tw``};
-`
-const Badge = styled.div`
-   height: 18px;
-   width: 80px;
-   color: ${Colors.steel};
-   background: ${props =>
-      props.isAccepted
-         ? `${Colors.greenishTeal}`
-         : props.isExpired
-         ? `${Colors.lightBlueGrey40}`
-         : `${Colors.yellowOrange}`};
-   border-radius: 10px;
-   ${tw`text-xs flex items-center justify-center pb-1`};
+   ${tw`text-sm `};
 `
 
-export { Row, Data, Badge }
+export { Row, Data }
