@@ -9,13 +9,13 @@ const DateInput = styled.div`
    ${tw`text-sm  flex-col mt-4`};
 `
 const Label = styled.div`
-   ${Typo12SteelHKGroteskSemiBold};
    color: ${Colors.steel};
+   ${Typo12SteelHKGroteskSemiBold};
 `
 const Error = styled.span`
    display: ${props => (props.isError ? 'block' : 'none')};
    color: red;
-   ${tw`text-sm`};
+   ${tw``};
    ${Typo12SteelHKGroteskSemiBold};
 `
 const Required = styled.span`

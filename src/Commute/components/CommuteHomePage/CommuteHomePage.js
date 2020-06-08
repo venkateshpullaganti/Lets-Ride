@@ -11,7 +11,6 @@ import strings from '../../i18n/strings.json'
 
 import { TabBar } from '../TabBar'
 import withHeader from '../Common/hocs/withHeader'
-
 import { Header } from '../Header'
 import { MyRequests } from '../MyRequests'
 import { MatchingResults } from '../MatchingResults'
@@ -63,24 +62,3 @@ class CommuteHomePage extends Component {
 }
 
 export default withHeader(CommuteHomePage)
-
-// <NavBar>
-//                   <NavBtn
-//                      isSelected={this.isMatchingResultsSelected}
-//                      onClick={this.onSelectMatchingResults}
-//                   >
-//                      {strings.matchingResults}
-//                   </NavBtn>
-//                   <NavBtn
-//                      isSelected={this.isMyRequestsSelected}
-//                      onClick={this.onSelectMyRequests}
-//                   >
-//                      {strings.myRequests}
-//                   </NavBtn>
-//                   <NavBtn
-//                      isSelected={this.isSharedDetailsSelected}
-//                      onClick={this.onSelectSharedDetails}
-//                   >
-//                      {strings.sharedDetails}
-//                   </NavBtn>
-//                </NavBar>

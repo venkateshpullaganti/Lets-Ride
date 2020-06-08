@@ -6,7 +6,7 @@ import { AuthStore } from './AuthStore'
 const authService = new AuthService()
 const fixtureService = new FixtureService()
 
-const authStore = new AuthStore(authService)
+const authStore = new AuthStore(fixtureService)
 
 export default {
    authStore
