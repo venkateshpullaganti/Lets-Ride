@@ -11,6 +11,8 @@ import {
    LinkItem
 } from './styledComponents'
 
+import { navigateToGivenPath } from '../../utils/NavigationUtils'
+
 import images from '../../../Common/themes/Images'
 
 @observer
@@ -30,7 +32,7 @@ class Dropdown extends Component {
    }
    navigateToPath = path => {
       const { history } = this.props
-      history.push(path)
+      navigateToGivenPath(path, history)
    }
    renderLinks = () => {
       const { links } = this.props

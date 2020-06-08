@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 
+import { goToHomePage } from '../../../../Commute/utils/NavigationUtils'
+
 import LoadingWrapperWithFailure from '../../../../Common/components/LoadingWrapperWithFailure'
 import { Logo } from '../../../../Common/components/Logo'
 
@@ -38,7 +40,7 @@ function withHeader(WrappedComponent) {
 
       navigateToHome = () => {
          const { history } = this.props
-         history.push(HOMEPAGE_PATH)
+         goToHomePage(history)
       }
 
       doNetworkCalls = async () => {
