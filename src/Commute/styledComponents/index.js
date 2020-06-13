@@ -12,7 +12,7 @@ import {
 const Heading = styled.p`
    ${Typo20DarkBlueGreyHKGrotestBold};
    height: 32px;
-   ${tw`p-1 m-2 self-center`}
+   ${tw`p-1 self-center`}
 `
 
 const Form = styled.form`

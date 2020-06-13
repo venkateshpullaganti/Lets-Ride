@@ -7,7 +7,8 @@ import {
    Label,
    Input,
    Error,
-   Required
+   Required,
+   WrapperContainer
 } from './styledComponents'
 
 @observer
@@ -29,21 +30,24 @@ class Counter extends Component {
                {labelText}
                <Required>{isRequired ? '*' : null}</Required>
             </Label>
-            <Btn type='button' onClick={onDecrement}>
-               {'-'}
-            </Btn>
-            <Input
-               key={labelText}
-               id={'input'}
-               type={'number'}
-               value={count}
-               onChange={onChange}
-               isError={isError}
-            />
-            <Btn type='button' onClick={onIncrement}>
-               {'+'}
-            </Btn>
-            <Error>{isError ? errorMsg : null}</Error>
+
+            <WrapperContainer>
+               <Btn type='button' onClick={onDecrement}>
+                  {'-'}
+               </Btn>
+               <Input
+                  key={labelText}
+                  id={'input'}
+                  type={'number'}
+                  value={count}
+                  onChange={onChange}
+                  isError={isError}
+               />
+               <Btn type='button' onClick={onIncrement}>
+                  {'+'}
+               </Btn>
+               <Error>{isError ? errorMsg : null}</Error>
+            </WrapperContainer>
          </CounterContainer>
       )
    }

@@ -4,7 +4,6 @@ import tw from 'tailwind.macro'
 import Colors from '../../../Common/themes/Colors'
 
 const RideRequest = styled.div`
-   height: 100vh;
    background: ${Colors.whiteTwo};
    ${tw`flex flex-col`};
 `
@@ -14,7 +13,7 @@ const Form = styled.form`
    padding: 50px;
    border-radius: 6px;
    box-sizing: border-box;
-   ${tw`flex m-4 items-start  flex-col self-center shadow-2xl`};
+   ${tw`flex mx-auto my-4 items-start  flex-col self-center shadow-lg`};
 `
 
 export { RideRequest, Form }

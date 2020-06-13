@@ -24,7 +24,6 @@ export function Selector(props) {
          <Select
             key={label}
             id={label}
-            // styles={customStyles}
             className={
                isError
                   ? `selector-styles border border-red-500 border-solid rounded`
@@ -33,7 +32,7 @@ export function Selector(props) {
             onChange={onChange}
             options={options}
             placeholder={placeholder}
-            selectedValue={options.filter(opt => opt.value === value)}
+            value={value}
          />
          <Error>{isError ? 'Required' : null}</Error>
       </>

@@ -49,6 +49,7 @@ class AssetTransportRequestForm extends Component {
 
    @action
    init = () => {
+      console.log('init')
       this.assetCount = 0
       this.isFlexible = false
       this.destinationPlace = ''
@@ -58,7 +59,7 @@ class AssetTransportRequestForm extends Component {
       this.flexibleFromDate = ''
       this.flexibleToDate = ''
       this.selectedAssetSensitivity = ''
-      this.selectedAssetType = ''
+      this.selectedAssetType = null
       this.whomToDeliver = ''
       this.assetTypeOthers = ''
    }
@@ -216,6 +217,7 @@ class AssetTransportRequestForm extends Component {
    render() {
       const { apiStatus } = this.props
       const isLoading = apiStatus === API_FETCHING
+      console.log('render')
 
       return (
          <AssetRequest>
@@ -270,7 +272,12 @@ class AssetTransportRequestForm extends Component {
                   options={ASSET_TYPES}
                   label={strings.assetType}
                   placeholder={strings.selectAssetType}
-                  value={this.selectedAssetType}
+                  value={{
+                     label:
+                        this.selectedAssetType === null
+                           ? 'Select Medium'
+                           : this.selectedAssetType
+                  }}
                   onChange={this.onChangeAssetType}
                   isRequired={true}
                   isError={this.isAssetTypeError}
@@ -289,7 +296,11 @@ class AssetTransportRequestForm extends Component {
                   options={ASSET_SENSITIVITY_OPTIONS}
                   label={strings.assetSensitivity}
                   placeholder={strings.selectAssetSensitivity}
-                  value={this.selectedAssetSensitivity}
+                  value={{
+                     label: this.selectedAssetSensitivity
+                        ? 'Select Asset Sensitivity'
+                        : this.selectedAssetSensitivity
+                  }}
                   onChange={this.onChangeAssetSensitivity}
                   isRequired={true}
                   isError={this.isAssetSensitivityError}

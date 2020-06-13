@@ -39,7 +39,7 @@ const ErrorIcon = styled.img`
 const InputContainer = styled.div`
    display: ${props => (props.shouldShow ? 'block' : 'none')};
    width: 100%;
-   ${tw`relative my-3`};
+   ${tw`relative`};
 `
 const Required = styled.span`
    ${tw`text-red-500`};

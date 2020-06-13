@@ -13,7 +13,7 @@ const Form = styled.form`
    padding: 50px;
    border-radius: 6px;
    box-sizing: border-box;
-   ${tw`flex m-4 items-start flex-col self-center shadow-2xl`};
+   ${tw`flex mx-auto my-4 items-start flex-col self-center shadow-2xl`};
 `
 const Label = styled.label`
    ${tw``};

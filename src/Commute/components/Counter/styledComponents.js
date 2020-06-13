@@ -16,7 +16,9 @@ const Btn = styled.button`
 
 const CounterContainer = styled.div`
    color: ${Colors.steel};
-   ${tw`flex my-8`};
+   ${'' /* border: 1px solid pink; */}
+   width: 70%;
+   ${tw`flex my-2 justify-between items-center`};
 `
 const Label = styled.label`
    margin-right: 15px;
@@ -47,4 +49,15 @@ const Error = styled.span`
 const Required = styled.span`
    ${tw`text-red-500`};
 `
-export { Btn, CounterContainer, Label, Input, Error, Required }
+const WrapperContainer = styled.div`
+   ${tw`flex items-center`};
+`
+export {
+   Btn,
+   CounterContainer,
+   Label,
+   Input,
+   Error,
+   Required,
+   WrapperContainer
+}
