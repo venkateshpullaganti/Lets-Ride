@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 import { observable, computed } from 'mobx'
 
+import { HOME_PREFIX } from '../../constants/NavigationConstants'
+
 import {
    SHARED_DETAILS,
    MY_REQUESTS,
-   MATCHING_RESULTS
+   MATCHING_RESULTS,
+   TABS
 } from '../../constants/CommuteConstants'
 import strings from '../../i18n/strings.json'
 
@@ -16,6 +19,7 @@ import { MyRequests } from '../MyRequests'
 import { MatchingResults } from '../MatchingResults'
 
 import { Root, Body } from './styledComponents'
+import { withRouter } from 'react-router-dom/cjs/react-router-dom.min'
 @observer
 class CommuteHomePage extends Component {
    @observable selectedCategory
@@ -26,6 +30,10 @@ class CommuteHomePage extends Component {
    }
    init = () => {
       this.selectedCategory = MATCHING_RESULTS
+   }
+   componentDidMount() {
+      const selectedTab = this.props.match.params.selectedTab
+      this.selectedCategory = selectedTab
    }
 
    renderSelectedCategory = () => {
@@ -41,6 +49,11 @@ class CommuteHomePage extends Component {
       )
    }
    onChangeSelectedCategory = selectedTab => {
+      const { history } = this.props
+      console.log(history)
+      history.push({
+         pathname: `${HOME_PREFIX}/${selectedTab}`
+      })
       this.selectedCategory = selectedTab
    }
 
@@ -50,7 +63,7 @@ class CommuteHomePage extends Component {
             <Body>
                <TabBar
                   onChange={this.onChangeSelectedCategory}
-                  tabs={[MATCHING_RESULTS, MY_REQUESTS, SHARED_DETAILS]}
+                  tabs={TABS}
                   selectedTab={this.selectedCategory}
                />
 
@@ -61,4 +74,6 @@ class CommuteHomePage extends Component {
    }
 }
 
-export default withHeader(CommuteHomePage)
+const HomeWithHeader = withHeader(CommuteHomePage)
+
+export default HomeWithHeader

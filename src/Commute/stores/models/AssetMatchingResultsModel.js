@@ -2,8 +2,6 @@ import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 import { API_INITIAL, API_SUCCESS } from '@ib/api-constants'
 import { observable, action } from 'mobx'
 
-import { FixtureService } from '../../services/FixtureService'
-
 class AssetMatchingResultsModel {
    id
    sourcePlace

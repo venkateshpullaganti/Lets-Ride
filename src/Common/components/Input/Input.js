@@ -8,7 +8,8 @@ import {
    Error,
    ErrorIcon,
    InputContainer,
-   Required
+   Required,
+   LabelContainer
 } from './styledComponents'
 
 class Input extends Component {
@@ -28,8 +29,10 @@ class Input extends Component {
 
       return (
          <InputContainer shouldShow={shouldShow}>
-            <Label htmlFor={id}>{labelText}</Label>
-            <Required>{isRequired ? '*' : null}</Required>
+            <LabelContainer>
+               <Label htmlFor={id}>{labelText}</Label>
+               <Required>{isRequired ? '*' : null}</Required>
+            </LabelContainer>
             {isError ? <ErrorIcon src={images.errorIcon} /> : null}
             <CustomInput
                onChange={onChange}

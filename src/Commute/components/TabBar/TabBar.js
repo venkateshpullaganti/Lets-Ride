@@ -8,12 +8,15 @@ function TabBar(props) {
       <Tabs>
          {tabs.map((tab, index) => (
             <TabButton
-               key={tab}
+               key={tab.value}
                onClick={onChange}
+               value={tab.value}
                isSelected={
-                  selectedTab !== undefined ? selectedTab === tab : index === 0
+                  selectedTab !== undefined
+                     ? selectedTab === tab.value
+                     : index === 0
                }
-               title={tab}
+               title={tab.label}
             />
          ))}
       </Tabs>
@@ -24,8 +27,8 @@ export { TabBar }
 
 class TabButton extends Component {
    onClick = () => {
-      const { onClick, title } = this.props
-      onClick(title)
+      const { onClick, value } = this.props
+      onClick(value)
    }
    render() {
       const { isSelected, title } = this.props

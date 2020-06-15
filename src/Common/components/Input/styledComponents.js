@@ -17,6 +17,7 @@ const CustomInput = styled.input`
    ::-webkit-inner-spin-button {
       -webkit-appearance: none;
    }
+   -moz-appearance: textfield;
    &:focus {
       outline: none;
    }
@@ -27,22 +28,35 @@ const Label = styled.label`
    color: ${Colors.steel};
 `
 const Error = styled.span`
+   height: 25px;
+
    color: ${Colors.neonRed};
 `
 const ErrorIcon = styled.img`
    height: 16px;
    width: 16px;
-   right: 10px;
+   right: 0px;
    top: 35px;
    ${tw`absolute`}
 `
 const InputContainer = styled.div`
    display: ${props => (props.shouldShow ? 'block' : 'none')};
    width: 100%;
-   ${tw`relative`};
+   ${tw`relative flex flex-col`};
 `
 const Required = styled.span`
    ${tw`text-red-500`};
 `
+const LabelContainer = styled.div`
+   ${tw`flex items-center`};
+`
 
-export { CustomInput, Label, Error, ErrorIcon, InputContainer, Required }
+export {
+   CustomInput,
+   Label,
+   Error,
+   ErrorIcon,
+   InputContainer,
+   Required,
+   LabelContainer
+}

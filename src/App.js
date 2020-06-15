@@ -5,6 +5,8 @@ import { Provider } from 'mobx-react'
 import AuthRoutes from './Authentication/routes'
 import AuthStores from './Authentication/stores'
 
+import { ProtectedRoute } from './Common/components/ProtectedRoute'
+
 import CommuteStores from './Commute/stores'
 
 import CommuteRoutes from './Commute/routes'
@@ -22,6 +24,7 @@ const App = () => {
                <Route exact path='/page-1'>
                   <Page1 />
                </Route>
+
                {AuthRoutes}
                {CommuteRoutes}
                <Route path='/'>

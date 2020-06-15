@@ -1,13 +1,14 @@
 import React from 'react'
 
-import { ProtectedRoute } from '../../Common/ProtectedRoute'
+import { ProtectedRoute } from '../../Common/components/ProtectedRoute'
 
 import {
    HOMEPAGE_PATH,
    RIDE_REQUEST_PATH,
    ASSET_TRANSPORT_REQUEST_PATH,
    SHARE_RIDE_PATH,
-   SHARE_TRAVEL_INFO_PATH
+   SHARE_TRAVEL_INFO_PATH,
+   HOME_PREFIX
 } from '../constants/NavigationConstants'
 
 import { CommuteHomeRoute } from './CommuteHomeRoute'
@@ -19,8 +20,8 @@ import { ShareTravelInfoRoute } from './ShareTravelInfoRoute'
 const routes = [
    <ProtectedRoute
       exact
-      path={HOMEPAGE_PATH}
-      key={HOMEPAGE_PATH}
+      path={`${HOME_PREFIX}/:selectedTab`}
+      key={HOME_PREFIX}
       component={CommuteHomeRoute}
    />,
    <ProtectedRoute
