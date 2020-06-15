@@ -21,7 +21,6 @@ class LoadingWrapperWithFailure extends React.Component {
          apiError,
          isNoData
       } = this.props
-
       const errorMsg = getUserDisplayableErrorMessage(apiError)
 
       switch (apiStatus) {

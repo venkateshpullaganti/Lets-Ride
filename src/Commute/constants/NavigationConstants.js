@@ -1,13 +1,13 @@
 export const PAGINATION_LIMIT = 2
 
-export const HOMEPAGE_PATH = '/home'
+export const HOMEPAGE_PATH = '/home/matching-results'
 export const HOME_PREFIX = '/home'
 
-export const RIDE_REQUEST_PATH = `${HOME_PREFIX}/request-ride`
-export const ASSET_TRANSPORT_REQUEST_PATH = `${HOME_PREFIX}/request-asset-transport`
+export const RIDE_REQUEST_PATH = `/request/ride`
+export const ASSET_TRANSPORT_REQUEST_PATH = `/request/asset-transport`
 
-export const SHARE_RIDE_PATH = `${HOME_PREFIX}/share-ride`
-export const SHARE_TRAVEL_INFO_PATH = `${HOME_PREFIX}/share-travel-info`
+export const SHARE_RIDE_PATH = `/share/ride`
+export const SHARE_TRAVEL_INFO_PATH = `/share/travel-info`
 
 export const REQUEST_PATHS = [
    { path: RIDE_REQUEST_PATH, name: 'Ride' },

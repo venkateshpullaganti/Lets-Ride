@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import DatePicker from 'react-datepicker'
-import { moment } from 'moment'
 import 'react-datepicker/dist/react-datepicker.css'
 
 import { DateInput, Label, Error, Required } from './styledComponents'
@@ -9,11 +8,9 @@ function DateAndTimePicker(props) {
    const { isError, errorMsg, isRequired, onChange } = props
    const [startDate, setStartDate] = useState(null)
 
-   // const Input = () => <input onClick={onChange} className='w-64 h-8' />
-
    return (
       <DateInput shouldShow={isRequired}>
-         <Label>
+         <Label htmlFor='datePicker'>
             {props.labelText} <Required isRequired={isRequired}>*</Required>
          </Label>
 

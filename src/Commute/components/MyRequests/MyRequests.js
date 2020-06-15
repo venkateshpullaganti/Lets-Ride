@@ -6,12 +6,9 @@ import { observer, inject } from 'mobx-react'
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
 import { Pagination } from '../../../Common/components/Pagination'
 
-import {
-   Heading,
-   AddRequestBtn,
-   TotalPages,
-   TableFooter
-} from '../../styledComponents'
+import { RIDE, ASSET } from '../../constants/CommuteConstants'
+
+import { AddRequestBtn, TotalPages, TableFooter } from '../../styledComponents'
 import strings from '../../i18n/strings.json'
 import {
    RIDE_TABLE_COLUMNS,
@@ -29,8 +26,6 @@ import { Selector } from '../Selector'
 
 import {
    RequestsContainer,
-   Navigator,
-   NavBtn,
    RequestTable,
    RequestsHeader,
    Col
@@ -69,7 +64,7 @@ class MyRequests extends Component {
       this.rideSelectedSort = null
    }
    init = () => {
-      this.selectedField = strings.ride
+      this.selectedField = RIDE
    }
    get commuteStore() {
       return this.props.commuteStore
@@ -95,13 +90,13 @@ class MyRequests extends Component {
 
    @action
    showRide = () => {
-      this.selectedField = strings.ride
+      this.selectedField = RIDE
       this.doMyRideRequestApiCall()
    }
 
    @action
    showAsset = () => {
-      this.selectedField = strings.asset
+      this.selectedField = ASSET
       this.doMyAssetsRequestApiCall()
    }
 

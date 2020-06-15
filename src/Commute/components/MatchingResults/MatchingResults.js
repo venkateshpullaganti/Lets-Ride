@@ -6,6 +6,7 @@ import { observer, inject } from 'mobx-react'
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
 
 import strings from '../../i18n/strings.json'
+import { RIDE, ASSET } from '../../constants/CommuteConstants'
 import {
    MATCHING_ASSETS_COLUMN,
    MATCHING_RIDES_COLUMNS,
@@ -13,17 +14,20 @@ import {
    FILTER_OPTIONS
 } from '../../constants/MyRequestsConstants'
 import {
+   goToAssetRequestPage,
+   goToRideRequestPage
+} from '../../utils/NavigationUtils'
+import {
    RIDE_REQUEST_PATH,
    ASSET_TRANSPORT_REQUEST_PATH,
    PAGINATION_LIMIT
 } from '../../constants/NavigationConstants'
 
+import { TableTabBar } from '../Common/Components/TableTabBar'
+
 import { RidesTable } from './RidesTable'
 import { AssetsTable } from './AssetsTable'
-
 import { MatchingResultsRoot } from './styledComponents'
-
-import { TableTabBar } from '../Common/Components/TableTabBar'
 
 @inject('commuteStore')
 @observer
@@ -44,6 +48,9 @@ class MatchingResults extends Component {
    constructor(props) {
       super(props)
       this.init()
+   }
+   init = () => {
+      this.selectedField = strings.ride
       this.rideCurrentPage = 1
       this.assetCurrentPage = 1
       this.assetPaginationOffset = 0
@@ -53,9 +60,6 @@ class MatchingResults extends Component {
       this.rideSelectedFilter = null
       this.assetSelectedSort = null
       this.rideSelectedSort = null
-   }
-   init = () => {
-      this.selectedField = strings.ride
    }
    get commuteStore() {
       return this.props.commuteStore
@@ -79,13 +83,13 @@ class MatchingResults extends Component {
 
    @action
    showRide = () => {
-      this.selectedField = strings.ride
+      this.selectedField = RIDE
       // this.doMatchingResultsApiCall()
    }
 
    @action
    showAsset = () => {
-      this.selectedField = strings.asset
+      this.selectedField = ASSET
       // this.doMatchingResultsApiCall()
    }
 
@@ -105,16 +109,15 @@ class MatchingResults extends Component {
 
    navigateToRideRequestForm = () => {
       const { history } = this.props
-      history.push(RIDE_REQUEST_PATH)
+      goToRideRequestPage(history)
    }
    navigateToAssetRequestForm = () => {
       const { history } = this.props
-      history.push(ASSET_TRANSPORT_REQUEST_PATH)
+      goToAssetRequestPage(history)
    }
 
    handleRidePageClick = selectedPage => {
       this.rideCurrentPage = selectedPage
-
       this.ridePaginationOffset = (this.rideCurrentPage - 1) * PAGINATION_LIMIT
       this.doMatchingResultsApiCall(this.ridePaginationOffset)
    }

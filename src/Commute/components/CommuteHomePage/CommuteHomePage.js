@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
-import { observable, computed } from 'mobx'
+import { observable, action } from 'mobx'
 
 import { HOME_PREFIX } from '../../constants/NavigationConstants'
 
@@ -10,11 +10,10 @@ import {
    MATCHING_RESULTS,
    TABS
 } from '../../constants/CommuteConstants'
-import strings from '../../i18n/strings.json'
+import { navigateToGivenPath } from '../../utils/NavigationUtils'
 
 import { TabBar } from '../TabBar'
 import withHeader from '../Common/hocs/withHeader'
-import { Header } from '../Header'
 import { MyRequests } from '../MyRequests'
 import { MatchingResults } from '../MatchingResults'
 
@@ -32,6 +31,10 @@ class CommuteHomePage extends Component {
       this.selectedCategory = MATCHING_RESULTS
    }
    componentDidMount() {
+      this.getSelectedTab()
+   }
+
+   getSelectedTab = () => {
       const selectedTab = this.props.match.params.selectedTab
       this.selectedCategory = selectedTab
    }
@@ -48,13 +51,14 @@ class CommuteHomePage extends Component {
          </div>
       )
    }
-   onChangeSelectedCategory = selectedTab => {
+   @action.bound
+   onChangeSelectedCategory = async selectedTab => {
       const { history } = this.props
-      console.log(history)
-      history.push({
-         pathname: `${HOME_PREFIX}/${selectedTab}`
-      })
-      this.selectedCategory = selectedTab
+
+      const path = `${HOME_PREFIX}/${selectedTab}`
+      await navigateToGivenPath(path, history)
+
+      this.getSelectedTab()
    }
 
    render() {

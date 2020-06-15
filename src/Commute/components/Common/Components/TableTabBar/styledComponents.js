@@ -4,7 +4,6 @@ import tw from 'tailwind.macro'
 import Colors from '../../../../../Common/themes/Colors'
 
 const RequestsContainer = styled.div`
-   ${'' /* border: 1px solid green; */}
    ${tw``};
 `
 const Navigator = styled.div`
@@ -25,27 +24,5 @@ const NavBtn = styled.button`
       outline: none;
    }
 `
-const RequestTable = styled.div`
-   border: 1px solid ${Colors.lightBlueGrey};
-   ${tw`m-2 `};
-`
-const Col = styled.div`
-   color: ${Colors.steel};
-   height: 48px;
-   width: 130px;
-   ${tw`text-center`};
-`
-const RequestsHeader = styled.div`
-   height: 64px;
-   border: 1px solid ${Colors.lightBlueGrey};
-   ${tw`flex p-2 justify-between items-center`};
-`
 
-export {
-   RequestsContainer,
-   Navigator,
-   NavBtn,
-   RequestTable,
-   Col,
-   RequestsHeader
-}
+export { RequestsContainer, Navigator, NavBtn }

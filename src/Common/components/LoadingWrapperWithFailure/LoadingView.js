@@ -12,7 +12,13 @@ class LoadingView extends React.Component {
    render() {
       return (
          <LoadingViewContainer>
-            <Loader type='TailSpin' color='#00BFFF' height={80} width={80} />
+            <Loader
+               alt='loader'
+               type='TailSpin'
+               color='#00BFFF'
+               height={80}
+               width={80}
+            />
          </LoadingViewContainer>
       )
    }

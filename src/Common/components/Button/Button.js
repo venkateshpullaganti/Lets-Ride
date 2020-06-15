@@ -16,7 +16,7 @@ class Button extends Component {
                   type='spin'
                   width='20px'
                   height='20px'
-                  alt='loader'
+                  alt={'loader'}
                />
             ) : (
                <BtnTypo>{displayText ?? strings.btnText}</BtnTypo>

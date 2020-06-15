@@ -40,7 +40,7 @@ class Input extends Component {
                id={id}
                placeholder={placeholder}
                isError={isError}
-               value={value}
+               defaultValue={value}
             />
 
             <Error>{isError ? errorMsg : null}</Error>

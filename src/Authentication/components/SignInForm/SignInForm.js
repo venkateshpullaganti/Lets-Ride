@@ -57,6 +57,8 @@ class SignInForm extends Component {
                <Button
                   isLoading={isLoading}
                   displayText={strings.btnLoginText}
+                  type={'submit'}
+                  onClick={this.onSubmit}
                />
                <AskSignUp>
                   {strings.dontHaveAccountSignup}

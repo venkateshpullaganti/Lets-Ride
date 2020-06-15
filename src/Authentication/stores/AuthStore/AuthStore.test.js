@@ -9,8 +9,10 @@ import {
 
 import { AuthService } from '../../services/AuthService'
 import getUserSignInFixture from '../../fixtures/getUserSignInFixture.json'
+import getUserProfileFIxture from '../../fixtures/getUserProfileFIxture.json'
 
 import { AuthStore } from '.'
+import { waitFor } from '@testing-library/react'
 
 let mockSetCookie = jest.fn()
 let mockRemoveCookie = jest.fn()
@@ -30,6 +32,8 @@ describe('AuthStore Tests', () => {
    it('should test initialising auth store', () => {
       expect(authStore.getUserSignInAPIStatus).toBe(API_INITIAL)
       expect(authStore.getUserSignInAPIError).toBe(null)
+      expect(authStore.getUserProfileAPIStatus).toBe(API_INITIAL)
+      expect(authStore.getUserProfileAPIError).toBe(null)
    })
 
    it('should test userSignInAPI data fetching state', () => {
@@ -92,10 +96,67 @@ describe('AuthStore Tests', () => {
       expect(onFailure).toBeCalled()
    })
 
-   it('should test user sign-out', () => {
-      authStore.userSignOut()
-      expect(mockRemoveCookie).toBeCalled()
-      expect(authStore.getUserSignInAPIStatus).toBe(API_INITIAL)
-      expect(authStore.getUserSignInAPIError).toBe(null)
+   it('should test getUserProfileAPI data fetching state', () => {
+      const requestObject = {
+         username: 'test-user',
+         password: 'test-password'
+      }
+
+      const mockLoadingPromise = new Promise(function(resolve, reject) {})
+      const mockUserProfileAPI = jest.fn()
+
+      mockUserProfileAPI.mockReturnValue(mockLoadingPromise)
+      authAPI.userProfileApi = mockUserProfileAPI
+
+      authStore.getUserProfile(requestObject)
+
+      expect(authStore.getUserProfileAPIStatus).toBe(API_FETCHING)
    })
+   it('should test getUserProfileAPI  success state', async () => {
+      const requestObject = {
+         username: 'test-user',
+         password: 'test-password'
+      }
+
+      const mockSuccessPromise = new Promise(resolve =>
+         resolve(getUserProfileFIxture)
+      )
+
+      const mockUserProfileAPI = jest.fn()
+
+      mockUserProfileAPI.mockReturnValue(mockSuccessPromise)
+      authAPI.userProfileApi = mockUserProfileAPI
+
+      authStore.getUserProfile(requestObject)
+
+      await waitFor(() => {
+         expect(authStore.getUserProfileAPIStatus).toBe(API_SUCCESS)
+      })
+   })
+   it('should test getUserProfileAPI  failure state', async () => {
+      const requestObject = {
+         username: 'test-user',
+         password: 'test-password'
+      }
+
+      const mockFailurePromise = new Promise((resolve, reject) => reject())
+
+      const mockUserProfileAPI = jest.fn()
+
+      mockUserProfileAPI.mockReturnValue(mockFailurePromise)
+      authAPI.userProfileApi = mockUserProfileAPI
+
+      authStore.getUserProfile(requestObject)
+
+      await waitFor(() => {
+         expect(authStore.getUserProfileAPIStatus).toBe(API_FAILED)
+      })
+   })
+
+   // it('should test user sign-out', () => {
+   //    authStore.userSignOut()
+   //    expect(mockRemoveCookie).toBeCalled()
+   //    expect(authStore.getUserSignInAPIStatus).toBe(API_INITIAL)
+   //    expect(authStore.getUserSignInAPIError).toBe(null)
+   // })
 })

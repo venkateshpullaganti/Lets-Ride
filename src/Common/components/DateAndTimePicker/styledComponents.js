@@ -8,7 +8,7 @@ const DateInput = styled.div`
    display: ${props => (props.shouldShow ? 'flex' : 'none')};
    ${tw`text-sm  flex-col mt-4`};
 `
-const Label = styled.div`
+const Label = styled.label`
    color: ${Colors.steel};
    ${Typo12SteelHKGroteskSemiBold};
 `
@@ -19,7 +19,7 @@ const Error = styled.span`
    ${Typo12SteelHKGroteskSemiBold};
 `
 const Required = styled.span`
-   visibility: ${props => (props.isRequired ? 'visible' : 'hidden')};
+   display: ${props => (props.isRequired ? 'flex' : 'none')};
    color: ${Colors.neonRed};
    ${tw``};
 `

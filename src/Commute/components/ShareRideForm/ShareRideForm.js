@@ -259,6 +259,7 @@ class ShareRideForm extends Component {
                   isLoading={isLoading}
                   displayText={strings.shareBtnText}
                   disabled={isLoading}
+                  type='submit'
                />
             </Form>
          </ShareRide>

@@ -7,7 +7,10 @@ class NoDataView extends React.Component {
       console.log('no data')
       return (
          <NoDataViewContainer>
-            <NoDataViewText>No data found! ¯\_(ツ)_/¯ </NoDataViewText>
+            <NoDataViewText>
+               No data found!
+               <span> ¯\_(ツ)_/¯ </span>
+            </NoDataViewText>
          </NoDataViewContainer>
       )
    }

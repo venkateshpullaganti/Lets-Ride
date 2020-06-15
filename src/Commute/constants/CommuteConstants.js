@@ -4,6 +4,9 @@ export const MATCHING_RESULTS = 'matching-results'
 export const MY_REQUESTS = 'my-requests'
 export const SHARED_DETAILS = 'shared-details'
 
+export const RIDE = 'RIDE'
+export const ASSET = 'ASSET'
+
 export const TABS = [
    { value: 'matching-results', label: 'MATCHING RESULTS' },
    { value: 'my-requests', label: 'MY REQUESTS' },
@@ -26,4 +29,9 @@ export const TRAVEL_MEDIUM_OPTIONS = [
    { value: 'BUS', label: 'Bus' },
    { value: 'TRAIN', label: 'Train' },
    { value: 'FLIGHT', label: 'Flight' }
+]
+
+export const TABLES = [
+   { value: 'RIDE', label: 'RIDE' },
+   { value: 'ASSET', label: 'ASSET' }
 ]
