@@ -4,7 +4,7 @@ import {
    ASSET_TRANSPORT_REQUEST_PATH,
    SHARE_TRAVEL_INFO_PATH,
    SHARE_RIDE_PATH
-} from '../constants/NavigationConstants'
+} from '../../constants/NavigationConstants'
 
 export const goToHomePage = history => {
    history.push(HOMEPAGE_PATH)

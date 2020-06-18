@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { observable, computed, reaction, action } from 'mobx'
 import 'react-datepicker/dist/react-datepicker.css'
 
-import { DateFormatter } from '../../utils/DateFormatter'
+import { DateFormatter } from '../../utils/DateFormatter/DateFormatter'
 import { Button } from '../../../Common/components/Button'
 import { Input } from '../../../Common/components/Input'
 import { DateAndTimePicker } from '../../../Common/components/DateAndTimePicker'

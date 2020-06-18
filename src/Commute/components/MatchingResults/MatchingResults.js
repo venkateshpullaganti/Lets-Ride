@@ -16,7 +16,7 @@ import {
 import {
    goToAssetRequestPage,
    goToRideRequestPage
-} from '../../utils/NavigationUtils'
+} from '../../utils/NavigationUtils/NavigationUtils'
 import {
    RIDE_REQUEST_PATH,
    ASSET_TRANSPORT_REQUEST_PATH,
@@ -29,7 +29,6 @@ import { RidesTable } from './RidesTable'
 import { AssetsTable } from './AssetsTable'
 import { MatchingResultsRoot } from './styledComponents'
 
-@inject('commuteStore')
 @observer
 class MatchingResults extends Component {
    @observable selectedField

@@ -68,15 +68,3 @@ class Selector extends Component {
 }
 
 export { Selector }
-
-// onMouseEnter={() => setIsShown(true)}
-//         onMouseLeave={() => setIsShown(false)}
-
-//  <SortingOptions shouldShowSortOptions={this.shouldShowSortOptions}>
-//     <Item key={'ASC'} onClick={() => onChange(option.value, 'ASC')}>
-//        {'Ascending'}
-//     </Item>
-//     <Item key={'DSC'} onClick={() => onChange(option.value, 'DESC')}>
-//        {'Descending'}
-//     </Item>
-//  </SortingOptions>

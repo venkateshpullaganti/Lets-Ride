@@ -10,7 +10,7 @@ import {
    ASSET_SENSITIVITY_OPTIONS,
    ASSET_TYPES
 } from '../../constants/CommuteConstants'
-import { DateFormatter } from '../../utils/DateFormatter'
+import { DateFormatter } from '../../utils/DateFormatter/DateFormatter'
 import { Button } from '../../../Common/components/Button'
 import { Input } from '../../../Common/components/Input'
 import { DateAndTimePicker } from '../../../Common/components/DateAndTimePicker'

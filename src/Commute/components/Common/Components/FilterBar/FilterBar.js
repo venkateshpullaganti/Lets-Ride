@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 
-import { Selector } from '../../../Selector'
-import { Bar, TaskCount, Filters } from './styledComponents'
-
 import images from '../../../../../Common/themes/Images'
-
 import strings from '../../../../i18n/strings.json'
+import { Selector } from '../../../Selector'
+
+import { Bar, TaskCount, Filters } from './styledComponents'
 
 class FilterBar extends Component {
    render() {

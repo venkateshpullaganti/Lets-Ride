@@ -38,10 +38,11 @@ class CommuteHomePage extends Component {
    }
 
    renderSelectedCategory = () => {
+      const { commuteStore } = this.props
       if (this.selectedCategory === MATCHING_RESULTS) {
-         return <MatchingResults />
+         return <MatchingResults commuteStore={commuteStore} />
       } else if (this.selectedCategory === MY_REQUESTS) {
-         return <MyRequests />
+         return <MyRequests commuteStore={commuteStore} />
       }
       return (
          <div className='text-center'>

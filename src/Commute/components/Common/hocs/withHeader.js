@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 
-import { goToHomePage } from '../../../../Commute/utils/NavigationUtils'
+import { goToHomePage } from '../../../utils/NavigationUtils/NavigationUtils'
 
 import LoadingWrapperWithFailure from '../../../../Common/components/LoadingWrapperWithFailure'
 import { Logo } from '../../../../Common/components/Logo'

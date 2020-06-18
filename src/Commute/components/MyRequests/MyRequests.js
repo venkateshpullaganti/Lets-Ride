@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { observable, computed, action } from 'mobx'
+import { observable, action } from 'mobx'
 import { withRouter } from 'react-router-dom'
-import { observer, inject } from 'mobx-react'
+import { observer } from 'mobx-react'
 
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
 import { Pagination } from '../../../Common/components/Pagination'
@@ -16,13 +16,11 @@ import {
 } from '../../constants/MyRequestsConstants'
 import {
    RIDE_REQUEST_PATH,
-   ASSET_TRANSPORT_REQUEST_PATH,
-   PAGINATION_LIMIT
+   ASSET_TRANSPORT_REQUEST_PATH
 } from '../../constants/NavigationConstants'
 
 import { Table } from '../Table'
 import { FilterBar } from '../Common/Components/FilterBar'
-import { Selector } from '../Selector'
 
 import {
    RequestsContainer,
@@ -34,7 +32,6 @@ import { Item } from './Item'
 
 import { TableTabBar } from '../Common/Components/TableTabBar'
 
-@inject('commuteStore')
 @observer
 class MyRequests extends Component {
    @observable selectedField

@@ -34,12 +34,17 @@ class PaginationStore {
       this.entitiesKey = config.entitiesKey
       this.totalKey = config.totalKey || 'total'
       this.currentPage = config.currentPage
+      this.totalPages = config.totalPages || 1
       this.filterKey = config.filterKey
       this.filterOptionsAccessKey = config.filterOptionsAccessKey
       this.sortOptionsAccessKey = config.sortOptionsAccessKey
       this.sortOrderKey = config.sortOrderKey || 'sort_value'
       this.sortByKey = config.sortByKey || 'sort_key'
 
+      this.init()
+   }
+   @action.bound
+   init() {
       this.entities = observable(new Map())
       this.apiStatus = API_INITIAL
       this.apiError = null
@@ -47,7 +52,6 @@ class PaginationStore {
       this.selectedFilter = null
       this.selectedSort = null
       this.selectedSortOrder = 'DESC'
-      this.totalPages = 1
    }
 
    @action.bound
