@@ -49,7 +49,6 @@ class AssetTransportRequestForm extends Component {
 
    @action
    init = () => {
-      console.log('init')
       this.assetCount = 0
       this.isFlexible = false
       this.destinationPlace = ''
@@ -217,7 +216,6 @@ class AssetTransportRequestForm extends Component {
    render() {
       const { apiStatus } = this.props
       const isLoading = apiStatus === API_FETCHING
-      console.log('render')
 
       return (
          <AssetRequest>
@@ -226,7 +224,7 @@ class AssetTransportRequestForm extends Component {
                <Input
                   type={'text'}
                   labelText={strings.fromText}
-                  id={'sourcePlace'}
+                  id={'src Place'}
                   isError={this.isSourceError}
                   onChange={this.onChangeSource}
                   errorMsg={this.errorMsg}
@@ -236,7 +234,7 @@ class AssetTransportRequestForm extends Component {
                <Input
                   type={'text'}
                   labelText={strings.toText}
-                  id={'destination'}
+                  id={'dest Place'}
                   isError={this.isDestinationError}
                   onChange={this.onChangeDestination}
                   errorMsg={this.errorMsg}
@@ -272,12 +270,7 @@ class AssetTransportRequestForm extends Component {
                   options={ASSET_TYPES}
                   label={strings.assetType}
                   placeholder={strings.selectAssetType}
-                  value={{
-                     label:
-                        this.selectedAssetType === null
-                           ? 'Select Medium'
-                           : this.selectedAssetType
-                  }}
+                  value={{ label: this.selectedAssetType }}
                   onChange={this.onChangeAssetType}
                   isRequired={true}
                   isError={this.isAssetTypeError}
@@ -286,9 +279,9 @@ class AssetTransportRequestForm extends Component {
                <Input
                   type={'text'}
                   labelText={strings.assetTypeOthers}
-                  id={'assetTypeOthers'}
+                  id={'asset TypeOthers'}
                   onChange={this.onChangeAssetTypeOthers}
-                  shouldShow={this.selectedAssetType === 'OTHERS'}
+                  shouldShow={false}
                   value={this.assetTypeOthers}
                   placeholder={strings.assetTypeOthersPlaceholder}
                />
@@ -298,8 +291,6 @@ class AssetTransportRequestForm extends Component {
                   placeholder={strings.selectAssetSensitivity}
                   value={{
                      label: this.selectedAssetSensitivity
-                        ? 'Select Asset Sensitivity'
-                        : this.selectedAssetSensitivity
                   }}
                   onChange={this.onChangeAssetSensitivity}
                   isRequired={true}
@@ -309,7 +300,7 @@ class AssetTransportRequestForm extends Component {
                <Input
                   type={'text'}
                   labelText={strings.whomToDeliver}
-                  id={'whomToDeliver'}
+                  id={'whom ToDeliver'}
                   isError={this.isWhomToDeliverError}
                   onChange={this.onChangeWhomToDeliver}
                   errorMsg={this.errorMsg}
@@ -329,10 +320,4 @@ class AssetTransportRequestForm extends Component {
    }
 }
 
-export default withHeader(AssetTransportRequestForm)
-
-const options = [
-   { value: 'chocolate', label: 'Chocolate' },
-   { value: 'strawberry', label: 'Strawberry' },
-   { value: 'vanilla', label: 'Vanilla' }
-]
+export { AssetTransportRequestForm }

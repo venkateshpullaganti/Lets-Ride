@@ -4,6 +4,7 @@ import { observer, inject } from 'mobx-react'
 import { observable, computed } from 'mobx'
 import { API_FETCHING } from '@ib/api-constants'
 
+import withHeader from '../../components/Common/hocs/withHeader'
 import { displayToaster } from '../../../Common/components/Toaster'
 
 import { ShareTravelInfoForm } from '../../components/ShareTravelInfoForm'
@@ -85,4 +86,4 @@ class ShareTravelInfoRoute extends Component {
    }
 }
 
-export { ShareTravelInfoRoute }
+export default withHeader(ShareTravelInfoRoute)

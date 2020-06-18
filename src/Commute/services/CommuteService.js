@@ -68,6 +68,7 @@ class CommuteService {
       )
    }
    myRideRequestsApi = (requestObject, otherParams) => {
+      console.log('service', otherParams)
       const limtAndOffset = `offset=${otherParams.offset}&limit=${otherParams.limit}`
       let status = ``
 
@@ -100,8 +101,6 @@ class CommuteService {
       )
    }
    acceptRideRequest = requestObj => {
-      console.log('service', requestObj)
-
       return networkCallWithApisauce(
          this.commuteAPI,
          '/accept_ride_request/v1/',
@@ -110,8 +109,6 @@ class CommuteService {
       )
    }
    acceptAssetTransportRequest = requestObj => {
-      console.log('service', requestObj)
-
       return networkCallWithApisauce(
          this.commuteAPI,
          `/accept_asset_request/v1/`,

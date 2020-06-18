@@ -3,6 +3,7 @@ import { observer, inject } from 'mobx-react'
 
 import { displayToaster } from '../../../Common/components/Toaster'
 
+import withHeader from '../../components/Common/hocs/withHeader'
 import { ShareRideForm } from '../../components/ShareRideForm'
 import strings from '../../i18n/strings.json'
 
@@ -80,4 +81,4 @@ class ShareRideRoute extends Component {
    }
 }
 
-export { ShareRideRoute }
+export default withHeader(ShareRideRoute)

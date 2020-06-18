@@ -11,7 +11,7 @@ import {
    LinkItem
 } from './styledComponents'
 
-import { navigateToGivenPath } from '../../utils/NavigationUtils'
+import { navigateToGivenPath } from '../../../Common/utils/NavigationUtils/NavigationUtils'
 
 import images from '../../../Common/themes/Images'
 

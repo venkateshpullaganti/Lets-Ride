@@ -27,11 +27,13 @@ class AuthStore {
 
    @action.bound
    setUserSignInAPIResponse(response) {
+      console.log(response)
       setAccessToken(response.access_token)
    }
 
    @action.bound
    setGetUserSignInAPIError(apiError) {
+      console.log(apiError)
       this.getUserSignInAPIError = apiError
    }
 

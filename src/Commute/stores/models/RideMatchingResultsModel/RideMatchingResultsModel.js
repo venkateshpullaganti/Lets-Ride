@@ -69,4 +69,4 @@ class RideMatchingResultsModel {
    }
 }
 
-export default RideMatchingResultsModel
+export { RideMatchingResultsModel }

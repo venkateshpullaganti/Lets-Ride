@@ -11,6 +11,7 @@ const DateInput = styled.div`
 const Label = styled.label`
    color: ${Colors.steel};
    ${Typo12SteelHKGroteskSemiBold};
+   ${tw`flex`}
 `
 const Error = styled.span`
    display: ${props => (props.isError ? 'block' : 'none')};

@@ -6,6 +6,3 @@ export function FormHeading(props) {
    const { headingText } = props
    return <Heading>{headingText}</Heading>
 }
-FormHeading.defaultProps = {
-   headingText: 'Sample Heading'
-}

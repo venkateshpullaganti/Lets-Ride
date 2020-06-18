@@ -18,7 +18,7 @@ class FixtureService {
       })
    }
    userProfileApi = requestObject => {
-      return new Promise(resolve => {
+      return new Promise((resolve, reject) => {
          setTimeout(() => {
             resolve(getUserProfileFIxture)
          }, 1000)

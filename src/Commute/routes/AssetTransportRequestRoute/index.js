@@ -1,1 +1,3 @@
-export { AssetTransportRequestRoute } from './AssetTransportRequestRoute'
+import AssetTransportRequestRoute from './AssetTransportRequestRoute'
+
+export { AssetTransportRequestRoute }

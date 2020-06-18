@@ -22,11 +22,14 @@ class Page1 extends React.Component {
    @observable page
    @observable pageCount = 10
 
+   @observable sel
+
    handlePageClick = event => {
       this.page = event.selected + 1
    }
    handleChange = val => {
-      console.log(val.value)
+      this.sel = val
+      console.log(val)
    }
 
    render() {
@@ -64,7 +67,7 @@ class Page1 extends React.Component {
                <label htmlFor='assetType'>Filter</label>
                <Select
                   id='assetType'
-                  value=''
+                  value={this.sel}
                   className='bg-green-500 w-64 focus:outline-none rounded '
                   onChange={this.handleChange}
                   options={options}

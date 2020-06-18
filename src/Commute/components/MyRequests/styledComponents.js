@@ -38,7 +38,7 @@ const Col = styled.div`
 const RequestsHeader = styled.div`
    height: 64px;
    border: 1px solid ${Colors.lightBlueGrey};
-   ${tw`flex p-2 justify-between items-center`};
+   ${tw`flex  justify-between items-center`};
 `
 
 export {

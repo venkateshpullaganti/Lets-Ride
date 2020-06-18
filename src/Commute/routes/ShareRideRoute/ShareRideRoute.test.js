@@ -24,32 +24,6 @@ describe('ShareRideRoute Tests', () => {
       jest.resetAllMocks()
    })
 
-   it('Should render sourcePlace empty error message', () => {
-      const { getByText } = render(
-         <Router history={createMemoryHistory()}>
-            <ShareRideRoute shareStore={shareStore} />
-         </Router>
-      )
-      const shareBtn = getByText(strings.shareBtnText)
-      fireEvent.click(shareBtn)
-      getByText(strings.sourcePlaceError)
-   })
-
-   it('should render destination place empty error message', () => {
-      const sourcePlace = 'krnl'
-      const { getByText, getByLabelText } = render(
-         <Router history={createMemoryHistory()}>
-            <ShareRideRoute shareStore={shareStore} />
-         </Router>
-      )
-      const sourcePlaceField = getByLabelText(strings.fromText)
-      const shareBtn = getByText(strings.shareBtnText)
-
-      fireEvent.change(sourcePlaceField, { target: { value: sourcePlace } })
-      fireEvent.click(shareBtn)
-      getByText(strings.destinationPlaceError)
-   })
-
    it('should render loading state', () => {
       const sourcePlace = 'sourceplace'
       const destinationPlace = 'test-destinationPlace'
@@ -74,63 +48,6 @@ describe('ShareRideRoute Tests', () => {
       fireEvent.click(shareBtn)
 
       waitFor(() => expect(shareBtn).toBeDisabled)
-   })
-   it('should render destination place empty error message', () => {
-      const sourcePlace = 'krnl'
-      const { getByText, getByLabelText } = render(
-         <Router history={createMemoryHistory()}>
-            <ShareRideRoute shareStore={shareStore} />
-         </Router>
-      )
-      const sourcePlaceField = getByLabelText(strings.fromText)
-      const shareBtn = getByText(strings.shareBtnText)
-
-      fireEvent.change(sourcePlaceField, { target: { value: sourcePlace } })
-      fireEvent.click(shareBtn)
-      getByText(strings.destinationPlaceError)
-   })
-
-   it('should render travelDate empty error message', () => {
-      const sourcePlace = 'krnl'
-      const destinationPlace = 'test-destinationPlace'
-      const { getByText, getByLabelText } = render(
-         <Router history={createMemoryHistory()}>
-            <ShareRideRoute shareStore={shareStore} />
-         </Router>
-      )
-      const sourcePlaceField = getByLabelText(strings.fromText)
-      const destinationPlaceField = getByLabelText(strings.toText)
-      const shareBtn = getByText(strings.shareBtnText)
-
-      fireEvent.change(sourcePlaceField, { target: { value: sourcePlace } })
-      fireEvent.change(destinationPlaceField, {
-         target: { value: destinationPlace }
-      })
-      fireEvent.click(shareBtn)
-      getByText('Required')
-   })
-   it('should render error message on zero seatCount  ', () => {
-      const sourcePlace = 'krnl'
-      const destinationPlace = 'test-destinationPlace'
-      const dateAndTime = new Date()
-
-      const { getByText, getByLabelText, getAllByPlaceholderText } = render(
-         <Router history={createMemoryHistory()}>
-            <ShareRideRoute shareStore={shareStore} />
-         </Router>
-      )
-      const sourcePlaceField = getByLabelText(strings.fromText)
-      const destinationPlaceField = getByLabelText(strings.toText)
-      const dateAndTimeFields = getAllByPlaceholderText('Select Date and Time')
-      const shareBtn = getByText(strings.shareBtnText)
-
-      fireEvent.change(sourcePlaceField, { target: { value: sourcePlace } })
-      fireEvent.change(destinationPlaceField, {
-         target: { value: destinationPlace }
-      })
-      fireEvent.change(dateAndTimeFields[0], { target: { value: dateAndTime } })
-      fireEvent.click(shareBtn)
-      getByText('Required Seats')
    })
 
    // // it('should render error message on selecting Flexible timings and not from and to dates  ', () => {

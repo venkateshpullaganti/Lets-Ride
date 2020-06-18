@@ -26,7 +26,7 @@ class Counter extends Component {
       } = this.props
       return (
          <CounterContainer>
-            <Label htmlFor={'input'}>
+            <Label htmlFor={labelText}>
                {labelText}
                <Required>{isRequired ? '*' : null}</Required>
             </Label>
@@ -37,7 +37,7 @@ class Counter extends Component {
                </Btn>
                <Input
                   key={labelText}
-                  id={'input'}
+                  id={labelText}
                   type={'number'}
                   value={count}
                   onChange={onChange}

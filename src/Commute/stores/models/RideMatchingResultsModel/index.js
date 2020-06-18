@@ -1,0 +1,1 @@
+export { RideMatchingResultsModel } from './RideMatchingResultsModel'

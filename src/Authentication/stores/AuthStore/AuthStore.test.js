@@ -153,10 +153,11 @@ describe('AuthStore Tests', () => {
       })
    })
 
-   // it('should test user sign-out', () => {
-   //    authStore.userSignOut()
-   //    expect(mockRemoveCookie).toBeCalled()
-   //    expect(authStore.getUserSignInAPIStatus).toBe(API_INITIAL)
-   //    expect(authStore.getUserSignInAPIError).toBe(null)
-   // })
+   it('should test user sign-out', () => {
+      const mockInit = jest.fn()
+      authStore.init = mockInit
+      authStore.userSignOut()
+      expect(mockRemoveCookie).toBeCalled()
+      expect(mockInit).toBeCalled()
+   })
 })

@@ -1,1 +1,2 @@
-export { ShareRideRoute } from './ShareRideRoute'
+import ShareRideRoute from './ShareRideRoute'
+export { ShareRideRoute }

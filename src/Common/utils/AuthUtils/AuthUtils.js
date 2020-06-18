@@ -1,4 +1,4 @@
-import { getAccessToken } from './StorageUtils'
+import { getAccessToken } from '../StorageUtils'
 
 export const isLoggedIn = () => {
    const token = getAccessToken()

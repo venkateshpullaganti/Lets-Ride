@@ -14,21 +14,21 @@ export const TABS = [
 ]
 
 export const ASSET_TYPES = [
-   { value: 'LAPTOP', label: 'Laptop' },
-   { value: 'BAG', label: 'Bag' },
-   { value: 'DOCUMENTS', label: 'Documents' },
-   { value: 'OTHERS', label: 'Others' }
+   { value: 'LAPTOP', label: 'LAPTOP' },
+   { value: 'BAG', label: 'BAG' },
+   { value: 'DOCUMENTS', label: 'DOCUMENTS' },
+   { value: 'OTHERS', label: 'OTHERS' }
 ]
 
 export const ASSET_SENSITIVITY_OPTIONS = [
-   { value: 'HIGH', label: 'High' },
-   { value: 'MEDIUM', label: 'Medium' },
-   { value: 'LOW', label: 'Low' }
+   { value: 'HIGH', label: 'HIGH' },
+   { value: 'MEDIUM', label: 'MEDIUM' },
+   { value: 'LOW', label: 'LOW' }
 ]
 export const TRAVEL_MEDIUM_OPTIONS = [
-   { value: 'BUS', label: 'Bus' },
-   { value: 'TRAIN', label: 'Train' },
-   { value: 'FLIGHT', label: 'Flight' }
+   { value: 'BUS', label: 'BUS' },
+   { value: 'TRAIN', label: 'TRAIN' },
+   { value: 'FLIGHT', label: 'FLIGHT' }
 ]
 
 export const TABLES = [

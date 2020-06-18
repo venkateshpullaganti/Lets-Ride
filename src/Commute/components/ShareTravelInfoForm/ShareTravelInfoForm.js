@@ -233,7 +233,7 @@ class ShareTravelInfoForm extends Component {
                   options={TRAVEL_MEDIUM_OPTIONS}
                   label={strings.travelMedium}
                   placeholder={strings.travelMediumPlaceholder}
-                  value={this.travelMedium}
+                  value={{ label: this.travelMedium }}
                   onChange={this.onChangeAssetSensitivity}
                   isRequired={true}
                   isError={this.isTravelMediumError}
@@ -261,4 +261,4 @@ class ShareTravelInfoForm extends Component {
    }
 }
 
-export default withHeader(ShareTravelInfoForm)
+export { ShareTravelInfoForm }

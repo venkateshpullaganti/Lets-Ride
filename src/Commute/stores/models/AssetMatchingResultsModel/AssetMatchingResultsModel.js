@@ -84,4 +84,4 @@ class AssetMatchingResultsModel {
    }
 }
 
-export default AssetMatchingResultsModel
+export { AssetMatchingResultsModel }

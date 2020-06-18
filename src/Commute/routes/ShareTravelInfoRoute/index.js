@@ -1,1 +1,3 @@
-export { ShareTravelInfoRoute } from './ShareTravelInfoRoute'
+import ShareTravelInfoRoute from './ShareTravelInfoRoute'
+
+export { ShareTravelInfoRoute }

@@ -32,7 +32,6 @@ export function Selector(props) {
             onChange={onChange}
             options={options}
             placeholder={placeholder}
-            value={value}
          />
          <Error>{isError ? 'Required' : null}</Error>
       </>

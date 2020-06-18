@@ -44,13 +44,13 @@ const Item = styled.button`
       cursor: pointer;
    }
 `
-const SortingOptions = styled.div`
-   display: ${props => (props.shouldShowSortOptions ? 'flex' : 'none')};
-   background: ${Colors.white};
+// const SortingOptions = styled.div`
+//    display: ${props => (props.shouldShowSortOptions ? 'flex' : 'none')};
+//    background: ${Colors.white};
 
-   right: 100%;
-   border-radius: 4px;
-   ${tw` flex-col items-start p-2 relative shadow-lg z-20`};
-`
+//    right: 100%;
+//    border-radius: 4px;
+//    ${tw` flex-col items-start p-2 relative shadow-lg z-20`};
+// `
 
-export { Container, List, ArrowIcon, DisplayName, Item, SortingOptions }
+export { Container, List, ArrowIcon, DisplayName, Item }

@@ -22,7 +22,3 @@ export const goToShareTravelInfoPage = history => {
 export const goToRideSharePage = history => {
    history.push(SHARE_RIDE_PATH)
 }
-
-export const navigateToGivenPath = (givenPath, history) => {
-   history.push(givenPath)
-}

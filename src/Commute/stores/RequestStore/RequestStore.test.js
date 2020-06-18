@@ -126,4 +126,10 @@ describe('RequestStore Tests', () => {
       expect(requestStore.getAssetRequestAPIStatus).toBe(API_FAILED)
       expect(onFailure).toBeCalled()
    })
+   it('should test the clearStore()', () => {
+      const mockInit = jest.fn()
+      requestStore.init = mockInit
+      requestStore.clearStore()
+      expect(mockInit).toBeCalled()
+   })
 })

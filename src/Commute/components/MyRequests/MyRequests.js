@@ -39,49 +39,19 @@ import { TableTabBar } from '../Common/Components/TableTabBar'
 class MyRequests extends Component {
    @observable selectedField
 
-   assetCurrentPage
-   assetPaginationOffset
-
-   rideCurrentPage
-   ridePaginationOffset = 0
-
-   assetSelectedFilter
-   rideSelectedFilter
-   assetSelectedSort
-   rideSelectedSort
-
    constructor(props) {
       super(props)
       this.init()
-      this.rideCurrentPage = 1
-      this.assetCurrentPage = 1
-      this.assetPaginationOffset = 0
-      this.ridePaginationOffset = 0
-
-      this.assetSelectedFilter = null
-      this.rideSelectedFilter = null
-      this.assetSelectedSort = null
-      this.rideSelectedSort = null
    }
    init = () => {
       this.selectedField = RIDE
    }
-   get commuteStore() {
-      return this.props.commuteStore
+
+   get rideRequestPaginationStore() {
+      return this.props.commuteStore.rideRequestPaginationStore
    }
-   get totalAssetPages() {
-      return Math.ceil(
-         this.commuteStore.totalMyAssetRequests / PAGINATION_LIMIT
-      )
-   }
-   get totalRidePages() {
-      return Math.ceil(this.commuteStore.totalMyRideRequests / PAGINATION_LIMIT)
-   }
-   get rideTaskCount() {
-      return this.commuteStore.totalMyRideRequests
-   }
-   get assetTaskCount() {
-      return this.commuteStore.totalMyAssetRequests
+   get assetRequestPaginationStore() {
+      return this.props.commuteStore.assetRequestPaginationStore
    }
 
    componentDidMount() {
@@ -102,24 +72,24 @@ class MyRequests extends Component {
 
    @action
    onChangeRideFilter = selectedFilter => {
-      this.rideSelectedFilter = selectedFilter
-      this.doMyRideRequestApiCall()
+      const { onChangeFilter } = this.rideRequestPaginationStore
+      onChangeFilter(selectedFilter)
    }
    @action
    onChangeRideSort = selectedSort => {
-      this.rideSelectedSort = selectedSort
-      this.doMyRideRequestApiCall()
+      const { onChangeSort } = this.rideRequestPaginationStore
+      onChangeSort(selectedSort)
    }
 
    @action
    onChangeAssetFilter = selectedFilter => {
-      this.assetSelectedFilter = selectedFilter
-      this.doMyAssetsRequestApiCall()
+      const { onChangeFilter } = this.assetRequestPaginationStore
+      onChangeFilter(selectedFilter)
    }
    @action
    onChangeAssetSort = selectedSort => {
-      this.assetSelectedSort = selectedSort
-      this.doMyAssetsRequestApiCall()
+      const { onChangeSort } = this.assetRequestPaginationStore
+      onChangeSort(selectedSort)
    }
 
    navigateToRideRequestForm = () => {
@@ -131,96 +101,68 @@ class MyRequests extends Component {
       history.push(ASSET_TRANSPORT_REQUEST_PATH)
    }
 
-   handleRidePageClick = selectedPage => {
-      this.rideCurrentPage = selectedPage
-
-      this.ridePaginationOffset = (this.rideCurrentPage - 1) * PAGINATION_LIMIT
-      this.doMyRideRequestApiCall()
-   }
-   handleAssetPageClick = selectedPage => {
-      this.assetCurrentPage = selectedPage
-      this.assetPaginationOffset =
-         (this.assetCurrentPage - 1) * PAGINATION_LIMIT
-
-      this.doMyAssetsRequestApiCall()
-   }
-
    doMyAssetsRequestApiCall = () => {
-      const responseObj = {}
-
-      const paginationObj = {
-         limit: PAGINATION_LIMIT,
-         offset: this.assetPaginationOffset,
-         status: this.assetSelectedFilter,
-         sort_key: this.assetSelectedSort,
-         sort_value: 'DESC'
-      }
-      this.commuteStore.getMyAssetsRequests(responseObj, paginationObj)
+      this.assetRequestPaginationStore.getEntities()
    }
 
    doMyRideRequestApiCall = () => {
-      const responseObj = {}
-
-      const paginationObj = {
-         limit: PAGINATION_LIMIT,
-         offset: this.ridePaginationOffset,
-         status: this.rideSelectedFilter,
-         sort_key: this.rideSelectedSort,
-         sort_value: 'DESC'
-      }
-      this.commuteStore.getMyRideRequests(responseObj, paginationObj)
+      this.rideRequestPaginationStore.getEntities()
    }
 
-   renderRequests = () => {
-      return this.commuteStore.rideRequests.map(request => (
+   renderRequests = observer(() => {
+      const { currentPageEntities } = this.rideRequestPaginationStore
+      return currentPageEntities.map(request => (
          <Item key={request.id} request={request} />
       ))
-   }
+   })
    renderRequestsHeader = () => {
-      const { filterByStatus } = this.props
       return (
          <RequestsHeader key={'Table Header'}>
             {RIDE_TABLE_COLUMNS.map(item => (
                <Col key={item}>{item}</Col>
             ))}
-            <Selector
-               dropdownName={'STATUS'}
-               options={['Active', 'Expired']}
-               onChange={filterByStatus}
-            />
          </RequestsHeader>
       )
    }
 
    renderRidesTable = () => {
+      const {
+         apiStatus,
+         apiError,
+         onChangePage,
+         sortOptions,
+         filterOptions,
+         currentPage,
+         totalPages,
+         totalEntitiesCount
+      } = this.rideRequestPaginationStore
       return (
          <>
             <FilterBar
-               taskCount={this.rideTaskCount ?? 10}
+               taskCount={totalEntitiesCount || 0}
                onChangeSort={this.onChangeRideSort}
                onChangeFilter={this.onChangeRideFilter}
-               filterOptions={this.commuteStore.myRideRequestsFilterOptions}
-               sortOptions={this.commuteStore.myRideRequestsSortOptions}
+               filterOptions={filterOptions}
+               sortOptions={sortOptions}
             />
             <RequestTable>
                {this.renderRequestsHeader()}
                <LoadingWrapperWithFailure
-                  apiStatus={this.commuteStore.getMyRideRequestsAPIStatus}
+                  apiStatus={apiStatus}
                   onRetryClick={this.doMyRideRequestApiCall}
-                  apiError={this.commuteStore.getMyRideRequestsAPIError}
+                  apiError={apiError}
                   renderSuccessUI={this.renderRequests}
-                  isNoData={this.commuteStore.myRideRequests.length === 0}
                />
             </RequestTable>
             <TableFooter>
                <AddRequestBtn onClick={this.navigateToRideRequestForm}>
                   {strings.addRequest}
                </AddRequestBtn>
-               <TotalPages>{`Page ${this.rideCurrentPage} of ${this.totalRidePages}`}</TotalPages>
+               <TotalPages>{`Page ${currentPage} of ${totalPages}`}</TotalPages>
                <Pagination
-                  handlePageClick={this.handleRidePageClick}
-                  totalPages={this.totalRidePages}
-                  currentPage={this.rideCurrentPage}
+                  handlePageClick={onChangePage}
+                  totalPages={totalPages}
+                  currentPage={currentPage}
                />
             </TableFooter>
          </>
@@ -228,19 +170,33 @@ class MyRequests extends Component {
    }
 
    renderAssetsTable = () => {
+      const {
+         apiStatus,
+         apiError,
+         onChangePage,
+         sortOptions,
+         filterOptions,
+         currentPage,
+         totalPages,
+         totalEntitiesCount,
+         currentPageEntities
+      } = this.assetRequestPaginationStore
       return (
          <Table
             headerItems={ASSET_TABLE_COLUMNS}
-            tableData={this.commuteStore.assetRequests}
+            tableData={currentPageEntities}
             onClickAddRequest={this.navigateToAssetRequestForm}
-            totalAssetPages={this.totalAssetPages}
-            currentPage={this.assetCurrentPage}
-            handleAssetPageClick={this.handleAssetPageClick}
-            taskCount={this.assetTaskCount}
+            totalAssetPages={totalPages}
+            currentPage={currentPage}
+            handleAssetPageClick={onChangePage}
+            taskCount={totalEntitiesCount}
             onChangeSort={this.onChangeAssetSort}
             onChangeFilter={this.onChangeAssetFilter}
-            filterOptions={this.commuteStore.myAssetRequestsFilterOptions}
-            sortOptions={this.commuteStore.myAssetRequestsSortOptions}
+            filterOptions={filterOptions}
+            sortOptions={sortOptions}
+            apiStatus={apiStatus}
+            apiError={apiError}
+            onRetryClick={this.doMyAssetsRequestApiCall}
          />
       )
    }
@@ -249,15 +205,7 @@ class MyRequests extends Component {
       if (this.selectedField === strings.ride) {
          return this.renderRidesTable()
       }
-      return (
-         <LoadingWrapperWithFailure
-            apiStatus={this.commuteStore.getMyAssetRequestsAPIStatus}
-            onRetryClick={this.doMyAssetsRequestApiCall}
-            apiError={this.commuteStore.getMyAssetRequestsAPIError}
-            renderSuccessUI={this.renderAssetsTable}
-            isNoData={this.commuteStore.myAssetRequests.length === 0}
-         />
-      )
+      return this.renderAssetsTable()
    }
 
    render() {
@@ -275,31 +223,3 @@ class MyRequests extends Component {
 }
 
 export default withRouter(MyRequests)
-
-// onChangeRideFilter = selected => {
-//    console.log(selected)
-// }
-// onChangeRideSort = v => {
-//    console.log(v)
-// }
-// onChangeAssetFilter = selected => {
-//    console.log(selected)
-// }
-// onChangeAssetSort = v => {
-//    console.log(v)
-// }
-
-/* <Navigator>
-               <NavBtn
-                  isSelected={this.selectedField === strings.ride}
-                  onClick={this.showRide}
-               >
-                  {strings.ride}
-               </NavBtn>
-               <NavBtn
-                  isSelected={this.selectedField === strings.asset}
-                  onClick={this.showAsset}
-               >
-                  {strings.asset}
-               </NavBtn>
-            </Navigator> */

@@ -83,8 +83,16 @@ class SignInRoute extends Component {
 
    onSuccess() {
       const { history } = this.props
+      let path = null
 
-      history.replace({ pathname: HOMEPAGE_PATH })
+      if (this.props.location.state && this.props.location.state.from) {
+         path = this.props.location.state.from
+         if (path.includes('selectedTab')) path = null
+      }
+
+      history.replace({
+         pathname: path || HOMEPAGE_PATH
+      })
 
       displayToaster('', false)
    }

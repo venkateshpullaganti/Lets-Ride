@@ -51,7 +51,8 @@
       "deploy": "export PUBLIC_URL=/2019/$C9_USER/react && npm run build && ./deploy.sh",
       "storybook": "start-storybook -p 8080 -s public",
       "build-storybook": "build-storybook -s public",
-      "pretty": "npx prettier --write \"src/**/*.js\""
+      "pretty": "npx prettier --write \"src/**/*.js\"",
+      "coverage": "react-app-rewired test --env=jest-environment-jsdom-sixteen --coverage --watchAll=false"
    },
    "husky": {
       "hooks": {
@@ -101,5 +102,24 @@
       "lint-staged": "10.2.6",
       "react-app-rewired": "2.1.5",
       "tailwindcss": "1.4.6"
+   },
+   "jest": {
+      "testEnvironment": "node",
+      "collectCoverageFrom": [
+         "src/**/*.{ts,tsx,js,jsx}",
+         "!src/components/**/*.{ts,tsx,js,jsx}",
+         "!src/index.js",
+         "!src/App.js",
+         "!src/index.tsx",
+         "!src/serviceWorker.ts",
+         "!src/home/**/*.{ts,tsx,js,jsx}",
+         "!src/Common/utils/APIUtils.js",
+         "!src/Common/utils/StorageUtils.js",
+         "!src/serviceWorker.js",
+         "!src/tailwind.js",
+         "!src/**/*.stories.js",
+         "!src/Commute/services/**/*.{js,jsx}",
+         "!src/Authentication/services/**/*.{js,jsx}"
+      ]
    }
 }

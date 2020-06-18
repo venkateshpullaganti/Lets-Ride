@@ -5,28 +5,10 @@ import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
 import RideRequestModel from '../models/RideRequestModel'
 import AssetRequestModel from '../models/AssetRequestModel'
-import AssetMatchingResultsModel from '../models/AssetMatchingResultsModel'
-import RideMatchingResultsModel from '../models/RideMatchingResultsModel'
+import { AssetMatchingResultsModel } from '../models/AssetMatchingResultsModel'
+import { RideMatchingResultsModel } from '../models/RideMatchingResultsModel'
 
 class CommuteStore {
-   @observable getMyAssetRequestsAPIStatus
-   @observable getMyAssetRequestsAPIError
-
-   @observable myAssetRequests
-   @observable totalMyAssetRequests
-
-   myAssetRequestsSortOptions
-   myAssetRequestsFilterOptions
-
-   @observable getMyRideRequestsAPIStatus
-   @observable getMyRideRequestsAPIError
-
-   myRideRequestsSortOptions
-   myRideRequestsFilterOptions
-
-   @observable myRideRequests
-   @observable totalMyRideRequests
-
    @observable getMatchingResultsAPIStatus
    @observable getMatchingResultsAPIError
 
@@ -40,140 +22,70 @@ class CommuteStore {
    sortOptions
 
    commuteAPIService
+   PaginationStore
 
-   constructor(CommuteService) {
+   rideRequestPaginationStore
+   assetRequestPaginationStore
+
+   constructor(CommuteService, PaginationStore) {
       this.commuteAPIService = CommuteService
+      this.PaginationStore = PaginationStore
       this.init()
    }
 
    @action.bound
    init() {
-      this.getMyRideRequestsAPIStatus = API_INITIAL
-      this.getMyRideRequestsAPIError = null
-      this.getMyAssetRequestsAPIStatus = API_INITIAL
-      this.getMyAssetRequestsAPIError = null
-      this.myRideRequests = []
-      this.myAssetRequests = []
-      this.myRideRequestsSortOptions = []
-      this.myRideRequestsFilterOptions = []
-      this.myAssetRequestsSortOptions = []
-      this.myAssetRequestsFilterOptions = []
-
       this.getMatchingResultsAPIStatus = API_INITIAL
       this.getMatchingResultsAPIError = null
       this.matchingRideRequests = []
       this.matchingAssetReqests = []
       this.totalMatchingRides = 0
       this.totalMatchingAssets = 0
-   }
 
-   @action
-   setGetMyAssetRequestsAPIResponse = response => {
-      console.log(response)
-      if (response !== undefined) {
-         this.totalMyAssetRequests = response.total_assets
-         this.myAssetRequestsSortOptions = response.sort_options.map(option => {
-            return {
-               value: option,
-               label: this.convertCamelCaseToUpperCase(option)
-            }
-         })
-         this.myAssetRequestsFilterOptions = response.filter_options.map(
-            option => {
-               return { value: option, label: option }
-            }
-         )
-         this.myAssetRequests = response.assets.map(eachRide => {
-            return new AssetRequestModel(eachRide)
-         })
+      const ridePaginationConfig = {
+         limit: 2,
+         model: RideRequestModel,
+         getEntitiesAPI: this.commuteAPIService.myRideRequestsApi,
+         totalKey: 'total_rides',
+         currentPage: 1,
+         entitiesKey: 'rides',
+         filterOptionsAccessKey: 'filter_options',
+         sortOptionsAccessKey: 'sort_options',
+         filterKey: 'status'
       }
-   }
-
-   @action
-   setGetMyAssetRequestsAPIStatus = status => {
-      this.getMyAssetRequestsAPIStatus = status
-   }
-
-   @action
-   setGetMyAssetRequestsAPIError = error => {
-      this.getMyAssetRequestsAPIError = error
-   }
-
-   @action
-   getMyAssetsRequests(requestObject, paginationObj) {
-      const myAssetRequestsPromise = this.commuteAPIService.myAssetRequestsApi(
-         requestObject,
-         paginationObj
+      this.rideRequestPaginationStore = new this.PaginationStore(
+         ridePaginationConfig
       )
-
-      return bindPromiseWithOnSuccess(myAssetRequestsPromise)
-         .to(
-            this.setGetMyAssetRequestsAPIStatus,
-            this.setGetMyAssetRequestsAPIResponse
-         )
-         .catch(this.setGetMyAssetRequestsAPIError)
-   }
-
-   @action
-   setGetRideRequestsAPIResponse = response => {
-      if (response !== undefined) {
-         this.totalMyRideRequests = response.total_rides
-         this.myRideRequestsSortOptions = response.sort_options.map(option => {
-            return {
-               value: option,
-               label: this.convertCamelCaseToUpperCase(option)
-            }
-         })
-         this.myRideRequestsFilterOptions = response.filter_options.map(
-            option => {
-               return { value: option, label: option }
-            }
-         )
-         this.myRideRequests = response.rides.map(eachRide => {
-            return new RideRequestModel(eachRide)
-         })
+      const assetPaginationConfig = {
+         limit: 6,
+         model: AssetRequestModel,
+         getEntitiesAPI: this.commuteAPIService.myAssetRequestsApi,
+         totalKey: 'total_assets',
+         currentPage: 1,
+         entitiesKey: 'assets',
+         filterOptionsAccessKey: 'filter_options',
+         sortOptionsAccessKey: 'sort_options',
+         filterKey: 'status'
       }
-   }
-
-   @action
-   setGetMyRideRequestsAPIStatus = status => {
-      this.getMyRideRequestsAPIStatus = status
-   }
-
-   @action
-   setGetMyRideRequestsAPIError = error => {
-      this.getMyRideRequestsAPIError = error
+      this.assetRequestPaginationStore = new this.PaginationStore(
+         assetPaginationConfig
+      )
    }
 
    convertCamelCaseToUpperCase = str => str.replace('_', ' ').toUpperCase()
 
-   @action
-   getMyRideRequests(requestObject, paginationObj) {
-      const myRideRequestsPromise = this.commuteAPIService.myRideRequestsApi(
-         requestObject,
-         paginationObj
-      )
-
-      return bindPromiseWithOnSuccess(myRideRequestsPromise)
-         .to(
-            this.setGetMyRideRequestsAPIStatus,
-            this.setGetRideRequestsAPIResponse
-         )
-         .catch(this.setGetMyRideRequestsAPIError)
-   }
-
    @action.bound
-   setGetMatchingResultsAPIStatus(status) {
+   setMatchingResultsAPIStatus(status) {
       this.getMatchingResultsAPIStatus = status
    }
 
    @action.bound
-   setGetMatchingResultsAPIError(error) {
+   setMatchingResultsAPIError(error) {
       this.getMatchingResultsAPIError = error
    }
 
    @action.bound
-   setGetMatchingResultsAPIResponse(response) {
+   setMatchingResultsAPIResponse(response) {
       const commuteAPIService = this.commuteAPIService
       this.totalMatchingAssets = response.total_assets
       this.totalMatchingRides = response.total_rides
@@ -194,18 +106,10 @@ class CommuteStore {
       )
       return bindPromiseWithOnSuccess(myMatchingResultsPromise)
          .to(
-            this.setGetMatchingResultsAPIStatus,
-            this.setGetMatchingResultsAPIResponse
+            this.setMatchingResultsAPIStatus,
+            this.setMatchingResultsAPIResponse
          )
-         .catch(this.setGetMatchingResultsAPIError)
-   }
-   @computed
-   get assetRequests() {
-      return this.myAssetRequests
-   }
-   @computed
-   get rideRequests() {
-      return this.myRideRequests
+         .catch(this.setMatchingResultsAPIError)
    }
 
    @action.bound

@@ -6,13 +6,13 @@ import LoadingWrapperWithFailure from '.'
 
 const successUi = () => <div>{'SuccessUi'}</div>
 
-describe('LoadingWrapper tests', () => {
+describe('LoadingWrapperWithFailure tests', () => {
    beforeEach(() => {
       jest.resetAllMocks()
    })
 
    it('should render the loading state', () => {
-      const { getByLabelText, debug } = render(
+      const { getByLabelText } = render(
          <LoadingWrapperWithFailure apiStatus={API_FETCHING} />
       )
       getByLabelText('audio-loading')
@@ -40,7 +40,7 @@ describe('LoadingWrapper tests', () => {
       const { getByText, getByRole } = render(
          <LoadingWrapperWithFailure
             apiStatus={API_FAILED}
-            apiError={new Error('Sample Error')}
+            apiError={new Error()}
             onRetryClick={mockRetryClick}
          />
       )

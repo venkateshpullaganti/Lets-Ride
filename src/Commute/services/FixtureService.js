@@ -8,24 +8,10 @@ import myAssetRequestsFixtures from '../fixtures/myAssetRequestsFixtures.json'
 import matchingResultsFixtures from '../fixtures/matchingResultsFixtures.json'
 
 class FixtureService {
-   rideRequestApi
-   assetRequestApi
-
-   rideShareApi
-   travelInfoApi
+   api
 
    constructor() {
-      this.rideRequestApi = create({
-         baseURL: 'localhost:8000/api'
-      })
-      this.assetRequestApi = create({
-         baseURL: 'localhost:8000/api'
-      })
-
-      this.rideShareApi = create({
-         baseURL: 'localhost:8000/api'
-      })
-      this.travelInfoApi = create({
+      this.api = create({
          baseURL: 'localhost:8000/api'
       })
    }

@@ -4,11 +4,8 @@ import { Provider } from 'mobx-react'
 
 import AuthRoutes from './Authentication/routes'
 import AuthStores from './Authentication/stores'
-
 import { ProtectedRoute } from './Common/components/ProtectedRoute'
-
 import CommuteStores from './Commute/stores'
-
 import CommuteRoutes from './Commute/routes'
 
 import HomePage from './components/HomePage'

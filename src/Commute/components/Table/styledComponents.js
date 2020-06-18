@@ -9,14 +9,14 @@ const TableContainer = styled.div`
 `
 const Col = styled.div`
    color: ${Colors.steel};
-   height: 48px;
-   width: 130px;
-   ${tw``};
+   width: 11.1%;
+   ${tw`text-center`};
 `
 const Header = styled.div`
    height: 64px;
+   width: 100%;
    border: 1px solid ${Colors.lightBlueGrey};
-   ${tw`flex p-2 justify-between items-center`};
+   ${tw`flex justify-between items-center`};
 `
 const TableFooter = styled.div`
    color: ${Colors.steel};

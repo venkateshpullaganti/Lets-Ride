@@ -1,3 +1,5 @@
+import React from 'react'
+
 import {
    API_SUCCESS,
    API_FAILED,
@@ -146,5 +148,11 @@ describe('ShareStore Tests', () => {
       await shareStore.shareTravelInfo(requestObj, onSuccess, onFailure)
       expect(shareStore.getTravelInfoAPIStatus).toBe(API_FAILED)
       expect(onFailure).toBeCalled()
+   })
+   it('should test the clearStore()', () => {
+      const mockInit = jest.fn()
+      shareStore.init = mockInit
+      shareStore.clearStore()
+      expect(mockInit).toBeCalled()
    })
 })

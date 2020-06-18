@@ -1,39 +1,36 @@
 import React, { Component } from 'react'
+import { observer } from 'mobx-react'
 
 import { Pagination } from '../../../Common/components/Pagination'
+import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
 
 import strings from '../../i18n/strings.json'
 import { AddRequestBtn, TotalPages, TableFooter } from '../../styledComponents'
 
-import { Selector } from '../Selector'
 import { FilterBar } from '../Common/Components/FilterBar'
 
 import { Item } from './Item'
 import { TableContainer, Header, Col } from './styledComponents'
 
+@observer
 class Table extends Component {
    renderHeader = () => {
-      const { headerItems, filterByStatus } = this.props
+      const { headerItems } = this.props
 
       return (
          <Header key={'Table Header'}>
             {headerItems.map(item => (
                <Col key={item}>{item}</Col>
             ))}
-            <Selector
-               dropdownName={strings.status}
-               options={['Active', 'Expired']}
-               onChange={filterByStatus}
-            />
          </Header>
       )
    }
-   renderRows = () => {
+   renderRows = observer(() => {
       const { tableData } = this.props
       return tableData.map(eachRow => (
          <Item key={Math.random()} row={eachRow} />
       ))
-   }
+   })
 
    render() {
       const {
@@ -45,7 +42,10 @@ class Table extends Component {
          onChangeSort,
          onChangeFilter,
          filterOptions,
-         sortOptions
+         sortOptions,
+         apiStatus,
+         apiError,
+         onRetryClick
       } = this.props
 
       return (
@@ -59,7 +59,12 @@ class Table extends Component {
             />
             <TableContainer>
                {this.renderHeader()}
-               {this.renderRows()}
+               <LoadingWrapperWithFailure
+                  apiStatus={apiStatus}
+                  onRetryClick={onRetryClick}
+                  apiError={apiError}
+                  renderSuccessUI={this.renderRows}
+               />
             </TableContainer>
             <TableFooter>
                <AddRequestBtn onClick={onClickAddRequest}>

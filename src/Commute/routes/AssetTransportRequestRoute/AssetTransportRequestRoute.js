@@ -5,7 +5,9 @@ import { API_FETCHING } from '@ib/api-constants'
 
 import { displayToaster } from '../../../Common/components/Toaster'
 
+import withHeader from '../../components/Common/hocs/withHeader'
 import { AssetTransportRequestForm } from '../../components/AssetTransportRequestForm'
+
 import strings from '../../i18n/strings.json'
 
 @inject('requestStore')
@@ -87,4 +89,4 @@ class AssetTransportRequestRoute extends Component {
    }
 }
 
-export { AssetTransportRequestRoute }
+export default withHeader(AssetTransportRequestRoute)

@@ -3,7 +3,7 @@ import { render, fireEvent, waitFor } from '@testing-library/react'
 import { Router, Route, withRouter } from 'react-router-dom'
 import { Provider } from 'mobx-react'
 import { createMemoryHistory } from 'history'
-import { API_SUCCESS, API_FAILED } from '@ib/api-constants'
+import { API_SUCCESS } from '@ib/api-constants'
 
 import { AuthService } from '../../../Authentication/services/AuthService'
 
@@ -102,7 +102,7 @@ describe('SignInRoute Tests', () => {
          </Provider>
       )
 
-      const mockSuccessPromise = new Promise((resolve, reject) => {
+      const mockSuccessPromise = new Promise(resolve => {
          resolve(getUserSignInFixture)
       })
 
@@ -120,6 +120,7 @@ describe('SignInRoute Tests', () => {
       fireEvent.click(signInBtn)
 
       await waitFor(() => {
+         // debug()
          expect(authStore.getUserSignInAPIStatus).toBe(API_SUCCESS)
          expect(getByTestId('location-display')).toHaveTextContent(
             HOMEPAGE_PATH

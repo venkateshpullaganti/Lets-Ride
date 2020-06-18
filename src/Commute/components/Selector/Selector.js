@@ -8,8 +8,7 @@ import {
    List,
    ArrowIcon,
    DisplayName,
-   Item,
-   SortingOptions
+   Item
 } from './styledComponents'
 
 import images from '../../../Common/themes/Images'
@@ -31,11 +30,7 @@ class Selector extends Component {
    renderOptions = () => {
       const { options, onChange } = this.props
       return options.map(option => (
-         <Item
-            key={uuid()}
-            id={option.value}
-            onClick={() => onChange(option.value)}
-         >
+         <Item key={uuid()} id={option.value} onClick={() => onChange(option)}>
             {option.label}
          </Item>
       ))
@@ -47,7 +42,7 @@ class Selector extends Component {
    }
 
    render() {
-      const { dropdownName, icon, shouldRotateIcon, isSorter } = this.props
+      const { dropdownName, icon, shouldRotateIcon } = this.props
       return (
          <Container>
             <ArrowIcon

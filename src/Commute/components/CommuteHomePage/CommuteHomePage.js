@@ -3,14 +3,12 @@ import { observer } from 'mobx-react'
 import { observable, action } from 'mobx'
 
 import { HOME_PREFIX } from '../../constants/NavigationConstants'
-
 import {
-   SHARED_DETAILS,
    MY_REQUESTS,
    MATCHING_RESULTS,
    TABS
 } from '../../constants/CommuteConstants'
-import { navigateToGivenPath } from '../../utils/NavigationUtils'
+import { navigateToGivenPath } from '../../../Common/utils/NavigationUtils/NavigationUtils'
 
 import { TabBar } from '../TabBar'
 import withHeader from '../Common/hocs/withHeader'
@@ -18,7 +16,7 @@ import { MyRequests } from '../MyRequests'
 import { MatchingResults } from '../MatchingResults'
 
 import { Root, Body } from './styledComponents'
-import { withRouter } from 'react-router-dom/cjs/react-router-dom.min'
+
 @observer
 class CommuteHomePage extends Component {
    @observable selectedCategory
@@ -54,7 +52,6 @@ class CommuteHomePage extends Component {
    @action.bound
    onChangeSelectedCategory = async selectedTab => {
       const { history } = this.props
-
       const path = `${HOME_PREFIX}/${selectedTab}`
       await navigateToGivenPath(path, history)
 

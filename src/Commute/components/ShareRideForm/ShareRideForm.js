@@ -110,7 +110,7 @@ class ShareRideForm extends Component {
          this.errorMsg = strings.sourcePlaceError
       } else if (destinationPlace === '') {
          this.errorMsg = strings.destinationPlaceError
-      } else if (!isFlexible && travelDate === '') {
+      } else if (!isFlexible && !travelDate) {
          this.errorMsg = strings.travelDateError
       } else if (
          isFlexible &&
@@ -267,4 +267,4 @@ class ShareRideForm extends Component {
    }
 }
 
-export default withHeader(ShareRideForm)
+export { ShareRideForm }

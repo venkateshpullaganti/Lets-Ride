@@ -1,3 +1,1 @@
-import ShareRideForm from './ShareRideForm'
-
-export { ShareRideForm }
+export { ShareRideForm } from './ShareRideForm'

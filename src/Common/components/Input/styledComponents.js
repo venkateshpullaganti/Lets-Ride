@@ -27,7 +27,7 @@ const Label = styled.label`
    ${Typo12SteelHKGroteskSemiBold};
    color: ${Colors.steel};
 `
-const Error = styled.span`
+const Error = styled.div`
    height: 25px;
 
    color: ${Colors.neonRed};
@@ -40,7 +40,7 @@ const ErrorIcon = styled.img`
    ${tw`absolute`}
 `
 const InputContainer = styled.div`
-   display: ${props => (props.shouldShow ? 'block' : 'none')};
+   display: ${props => (props.shouldShow ? 'flex' : 'none')};
    width: 100%;
    ${tw`relative flex flex-col`};
 `

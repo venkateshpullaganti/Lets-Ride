@@ -242,6 +242,7 @@ class RideRequestForm extends Component {
                   onChange={onChangeSeats}
                   isError={isSeatCountError}
                   errorMsg={errorMsg}
+                  isRequired={true}
                />
                <Counter
                   key={strings.luggageQuantity}

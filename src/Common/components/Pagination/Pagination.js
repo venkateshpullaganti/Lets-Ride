@@ -4,21 +4,22 @@ import ReactPaginate from 'react-paginate'
 
 class Pagination extends React.Component {
    handlePageClick = event => {
-      const { handlePageClick, totalPages } = this.props
+      const { handlePageClick } = this.props
       handlePageClick(event.selected + 1)
    }
 
    render() {
-      const { totalPages, currentPage } = this.props
+      const { totalPages, currentPage, pageRange } = this.props
+
       return (
          <ReactPaginate
             previousLabel={'<'}
             nextLabel={'>'}
             breakLabel={'...'}
             breakClassName={'break-me'}
-            pageCount={totalPages}
+            pageCount={totalPages || 1}
             marginPagesDisplayed={2}
-            pageRangeDisplayed={2}
+            pageRangeDisplayed={pageRange || 2}
             onPageChange={this.handlePageClick}
             containerClassName={'pagination'}
             subContainerClassName={'pages pagination'}
