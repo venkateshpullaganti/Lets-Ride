@@ -9,11 +9,16 @@ describe('Sign in form tests', () => {
       const { getByLabelText } = render(
          <SignInForm
             mobileNumber={expectedOutput}
-            onChangeUserName={() => {}}
-            isUserNameError={false}
+            OnChangeMobileNumber={() => {}}
+            onSubmit={() => {}}
+            onChangePassword={() => {}}
+            isLoading={false}
+            password={''}
          />
       )
-      const MobileNumberField = getByLabelText('MOBILE NUMBER')
+      const MobileNumberField = getByLabelText(
+         'MOBILE NUMBER'
+      ) as HTMLInputElement
 
       expect(MobileNumberField.value).toBe(expectedOutput)
    })
@@ -21,9 +26,17 @@ describe('Sign in form tests', () => {
    it('should render the given password', () => {
       let expectedOutput = 'tester-password'
       const { getByLabelText } = render(
-         <SignInForm password={expectedOutput} onChangePassword={() => {}} />
+         <SignInForm
+            password={expectedOutput}
+            mobileNumber={''}
+            onChangePassword={() => {}}
+            OnChangeMobileNumber={() => {}}
+            onSubmit={() => {}}
+            isLoading={false}
+         />
       )
-      const actualOutput = getByLabelText('PASSWORD').value
+      const actualOutput = (getByLabelText('PASSWORD') as HTMLInputElement)
+         .value
       expect(actualOutput).toBe(expectedOutput)
    })
 })

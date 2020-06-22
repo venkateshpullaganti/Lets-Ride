@@ -9,7 +9,25 @@ import strings from '../../i18n/strings.json'
 
 import { Container, Form, AskSignUp, SignUpLink } from './styledComponents'
 
-class SignInForm extends Component {
+type SignInProps = {
+   errorMsg: string | null
+   OnChangeMobileNumber: (event: React.ChangeEvent<HTMLInputElement>) => void
+   onChangePassword: (event: React.ChangeEvent<HTMLInputElement>) => void
+   isLoading: boolean
+   mobileNumber: string
+   password: string
+   isMobileNumberError: boolean
+   isPasswordError: boolean
+   onSubmit: () => void
+   isError: boolean
+}
+
+class SignInForm extends Component<SignInProps> {
+   static defaultProps = {
+      errorMsg: null,
+      isMobileNumberError: false,
+      isPasswordError: false
+   }
    onSubmit = event => {
       const { onSubmit } = this.props
       event.preventDefault()

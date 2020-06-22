@@ -2,43 +2,47 @@ import { observable, action } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
-import { getUserDisplayableErrorMessage } from '../../../Common/utils/APIUtils'
-
+import { AuthService } from '../../services/AuthService'
 import {
    setAccessToken,
    clearUserSession
 } from '../../../Common/utils/StorageUtils'
 
+import UserProfileModel from '../Models/UserProfileModel'
+
+type userSignInResponse = {
+   user_id: string
+   access_token: string
+}
+
 class AuthStore {
-   @observable getUserSignInAPIStatus
-   @observable getUserSignInAPIError
+   @observable getUserSignInAPIStatus!: number
+   @observable getUserSignInAPIError!: string | null
 
-   @observable getUserProfileAPIStatus
-   @observable getUserProfileAPIError
+   @observable getUserProfileAPIStatus!: number
+   @observable getUserProfileAPIError!: string | null
 
-   @observable userProfile
+   @observable userProfile!: null | Object
 
-   authAPIService
+   authAPIService: AuthService
 
-   constructor(authService) {
+   constructor(authService: AuthService) {
       this.authAPIService = authService
       this.init()
    }
 
    @action.bound
-   setUserSignInAPIResponse(response) {
-      console.log(response)
+   setUserSignInAPIResponse(response: userSignInResponse) {
       setAccessToken(response.access_token)
    }
 
    @action.bound
-   setGetUserSignInAPIError(apiError) {
-      console.log(apiError)
+   setGetUserSignInAPIError(apiError: string) {
       this.getUserSignInAPIError = apiError
    }
 
    @action.bound
-   setGetUserSignInAPIStatus(apiStatus) {
+   setGetUserSignInAPIStatus(apiStatus: number) {
       this.getUserSignInAPIStatus = apiStatus
    }
 
@@ -48,10 +52,14 @@ class AuthStore {
       this.getUserSignInAPIError = null
       this.getUserProfileAPIStatus = API_INITIAL
       this.getUserProfileAPIError = null
-      this.userProfile = null // Will save an userProfile object in this variable
+      this.userProfile = null
    }
    @action.bound
-   userSignIn(requestObject, onSuccess, onFailure) {
+   userSignIn(
+      requestObject,
+      onSuccess: () => void,
+      onFailure: (error: any) => void
+   ) {
       const userSignInPromise = this.authAPIService.signInApi(requestObject)
 
       return bindPromiseWithOnSuccess(userSignInPromise)
@@ -67,10 +75,7 @@ class AuthStore {
 
    @action.bound
    setUserProfileAPIResponse(response) {
-      this.userProfile = {}
-      this.userProfile.userName = response.username
-      this.userProfile.phoneNumber = response.phone_number
-      this.userProfile.profileImage = response.profile_pic_url
+      this.userProfile = new UserProfileModel(response)
    }
 
    @action.bound
@@ -79,13 +84,12 @@ class AuthStore {
    }
 
    @action.bound
-   setGetUserProfileAPIStatus(apiStatus) {
+   setGetUserProfileAPIStatus(apiStatus: number) {
       this.getUserProfileAPIStatus = apiStatus
    }
 
    @action.bound
    getUserProfile(requestObject) {
-      console.log('getUser')
       const userProfilePromise = this.authAPIService.userProfileApi(
          requestObject
       )
@@ -109,5 +113,3 @@ class AuthStore {
    }
 }
 export { AuthStore }
-
-// console.log(Object.entries(this.userProfile).length === 0, 'store obj')

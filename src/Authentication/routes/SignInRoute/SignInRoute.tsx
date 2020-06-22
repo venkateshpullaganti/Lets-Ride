@@ -1,37 +1,50 @@
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import { observable, computed } from 'mobx'
 import { API_FETCHING } from '@ib/api-constants'
+import { History, Location } from 'history'
 
 import { HOMEPAGE_PATH } from '../../../Commute/constants/NavigationConstants'
-
+import { isLoggedIn } from '../../../Common/utils/AuthUtils/AuthUtils'
 import { displayToaster } from '../../../Common/components/Toaster'
 
-import strings from '../../i18n/strings.json'
 import { MOBILE_NUMBER_LENGTH } from '../../constants/SignInConstants'
 import { SignInForm } from '../../components/SignInForm'
+import strings from '../../i18n/strings.json'
+import { AuthStore } from '../../stores/AuthStore'
+
+interface locationProp extends Location {
+   state: {
+      from: string
+   }
+}
+type SignInProps = {
+   authStore: AuthStore
+   history: History
+   location: locationProp
+}
 
 @inject('authStore')
 @observer
-class SignInRoute extends Component {
-   @observable mobileNumber
-   @observable password
-   @observable errorMsg
+class SignInRoute extends Component<SignInProps> {
+   @observable mobileNumber!: string
+   @observable password!: string
+   @observable errorMsg!: string | null
 
-   constructor(props) {
+   constructor(props: SignInProps) {
       super(props)
       this.init()
       this.onSuccess = this.onSuccess.bind(this)
       this.onFailure = this.onFailure.bind(this)
       this.onSubmit = this.onSubmit.bind(this)
    }
+
    init = () => {
       this.mobileNumber = ''
       this.password = ''
       this.errorMsg = null
    }
-
    get authStore() {
       return this.props.authStore
    }
@@ -83,7 +96,7 @@ class SignInRoute extends Component {
 
    onSuccess() {
       const { history } = this.props
-      let path = null
+      let path: string | null = null
 
       if (this.props.location.state && this.props.location.state.from) {
          path = this.props.location.state.from
@@ -109,11 +122,9 @@ class SignInRoute extends Component {
          isMobileNumberError,
          isPasswordError
       } = this
-
-      // if (!isLoggedIn()) {
-      //    return <Redirect to={{ pathname: HOMEPAGE_PATH }} />
-      // // }
-      // console.log(Math.random(), this.authStore.getUserSignInAPIStatus)
+      if (isLoggedIn()) {
+         return <Redirect to={HOMEPAGE_PATH} />
+      }
       return (
          <SignInForm
             onSubmit={onSubmit}

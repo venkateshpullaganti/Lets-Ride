@@ -5,7 +5,7 @@ import { Provider } from 'mobx-react'
 import { createMemoryHistory } from 'history'
 import { API_SUCCESS } from '@ib/api-constants'
 
-import { AuthService } from '../../../Authentication/services/AuthService'
+import { AuthService } from '../../services/AuthService'
 
 import { SIGN_IN_PATH } from '../../constants/NavigationConstants'
 
