@@ -3,6 +3,8 @@ import { observable, action, computed } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
+import { PaginationStore } from '../../../Common/stores/PaginationStore'
+
 import RideRequestModel from '../models/RideRequestModel'
 import AssetRequestModel from '../models/AssetRequestModel'
 import { AssetMatchingResultsModel } from '../models/AssetMatchingResultsModel'
@@ -27,7 +29,7 @@ class CommuteStore {
    rideRequestPaginationStore
    assetRequestPaginationStore
 
-   constructor(CommuteService, PaginationStore) {
+   constructor(CommuteService) {
       this.commuteAPIService = CommuteService
       this.PaginationStore = PaginationStore
       this.init()

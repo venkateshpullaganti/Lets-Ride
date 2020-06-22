@@ -26,9 +26,10 @@ describe('ProtectedRoute tests', () => {
       )
       expect(history.location.pathname).toBe(SIGN_IN_PATH)
    })
-   it('should should render the given component if already logged in', () => {
+   it('should  render the given component if already logged in', () => {
       const history = createMemoryHistory()
       history.push(HOMEPAGE_PATH)
+
       setAccessToken('sample token')
 
       const { getByText, getByTestId } = render(

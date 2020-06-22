@@ -50,6 +50,10 @@ const Required = styled.span`
 const LabelContainer = styled.div`
    ${tw`flex items-center`};
 `
+const Container = styled.div`
+   width: 100%;
+   ${tw``};
+`
 
 export {
    CustomInput,
@@ -58,5 +62,6 @@ export {
    ErrorIcon,
    InputContainer,
    Required,
-   LabelContainer
+   LabelContainer,
+   Container
 }

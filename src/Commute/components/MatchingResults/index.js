@@ -1,3 +1,1 @@
-import MatchingResults from './MatchingResults'
-
-export { MatchingResults }
+export { MatchingResults } from './MatchingResults'

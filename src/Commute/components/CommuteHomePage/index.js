@@ -1,2 +1,1 @@
-import CommuteHomePage from './CommuteHomePage'
-export { CommuteHomePage }
+export { CommuteHomePage } from './CommuteHomePage'

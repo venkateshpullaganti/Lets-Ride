@@ -1,7 +1,7 @@
 import React from 'react'
 import Select from 'react-select'
 
-import { Label, Required, Error } from '../Input/styledComponents'
+import { Label, Required, Error, Container } from '../Input/styledComponents'
 
 export function Selector(props) {
    const {
@@ -14,9 +14,9 @@ export function Selector(props) {
       isError,
       errorMsg
    } = props
-
+   console.log(options)
    return (
-      <>
+      <Container data-testid={'react-selector'}>
          <Label className='mt-6' htmlFor={label}>
             {label}
             <Required>{isRequired ? '*' : null}</Required>
@@ -26,15 +26,15 @@ export function Selector(props) {
             id={label}
             className={
                isError
-                  ? `selector-styles border border-red-500 border-solid rounded`
-                  : `selector-styles rounded`
+                  ? `selector-styles border border-red-500 border-solid `
+                  : `selector-styles`
             }
             onChange={onChange}
             options={options}
             placeholder={placeholder}
          />
          <Error>{isError ? 'Required' : null}</Error>
-      </>
+      </Container>
    )
 }
 

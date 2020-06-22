@@ -1,6 +1,5 @@
 import { CommuteService } from '../services/CommuteService'
 import { FixtureService } from '../services/FixtureService'
-import { PaginationStore } from '../../Common/stores/PaginationStore'
 
 import { RequestStore } from './RequestStore'
 import { ShareStore } from './ShareStore'
@@ -13,7 +12,7 @@ const changableService = fixtureService // change the service here
 
 const requestStore = new RequestStore(changableService)
 const shareStore = new ShareStore(changableService)
-const commuteStore = new CommuteStore(changableService, PaginationStore)
+const commuteStore = new CommuteStore(changableService)
 
 export default {
    requestStore,

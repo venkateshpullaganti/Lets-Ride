@@ -1,3 +1,1 @@
-import MyRequests from './MyRequests'
-
-export { MyRequests }
+export { MyRequests } from './MyRequests'

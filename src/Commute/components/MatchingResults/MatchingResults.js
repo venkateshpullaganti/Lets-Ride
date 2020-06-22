@@ -219,4 +219,4 @@ class MatchingResults extends Component {
    }
 }
 
-export default withRouter(MatchingResults)
+export { MatchingResults }

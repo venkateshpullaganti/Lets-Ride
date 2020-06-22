@@ -1,1 +1,2 @@
-export { CommuteHomeRoute } from './CommuteHomeRoute'
+import CommuteHomeRoute from './CommuteHomeRoute'
+export { CommuteHomeRoute }

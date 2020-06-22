@@ -4,6 +4,10 @@ import Loader from 'react-loader-spinner'
 
 import Select from 'react-select'
 
+import { Typo32DarkBlueGreyRubikRegular } from '../../Common/styleGuide/Typos'
+
+import { BaseButton } from '../../Common/components/Common/Button/BaseButton'
+
 import { displayToaster } from './toaster'
 // import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css
 
@@ -96,6 +100,11 @@ class Page1 extends React.Component {
                   />
                </div>
             </div>
+            <BaseButton
+               text='disabled Button'
+               isDisabled={true}
+               typo={Typo32DarkBlueGreyRubikRegular}
+            />
          </>
       )
    }

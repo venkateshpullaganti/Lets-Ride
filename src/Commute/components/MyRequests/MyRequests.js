@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { observable, action } from 'mobx'
-import { withRouter } from 'react-router-dom'
 import { observer } from 'mobx-react'
 
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
@@ -219,4 +218,4 @@ class MyRequests extends Component {
    }
 }
 
-export default withRouter(MyRequests)
+export { MyRequests }

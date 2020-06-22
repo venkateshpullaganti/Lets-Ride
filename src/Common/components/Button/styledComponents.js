@@ -11,7 +11,7 @@ const Btn = styled.button`
    margin-bottom: 40px;
    background: ${Colors.brightBlue};
    border-radius: 4px;
-   ${tw`flex justify-center items-center text-white p-2`};
+   ${tw`flex justify-center items-center text-white p-2 focus:outline-none`};
    ${props =>
       props.disabled
          ? ` opacity:0.5;
@@ -21,9 +21,6 @@ const Btn = styled.button`
             opacity:1;
             cursor:pointer;
             `};
-   &:focus {
-      outline: none;
-   }
 `
 const BtnTypo = styled.span`
    ${Typo14WhiteRubikMedium}

@@ -11,7 +11,6 @@ import {
 import { navigateToGivenPath } from '../../../Common/utils/NavigationUtils/NavigationUtils'
 
 import { TabBar } from '../TabBar'
-import withHeader from '../Common/hocs/withHeader'
 import { MyRequests } from '../MyRequests'
 import { MatchingResults } from '../MatchingResults'
 
@@ -35,14 +34,26 @@ class CommuteHomePage extends Component {
    getSelectedTab = () => {
       const selectedTab = this.props.match.params.selectedTab
       this.selectedCategory = selectedTab
+      console.log(this.selectedCategory)
    }
 
    renderSelectedCategory = () => {
+      console.log('render selected Category')
       const { commuteStore } = this.props
       if (this.selectedCategory === MATCHING_RESULTS) {
-         return <MatchingResults commuteStore={commuteStore} />
+         return (
+            <MatchingResults
+               commuteStore={commuteStore}
+               history={this.props.history}
+            />
+         )
       } else if (this.selectedCategory === MY_REQUESTS) {
-         return <MyRequests commuteStore={commuteStore} />
+         return (
+            <MyRequests
+               commuteStore={commuteStore}
+               history={this.props.history}
+            />
+         )
       }
       return (
          <div className='text-center'>
@@ -76,6 +87,4 @@ class CommuteHomePage extends Component {
    }
 }
 
-const HomeWithHeader = withHeader(CommuteHomePage)
-
-export default HomeWithHeader
+export { CommuteHomePage }

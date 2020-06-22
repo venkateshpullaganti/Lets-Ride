@@ -9,13 +9,15 @@ const options = {
 class Loader extends Component {
    render() {
       return (
-         <ReactLoading
-            type='spin'
-            options={options}
-            alt='loader'
-            color={'#0b69ff'}
-            {...this.props}
-         />
+         <div>
+            <ReactLoading
+               data-testid='react-loader'
+               type='spin'
+               options={options}
+               color={'#0b69ff'}
+               {...this.props}
+            />
+         </div>
       )
    }
 }
