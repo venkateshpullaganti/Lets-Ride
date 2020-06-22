@@ -19,7 +19,6 @@ describe('Should test the input', () => {
       const input = getByPlaceholderText(placeholder)
 
       fireEvent.change(input, { target: { value: value } })
-
       expect(mockOnChange).toBeCalled()
       getByDisplayValue(value)
    })
