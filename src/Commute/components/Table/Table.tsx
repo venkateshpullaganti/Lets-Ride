@@ -1,19 +1,26 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 
+import { APIStatus } from '@ib/api-constants'
+
 import { Pagination } from '../../../Common/components/Pagination'
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
 
 import strings from '../../i18n/strings.json'
-import { AddRequestBtn, TotalPages, TableFooter } from '../../styledComponents'
+import AssetRequestModel from '../../stores/models/AssetRequestModel/AssetRequestModel'
+import {
+   TableContainer,
+   Header,
+   AddRequestBtn,
+   TotalPages,
+   TableFooter
+} from '../../styledComponents'
 
 import { FilterBar } from '../Common/Components/FilterBar'
 
 import { Item } from './Item'
-import { TableContainer, Header, Col } from './styledComponents'
-import AssetRequestModel from '../../stores/models/AssetRequestModel/AssetRequestModel'
+import { Col } from './styledComponents'
 import { OptionType, OptionsType } from '../types'
-import { APIStatus } from '@ib/api-constants'
 
 interface TableProps {
    headerItems: Array<string>

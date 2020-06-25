@@ -9,6 +9,11 @@ import {
    Typo14SteelHKGroteskRegular
 } from '../../Common/styleGuide/Typos'
 
+interface BadgeProps {
+   isAccepted: boolean
+   isExpired: boolean
+}
+
 const Heading = styled.p`
    ${Typo20DarkBlueGreyHKGrotestBold};
    height: 32px;
@@ -35,6 +40,7 @@ const TotalPages = styled.div`
    height: 24px;
    ${tw``};
 `
+
 const TableFooter = styled.div`
    color: ${Colors.steel};
    box-sizing: border-box;
@@ -48,6 +54,13 @@ const TableContainer = styled.div`
    border: 1px solid ${Colors.lightBlueGrey};
    ${tw`m-2 `};
 `
+const Header = styled.div`
+   height: 64px;
+   width: 100%;
+   border: 1px solid ${Colors.lightBlueGrey};
+   ${tw`flex justify-between items-center`};
+`
+
 const Col = styled.div`
    color: ${Colors.steel};
    height: 48px;
@@ -59,7 +72,7 @@ const Badge = styled.div`
    height: 16px;
    width: 72px;
    ${Typo8WhiteHKGroteskSemiBold};
-   background: ${(props: any) =>
+   background: ${(props: BadgeProps) =>
       props.isAccepted
          ? `${Colors.greenishTeal}`
          : props.isExpired
@@ -82,6 +95,7 @@ const Row = styled.div`
 `
 
 export {
+   Header,
    Heading,
    Form,
    HomePageHeader,
