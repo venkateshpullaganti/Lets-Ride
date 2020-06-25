@@ -11,9 +11,29 @@ import { FilterBar } from '../Common/Components/FilterBar'
 
 import { Item } from './Item'
 import { TableContainer, Header, Col } from './styledComponents'
+import AssetRequestModel from '../../stores/models/AssetRequestModel/AssetRequestModel'
+import { OptionType, OptionsType } from '../types'
+import { APIStatus } from '@ib/api-constants'
+
+interface TableProps {
+   headerItems: Array<string>
+   tableData: Array<AssetRequestModel>
+   onClickAddRequest: () => void
+   totalAssetPages: number
+   currentPage: number
+   handleAssetPageClick: (page: number) => void
+   taskCount: number
+   onChangeSort: (selectedSort: OptionType) => void
+   onChangeFilter: (selectedFilter: OptionType) => void
+   filterOptions: OptionsType
+   sortOptions: OptionsType
+   apiStatus: APIStatus
+   apiError: Error | null
+   onRetryClick: () => void
+}
 
 @observer
-class Table extends Component {
+class Table extends Component<TableProps> {
    renderHeader = () => {
       const { headerItems } = this.props
 
@@ -25,10 +45,10 @@ class Table extends Component {
          </Header>
       )
    }
-   renderRows = observer(() => {
+   renderRows = observer((): any => {
       const { tableData } = this.props
-      return tableData.map(eachRow => (
-         <Item key={Math.random()} row={eachRow} />
+      return tableData.map((eachRow: AssetRequestModel) => (
+         <Item key={eachRow.id} row={eachRow} />
       ))
    })
 

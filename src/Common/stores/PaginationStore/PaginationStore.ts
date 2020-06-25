@@ -20,9 +20,9 @@ export type PaginationStoreProps = {
    totalPages?: number
 }
 
-class PaginationStore implements PaginationStoreInterface {
+class PaginationStore {
    @observable apiStatus!: number
-   @observable apiError!: string | null
+   @observable apiError!: Error | null
    @observable entities!: Map<any, any>
    @observable currentPage!: number
    @observable selectedSort!: OptionType | null

@@ -3,6 +3,10 @@ import tw from 'tailwind.macro'
 
 import Colors from '../../../Common/themes/Colors'
 
+interface NavBtnProps {
+   isSelected: boolean
+}
+
 const RequestsContainer = styled.div`
    ${'' /* border: 1px solid green; */}
    ${tw``};
@@ -14,7 +18,7 @@ const Navigator = styled.div`
 const NavBtn = styled.button`
    font-size: 12px;
    height: 100%;
-   ${props =>
+   ${(props: NavBtnProps) =>
       props.isSelected
          ? `border-bottom: 2px solid ${Colors.brightBlue};
          color:${Colors.darkBlueGrey}`

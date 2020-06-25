@@ -105,7 +105,11 @@ class AssetTransportRequestForm extends Component<
       this.assetTypeOthers = event.target.value
    }
 
-   onSubmit = (event: React.MouseEvent<HTMLFormElement>): void => {
+   onSubmit = (
+      event:
+         | React.FormEvent<HTMLFormElement>
+         | React.MouseEvent<HTMLButtonElement>
+   ): void => {
       event.preventDefault()
       const {
          sourcePlace,
@@ -322,6 +326,7 @@ class AssetTransportRequestForm extends Component<
                <Button
                   isLoading={isLoading}
                   displayText={strings.requestBtnText}
+                  type={'submit'}
                />
             </Form>
          </AssetRequest>

@@ -9,7 +9,6 @@ import {
    TableFooter
 } from '../../../styledComponents'
 
-import { Selector } from '../../Selector'
 import { FilterBar } from '../../Common/Components/FilterBar'
 
 import { EachRow } from './EachRow'
@@ -48,7 +47,7 @@ class AssetsTable extends Component<AssetsTableProps> {
    }
    renderRows = () => {
       const { tableData, renderTable } = this.props
-      return tableData.map(eachRow => (
+      return tableData.map((eachRow: AssetMatchingResultsModel) => (
          <EachRow key={Math.random()} row={eachRow} renderTable={renderTable} />
       ))
    }

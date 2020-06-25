@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { observable, action } from 'mobx'
-import { withRouter } from 'react-router-dom'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { observer } from 'mobx-react'
 
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
@@ -31,12 +31,19 @@ import {
 import { Item } from './Item'
 
 import { TableTabBar } from '../Common/Components/TableTabBar'
+import { CommuteStore } from '../../stores/CommuteStore'
+import { OptionType } from '../types'
+import RideRequestModel from '../../stores/models/RideRequestModel/RideRequestModel'
+
+interface MyRequestsProps extends RouteComponentProps {
+   commuteStore: CommuteStore
+}
 
 @observer
-class MyRequests extends Component {
-   @observable selectedField
+class MyRequests extends Component<MyRequestsProps> {
+   @observable selectedField!: string
 
-   constructor(props) {
+   constructor(props: MyRequestsProps) {
       super(props)
       this.init()
    }
@@ -68,23 +75,23 @@ class MyRequests extends Component {
    }
 
    @action
-   onChangeRideFilter = selectedFilter => {
+   onChangeRideFilter = (selectedFilter: OptionType) => {
       const { onChangeFilter } = this.rideRequestPaginationStore
       onChangeFilter(selectedFilter)
    }
    @action
-   onChangeRideSort = selectedSort => {
+   onChangeRideSort = (selectedSort: OptionType) => {
       const { onChangeSort } = this.rideRequestPaginationStore
       onChangeSort(selectedSort)
    }
 
    @action
-   onChangeAssetFilter = selectedFilter => {
+   onChangeAssetFilter = (selectedFilter: OptionType) => {
       const { onChangeFilter } = this.assetRequestPaginationStore
       onChangeFilter(selectedFilter)
    }
    @action
-   onChangeAssetSort = selectedSort => {
+   onChangeAssetSort = (selectedSort: OptionType) => {
       const { onChangeSort } = this.assetRequestPaginationStore
       onChangeSort(selectedSort)
    }
@@ -108,7 +115,7 @@ class MyRequests extends Component {
 
    renderRequests = observer(() => {
       const { currentPageEntities } = this.rideRequestPaginationStore
-      return currentPageEntities.map(request => (
+      return currentPageEntities.map((request: RideRequestModel) => (
          <Item key={request.id} request={request} />
       ))
    })

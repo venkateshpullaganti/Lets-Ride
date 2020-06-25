@@ -3,6 +3,10 @@ import tw from 'tailwind.macro'
 
 import Colors from '../../../Common/themes/Colors'
 
+interface TabProps {
+   isSelected: boolean
+}
+
 const Tabs = styled.ul`
    button:first-of-type {
       border-radius: 6px 0px 0px 6px;
@@ -15,7 +19,7 @@ const Tabs = styled.ul`
 `
 const Tab = styled.button`
    border: 1px solid ${Colors.lightBlueGrey};
-   ${props =>
+   ${(props: TabProps) =>
       props.isSelected
          ? `color:${Colors.white};background:${Colors.brightBlue}`
          : `color:${Colors.darkBlueGrey};background:${Colors.white}`};

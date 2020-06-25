@@ -1,12 +1,10 @@
 import React from 'react'
-import { render, fireEvent, getByText } from '@testing-library/react'
-import { Router } from 'react-router-dom'
-
-import { createMemoryHistory } from 'history'
+import { render, fireEvent } from '@testing-library/react'
 
 import strings from '../../i18n/strings.json'
 
 import { RideRequestForm } from '.'
+import { API_INITIAL } from '@ib/api-constants'
 
 describe('Ride Request form tests', () => {
    beforeEach(() => {
@@ -30,8 +28,11 @@ describe('Ride Request form tests', () => {
    //    const actualOutput = getByLabelText(strings.toText).value
    //    expect(actualOutput).toBe(expectedOutput)
    // })
+
    it('should render the source Place error', () => {
-      const { getByText, getByRole } = render(<RideRequestForm />)
+      const { getByText, getByRole } = render(
+         <RideRequestForm onSubmit={jest.fn} apiStatus={API_INITIAL} />
+      )
       const submitBtn = getByRole('button', { name: 'REQUEST' })
       fireEvent.click(submitBtn)
       getByText('SOURCE PLACE REQUIRED')
@@ -40,7 +41,7 @@ describe('Ride Request form tests', () => {
       const sourcePlace = 'kurnool'
 
       const { getByText, getByRole, getByLabelText } = render(
-         <RideRequestForm />
+         <RideRequestForm onSubmit={jest.fn} apiStatus={API_INITIAL} />
       )
       const submitBtn = getByRole('button', { name: 'REQUEST' })
 
@@ -58,7 +59,7 @@ describe('Ride Request form tests', () => {
       const destinationPlace = 'Hyd'
 
       const { getByText, getByRole, getByLabelText } = render(
-         <RideRequestForm />
+         <RideRequestForm onSubmit={jest.fn} apiStatus={API_INITIAL} />
       )
       const submitBtn = getByRole('button', { name: 'REQUEST' })
 
@@ -85,7 +86,7 @@ describe('Ride Request form tests', () => {
          getByRole,
          getByLabelText,
          getAllByPlaceholderText
-      } = render(<RideRequestForm />)
+      } = render(<RideRequestForm onSubmit={jest.fn} apiStatus={API_INITIAL} />)
       const submitBtn = getByRole('button', { name: 'REQUEST' })
 
       const sourcePlaceField = getByLabelText(strings.fromText)
@@ -110,7 +111,7 @@ describe('Ride Request form tests', () => {
       const destinationPlace = 'Hyd'
 
       const { getAllByText, getByRole, getByLabelText } = render(
-         <RideRequestForm />
+         <RideRequestForm onSubmit={jest.fn} apiStatus={API_INITIAL} />
       )
       const submitBtn = getByRole('button', { name: 'REQUEST' })
 
@@ -131,8 +132,12 @@ describe('Ride Request form tests', () => {
    })
    it('should  test the  laguage quantity counter', () => {
       const laguageQuantity = 5
-      const { getByLabelText, getAllByRole } = render(<RideRequestForm />)
-      const laguageQuantityField = getByLabelText('LUGGAGE QUANTITY')
+      const { getByLabelText, getAllByRole } = render(
+         <RideRequestForm onSubmit={jest.fn} apiStatus={API_INITIAL} />
+      )
+      const laguageQuantityField = getByLabelText(
+         'LUGGAGE QUANTITY'
+      ) as HTMLInputElement
       fireEvent.change(laguageQuantityField, {
          target: { value: laguageQuantity }
       })
@@ -150,8 +155,10 @@ describe('Ride Request form tests', () => {
    })
    it('should  test the  no.of seats counter', () => {
       const seatCount = 3
-      const { getByLabelText, getAllByRole } = render(<RideRequestForm />)
-      const seatCountField = getByLabelText('NO.OF SEATS')
+      const { getByLabelText, getAllByRole } = render(
+         <RideRequestForm onSubmit={jest.fn} apiStatus={API_INITIAL} />
+      )
+      const seatCountField = getByLabelText('NO.OF SEATS') as HTMLInputElement
       fireEvent.change(seatCountField, {
          target: { value: seatCount }
       })

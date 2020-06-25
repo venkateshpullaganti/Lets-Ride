@@ -3,12 +3,22 @@ import tw from 'tailwind.macro'
 
 import Colors from '../../../Common/themes/Colors'
 
+interface ListType {
+   shouldShow: boolean
+}
+interface ArrowIconProps {
+   shouldRotate: boolean
+}
+interface DisplayNameProps {
+   isSelected: boolean
+}
+
 const Container = styled.div`
    ${tw`relative m-2 `}
 `
 
 const List = styled.div`
-   display: ${props => (props.shouldShow ? 'flex' : 'none')};
+   display: ${(props: ListType) => (props.shouldShow ? 'flex' : 'none')};
    background: ${Colors.white};
    top: 110%;
    right: 5%;
@@ -16,7 +26,7 @@ const List = styled.div`
    ${tw` flex-col items-start p-2 absolute shadow-lg z-20`};
 `
 const ArrowIcon = styled.img`
-   ${props =>
+   ${(props: ArrowIconProps) =>
       props.shouldRotate
          ? `transform:rotate(180deg);
           filter: grayscale(80%); 
@@ -27,7 +37,7 @@ const ArrowIcon = styled.img`
 `
 const DisplayName = styled.button`
    cursor: pointer;
-   color: ${props =>
+   color: ${(props: DisplayNameProps) =>
       props.isSelected ? `${Colors.darkBlueGrey}` : `${Colors.steel}`};
    ${tw``}
    &:focus {

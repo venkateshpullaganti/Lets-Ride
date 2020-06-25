@@ -17,7 +17,7 @@ toast.configure({
 export const displayToaster = (
    msg: string | null,
    isFailure: boolean,
-   error?: Error
+   error?: Error | null
 ) => {
    if (isFailure) {
       toast.error(getUserDisplayableErrorMessage(error))

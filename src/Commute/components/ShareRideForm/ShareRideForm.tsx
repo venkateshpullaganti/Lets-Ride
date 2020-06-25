@@ -10,24 +10,29 @@ import { DateAndTimePicker } from '../../../Common/components/DateAndTimePicker'
 import { Heading } from '../../styledComponents'
 import strings from '../../i18n/strings.json'
 
-import withHeader from '../Common/hocs/withHeader'
 import { Counter } from '../Counter'
 import { FlexibleTimings } from '../FlexibleTimings'
 
 import { ShareRide, Form } from './styledComponents'
-import { API_SUCCESS, API_FETCHING } from '@ib/api-constants'
+import { API_SUCCESS, API_FETCHING, APIStatus } from '@ib/api-constants'
+import { RideFromData } from '../types'
+
+interface ShareRideFormProps {
+   onSubmit: (formData: RideFromData) => void
+   apiStatus: APIStatus
+}
 
 @observer
-class ShareRideForm extends Component {
-   @observable destinationPlace
-   @observable sourcePlace
-   @observable errorMsg
-   @observable isFlexible
-   @observable seatCount
-   @observable laguageCount
-   travelDate
-   flexibleFromDate
-   flexibleToDate
+class ShareRideForm extends Component<ShareRideFormProps> {
+   @observable destinationPlace!: string
+   @observable sourcePlace!: string
+   @observable errorMsg!: string | null
+   @observable isFlexible!: boolean
+   @observable seatCount!: number
+   @observable laguageCount!: number
+   travelDate!: string
+   flexibleFromDate!: string
+   flexibleToDate!: string
    constructor(props) {
       super(props)
       this.init()
@@ -41,16 +46,16 @@ class ShareRideForm extends Component {
       this.destinationPlace = ''
       this.sourcePlace = ''
       this.errorMsg = null
-      this.travelDate = undefined
+      this.travelDate = ''
       this.flexibleFromDate = ''
       this.flexibleToDate = ''
    }
 
-   onChangeSource = event => {
+   onChangeSource = (event: React.ChangeEvent<HTMLInputElement>) => {
       this.sourcePlace = event.target.value
    }
 
-   onChangeDestination = event => {
+   onChangeDestination = (event: React.ChangeEvent<HTMLInputElement>) => {
       this.destinationPlace = event.target.value
    }
 
@@ -58,15 +63,15 @@ class ShareRideForm extends Component {
       this.isFlexible = !this.isFlexible
    }
 
-   onChangeDate = dateObj => {
+   onChangeDate = (dateObj: Date) => {
       this.travelDate = DateFormatter(dateObj)
    }
 
-   onChangeFlexibleFromDate = dateObj => {
+   onChangeFlexibleFromDate = (dateObj: Date) => {
       this.flexibleFromDate = DateFormatter(dateObj)
    }
 
-   onChangeFlexibleToDate = dateObj => {
+   onChangeFlexibleToDate = (dateObj: Date) => {
       this.flexibleToDate = DateFormatter(dateObj)
    }
 
@@ -78,7 +83,7 @@ class ShareRideForm extends Component {
       if (this.seatCount > 0) this.seatCount--
    }
 
-   onChangeSeats = event => {
+   onChangeSeats = (event: React.ChangeEvent<HTMLInputElement>) => {
       this.seatCount = parseInt(event.target.value)
    }
 
@@ -90,10 +95,14 @@ class ShareRideForm extends Component {
       if (this.laguageCount > 0) this.laguageCount--
    }
 
-   onChangeLaguage = event => {
+   onChangeLaguage = (event: React.ChangeEvent<HTMLInputElement>) => {
       this.laguageCount = parseInt(event.target.value)
    }
-   onSubmit = event => {
+   onSubmit = (
+      event:
+         | React.FormEvent<HTMLFormElement>
+         | React.MouseEvent<HTMLButtonElement>
+   ) => {
       event.preventDefault()
       const {
          sourcePlace,

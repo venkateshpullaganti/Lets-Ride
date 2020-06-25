@@ -119,7 +119,6 @@ describe('SignInRoute Tests', () => {
       fireEvent.click(signInBtn)
 
       await waitFor(() => {
-         // debug()
          expect(authStore.getUserSignInAPIStatus).toBe(API_SUCCESS)
          expect(getByTestId('location-display')).toHaveTextContent(
             HOMEPAGE_PATH

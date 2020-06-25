@@ -26,7 +26,9 @@ interface CounterProps {
 class Counter extends Component<CounterProps> {
    static defaultProps = {
       count: 0,
-      isRequired: false
+      isRequired: false,
+      isError: false,
+      errorMsg: ''
    }
    render() {
       const {

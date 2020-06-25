@@ -3,43 +3,38 @@ import React from 'react'
 import { Row, Data } from './styledComponents'
 
 import { Badge } from '../../../styledComponents'
+import RideRequestModel from '../../../stores/models/RideRequestModel/RideRequestModel'
 
-export function Item(props) {
+interface ItemProps {
+   request: RideRequestModel
+}
+
+export function Item(props: ItemProps) {
    const {
       id,
-      source,
-      destination,
+      sourcePlace,
+      destinationPlace,
+      isFlexible,
       travelDate,
       flexibleFromDate,
       flexibleToDate,
-      isFlexible,
-      assetType,
-      assetTypeOthers,
-      assetSensitivity,
-      assetQuantity,
-      deliverTo,
-      receiverPhoneNumber,
+      seatCount,
+      laguageCount,
       acceptedPerson,
       acceptedPersonPhoneNumber,
       status
-   } = props.row
+   } = props.request
    return (
-      <Row>
-         <Data>{source}</Data>
-         <Data>{destination}</Data>
+      <Row key={id}>
+         <Data>{sourcePlace}</Data>
+         <Data>{destinationPlace}</Data>
          <Data>
             {isFlexible
                ? `${flexibleFromDate} to ${flexibleToDate}`
                : `${travelDate}`}
          </Data>
-         <Data>{assetQuantity}</Data>
-         <Data>{assetType === '' ? assetTypeOthers : assetType}</Data>
-         <Data>{assetSensitivity}</Data>
-         <Data>
-            {deliverTo}
-            <br />
-            {receiverPhoneNumber}
-         </Data>
+         <Data>{seatCount}</Data>
+         <Data>{laguageCount}</Data>
          <Data>
             {status === 'ACCEPTED' ? (
                <>
@@ -50,9 +45,10 @@ export function Item(props) {
                '--'
             )}
          </Data>
+
          <Badge
-            isExpired={status === 'EXPIRED'}
             isAccepted={status === 'ACCEPTED'}
+            isExpired={status === 'EXPIRED'}
          >
             {status}
          </Badge>

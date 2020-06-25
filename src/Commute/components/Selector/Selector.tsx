@@ -12,15 +12,23 @@ import {
 } from './styledComponents'
 
 import images from '../../../Common/themes/Images'
+import { OptionsType, OptionType } from '../types'
+
+interface SelectorProps {
+   dropdownName: string
+   options: OptionsType
+   onChange: (option: OptionType) => void
+   icon: string
+   shouldRotateIcon: boolean
+}
 
 @observer
-class Selector extends Component {
-   @observable shouldShowDropdown
+class Selector extends Component<SelectorProps> {
+   @observable shouldShowDropdown: boolean
 
    constructor(props) {
       super(props)
       this.shouldShowDropdown = false
-      this.shouldShowSortOptions = false
    }
 
    toggleDropdown = event => {

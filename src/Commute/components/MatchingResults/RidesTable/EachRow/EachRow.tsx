@@ -8,8 +8,15 @@ import { displayToaster } from '../../../../../Common/components/Toaster'
 import strings from '../../../../i18n/strings.json'
 
 import { Row, Data, Accepted, AcceptRequest } from './styledComponents'
+import { RideMatchingResultsModel } from '../../../../stores/models/RideMatchingResultsModel'
+
+interface EachRowProps {
+   row: RideMatchingResultsModel
+   renderTable: () => void
+}
+
 @observer
-class EachRow extends React.Component {
+class EachRow extends React.Component<EachRowProps> {
    onClickAddBtn = () => {
       const { acceptRequest } = this.props.row
       acceptRequest()
@@ -30,10 +37,14 @@ class EachRow extends React.Component {
 
    failureReaction = reaction(
       () => {
-         return this.props.row.rideRequestApiError
+         return this.props.row.rideRequestApiStatus === API_FAILED
       },
-      error => {
-         displayToaster(strings.somethingWentWrong, true, error)
+      bool => {
+         displayToaster(
+            strings.somethingWentWrong,
+            true,
+            this.props.row.rideRequestApiError
+         )
       }
    )
    componentWillUnmount() {

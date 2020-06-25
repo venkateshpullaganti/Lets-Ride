@@ -9,9 +9,15 @@ import { displayToaster } from '../../../../../Common/components/Toaster'
 import strings from '../../../../i18n/strings.json'
 
 import { Row, Data, Accepted, AcceptRequest } from './styledComponents'
+import { AssetMatchingResultsModel } from '../../../../stores/models/AssetMatchingResultsModel'
+
+interface EachRowProps {
+   row: AssetMatchingResultsModel
+   renderTable: () => void
+}
 
 @observer
-class EachRow extends React.Component {
+class EachRow extends React.Component<EachRowProps> {
    onClickAddBtn = () => {
       const { acceptRequest } = this.props.row
       acceptRequest()

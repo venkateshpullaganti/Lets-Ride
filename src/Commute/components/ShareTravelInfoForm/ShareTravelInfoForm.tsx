@@ -22,20 +22,25 @@ import { FlexibleTimings } from '../FlexibleTimings'
 
 import { AssetRequest, Form } from './styledComponents'
 import { API_FETCHING, API_SUCCESS } from '@ib/api-constants'
+import { OptionType, ShareTravelInfoData } from '../types'
+
+type AssetTransportRequestFormProps = {
+   onSubmit: (data: ShareTravelInfoData) => void
+   apiStatus: number
+}
 
 @observer
-class ShareTravelInfoForm extends Component {
-   @observable destinationPlace
-   @observable sourcePlace
-   @observable errorMsg
-   @observable isFlexible
-   @observable assetCount
+class ShareTravelInfoForm extends Component<AssetTransportRequestFormProps> {
+   @observable destinationPlace!: string
+   @observable sourcePlace!: string
+   @observable errorMsg!: string | null
+   @observable isFlexible!: boolean
+   @observable assetCount!: number
 
-   @observable travelMedium
-
-   travelDate
-   flexibleFromDate
-   flexibleToDate
+   @observable travelDate!: string
+   travelMedium!: string
+   flexibleFromDate!: string
+   flexibleToDate!: string
 
    @observable date = new Date()
    constructor(props) {
@@ -54,23 +59,23 @@ class ShareTravelInfoForm extends Component {
       this.flexibleToDate = ''
       this.travelMedium = ''
    }
-   onChangeSource = event => {
+   onChangeSource = (event: React.ChangeEvent<HTMLInputElement>) => {
       this.sourcePlace = event.target.value
    }
-   onChangeDestination = event => {
+   onChangeDestination = (event: React.ChangeEvent<HTMLInputElement>) => {
       this.destinationPlace = event.target.value
    }
    toggleIsFlexible = () => {
       this.isFlexible = !this.isFlexible
    }
-   onChangeDate = dateObj => {
+   onChangeDate = (dateObj: Date) => {
       this.travelDate = DateFormatter(dateObj)
    }
 
-   onChangeFlexibleFromDate = dateObj => {
+   onChangeFlexibleFromDate = (dateObj: Date) => {
       this.flexibleFromDate = DateFormatter(dateObj)
    }
-   onChangeFlexibleToDate = dateObj => {
+   onChangeFlexibleToDate = (dateObj: Date) => {
       this.flexibleToDate = DateFormatter(dateObj)
    }
 
@@ -80,11 +85,15 @@ class ShareTravelInfoForm extends Component {
    onDecrementAssetsCount = () => {
       if (this.assetCount > 0) this.assetCount--
    }
-   onChangeAssetsCount = event => {
+   onChangeAssetsCount = (event: React.ChangeEvent<HTMLInputElement>) => {
       this.assetCount = parseInt(event.target.value)
    }
 
-   onSubmit = event => {
+   onSubmit = (
+      event:
+         | React.FormEvent<HTMLFormElement>
+         | React.MouseEvent<HTMLButtonElement>
+   ) => {
       event.preventDefault()
       const {
          sourcePlace,
@@ -114,8 +123,6 @@ class ShareTravelInfoForm extends Component {
       } else {
          this.errorMsg = null
 
-         // this.doNetworkCalls()  create obj and send to route
-
          const {
             sourcePlace,
             destinationPlace,
@@ -133,8 +140,8 @@ class ShareTravelInfoForm extends Component {
             isFlexible,
             flexibleFromDate,
             flexibleToDate,
-            assetCount,
             travelDate,
+            assetCount,
             travelMedium
          }
 
@@ -167,8 +174,8 @@ class ShareTravelInfoForm extends Component {
       return this.errorMsg === strings.assetCountError
    }
 
-   onChangeAssetSensitivity = selectedSensitivity => {
-      this.travelMedium = selectedSensitivity.value
+   onChangeTravelMedium = (selectedMedium: OptionType) => {
+      this.travelMedium = selectedMedium.value
    }
 
    successReaction = reaction(
@@ -232,7 +239,7 @@ class ShareTravelInfoForm extends Component {
                   label={strings.travelMedium}
                   placeholder={strings.travelMediumPlaceholder}
                   value={{ label: this.travelMedium }}
-                  onChange={this.onChangeAssetSensitivity}
+                  onChange={this.onChangeTravelMedium}
                   isRequired={true}
                   isError={this.isTravelMediumError}
                   errorMsg={this.errorMsg}
@@ -251,7 +258,7 @@ class ShareTravelInfoForm extends Component {
                <Button
                   isLoading={isLoading}
                   displayText={strings.shareBtnText}
-                  disabled={isLoading}
+                  type={'submit'}
                />
             </Form>
          </AssetRequest>

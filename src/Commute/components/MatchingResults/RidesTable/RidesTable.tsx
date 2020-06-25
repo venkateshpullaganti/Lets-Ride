@@ -14,10 +14,27 @@ import { FilterBar } from '../../Common/Components/FilterBar'
 
 import { EachRow } from './EachRow'
 import { TableContainer, Header, Col } from './styledComponents'
+import { OptionsType, OptionType } from '../../types'
+import { RideMatchingResultsModel } from '../../../stores/models/RideMatchingResultsModel'
 
-class RidesTable extends Component {
+interface RidesTableProps {
+   headerItems: Array<string>
+   tableData: Array<RideMatchingResultsModel>
+   onClickAddRequest: () => void
+   totalPages: number
+   currentPage: number
+   handleAssetPageClick: (page: number) => void
+   taskCount: number
+   onChangeSort: (selectedSort: OptionType) => void
+   onChangeFilter: (selectedFilter: OptionType) => void
+   filterOptions: OptionsType
+   sortOptions: OptionsType
+   renderTable: () => void
+}
+
+class RidesTable extends Component<RidesTableProps> {
    renderHeader = () => {
-      const { headerItems, filterByStatus } = this.props
+      const { headerItems } = this.props
 
       return (
          <Header key={'RidesTable Header'}>
