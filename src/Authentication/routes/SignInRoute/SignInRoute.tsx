@@ -1,6 +1,6 @@
 import React, { Component, ChangeEvent } from 'react'
 import { observer, inject } from 'mobx-react'
-import { withRouter, Redirect } from 'react-router-dom'
+import { withRouter, Redirect, RouteComponentProps } from 'react-router-dom'
 import { observable, computed } from 'mobx'
 import { API_FETCHING } from '@ib/api-constants'
 import { History, Location } from 'history'
@@ -14,15 +14,13 @@ import { SignInForm } from '../../components/SignInForm'
 import strings from '../../i18n/strings.json'
 import { AuthStore } from '../../stores/AuthStore'
 
-interface locationProp extends Location {
-   state: {
-      from: string
-   }
-}
-type SignInProps = {
+interface SignInProps extends RouteComponentProps {
    authStore: AuthStore
    history: History
    location: locationProp
+}
+interface injectProps extends SignInProps {
+   authStore: AuthStore
 }
 
 @inject('authStore')

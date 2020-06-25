@@ -19,11 +19,11 @@ class AuthService {
          apiMethods.post
       )
    }
-   userProfileApi = (requestObject): Promise<any> => {
+   userProfileApi = (): Promise<any> => {
       return networkCallWithApisauce(
          this.api,
          '/user/profile/v1/',
-         requestObject,
+         {},
          apiMethods.get
       )
    }

@@ -1,31 +1,41 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { withRouter } from 'react-router-dom'
-
-import { goToHomePage } from '../../../utils/NavigationUtils/NavigationUtils'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 
 import LoadingWrapperWithFailure from '../../../../Common/components/LoadingWrapperWithFailure'
 import { Logo } from '../../../../Common/components/Logo'
-
 import images from '../../../../Common/themes/Images'
+
+import { goToHomePage } from '../../../utils/NavigationUtils/NavigationUtils'
 
 import {
    REQUEST_PATHS,
-   SHARE_PATHS,
-   HOMEPAGE_PATH
+   SHARE_PATHS
 } from '../../../constants/NavigationConstants'
 import strings from '../../../i18n/strings.json'
 
 import { Dropdown } from '../../Dropdown'
 
 import { Header, Actions, ProfileIcon, Body } from './styledComponents'
+import { AuthStore } from '../../../../Authentication/stores/AuthStore'
 
-function withHeader(WrappedComponent) {
+interface ComponentProps extends RouteComponentProps {}
+
+interface InjectProps extends ComponentProps {
+   authStore: AuthStore
+}
+
+function withHeader<T>(WrappedComponent: React.ComponentType<T>) {
    @inject('authStore')
    @observer
-   class EnhancedComponent extends Component {
+   class EnhancedComponent extends Component<ComponentProps & T> {
+      getInjectedProps = () => {
+         const props = this.props as unknown
+         return props as InjectProps
+      }
+
       get authStore() {
-         return this.props.authStore
+         return this.getInjectedProps().authStore
       }
 
       componentDidMount() {
@@ -48,9 +58,10 @@ function withHeader(WrappedComponent) {
       }
 
       renderSuccessUi = observer(() => {
-         const profileImage =
-            this.authStore.userProfile.profileImage ||
-            images.defaultProfileImage
+         const { userProfile } = this.authStore
+         const profileImage = userProfile
+            ? userProfile.profileImage
+            : images.defaultProfileImage
          return (
             <Body>
                <Header>
@@ -74,7 +85,7 @@ function withHeader(WrappedComponent) {
                      />
                   </Actions>
                </Header>
-               <WrappedComponent {...this.props} />
+               <WrappedComponent {...(this.props as T)} />
             </Body>
          )
       })

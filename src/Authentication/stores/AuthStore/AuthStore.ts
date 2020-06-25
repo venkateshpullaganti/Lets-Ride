@@ -24,7 +24,7 @@ class AuthStore {
    @observable getUserProfileAPIStatus!: number
    @observable getUserProfileAPIError!: ApiErrorResponse<object> | null
 
-   @observable userProfile!: null | Object
+   @observable userProfile!: UserProfileModel | null
 
    authAPIService: AuthService | FixtureService
 
@@ -91,10 +91,8 @@ class AuthStore {
    }
 
    @action.bound
-   getUserProfile(requestObject: {}): Promise<any> {
-      const userProfilePromise = this.authAPIService.userProfileApi(
-         requestObject
-      )
+   getUserProfile(): Promise<any> {
+      const userProfilePromise = this.authAPIService.userProfileApi()
       return bindPromiseWithOnSuccess(userProfilePromise)
          .to(this.setGetUserProfileAPIStatus, this.setUserProfileAPIResponse)
          .catch(this.setGetUserProfileAPIError)
