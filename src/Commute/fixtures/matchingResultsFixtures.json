@@ -11,7 +11,9 @@
          "seats": 3,
          "laguage_quantity": 5,
          "username": "Mukunda 1",
-         "user_phone_number": 1234567890
+         "user_phone_number": "1234567890",
+         "ride_matching_id": 89,
+         "travel_matching_id": 90
       },
       {
          "ride_request_id": 2,
@@ -24,7 +26,9 @@
          "seats": 3,
          "laguage_quantity": 5,
          "username": "Shanakar 2",
-         "user_phone_number": 1234567890
+         "user_phone_number": "1234567890",
+         "ride_matching_id": 89,
+         "travel_matching_id": 90
       },
       {
          "ride_request_id": 3,
@@ -37,7 +41,9 @@
          "seats": 3,
          "laguage_quantity": 5,
          "username": "Pushpa 3",
-         "user_phone_number": 1234567890
+         "user_phone_number": "1234567890",
+         "ride_matching_id": 89,
+         "travel_matching_id": 90
       },
       {
          "ride_request_id": 4,
@@ -50,7 +56,9 @@
          "seats": 3,
          "laguage_quantity": 5,
          "username": "Mukunda 4",
-         "user_phone_number": 1234567890
+         "user_phone_number": "1234567890",
+         "ride_matching_id": 89,
+         "travel_matching_id": 90
       },
       {
          "ride_request_id": 5,
@@ -63,7 +71,9 @@
          "seats": 3,
          "laguage_quantity": 5,
          "username": "Pushpa 5",
-         "user_phone_number": 1234567890
+         "user_phone_number": "1234567890",
+         "ride_matching_id": 89,
+         "travel_matching_id": 90
       },
       {
          "ride_request_id": 6,
@@ -76,7 +86,9 @@
          "seats": 3,
          "laguage_quantity": 5,
          "username": "Dharaneeswar 6",
-         "user_phone_number": 1234567890
+         "user_phone_number": "1234567890",
+         "ride_matching_id": 89,
+         "travel_matching_id": 90
       }
    ],
    "total_rides": 5,
@@ -96,7 +108,9 @@
          "asset_type_others": "",
          "asset_sensitivity": "HIGH",
          "deliver_to": "Ganesh",
-         "phone_number": "9999999999"
+         "phone_number": "9999999999",
+         "ride_matching_id": 78,
+         "travel_matching_id": 67
       },
       {
          "asset_request_id": 2,
@@ -113,7 +127,9 @@
          "asset_type_others": "Mobile",
          "asset_sensitivity": "HIGH",
          "deliver_to": "Prasanth 1",
-         "phone_number": "9000090000"
+         "phone_number": "9000090000",
+         "ride_matching_id": 78,
+         "travel_matching_id": 67
       },
       {
          "asset_request_id": 1,
@@ -130,7 +146,9 @@
          "asset_type_others": "",
          "asset_sensitivity": "HIGH",
          "deliver_to": "Pavan 2",
-         "phone_number": "9999999999"
+         "phone_number": "9999999999",
+         "ride_matching_id": 78,
+         "travel_matching_id": 67
       },
       {
          "asset_request_id": 2,
@@ -147,7 +165,9 @@
          "asset_type_others": "Mobile",
          "asset_sensitivity": "HIGH",
          "deliver_to": "Ganesh 3",
-         "phone_number": "9999999999"
+         "phone_number": "9999999999",
+         "ride_matching_id": 78,
+         "travel_matching_id": 67
       },
       {
          "asset_request_id": 1,
@@ -164,7 +184,9 @@
          "asset_type_others": "",
          "asset_sensitivity": "HIGH",
          "deliver_to": "Mahesh 4",
-         "phone_number": "9999999999"
+         "phone_number": "9999999999",
+         "ride_matching_id": 78,
+         "travel_matching_id": 67
       },
       {
          "asset_request_id": 2,
@@ -181,7 +203,9 @@
          "asset_type_others": "Mobile",
          "asset_sensitivity": "HIGH",
          "deliver_to": "Sridhar 5",
-         "phone_number": "9999999999"
+         "phone_number": "9999999999",
+         "ride_matching_id": 78,
+         "travel_matching_id": 67
       },
       {
          "asset_request_id": 2,
@@ -198,7 +222,9 @@
          "asset_type_others": "Mobile",
          "asset_sensitivity": "HIGH",
          "deliver_to": "Sridhar 5",
-         "phone_number": "9999999999"
+         "phone_number": "9999999999",
+         "ride_matching_id": 78,
+         "travel_matching_id": 67
       }
    ],
    "total_assets": 6

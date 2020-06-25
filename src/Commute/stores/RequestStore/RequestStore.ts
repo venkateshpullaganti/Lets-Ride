@@ -1,20 +1,36 @@
 import React from 'react'
 
 import { observable, action } from 'mobx'
-import { API_INITIAL } from '@ib/api-constants'
+import { API_INITIAL, APIStatus } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
+import { CommuteService } from '../../services/CommuteService'
 
 class RequestStore {
-   @observable getRideRequestAPIStatus
-   @observable getRideRequestAPIError
+   @observable getRideRequestAPIStatus!: APIStatus
+   @observable getRideRequestAPIError!: Error | null
 
-   @observable getAssetRequestAPIStatus
-   @observable getAssetRequestAPIError
-   commuteAPIService
+   @observable getAssetRequestAPIStatus!: APIStatus
+   @observable getAssetRequestAPIError!: Error | null
 
-   constructor(CommuteService) {
-      this.commuteAPIService = CommuteService
+   commuteAPIService: CommuteService
+
+   constructor(commuteService: CommuteService) {
+      this.commuteAPIService = commuteService
       this.init()
+   }
+
+   @action.bound
+   clearStore() {
+      this.init()
+   }
+
+   @action.bound
+   init() {
+      this.getRideRequestAPIStatus = API_INITIAL
+      this.getRideRequestAPIError = null
+
+      this.getAssetRequestAPIStatus = API_INITIAL
+      this.getAssetRequestAPIError = null
    }
 
    @action.bound
@@ -31,15 +47,11 @@ class RequestStore {
    }
 
    @action.bound
-   init() {
-      this.getRideRequestAPIStatus = API_INITIAL
-      this.getRideRequestAPIError = null
-
-      this.getAssetRequestAPIStatus = API_INITIAL
-      this.getAssetRequestAPIError = null
-   }
-   @action.bound
-   rideRequest(requestObject, onSuccess, onFailure) {
+   rideRequest(
+      requestObject,
+      onSuccess: () => void,
+      onFailure: (error: Error) => void
+   ) {
       console.log('store', requestObject)
       const rideRequestPromise = this.commuteAPIService.rideRequest(
          requestObject
@@ -70,7 +82,11 @@ class RequestStore {
    }
 
    @action.bound
-   assetRequest(requestObject, onSuccess, onFailure) {
+   assetRequest(
+      requestObject,
+      onSuccess: () => void,
+      onFailure: (error: Error) => void
+   ) {
       const assetRequestPromise = this.commuteAPIService.assetRequest(
          requestObject
       )
@@ -84,11 +100,6 @@ class RequestStore {
             this.setGetAssetRequestAPIError(APIError)
             onFailure(APIError)
          })
-   }
-
-   @action.bound
-   clearStore() {
-      this.init()
    }
 }
 export { RequestStore }

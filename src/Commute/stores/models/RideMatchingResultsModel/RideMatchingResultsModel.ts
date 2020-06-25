@@ -1,27 +1,33 @@
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
-import { API_INITIAL, API_SUCCESS } from '@ib/api-constants'
+import { API_INITIAL, API_SUCCESS, APIStatus } from '@ib/api-constants'
 import { observable, action } from 'mobx'
+import { CommuteService } from '../../../services/CommuteService'
+import { MatchingResultsRideType } from '../../types'
 
 class RideMatchingResultsModel {
-   id
-   sourcePlace
-   destinationPlace
-   isFlexible
-   travelDate
-   flexibleFromDate
-   flexibleToDate
-   seatCount
-   laguageCount
-   requestedPerson
-   requestedPersonMobile
-   rideMatchingId
-   commuteService
+   id: number
+   sourcePlace: string
+   destinationPlace: string
+   travelDate: string
+   flexibleFromDate: string
+   flexibleToDate: string
+   isFlexible: boolean
+   seatCount: number
+   laguageCount: number
+   requestedPerson: string
+   requestedPersonMobile: string
+   rideMatchingId: number
 
-   @observable isAccepted
-   @observable rideRequestApiStatus
-   @observable rideRequestApiError
+   commuteService: CommuteService
 
-   constructor(rideObj, commuteAPIService) {
+   @observable isAccepted: boolean
+   @observable rideRequestApiStatus: APIStatus
+   @observable rideRequestApiError: Error | null
+
+   constructor(
+      rideObj: MatchingResultsRideType,
+      commuteAPIService: CommuteService
+   ) {
       this.id = rideObj.ride_request_id
       this.sourcePlace = rideObj.source
       this.destinationPlace = rideObj.destination

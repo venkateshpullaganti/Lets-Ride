@@ -11,8 +11,8 @@ import { RequestStore } from '.'
 import { waitFor } from '@testing-library/react'
 
 describe('RequestStore Tests', () => {
-   let comuteAPI
-   let requestStore
+   let comuteAPI: CommuteService
+   let requestStore: CommuteStore
 
    beforeEach(() => {
       comuteAPI = new CommuteService()

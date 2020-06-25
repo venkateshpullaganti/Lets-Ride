@@ -1,18 +1,20 @@
-class RideRequestModel {
-   id
-   sourcePlace
-   destinationPlace
-   isFlexible
-   travelDate
-   flexibleFromDate
-   flexibleToDate
-   seatCount
-   laguageCount
-   acceptedPerson
-   acceptedPersonPhoneNumber
-   status
+import { RideRequestType } from '../../types'
 
-   constructor(rideObj) {
+class RideRequestModel {
+   id: number
+   sourcePlace: string
+   destinationPlace: string
+   travelDate: string
+   flexibleFromDate: string
+   flexibleToDate: string
+   isFlexible: boolean
+   seatCount: number
+   laguageCount: number
+   acceptedPerson: string
+   acceptedPersonPhoneNumber: string
+   status: string
+
+   constructor(rideObj: RideRequestType) {
       this.id = rideObj.ride_request_id
       this.sourcePlace = rideObj.source
       this.destinationPlace = rideObj.destination

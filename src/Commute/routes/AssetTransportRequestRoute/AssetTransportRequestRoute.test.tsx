@@ -3,7 +3,6 @@ import { render, fireEvent, waitFor } from '@testing-library/react'
 import { Router } from 'react-router-dom'
 import { Provider } from 'mobx-react'
 import { createMemoryHistory } from 'history'
-import { API_SUCCESS } from '@ib/api-constants'
 
 import { AuthService } from '../../../Authentication/services/AuthService'
 import userProfileFixture from '../../../Authentication/fixtures/getUserProfileFIxture.json'

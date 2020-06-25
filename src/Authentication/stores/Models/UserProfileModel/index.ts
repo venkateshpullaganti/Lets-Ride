@@ -1,17 +1,12 @@
 import React from 'react'
-
-type profileObj = {
-   username: string
-   phone_number: string
-   profile_pic_url: string
-}
+import { UserProfileAPIResponse } from '../../types'
 
 class UserProfileModel {
    userName: string | null
    phoneNumber: string | null
    profileImage: string | null
 
-   constructor(profileObj: profileObj) {
+   constructor(profileObj: UserProfileAPIResponse) {
       this.userName = profileObj.username
       this.phoneNumber = profileObj.phone_number
       this.profileImage = profileObj.profile_pic_url

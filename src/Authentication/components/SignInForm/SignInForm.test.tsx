@@ -4,7 +4,7 @@ import { render } from '@testing-library/react'
 import { SignInForm } from '.'
 
 describe('Sign in form tests', () => {
-   it('should render given name', () => {
+   it('should render given mobile number', () => {
       let expectedOutput = '123456'
       const { getByLabelText } = render(
          <SignInForm
@@ -14,6 +14,7 @@ describe('Sign in form tests', () => {
             onChangePassword={() => {}}
             isLoading={false}
             password={''}
+            isError={false}
          />
       )
       const MobileNumberField = getByLabelText(
@@ -33,6 +34,7 @@ describe('Sign in form tests', () => {
             OnChangeMobileNumber={() => {}}
             onSubmit={() => {}}
             isLoading={false}
+            isError={false}
          />
       )
       const actualOutput = (getByLabelText('PASSWORD') as HTMLInputElement)

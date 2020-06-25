@@ -1,8 +1,5 @@
 import React from 'react'
-import { render, fireEvent, getByText } from '@testing-library/react'
-import { Router } from 'react-router-dom'
-
-import { createMemoryHistory } from 'history'
+import { render, fireEvent } from '@testing-library/react'
 
 import strings from '../../i18n/strings.json'
 
@@ -14,7 +11,9 @@ describe('Asset Transport Request form tests', () => {
    })
 
    it('should render the source Place error', () => {
-      const { getByText, getByRole } = render(<AssetTransportRequestForm />)
+      const { getByText, getByRole } = render(
+         <AssetTransportRequestForm onSubmit={() => {}} apiStatus={0} />
+      )
       const submitBtn = getByRole('button', { name: 'REQUEST' })
       fireEvent.click(submitBtn)
       getByText('SOURCE PLACE REQUIRED')
@@ -23,7 +22,7 @@ describe('Asset Transport Request form tests', () => {
       const sourcePlace = 'kurnool'
 
       const { getByText, getByRole, getByLabelText } = render(
-         <AssetTransportRequestForm />
+         <AssetTransportRequestForm onSubmit={() => {}} apiStatus={0} />
       )
       const submitBtn = getByRole('button', { name: 'REQUEST' })
 
@@ -41,7 +40,7 @@ describe('Asset Transport Request form tests', () => {
       const destinationPlace = 'Hyd'
 
       const { getByText, getByRole, getByLabelText } = render(
-         <AssetTransportRequestForm />
+         <AssetTransportRequestForm onSubmit={() => {}} apiStatus={0} />
       )
       const submitBtn = getByRole('button', { name: 'REQUEST' })
 
@@ -68,7 +67,9 @@ describe('Asset Transport Request form tests', () => {
          getByRole,
          getByLabelText,
          getAllByPlaceholderText
-      } = render(<AssetTransportRequestForm />)
+      } = render(
+         <AssetTransportRequestForm onSubmit={() => {}} apiStatus={0} />
+      )
       const submitBtn = getByRole('button', { name: 'REQUEST' })
 
       const sourcePlaceField = getByLabelText(strings.fromText)
@@ -93,7 +94,7 @@ describe('Asset Transport Request form tests', () => {
       const destinationPlace = 'Hyd'
 
       const { getAllByText, getByRole, getByLabelText } = render(
-         <AssetTransportRequestForm />
+         <AssetTransportRequestForm onSubmit={() => {}} apiStatus={0} />
       )
       const submitBtn = getByRole('button', { name: 'REQUEST' })
 
@@ -115,9 +116,11 @@ describe('Asset Transport Request form tests', () => {
    it('should test the asset quantity counter', () => {
       const assetQuantity = 10
       const { getByLabelText, getByRole } = render(
-         <AssetTransportRequestForm />
+         <AssetTransportRequestForm onSubmit={() => {}} apiStatus={0} />
       )
-      const assetQuantityField = getByLabelText('NO OF ASSETS')
+      const assetQuantityField = getByLabelText(
+         'NO OF ASSETS'
+      ) as HTMLInputElement
       fireEvent.change(assetQuantityField, {
          target: { value: assetQuantity }
       })

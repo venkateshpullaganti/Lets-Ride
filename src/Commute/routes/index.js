@@ -3,7 +3,6 @@ import React from 'react'
 import { ProtectedRoute } from '../../Common/components/ProtectedRoute'
 
 import {
-   HOMEPAGE_PATH,
    RIDE_REQUEST_PATH,
    ASSET_TRANSPORT_REQUEST_PATH,
    SHARE_RIDE_PATH,

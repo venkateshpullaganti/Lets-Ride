@@ -1,32 +1,39 @@
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
-import { API_INITIAL, API_SUCCESS } from '@ib/api-constants'
+import { API_INITIAL, API_SUCCESS, APIStatus } from '@ib/api-constants'
 import { observable, action } from 'mobx'
+import { CommuteService } from '../../../services/CommuteService'
+import { MatchingResultsAssetType } from '../../types'
 
 class AssetMatchingResultsModel {
-   id
-   sourcePlace
-   destinationPlace
-   travelDate
-   flexibleFromDate
-   flexibleToDate
-   isFlexible
-   assetType
-   assetTypeOthers
-   assetSensitivity
-   assetQuantity
-   deliverTo
-   receiverPhoneNumber
-   isAccepted
-   requestedPerson
-   requestedPersonMobile
-   travelMatchingId
-   rideMatchingId
+   id: number
+   sourcePlace: string
+   destinationPlace: string
+   travelDate: string
+   flexibleFromDate: string
+   flexibleToDate: string
+   isFlexible: boolean
+   assetType: string
+   assetTypeOthers: string
+   assetSensitivity: string
+   assetQuantity: number
+   deliverTo: string
+   receiverPhoneNumber: string
+   requestedPerson: string
+   requestedPersonMobile: string
+   travelMatchingId: number
+   rideMatchingId: number
 
-   @observable isAccepted
-   @observable assetRequestApiStatus
-   @observable assetRequestApiError
+   @observable isAccepted: boolean
 
-   constructor(assetObj, commuteAPIService) {
+   @observable assetRequestApiStatus: APIStatus
+   @observable assetRequestApiError: Error | null
+
+   commuteService: CommuteService
+
+   constructor(
+      assetObj: MatchingResultsAssetType,
+      commuteAPIService: CommuteService
+   ) {
       this.id = assetObj.asset_request_id
       this.sourcePlace = assetObj.source
       this.destinationPlace = assetObj.destination

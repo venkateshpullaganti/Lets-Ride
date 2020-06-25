@@ -1,14 +1,15 @@
 import React from 'react'
 import { observable, action } from 'mobx'
-import { API_INITIAL } from '@ib/api-constants'
+import { API_INITIAL, APIStatus } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
 class ShareStore {
-   @observable getRideShareAPIStatus
-   @observable getRideShareAPIError
+   @observable getRideShareAPIStatus!: APIStatus
+   @observable getRideShareAPIError!: Error | null
 
-   @observable getTravelInfoAPIStatus
-   @observable getTravelInfoAPIError
+   @observable getTravelInfoAPIStatus!: APIStatus
+   @observable getTravelInfoAPIError!: Error | null
+
    commuteAPIService
 
    constructor(CommuteService) {

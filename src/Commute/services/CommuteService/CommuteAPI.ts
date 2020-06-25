@@ -1,19 +1,19 @@
 import { create } from 'apisauce'
+import { networkCallWithApisauce } from '../../../Common/utils/APIUtils'
+import { apiMethods } from '../../../Common/constants/APIConstants'
+import { CommuteService } from '.'
 
-import { networkCallWithApisauce } from '../../Common/utils/APIUtils'
-import { apiMethods } from '../../Common/constants/APIConstants'
-
-class CommuteService {
-   commuteAPI
+class CommuteAPI implements CommuteService {
+   api: Record<string, any>
 
    constructor() {
-      this.commuteAPI = create({
+      this.api = create({
          baseURL: 'https://1a62330d2625.ngrok.io/api/lets_ride'
       })
    }
    rideRequest = requestObject => {
       return networkCallWithApisauce(
-         this.commuteAPI,
+         this.api,
          '/ride_request/v1/',
          requestObject,
          apiMethods.post
@@ -21,7 +21,7 @@ class CommuteService {
    }
    assetRequest = requestObject => {
       return networkCallWithApisauce(
-         this.commuteAPI,
+         this.api,
          '/asset_request/v1/',
          requestObject,
          apiMethods.post
@@ -29,7 +29,7 @@ class CommuteService {
    }
    rideShare = requestObject => {
       return networkCallWithApisauce(
-         this.commuteAPI,
+         this.api,
          '/share_ride/v1/',
          requestObject,
          apiMethods.post
@@ -37,14 +37,14 @@ class CommuteService {
    }
    shareTravelInfoApi = requestObject => {
       return networkCallWithApisauce(
-         this.commuteAPI,
+         this.api,
          '/share_travel_info/v1/',
          requestObject,
          apiMethods.post
       )
    }
 
-   myAssetRequestsApi = (requestObject, otherParams) => {
+   myAssetRequestsApi = otherParams => {
       const limtAndOffset = `offset=${otherParams.offset}&limit=${otherParams.limit}`
       let status = ``
 
@@ -61,13 +61,13 @@ class CommuteService {
       if (sortParams !== '') endPoint = `${endPoint}${sortParams}`
 
       return networkCallWithApisauce(
-         this.commuteAPI,
+         this.api,
          `/my_requests/assets/v1/?${endPoint}`,
-         requestObject,
+         {},
          apiMethods.get
       )
    }
-   myRideRequestsApi = (requestObject, otherParams) => {
+   myRideRequestsApi = otherParams => {
       console.log('service', otherParams)
       const limtAndOffset = `offset=${otherParams.offset}&limit=${otherParams.limit}`
       let status = ``
@@ -85,24 +85,24 @@ class CommuteService {
       if (sortParams !== '') endPoint = `${endPoint}${sortParams}`
 
       return networkCallWithApisauce(
-         this.commuteAPI,
+         this.api,
          `/my_requests/rides/v1/?${endPoint}`,
-         requestObject,
+         {},
          apiMethods.get
       )
    }
-   matchingResultsApi = (requestObject, otherParams) => {
+   matchingResultsApi = otherParams => {
       const limtAndOffset = `offset=${otherParams.offset}&limit=${otherParams.limit}`
       return networkCallWithApisauce(
-         this.commuteAPI,
+         this.api,
          `/matching_results/v1/?${limtAndOffset}`,
-         requestObject,
+         {},
          apiMethods.get
       )
    }
    acceptRideRequest = requestObj => {
       return networkCallWithApisauce(
-         this.commuteAPI,
+         this.api,
          '/accept_ride_request/v1/',
          requestObj,
          apiMethods.put
@@ -110,11 +110,11 @@ class CommuteService {
    }
    acceptAssetTransportRequest = requestObj => {
       return networkCallWithApisauce(
-         this.commuteAPI,
+         this.api,
          `/accept_asset_request/v1/`,
          requestObj,
          apiMethods.put
       )
    }
 }
-export { CommuteService }
+export { CommuteAPI }

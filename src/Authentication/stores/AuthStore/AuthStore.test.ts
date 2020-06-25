@@ -1,4 +1,5 @@
 import Cookie from 'js-cookie'
+import { waitFor } from '@testing-library/react'
 
 import {
    API_SUCCESS,
@@ -12,7 +13,6 @@ import getUserSignInFixture from '../../fixtures/getUserSignInFixture.json'
 import getUserProfileFIxture from '../../fixtures/getUserProfileFIxture.json'
 
 import { AuthStore } from '.'
-import { waitFor } from '@testing-library/react'
 
 let mockSetCookie = jest.fn()
 let mockRemoveCookie = jest.fn()
@@ -21,8 +21,8 @@ Cookie.set = mockSetCookie
 Cookie.remove = mockRemoveCookie
 
 describe('AuthStore Tests', () => {
-   let authAPI
-   let authStore
+   let authAPI: AuthService
+   let authStore: AuthStore
 
    beforeEach(() => {
       authAPI = new AuthService()
@@ -41,18 +41,15 @@ describe('AuthStore Tests', () => {
       const onFailure = jest.fn()
 
       const requestObject = {
-         username: 'test-user',
+         phone_number: 'test-user',
          password: 'test-password'
       }
 
       const mockLoadingPromise = new Promise(function(resolve, reject) {})
       const mockSignInAPI = jest.fn()
       mockSignInAPI.mockReturnValue(mockLoadingPromise)
-      authAPI.signInApi = authStore.userSignIn(
-         requestObject,
-         onSuccess,
-         onFailure
-      )
+      authAPI.signInApi = mockSignInAPI
+      authStore.userSignIn(requestObject, onSuccess, onFailure)
       expect(authStore.getUserSignInAPIStatus).toBe(API_FETCHING)
       expect(onSuccess).not.toBeCalled()
       expect(onFailure).not.toBeCalled()
@@ -63,7 +60,7 @@ describe('AuthStore Tests', () => {
       const onFailure = jest.fn()
 
       const requestObject = {
-         username: 'test-user',
+         phone_number: 'test-user',
          password: 'test-password'
       }
 

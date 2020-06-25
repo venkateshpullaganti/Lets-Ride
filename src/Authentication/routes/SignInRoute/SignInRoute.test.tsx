@@ -21,8 +21,7 @@ const LocationDisplay = withRouter(({ location }) => (
 ))
 
 describe('SignInRoute Tests', () => {
-   let authAPI
-   let authStore
+   let authAPI: AuthService, authStore: AuthStore
 
    beforeEach(() => {
       authAPI = new AuthService()

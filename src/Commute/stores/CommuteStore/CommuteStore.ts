@@ -1,35 +1,36 @@
-import React from 'react'
-import { observable, action, computed } from 'mobx'
+import { observable, action } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
-import RideRequestModel from '../models/RideRequestModel'
-import AssetRequestModel from '../models/AssetRequestModel'
+import RideRequestModel from '../models/RideRequestModel/RideRequestModel'
+import AssetRequestModel from '../models/AssetRequestModel/AssetRequestModel'
 import { AssetMatchingResultsModel } from '../models/AssetMatchingResultsModel'
 import { RideMatchingResultsModel } from '../models/RideMatchingResultsModel'
+import { OptionsType } from '../../components/types'
+import { CommuteService } from '../../services/CommuteService'
+import { PaginationStore } from '../../../Common/stores/PaginationStore'
+import { QueryParametersObject } from '../types'
 
 class CommuteStore {
-   @observable getMatchingResultsAPIStatus
-   @observable getMatchingResultsAPIError
+   @observable getMatchingResultsAPIStatus!: number
+   @observable getMatchingResultsAPIError!: string | null
 
-   @observable matchingRideRequests
-   @observable matchingAssetReqests
+   @observable matchingRideRequests!: Array<RideMatchingResultsModel>
+   @observable matchingAssetReqests!: Array<AssetMatchingResultsModel>
 
-   @observable totalMatchingRides
-   @observable totalMatchingAssets
+   @observable totalMatchingRides!: number
+   @observable totalMatchingAssets!: number
 
-   filterOptions
-   sortOptions
+   filterOptions!: Array<OptionsType>
+   sortOptions!: Array<OptionsType>
 
-   commuteAPIService
-   PaginationStore
+   commuteAPIService: CommuteService
 
-   rideRequestPaginationStore
-   assetRequestPaginationStore
+   rideRequestPaginationStore!: PaginationStore
+   assetRequestPaginationStore!: PaginationStore
 
-   constructor(CommuteService, PaginationStore) {
+   constructor(CommuteService: CommuteService) {
       this.commuteAPIService = CommuteService
-      this.PaginationStore = PaginationStore
       this.init()
    }
 
@@ -53,7 +54,7 @@ class CommuteStore {
          sortOptionsAccessKey: 'sort_options',
          filterKey: 'status'
       }
-      this.rideRequestPaginationStore = new this.PaginationStore(
+      this.rideRequestPaginationStore = new PaginationStore(
          ridePaginationConfig
       )
       const assetPaginationConfig = {
@@ -67,12 +68,13 @@ class CommuteStore {
          sortOptionsAccessKey: 'sort_options',
          filterKey: 'status'
       }
-      this.assetRequestPaginationStore = new this.PaginationStore(
+      this.assetRequestPaginationStore = new PaginationStore(
          assetPaginationConfig
       )
    }
 
-   convertCamelCaseToUpperCase = str => str.replace('_', ' ').toUpperCase()
+   convertCamelCaseToUpperCase = (str: string) =>
+      str.replace('_', ' ').toUpperCase()
 
    @action.bound
    setMatchingResultsAPIStatus(status) {
@@ -99,9 +101,11 @@ class CommuteStore {
    }
 
    @action
-   getMatchingResults(requestObject, otherParams) {
+   getMatchingResults(
+      requestObject: Record<string, any>,
+      otherParams: QueryParametersObject
+   ) {
       const myMatchingResultsPromise = this.commuteAPIService.matchingResultsApi(
-         requestObject,
          otherParams
       )
       return bindPromiseWithOnSuccess(myMatchingResultsPromise)

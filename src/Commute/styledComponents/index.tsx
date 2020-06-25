@@ -59,7 +59,7 @@ const Badge = styled.div`
    height: 16px;
    width: 72px;
    ${Typo8WhiteHKGroteskSemiBold};
-   background: ${props =>
+   background: ${(props: any) =>
       props.isAccepted
          ? `${Colors.greenishTeal}`
          : props.isExpired

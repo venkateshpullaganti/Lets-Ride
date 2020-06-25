@@ -28,7 +28,7 @@ class SignInForm extends Component<SignInProps> {
       isMobileNumberError: false,
       isPasswordError: false
    }
-   onSubmit = event => {
+   onSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
       const { onSubmit } = this.props
       event.preventDefault()
       onSubmit()

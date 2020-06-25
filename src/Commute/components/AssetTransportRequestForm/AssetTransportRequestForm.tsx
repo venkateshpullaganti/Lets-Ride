@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
-import moment from 'moment'
 import { observable, computed, action, reaction } from 'mobx'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
-import withHeader from '../Common/hocs/withHeader'
 import {
    ASSET_SENSITIVITY_OPTIONS,
    ASSET_TYPES
@@ -23,32 +21,40 @@ import { FlexibleTimings } from '../FlexibleTimings'
 
 import { AssetRequest, Form } from './styledComponents'
 import { API_FETCHING, API_SUCCESS } from '@ib/api-constants'
+import { OptionType, FormDataType } from '../types'
+
+type AssetTransportRequestFormProps = {
+   onSubmit: (data: FormDataType) => void
+   apiStatus: number
+}
 
 @observer
-class AssetTransportRequestForm extends Component {
-   @observable destinationPlace
-   @observable sourcePlace
-   @observable errorMsg
-   @observable isFlexible
-   @observable assetCount
+class AssetTransportRequestForm extends Component<
+   AssetTransportRequestFormProps
+> {
+   @observable destinationPlace!: string
+   @observable sourcePlace!: string
+   @observable errorMsg!: string | null
+   @observable isFlexible!: boolean
+   @observable assetCount!: number
 
-   @observable whomToDeliver
-   @observable selectedAssetType
-   @observable selectedAssetSensitivity
-   @observable assetTypeOthers
+   @observable whomToDeliver!: string
+   @observable selectedAssetType!: null | string
+   @observable selectedAssetSensitivity!: string
+   @observable assetTypeOthers!: string
+   @observable date!: Date
 
-   travelDate
-   flexibleFromDate
-   flexibleToDate
+   travelDate!: string
+   flexibleFromDate!: string
+   flexibleToDate!: string
 
-   @observable date = new Date()
-   constructor(props) {
+   constructor(props: AssetTransportRequestFormProps) {
       super(props)
       this.init()
    }
 
    @action
-   init = () => {
+   init = (): void => {
       this.assetCount = 0
       this.isFlexible = false
       this.destinationPlace = ''
@@ -61,41 +67,45 @@ class AssetTransportRequestForm extends Component {
       this.selectedAssetType = null
       this.whomToDeliver = ''
       this.assetTypeOthers = ''
+      this.date = new Date()
    }
-   onChangeSource = event => {
+   onChangeSource = (event: React.ChangeEvent<HTMLFormElement>): void => {
       this.sourcePlace = event.target.value
    }
-   onChangeDestination = event => {
+   onChangeDestination = (event: React.ChangeEvent<HTMLFormElement>): void => {
       this.destinationPlace = event.target.value
    }
-   toggleIsFlexible = () => {
+   toggleIsFlexible = (): void => {
       this.isFlexible = !this.isFlexible
    }
-   onChangeDate = dateObj => {
+   onChangeDate = (dateObj: Date): void => {
       this.travelDate = DateFormatter(dateObj)
    }
 
-   onChangeFlexibleFromDate = dateObj => {
+   onChangeFlexibleFromDate = (dateObj: Date): void => {
       this.flexibleFromDate = DateFormatter(dateObj)
    }
-   onChangeFlexibleToDate = dateObj => {
+   onChangeFlexibleToDate = (dateObj: Date): void => {
       this.flexibleToDate = DateFormatter(dateObj)
    }
 
-   onIncrementAssetsCount = () => {
+   onIncrementAssetsCount = (): void => {
       this.assetCount++
    }
-   onDecrementAssetsCount = () => {
+
+   onDecrementAssetsCount = (): void => {
       if (this.assetCount > 0) this.assetCount--
    }
-   onChangeAssetsCount = event => {
+   onChangeAssetsCount = (event: React.ChangeEvent<HTMLFormElement>): void => {
       this.assetCount = parseInt(event.target.value)
    }
-   onChangeAssetTypeOthers = event => {
+   onChangeAssetTypeOthers = (
+      event: React.ChangeEvent<HTMLFormElement>
+   ): void => {
       this.assetTypeOthers = event.target.value
    }
 
-   onSubmit = event => {
+   onSubmit = (event: React.MouseEvent<HTMLFormElement>): void => {
       event.preventDefault()
       const {
          sourcePlace,
@@ -163,45 +173,45 @@ class AssetTransportRequestForm extends Component {
       }
    }
    @computed
-   get isSourceError() {
+   get isSourceError(): boolean {
       return this.errorMsg === strings.sourcePlaceError
    }
    @computed
-   get isDestinationError() {
+   get isDestinationError(): boolean {
       return this.errorMsg === strings.destinationPlaceError
    }
    @computed
-   get isTravelDateError() {
+   get isTravelDateError(): boolean {
       return this.errorMsg === strings.travelDateError
    }
    @computed
-   get isFlexibleTimingsError() {
+   get isFlexibleTimingsError(): boolean {
       return this.errorMsg === strings.flexibleTimingsError && this.isFlexible
    }
    @computed
-   get isSeatCountError() {
+   get isSeatCountError(): boolean {
       return this.errorMsg === strings.assetCountError
    }
    @computed
-   get isAssetSensitivityError() {
+   get isAssetSensitivityError(): boolean {
       return this.errorMsg === strings.assetSensitivityError
    }
    @computed
-   get isAssetTypeError() {
+   get isAssetTypeError(): boolean {
       return this.errorMsg === strings.assetTypeError
    }
    @computed
-   get isWhomToDeliverError() {
+   get isWhomToDeliverError(): boolean {
       return this.errorMsg === strings.whomToDeliverError
    }
 
-   onChangeAssetType = selectedType => {
+   onChangeAssetType = (selectedType: OptionType) => {
       this.selectedAssetType = selectedType.value
    }
-   onChangeAssetSensitivity = selectedSensitivity => {
+   onChangeAssetSensitivity = (selectedSensitivity: OptionType) => {
       this.selectedAssetSensitivity = selectedSensitivity.value
    }
-   onChangeWhomToDeliver = event => {
+   onChangeWhomToDeliver = (event: React.ChangeEvent<HTMLInputElement>) => {
       this.whomToDeliver = event.target.value
    }
    successReaction = reaction(

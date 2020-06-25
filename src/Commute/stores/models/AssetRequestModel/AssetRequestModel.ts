@@ -1,21 +1,23 @@
+import { AssetRequestType } from '../../types'
+
 class AssetRequestModel {
-   id
-   source
-   destination
-   travelDate
-   flexibleFromDate
-   flexibleToDate
-   isFlexible
-   assetType
-   assetTypeOthers
-   assetSensitivity
-   assetQuantity
-   deliverTo
-   receiverPhoneNumber
-   acceptedPerson
-   acceptedPersonPhoneNumber
-   status
-   constructor(assetObj) {
+   id: number
+   source: string
+   destination: string
+   travelDate: string
+   flexibleFromDate: string
+   flexibleToDate: string
+   isFlexible: boolean
+   assetType: string
+   assetTypeOthers: string
+   assetSensitivity: string
+   assetQuantity: number
+   deliverTo: string
+   receiverPhoneNumber: string
+   acceptedPerson: string
+   acceptedPersonPhoneNumber: string
+   status: string
+   constructor(assetObj: AssetRequestType) {
       this.id = assetObj.asset_request_id
       this.source = assetObj.source
       this.destination = assetObj.destination

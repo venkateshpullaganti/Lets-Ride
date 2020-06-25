@@ -9,7 +9,7 @@ import { waitFor } from '@testing-library/react'
 
 import RideRequestFixture from '../../../Commute/fixtures/myRideRequestsFixtures.json'
 import { PaginationStore } from '.'
-import RideRequestModel from '../../../Commute/stores/models/RideRequestModel'
+import RideRequestModel from '../../../Commute/stores/models/RideRequestModel/RideRequestModel'
 
 describe('Pagination store tests', () => {
    let paginationStore

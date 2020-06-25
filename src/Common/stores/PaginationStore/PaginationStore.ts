@@ -2,35 +2,52 @@ import React from 'react'
 import { observable, action, computed } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
+import { PaginationStoreInterface } from '../types'
+import { OptionsType, OptionType } from '../../../Commute/components/types'
 
-class PaginationStore {
-   @observable apiStatus
-   @observable apiError
-   @observable entities
-   @observable currentPage
-   @observable selectedSort
-   @observable selectedFilter
-   @observable selectedSortOrder
+export type PaginationStoreProps = {
+   limit: number
+   model: any
+   getEntitiesAPI: (params: any) => any
+   totalKey: string
+   currentPage: number
+   entitiesKey: string
+   filterOptionsAccessKey: string
+   sortOptionsAccessKey: string
+   filterKey: string
+   sortOrderKey?: string
+   sortByKey?: string
+   totalPages?: number
+}
 
-   sortOptions
-   filterOptions
-   totalEntitiesCount
-   totalPages
-   limit
-   getEntitiesAPI
-   model
-   entitiesKey
-   totalKey
-   filterOptionsAccessKey
-   sortOptionsAccessKey
-   filterKey
-   sortOrderKey
-   sortByKey
+class PaginationStore implements PaginationStoreInterface {
+   @observable apiStatus!: number
+   @observable apiError!: string | null
+   @observable entities!: Map<any, any>
+   @observable currentPage!: number
+   @observable selectedSort!: OptionType | null
+   @observable selectedFilter!: OptionType | null
+   @observable selectedSortOrder!: string
 
-   constructor(config) {
+   sortOptions!: OptionsType
+   filterOptions!: OptionsType
+   totalEntitiesCount!: number
+   totalPages: number
+   limit: number
+   getEntitiesAPI: any
+   model: any
+   entitiesKey: string
+   totalKey: string
+   filterOptionsAccessKey: string
+   sortOptionsAccessKey: string
+   filterKey: string
+   sortOrderKey: string
+   sortByKey: string
+
+   constructor(config: PaginationStoreProps) {
       this.limit = config.limit
       this.model = config.model
-      this.getEntitiesAPI = config.getEntitiesAPI || 'results'
+      this.getEntitiesAPI = config.getEntitiesAPI
       this.entitiesKey = config.entitiesKey
       this.totalKey = config.totalKey || 'total'
       this.currentPage = config.currentPage
@@ -55,18 +72,18 @@ class PaginationStore {
    }
 
    @action.bound
-   setTotalPages(totalEntitiesCount) {
+   setTotalPages(totalEntitiesCount: number) {
       this.totalEntitiesCount = totalEntitiesCount
       this.totalPages = Math.ceil(totalEntitiesCount / this.limit)
    }
    @action.bound
-   onChangeSort(sortObj) {
+   onChangeSort(sortObj: OptionType) {
       this.selectedSort = sortObj
       this.clearEntitiesAndGetData()
    }
 
    @action.bound
-   onChangeFilter(filterObj) {
+   onChangeFilter(filterObj: OptionType) {
       this.selectedFilter = filterObj
       this.clearEntitiesAndGetData()
    }
@@ -80,11 +97,12 @@ class PaginationStore {
    }
 
    @action.bound
-   onChangeSortOrder(sortOrder) {
+   onChangeSortOrder(sortOrder: string) {
       this.selectedSortOrder = sortOrder
    }
 
-   convertCamelCaseToUpperCase = str => str.replace('_', ' ').toUpperCase()
+   convertCamelCaseToUpperCase = (str: string): string =>
+      str.replace('_', ' ').toUpperCase()
 
    @action.bound
    setApiStatus(status) {
@@ -116,7 +134,7 @@ class PaginationStore {
       })
    }
 
-   getValue = obj => {
+   getValue = (obj: OptionType | null): string => {
       if (obj !== null) return obj.value
       return ''
    }
@@ -133,7 +151,7 @@ class PaginationStore {
             [sortByKey]: this.getValue(this.selectedSort),
             [sortOrderKey]: this.selectedSortOrder || ''
          }
-         const apiPromise = this.getEntitiesAPI({}, otherParams)
+         const apiPromise = this.getEntitiesAPI(otherParams)
 
          return bindPromiseWithOnSuccess(apiPromise)
             .to(this.setApiStatus, this.setApiResponse)
@@ -142,7 +160,7 @@ class PaginationStore {
    }
 
    @action.bound
-   onChangePage = page => {
+   onChangePage = (page: number) => {
       this.currentPage = page
       this.getEntities()
    }

@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
-import { observable } from 'mobx'
-import { API_FETCHING } from '@ib/api-constants'
 
 import { displayToaster } from '../../../Common/components/Toaster'
 
@@ -9,26 +7,34 @@ import withHeader from '../../components/Common/hocs/withHeader'
 import { AssetTransportRequestForm } from '../../components/AssetTransportRequestForm'
 
 import strings from '../../i18n/strings.json'
+import { RequestStore } from '../../stores/RequestStore'
+import { FormDataType } from '../../components/types'
+
+type AssetTransportRequestRouteProps = {
+   requestStore: RequestStore
+}
 
 @inject('requestStore')
 @observer
-class AssetTransportRequestRoute extends Component {
-   constructor(props) {
+class AssetTransportRequestRoute extends Component<
+   AssetTransportRequestRouteProps
+> {
+   constructor(props: AssetTransportRequestRouteProps) {
       super(props)
 
       this.onSubmit = this.onSubmit.bind(this)
       this.onFailure = this.onFailure.bind(this)
    }
 
-   get requestStore() {
+   get requestStore(): RequestStore {
       return this.props.requestStore
    }
 
-   onSubmit(formData) {
+   onSubmit(formData: FormDataType): void {
       this.doNetworkCalls(formData)
    }
 
-   doNetworkCalls = formData => {
+   doNetworkCalls = (formData: FormDataType): void => {
       const {
          sourcePlace,
          destinationPlace,
@@ -42,7 +48,7 @@ class AssetTransportRequestRoute extends Component {
          whomToDeliver,
          assetTypeOthers
       } = formData
-      let mainDate, fromDate, toDate
+      let mainDate: string, fromDate: string, toDate: string
 
       if (isFlexible) {
          mainDate = ''
@@ -71,11 +77,11 @@ class AssetTransportRequestRoute extends Component {
 
       this.requestStore.assetRequest(requestObj, this.onSuccess, this.onFailure)
    }
-   onSuccess() {
+   onSuccess(): void {
       displayToaster(strings.requestAddedSuccessfully, false)
    }
 
-   onFailure(error) {
+   onFailure(error): void {
       displayToaster(strings.somethingWentWrong, true, error)
    }
 
