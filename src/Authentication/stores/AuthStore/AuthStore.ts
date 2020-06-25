@@ -19,10 +19,10 @@ import {
 
 class AuthStore {
    @observable getUserSignInAPIStatus!: number
-   @observable getUserSignInAPIError!: ApiErrorResponse<object> | null
+   @observable getUserSignInAPIError!: Error | null
 
    @observable getUserProfileAPIStatus!: number
-   @observable getUserProfileAPIError!: ApiErrorResponse<object> | null
+   @observable getUserProfileAPIError!: Error | null
 
    @observable userProfile!: UserProfileModel | null
 
@@ -39,7 +39,7 @@ class AuthStore {
    }
 
    @action.bound
-   setGetUserSignInAPIError(apiError: ApiErrorResponse<object>): void {
+   setGetUserSignInAPIError(apiError: Error): void {
       this.getUserSignInAPIError = apiError
    }
 
@@ -69,7 +69,7 @@ class AuthStore {
             this.setUserSignInAPIResponse(response)
             onSuccess()
          })
-         .catch((apiError: ApiErrorResponse<object>) => {
+         .catch((apiError: Error) => {
             this.setGetUserSignInAPIError(apiError)
             onFailure(apiError)
          })
@@ -81,7 +81,7 @@ class AuthStore {
    }
 
    @action.bound
-   setGetUserProfileAPIError(apiError: ApiErrorResponse<object>): void {
+   setGetUserProfileAPIError(apiError: Error): void {
       this.getUserSignInAPIError = apiError
    }
 

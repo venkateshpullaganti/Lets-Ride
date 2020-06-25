@@ -69,10 +69,10 @@ class AssetTransportRequestForm extends Component<
       this.assetTypeOthers = ''
       this.date = new Date()
    }
-   onChangeSource = (event: React.ChangeEvent<HTMLFormElement>): void => {
+   onChangeSource = (event: React.ChangeEvent<HTMLInputElement>): void => {
       this.sourcePlace = event.target.value
    }
-   onChangeDestination = (event: React.ChangeEvent<HTMLFormElement>): void => {
+   onChangeDestination = (event: React.ChangeEvent<HTMLInputElement>): void => {
       this.destinationPlace = event.target.value
    }
    toggleIsFlexible = (): void => {
@@ -96,11 +96,11 @@ class AssetTransportRequestForm extends Component<
    onDecrementAssetsCount = (): void => {
       if (this.assetCount > 0) this.assetCount--
    }
-   onChangeAssetsCount = (event: React.ChangeEvent<HTMLFormElement>): void => {
+   onChangeAssetsCount = (event: React.ChangeEvent<HTMLInputElement>): void => {
       this.assetCount = parseInt(event.target.value)
    }
    onChangeAssetTypeOthers = (
-      event: React.ChangeEvent<HTMLFormElement>
+      event: React.ChangeEvent<HTMLInputElement>
    ): void => {
       this.assetTypeOthers = event.target.value
    }
@@ -322,7 +322,6 @@ class AssetTransportRequestForm extends Component<
                <Button
                   isLoading={isLoading}
                   displayText={strings.requestBtnText}
-                  disabled={isLoading}
                />
             </Form>
          </AssetRequest>

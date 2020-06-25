@@ -3,26 +3,29 @@ import { render, fireEvent, waitFor } from '@testing-library/react'
 import { Router } from 'react-router-dom'
 import { Provider } from 'mobx-react'
 import { createMemoryHistory } from 'history'
+import { API_SUCCESS } from '@ib/api-constants'
 
 import { AuthService } from '../../../Authentication/services/AuthService'
 import userProfileFixture from '../../../Authentication/fixtures/getUserProfileFIxture.json'
 import { AuthStore } from '../../../Authentication/stores/AuthStore'
 
-import { CommuteService } from '../../services/CommuteService'
-import { RequestStore } from '../../stores/RequestStore'
 import strings from '../../i18n/strings.json'
 
-import { AssetTransportRequestRoute } from '.'
+import { CommuteService } from '../../services/CommuteService'
+
+import { RequestStore } from '../../stores/RequestStore'
+
+import { RideRequestRoute } from '.'
 import { CommuteAPI } from '../../services/CommuteService/CommuteAPI'
 
-describe('AssetTransportRequestRoute Tests', () => {
+describe('RideRequestRoute Tests', () => {
    let commuteAPI: CommuteService
    let requestStore: RequestStore
    let authAPI: AuthService
    let authStore: AuthStore
    let stores
 
-   beforeEach(() => {
+   beforeEach(async () => {
       commuteAPI = new CommuteAPI()
       requestStore = new RequestStore(commuteAPI)
 
@@ -37,6 +40,7 @@ describe('AssetTransportRequestRoute Tests', () => {
       mockUserProfile.mockReturnValue(mockUserProfileSuccessPromise)
 
       authAPI.userProfileApi = mockUserProfile
+      await authStore.getUserProfile()
       stores = { requestStore, authStore }
    })
 
@@ -48,51 +52,47 @@ describe('AssetTransportRequestRoute Tests', () => {
       const sourcePlace = 'sourceplace'
       const destinationPlace = 'test-destinationPlace'
       const dateAndTime = new Date()
-      const assetCount = 3
-      const assetType = ''
-      const assetSensitivity = ''
-      const whomToDeliver = 'venky-123343434'
-
+      const seatCount = 3
       const {
          getByLabelText,
          getByText,
+         getByRole,
          getAllByPlaceholderText,
-         debug
+         getByAltText
       } = render(
          <Provider {...stores}>
             <Router history={createMemoryHistory()}>
-               <AssetTransportRequestRoute />
+               <RideRequestRoute />
             </Router>
          </Provider>
       )
+
+      const sourcePlaceField = getByLabelText(strings.fromText)
+      const destinationPlaceField = getByLabelText(strings.toText)
+      const dateAndTimeFields = getAllByPlaceholderText('Select Date and Time')
+      const seatCountField = getByLabelText('NO.OF SEATS*')
+
+      const requestBtn = getByRole('button', { name: 'REQUEST' })
+
+      const mockLoadingPromise = new Promise(function(resolve, reject) {})
+      const mockRideRequestApi = jest.fn()
+      mockRideRequestApi.mockReturnValue(mockLoadingPromise)
+      commuteAPI.rideRequest = mockRideRequestApi
+
+      fireEvent.change(sourcePlaceField, { target: { value: sourcePlace } })
+      fireEvent.change(destinationPlaceField, {
+         target: { value: destinationPlace }
+      })
+      fireEvent.change(dateAndTimeFields[0], {
+         target: { value: dateAndTime }
+      })
+      fireEvent.change(seatCountField, { target: { value: seatCount } })
+
+      fireEvent.click(requestBtn)
+
       await waitFor(() => {
-         const sourcePlaceField = getByLabelText(strings.fromText)
-         const destinationPlaceField = getByLabelText(strings.toText)
-         const dateAndTimeFields = getAllByPlaceholderText(
-            'Select Date and Time'
-         )
-         const assetCount = getByLabelText('NO OF ASSETS')
-         const assetTypeField = getByLabelText('ASSET TYPE')
-         const assetSensitivityField = getByLabelText('ASSET SENSITIVITY')
-         const whomToDeliverField = getByLabelText('WHOM TO DELIVER')
-         const requestBtn = getByText('REQUEST')
-
-         const mockLoadingPromise = new Promise(function(resolve, reject) {})
-         const mockRideRequestApi = jest.fn()
-         mockRideRequestApi.mockReturnValue(mockLoadingPromise)
-         commuteAPI.rideRequest = mockRideRequestApi
-
-         fireEvent.change(sourcePlaceField, { target: { value: sourcePlace } })
-         fireEvent.change(destinationPlaceField, {
-            target: { value: destinationPlace }
-         })
-         fireEvent.change(dateAndTimeFields[0], {
-            target: { value: dateAndTime }
-         })
-         fireEvent.change(assetCount, { target: { value: assetCount } })
-
-         // fireEvent.click(requestBtn)
-         // await waitFor(() => expect(requestBtn).toBeDisabled)
+         getByAltText('loader')
+         expect(requestBtn).not.toBeInTheDocument()
       })
    })
 
@@ -100,7 +100,7 @@ describe('AssetTransportRequestRoute Tests', () => {
    //    const sourcePlace = 'source-place'
    //    const destinationPlace = 'test-destinationPlace'
    //    const dateAndTime = new Date()
-   //    const assetCount = 3
+   //    const seatCount = 3
 
    //    const mockLoadingPromise = new Promise(function(resolve, reject) {
    //       reject(new Error('error'))
@@ -112,13 +112,13 @@ describe('AssetTransportRequestRoute Tests', () => {
 
    //    const { getByLabelText, getAllByPlaceholderText, getByText } = render(
    //       <Router history={createMemoryHistory()}>
-   //          <AssetTransportRequestRoute requestStore={requestStore} />
+   //          <RideRequestRoute requestStore={requestStore} />
    //       </Router>
    //    )
    //    const sourcePlaceField = getByLabelText(strings.fromText)
    //    const destinationPlaceField = getByLabelText(strings.toText)
    //    const dateAndTimeFields = getAllByPlaceholderText('Select Date and Time')
-   //    const assetCount = getByLabelText(strings.noOfSeatsText)
+   //    const seatCountField = getByLabelText(strings.noOfSeatsText)
    //    const requestBtn = getByText('REQUEST')
 
    //    fireEvent.change(sourcePlaceField, { target: { value: sourcePlace } })
@@ -126,7 +126,7 @@ describe('AssetTransportRequestRoute Tests', () => {
    //       target: { value: destinationPlace }
    //    })
    //    fireEvent.change(dateAndTimeFields[0], { target: { value: dateAndTime } })
-   //    fireEvent.change(assetCount, { target: { value: assetCount } })
+   //    fireEvent.change(seatCountField, { target: { value: seatCount } })
    //    fireEvent.click(requestBtn)
 
    //    await waitFor(() => {

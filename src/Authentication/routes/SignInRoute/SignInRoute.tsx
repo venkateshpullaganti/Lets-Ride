@@ -3,7 +3,6 @@ import { observer, inject } from 'mobx-react'
 import { withRouter, Redirect, RouteComponentProps } from 'react-router-dom'
 import { observable, computed } from 'mobx'
 import { API_FETCHING } from '@ib/api-constants'
-import { History, Location } from 'history'
 
 import { HOMEPAGE_PATH } from '../../../Commute/constants/NavigationConstants'
 import { isLoggedIn } from '../../../Common/utils/AuthUtils/AuthUtils'
@@ -14,11 +13,11 @@ import { SignInForm } from '../../components/SignInForm'
 import strings from '../../i18n/strings.json'
 import { AuthStore } from '../../stores/AuthStore'
 
-interface SignInProps extends RouteComponentProps {
-   authStore: AuthStore
-   history: History
-   location: locationProp
+interface LocationProps extends Location {
+   from: string
 }
+
+interface SignInProps extends RouteComponentProps<{}, {}, LocationProps> {}
 interface injectProps extends SignInProps {
    authStore: AuthStore
 }
@@ -38,19 +37,22 @@ class SignInRoute extends Component<SignInProps> {
       this.onSubmit = this.onSubmit.bind(this)
    }
 
-   init = (): void => {
+   init = () => {
       this.mobileNumber = ''
       this.password = ''
       this.errorMsg = null
    }
+   get injectProps() {
+      return this.props as injectProps
+   }
    get authStore(): AuthStore {
-      return this.props.authStore
+      return this.injectProps.authStore
    }
 
-   OnChangeMobileNumber = (event: ChangeEvent<HTMLInputElement>): void => {
+   OnChangeMobileNumber = (event: ChangeEvent<HTMLInputElement>) => {
       this.mobileNumber = event.target.value
    }
-   onChangePassword = (event: ChangeEvent<HTMLInputElement>): void => {
+   onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
       this.password = event.target.value
    }
    @computed
@@ -66,7 +68,7 @@ class SignInRoute extends Component<SignInProps> {
       return this.errorMsg !== null
    }
 
-   onSubmit(): void {
+   onSubmit() {
       if (this.mobileNumber.length !== MOBILE_NUMBER_LENGTH) {
          this.errorMsg = strings.mobileNumberEmptyError
       } else if (this.password === '') {
@@ -87,12 +89,12 @@ class SignInRoute extends Component<SignInProps> {
       }
    }
 
-   onFailure(apiError): void {
+   onFailure(apiError) {
       this.errorMsg = apiError.message
       displayToaster('', true, apiError)
    }
 
-   onSuccess(): void {
+   onSuccess() {
       const { history } = this.props
       let path: string | null = null
 

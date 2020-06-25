@@ -5,6 +5,11 @@ import { SIGN_IN_PATH } from '../../../Authentication/constants/NavigationConsta
 
 import { isLoggedIn } from '../../utils/AuthUtils/AuthUtils'
 
+// interface ProtectedRouteProps {
+//    component: React.ComponentType
+//    path: string
+// }
+
 const ProtectedRoute = ({ component: Component, path, ...rest }) => (
    <Route
       {...rest}

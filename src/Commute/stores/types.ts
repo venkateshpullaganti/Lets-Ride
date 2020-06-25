@@ -71,9 +71,9 @@ export interface MatchingResultsAssetType {
 export interface QueryParametersObject {
    limit: number
    offset: number
-   status: RequestStatus
-   sort_options: string
-   filter_options: string
+   status: string
+   sort_key: string
+   sort_value: string
 }
 
 export interface PostRideRequest {

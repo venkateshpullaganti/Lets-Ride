@@ -13,7 +13,7 @@ import { QueryParametersObject } from '../types'
 
 class CommuteStore {
    @observable getMatchingResultsAPIStatus!: number
-   @observable getMatchingResultsAPIError!: string | null
+   @observable getMatchingResultsAPIError!: Error | null
 
    @observable matchingRideRequests!: Array<RideMatchingResultsModel>
    @observable matchingAssetReqests!: Array<AssetMatchingResultsModel>
@@ -101,10 +101,7 @@ class CommuteStore {
    }
 
    @action
-   getMatchingResults(
-      requestObject: Record<string, any>,
-      otherParams: QueryParametersObject
-   ) {
+   getMatchingResults(otherParams: QueryParametersObject) {
       const myMatchingResultsPromise = this.commuteAPIService.matchingResultsApi(
          otherParams
       )

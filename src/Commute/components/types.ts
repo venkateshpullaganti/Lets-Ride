@@ -18,3 +18,19 @@ export type FormDataType = {
    whomToDeliver: string
    assetTypeOthers: string
 }
+export interface CommonFormDataType {
+   sourcePlace: string
+   destinationPlace: string
+   isFlexible: boolean
+   flexibleFromDate: string
+   flexibleToDate: string
+   travelDate: string
+}
+export interface RideFromData extends CommonFormDataType {
+   seatCount: number
+   laguageCount: number
+}
+export interface ShareTravelInfoData extends CommonFormDataType {
+   travelMedium: string
+   assetCount: number
+}
