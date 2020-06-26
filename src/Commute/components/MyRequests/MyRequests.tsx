@@ -34,6 +34,7 @@ import { TableTabBar } from '../Common/Components/TableTabBar'
 import { CommuteStore } from '../../stores/CommuteStore'
 import { OptionType } from '../types'
 import RideRequestModel from '../../stores/models/RideRequestModel/RideRequestModel'
+import Plus from '../../../Common/components/Icons/Plus'
 
 interface MyRequestsProps extends RouteComponentProps {
    commuteStore: CommuteStore
@@ -160,6 +161,7 @@ class MyRequests extends Component<MyRequestsProps> {
             </RequestTable>
             <TableFooter>
                <AddRequestBtn onClick={this.navigateToRideRequestForm}>
+                  <Plus />
                   {strings.addRequest}
                </AddRequestBtn>
                <TotalPages>{`Page ${currentPage} of ${totalPages}`}</TotalPages>

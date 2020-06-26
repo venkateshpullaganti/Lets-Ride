@@ -11,23 +11,32 @@ describe('Ride Request form tests', () => {
       jest.resetAllMocks()
    })
 
-   // it('should render given source place', () => {
-   //    let expectedOutput = 'krnl'
-   //    const { getByLabelText, debug } = render(<RideRequestForm />)
-   //    const sourcePlaceField = getByLabelText(strings.fromText)
-   //    fireEvent.change(sourcePlaceField, {
-   //       target: { value: expectedOutput }
-   //    })
+   it('should render given source place', () => {
+      let expectedOutput = 'krnl'
+      const { getByLabelText, debug } = render(
+         <RideRequestForm onSubmit={jest.fn} apiStatus={API_INITIAL} />
+      )
+      const sourcePlaceField = getByLabelText(
+         strings.fromText
+      ) as HTMLInputElement
+      fireEvent.change(sourcePlaceField, {
+         target: { value: expectedOutput }
+      })
+      expect(sourcePlaceField.value).toBe(expectedOutput)
+   })
 
-   //    expect
-   // })
+   it('should render the given destinationPlace', () => {
+      let expectedOutput = 'tester-destinationPlace'
+      const { getByLabelText } = render(
+         <RideRequestForm onSubmit={jest.fn} apiStatus={API_INITIAL} />
+      )
 
-   // it('should render the given destinationPlace', () => {
-   //    let expectedOutput = 'tester-destinationPlace'
-   //    const { getByLabelText } = render(<RideRequestForm />)
-   //    const actualOutput = getByLabelText(strings.toText).value
-   //    expect(actualOutput).toBe(expectedOutput)
-   // })
+      const destinationField = getByLabelText(
+         strings.toText
+      ) as HTMLInputElement
+
+      expect(destinationField.value).toBe(expectedOutput)
+   })
 
    it('should render the source Place error', () => {
       const { getByText, getByRole } = render(
@@ -158,7 +167,7 @@ describe('Ride Request form tests', () => {
       const { getByLabelText, getAllByRole } = render(
          <RideRequestForm onSubmit={jest.fn} apiStatus={API_INITIAL} />
       )
-      const seatCountField = getByLabelText('NO.OF SEATS') as HTMLInputElement
+      const seatCountField = getByLabelText('NO.OF SEATS*') as HTMLInputElement
       fireEvent.change(seatCountField, {
          target: { value: seatCount }
       })

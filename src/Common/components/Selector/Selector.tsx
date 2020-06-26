@@ -33,18 +33,19 @@ export function Selector(props: SelectorProps) {
             {label}
             <Required>{isRequired ? '*' : null}</Required>
          </Label>
-         <Select
-            key={label}
-            id={label}
-            className={
-               isError
-                  ? `selector-styles border border-red-500 border-solid rounded`
-                  : `selector-styles rounded`
-            }
-            onChange={onChange}
-            options={options}
-            placeholder={placeholder}
-         />
+         <div data-testid={label}>
+            <Select
+               key={label}
+               className={
+                  isError
+                     ? `selector-styles border border-red-500 border-solid rounded`
+                     : `selector-styles rounded`
+               }
+               onChange={onChange}
+               options={options}
+               placeholder={placeholder}
+            />
+         </div>
          <Error>{isError ? 'Required' : null}</Error>
       </>
    )

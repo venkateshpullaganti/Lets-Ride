@@ -66,6 +66,7 @@ describe('AssetTransportRequestRoute Tests', () => {
          </Provider>
       )
       await waitFor(() => {
+         debug()
          const sourcePlaceField = getByLabelText(strings.fromText)
          const destinationPlaceField = getByLabelText(strings.toText)
          const dateAndTimeFields = getAllByPlaceholderText(

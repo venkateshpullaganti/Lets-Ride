@@ -27,10 +27,7 @@ const CustomInput = styled.input`
       -webkit-appearance: none;
    }
    -moz-appearance: textfield;
-   &:focus {
-      outline: none;
-   }
-   ${tw`pl-3`}
+   ${tw`px-3 focus:outline-none`}
 `
 const Label = styled.label`
    ${Typo12SteelHKGroteskSemiBold};
@@ -44,7 +41,7 @@ const Error = styled.div`
 const ErrorIcon = styled.img`
    height: 16px;
    width: 16px;
-   right: 0px;
+   right: 10px;
    top: 35px;
    ${tw`absolute`}
 `

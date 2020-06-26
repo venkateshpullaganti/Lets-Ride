@@ -16,6 +16,7 @@ import { TableContainer, Header, Col } from './styledComponents'
 import { observer } from 'mobx-react'
 import { AssetMatchingResultsModel } from '../../../stores/models/AssetMatchingResultsModel'
 import { OptionsType, OptionType } from '../../types'
+import Plus from '../../../../Common/components/Icons/Plus'
 
 interface AssetsTableProps {
    headerItems: Array<string>
@@ -79,6 +80,7 @@ class AssetsTable extends Component<AssetsTableProps> {
             </TableContainer>
             <TableFooter>
                <AddRequestBtn onClick={onClickAddRequest}>
+                  <Plus />
                   {strings.addRequest}
                </AddRequestBtn>
                <TotalPages>{`PAGE ${currentPage} OF ${totalPages}`}</TotalPages>

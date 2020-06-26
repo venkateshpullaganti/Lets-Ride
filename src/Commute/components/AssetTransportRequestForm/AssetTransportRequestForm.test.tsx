@@ -11,12 +11,13 @@ describe('Asset Transport Request form tests', () => {
    })
 
    it('should render the source Place error', () => {
-      const { getByText, getByRole } = render(
+      const { getByText, getByRole, debug } = render(
          <AssetTransportRequestForm onSubmit={() => {}} apiStatus={0} />
       )
       const submitBtn = getByRole('button', { name: 'REQUEST' })
       fireEvent.click(submitBtn)
       getByText('SOURCE PLACE REQUIRED')
+      debug()
    })
    it('should render the destination place error', () => {
       const sourcePlace = 'kurnool'

@@ -11,13 +11,15 @@ import { CommuteService } from '../../services/CommuteService'
 import { ShareStore } from '../../stores/ShareStore'
 
 import { ShareRideRoute } from '.'
+import { CommuteAPI } from '../../services/CommuteService/CommuteAPI'
+import { Provider } from 'mobx-react'
 
 describe('ShareRideRoute Tests', () => {
-   let commuteAPI
-   let shareStore
+   let commuteAPI: CommuteService
+   let shareStore: ShareStore
 
    beforeEach(() => {
-      commuteAPI = new CommuteService()
+      commuteAPI = new CommuteAPI()
       shareStore = new ShareStore(commuteAPI)
    })
    afterEach(() => {
@@ -28,9 +30,11 @@ describe('ShareRideRoute Tests', () => {
       const sourcePlace = 'sourceplace'
       const destinationPlace = 'test-destinationPlace'
       const { getByLabelText, getByRole, getByText } = render(
-         <Router history={createMemoryHistory()}>
-            <ShareRideRoute shareStore={shareStore} />
-         </Router>
+         <Provider shareStore={shareStore}>
+            <Router history={createMemoryHistory()}>
+               <ShareRideRoute />
+            </Router>
+         </Provider>
       )
       const sourcePlaceField = getByLabelText(strings.fromText)
       const destinationPlaceField = getByLabelText(strings.toText)

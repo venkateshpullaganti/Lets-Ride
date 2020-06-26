@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, FunctionComponent } from 'react'
 import { observer } from 'mobx-react'
 
 import { APIStatus } from '@ib/api-constants'
@@ -21,6 +21,7 @@ import { FilterBar } from '../Common/Components/FilterBar'
 import { Item } from './Item'
 import { Col } from './styledComponents'
 import { OptionType, OptionsType } from '../types'
+import Plus from '../../../Common/components/Icons/Plus'
 
 interface TableProps {
    headerItems: Array<string>
@@ -52,11 +53,15 @@ class Table extends Component<TableProps> {
          </Header>
       )
    }
-   renderRows = observer((): any => {
+   renderRows = observer(() => {
       const { tableData } = this.props
-      return tableData.map((eachRow: AssetRequestModel) => (
-         <Item key={eachRow.id} row={eachRow} />
-      ))
+      return (
+         <>
+            {tableData.map((eachRow: AssetRequestModel) => (
+               <Item key={eachRow.id} row={eachRow} />
+            ))}
+         </>
+      )
    })
 
    render() {
@@ -95,6 +100,7 @@ class Table extends Component<TableProps> {
             </TableContainer>
             <TableFooter>
                <AddRequestBtn onClick={onClickAddRequest}>
+                  <Plus />
                   {strings.addRequest}
                </AddRequestBtn>
                <TotalPages>{`PAGE ${currentPage} OF ${totalAssetPages}`}</TotalPages>

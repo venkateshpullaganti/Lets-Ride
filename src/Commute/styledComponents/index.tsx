@@ -34,7 +34,7 @@ const HomePageHeader = styled.p`
 `
 const AddRequestBtn = styled.button`
    height: 24px;
-   ${tw`focus:outline-none`}
+   ${tw`focus:outline-none flex justify-center items-center`}
 `
 const TotalPages = styled.div`
    height: 24px;

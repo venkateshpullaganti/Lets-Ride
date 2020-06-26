@@ -9,13 +9,13 @@ import {
    TableFooter
 } from '../../../styledComponents'
 
-import { Selector } from '../../Selector'
 import { FilterBar } from '../../Common/Components/FilterBar'
 
 import { EachRow } from './EachRow'
 import { TableContainer, Header, Col } from './styledComponents'
 import { OptionsType, OptionType } from '../../types'
 import { RideMatchingResultsModel } from '../../../stores/models/RideMatchingResultsModel'
+import Plus from '../../../../Common/components/Icons/Plus'
 
 interface RidesTableProps {
    headerItems: Array<string>
@@ -79,6 +79,7 @@ class RidesTable extends Component<RidesTableProps> {
             </TableContainer>
             <TableFooter>
                <AddRequestBtn onClick={onClickAddRequest}>
+                  <Plus />
                   {strings.addRequest}
                </AddRequestBtn>
                <TotalPages>{`PAGE ${currentPage} OF ${totalPages}`}</TotalPages>
