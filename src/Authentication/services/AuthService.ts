@@ -8,7 +8,7 @@ class AuthService {
    api: ApisauceInstance
    constructor() {
       this.api = create({
-         baseURL: 'https://1a62330d2625.ngrok.io/api/lets_ride'
+         baseURL: 'localhost/'
       })
    }
    signInApi = (requestObject: UserSignInRequest): Promise<any> => {

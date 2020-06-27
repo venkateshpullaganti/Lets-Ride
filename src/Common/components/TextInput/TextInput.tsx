@@ -56,7 +56,7 @@ class TextInput extends Component<TextInputProps> {
       if (this.isNoError) onBlur(this.value)
    }
    render() {
-      const { label, className, value, type, placeholder } = this.props
+      const { label, className, type, placeholder } = this.props
       return (
          <Wrapper className={className}>
             <Label>{label}</Label>
