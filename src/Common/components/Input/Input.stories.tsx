@@ -1,7 +1,7 @@
 import React from 'react'
+import { withKnobs, boolean, text } from '@storybook/addon-knobs'
 
 import { Input } from '.'
-import { withKnobs, boolean, text } from '@storybook/addon-knobs'
 
 export default {
    component: Input,

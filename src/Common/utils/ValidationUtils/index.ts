@@ -2,7 +2,7 @@ export interface ValidationReturnObj {
    shouldShowError: boolean
    errorMessage: string
 }
-function emptysourcePlace() {
+function emptysourcePlace(): ValidationReturnObj {
    return {
       shouldShowError: true,
       errorMessage: 'Invalid Input'
@@ -15,7 +15,7 @@ function sourcePlaceValidation(place: string): ValidationReturnObj {
    } else if (place.length < 3)
       return {
          shouldShowError: true,
-         errorMessage: 'Input must be grater than 3 characters'
+         errorMessage: 'Please enter Username'
       }
    return {
       shouldShowError: false,

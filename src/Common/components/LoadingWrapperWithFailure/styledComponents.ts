@@ -1,13 +1,10 @@
 import styled from '@emotion/styled'
 import tw from 'tailwind.macro'
 
-import { Typo12SteelHKGroteskSemiBold } from '../../styleGuide/Typos'
 import Colors from '../../themes/Colors'
 
 export const LoadingViewContainer = styled.div`
-   ${'' /* height: 50%; */}
    height: 200px;
-   ${'' /* box-sizing: border-box; */}
    ${tw`flex flex-col justify-center items-center self-center`};
 `
 

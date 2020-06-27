@@ -2,16 +2,17 @@ import React, { Component } from 'react'
 
 import { ValidationReturnObj } from '../../utils/ValidationUtils'
 
-import { Wrapper, Label, Input } from './styledComponents'
+import { Wrapper, Label, Input, Error } from './styledComponents'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
 
 interface TextInputProps {
    type: string
+   placeholder: string
    label: string
    className: string
    value: string
-   onChange?: (value: string) => void
+   onChange: (value: string) => void
    validationFunction: (value: string) => ValidationReturnObj
    onBlur: (value: string) => void
 }
@@ -19,10 +20,16 @@ interface TextInputProps {
 @observer
 class TextInput extends Component<TextInputProps> {
    @observable shouldShowError: boolean
-   errorMessage: string
    @observable value: string
 
-   static defaultProps = {}
+   errorMessage: string
+
+   static defaultProps = {
+      placeholder: '',
+      value: '',
+      className: '',
+      onChange: null
+   }
 
    constructor(props: TextInputProps) {
       super(props)
@@ -35,7 +42,8 @@ class TextInput extends Component<TextInputProps> {
       return !this.shouldShowError
    }
 
-   onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+   onChange = (event: { target: { value: string } }) => {
+      this.value = event.target.value
       const { onChange } = this.props
       if (onChange) onChange(event.target.value)
    }
@@ -48,16 +56,19 @@ class TextInput extends Component<TextInputProps> {
       if (this.isNoError) onBlur(this.value)
    }
    render() {
-      const { label, className, value, type } = this.props
+      const { label, className, value, type, placeholder } = this.props
       return (
-         <Wrapper className={className} isError={this.shouldShowError}>
+         <Wrapper className={className}>
             <Label>{label}</Label>
             <Input
-               value={value}
+               value={this.value}
                onChange={this.onChange}
                onBlur={this.onBlur}
                type={type}
+               placeholder={placeholder}
+               isError={this.shouldShowError}
             />
+            <Error>{this.errorMessage ? this.errorMessage : null}</Error>
          </Wrapper>
       )
    }
