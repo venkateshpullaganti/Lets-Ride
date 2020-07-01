@@ -1,1 +1,1 @@
-export { CommuteHomeRoute } from './CommuteHomeRoute'
+export { CommuteHomeRoute as default } from './CommuteHomeRoute'

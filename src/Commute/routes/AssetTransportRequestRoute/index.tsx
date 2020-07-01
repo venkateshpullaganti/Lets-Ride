@@ -1,3 +1,3 @@
 import AssetTransportRequestRoute from './AssetTransportRequestRoute'
 
-export { AssetTransportRequestRoute }
+export default AssetTransportRequestRoute

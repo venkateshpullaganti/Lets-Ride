@@ -15,7 +15,8 @@ class CommuteHomeRoute extends Component<CommuteHomeRouteProps> {
       return this.props as injectProps
    }
    render() {
-      return <CommuteHomePage commuteStore={this.injectProps.commuteStore} />
+      const { commuteStore } = this.injectProps
+      return <CommuteHomePage commuteStore={commuteStore} />
    }
 }
 

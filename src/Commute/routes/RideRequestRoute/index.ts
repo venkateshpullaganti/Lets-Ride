@@ -1,2 +1,2 @@
 import RideRequestRoute from './RideRequestRoute'
-export { RideRequestRoute }
+export { RideRequestRoute as default }

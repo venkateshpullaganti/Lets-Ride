@@ -1,3 +1,3 @@
 import ShareTravelInfoRoute from './ShareTravelInfoRoute'
 
-export { ShareTravelInfoRoute }
+export default ShareTravelInfoRoute

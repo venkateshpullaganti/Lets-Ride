@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { lazy } from 'react'
 
 import { ProtectedRoute } from '../../Common/components/ProtectedRoute'
 
@@ -10,11 +10,19 @@ import {
    HOME_PREFIX
 } from '../constants/NavigationConstants'
 
-import { CommuteHomeRoute } from './CommuteHomeRoute'
-import { RideRequestRoute } from './RideRequestRoute'
-import { ShareRideRoute } from './ShareRideRoute'
-import { AssetTransportRequestRoute } from './AssetTransportRequestRoute'
-import { ShareTravelInfoRoute } from './ShareTravelInfoRoute'
+// import CommuteHomeRoute from './CommuteHomeRoute'
+// import RideRequestRoute from './RideRequestRoute'
+// import ShareRideRoute from './ShareRideRoute'
+// import AssetTransportRequestRoute from './AssetTransportRequestRoute'
+// import ShareTravelInfoRoute from './ShareTravelInfoRoute'
+
+const CommuteHomeRoute = lazy(() => import('./CommuteHomeRoute'))
+const RideRequestRoute = lazy(() => import('./RideRequestRoute'))
+const ShareRideRoute = lazy(() => import('./ShareRideRoute'))
+const AssetTransportRequestRoute = lazy(() =>
+   import('./AssetTransportRequestRoute')
+)
+const ShareTravelInfoRoute = lazy(() => import('./ShareTravelInfoRoute'))
 
 const routes = [
    <ProtectedRoute
