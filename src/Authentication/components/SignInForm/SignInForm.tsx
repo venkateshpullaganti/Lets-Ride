@@ -8,6 +8,7 @@ import { SIGN_UP_PATH } from '../../constants/NavigationConstants'
 
 import { Container, Form, AskSignUp, SignUpLink } from './styledComponents'
 import { withTranslation, WithTranslation } from 'react-i18next'
+import { ChangeLanguageButtons } from '../../../Common/components/ChangeLanguageButtons'
 
 interface SignInProps extends WithTranslation {
    errorMsg: string | null
@@ -53,6 +54,7 @@ class SignInForm extends Component<SignInProps> {
 
       return (
          <Container>
+            <ChangeLanguageButtons />
             <Form onSubmit={this.onSubmit}>
                <Logo />
                <FormHeading headingText={t('authModule:signInHeaderText')} />

@@ -13,7 +13,7 @@ import { SignInForm } from '../../components/SignInForm'
 import { AuthStore } from '../../stores/AuthStore'
 import { withTranslation, WithTranslation } from 'react-i18next'
 import { ChangeLanguageButtons } from '../../../Common/components/ChangeLanguageButtons'
-
+import { Wrapper } from './styledComponents'
 interface LocationProps extends Location {
    from: string
 }
@@ -130,23 +130,18 @@ class SignInRoute extends Component<SignInProps> {
          return <Redirect to={HOMEPAGE_PATH} />
       }
       return (
-         <>
-            <ChangeLanguageButtons />
-            <SignInForm
-               onSubmit={onSubmit}
-               OnChangeMobileNumber={OnChangeMobileNumber}
-               onChangePassword={onChangePassword}
-               isLoading={
-                  this.authStore.getUserSignInAPIStatus === API_FETCHING
-               }
-               isError={isError}
-               errorMsg={errorMsg}
-               mobileNumber={mobileNumber}
-               password={password}
-               isPasswordError={isPasswordError}
-               isMobileNumberError={isMobileNumberError}
-            />
-         </>
+         <SignInForm
+            onSubmit={onSubmit}
+            OnChangeMobileNumber={OnChangeMobileNumber}
+            onChangePassword={onChangePassword}
+            isLoading={this.authStore.getUserSignInAPIStatus === API_FETCHING}
+            isError={isError}
+            errorMsg={errorMsg}
+            mobileNumber={mobileNumber}
+            password={password}
+            isPasswordError={isPasswordError}
+            isMobileNumberError={isMobileNumberError}
+         />
       )
    }
 }
