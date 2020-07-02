@@ -1,0 +1,10 @@
+{
+   "signInHeaderText": "నమస్కారం, దయచేసి సైన్ ఇన్ చేయండి",
+   "mobileNumberLabelText": "ఫోను నంబరు",
+   "passwordLabelText": "పాస్వర్డ్",
+   "dontHaveAccountSignup": "ఖాతా లేదా?",
+   "btnLoginText": "లాగిన్",
+   "signUpText": "సైన్ అప్",
+   "mobileNumberEmptyError": "మీ ఫోన్ నంబర్‌ను సరిచేయండి",
+   "passwordEmptyError": "పాస్వర్డ్ అవసరం"
+}

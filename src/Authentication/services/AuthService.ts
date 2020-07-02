@@ -3,12 +3,13 @@ import { create, ApisauceInstance } from 'apisauce'
 import { networkCallWithApisauce } from '../../Common/utils/APIUtils'
 import { apiMethods } from '../../Common/constants/APIConstants'
 import { UserSignInRequest } from '../stores/types'
+import { Config } from '../../Common/constants/EnvironmentConstants'
 
 class AuthService {
    api: ApisauceInstance
    constructor() {
       this.api = create({
-         baseURL: 'localhost/'
+         baseURL: Config.BASE_URL
       })
    }
    signInApi = (requestObject: UserSignInRequest): Promise<any> => {

@@ -1,0 +1,10 @@
+{
+   "signInHeaderText": "Hi there, please sign in",
+   "mobileNumberLabelText": "MOBILE NUMBER",
+   "passwordLabelText": "PASSWORD",
+   "dontHaveAccountSignup": "Don't Have an account?",
+   "btnLoginText": "LOGIN",
+   "signUpText": "SIGN UP",
+   "mobileNumberEmptyError": "10 digit Mobile Number Required",
+   "passwordEmptyError": "Password Required"
+}

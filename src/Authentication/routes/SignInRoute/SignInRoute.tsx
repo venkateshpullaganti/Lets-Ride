@@ -10,14 +10,18 @@ import { displayToaster } from '../../../Common/components/Toaster'
 
 import { MOBILE_NUMBER_LENGTH } from '../../constants/SignInConstants'
 import { SignInForm } from '../../components/SignInForm'
-import strings from '../../i18n/strings.json'
 import { AuthStore } from '../../stores/AuthStore'
+import { withTranslation, WithTranslation } from 'react-i18next'
+import { ChangeLanguageButtons } from '../../../Common/components/ChangeLanguageButtons'
 
 interface LocationProps extends Location {
    from: string
 }
 
-interface SignInProps extends RouteComponentProps<{}, {}, LocationProps> {}
+interface SignInProps
+   extends RouteComponentProps<{}, {}, LocationProps>,
+      WithTranslation {}
+
 interface injectProps extends SignInProps {
    authStore: AuthStore
 }
@@ -57,11 +61,11 @@ class SignInRoute extends Component<SignInProps> {
    }
    @computed
    get isMobileNumberError(): boolean {
-      return this.errorMsg === strings.mobileNumberEmptyError
+      return this.errorMsg === this.props.t('authModule:mobileNumberEmptyError')
    }
    @computed
    get isPasswordError(): boolean {
-      return this.errorMsg === strings.passwordEmptyError
+      return this.errorMsg === this.props.t('authModule:passwordEmptyError')
    }
    @computed
    get isError(): boolean {
@@ -70,9 +74,9 @@ class SignInRoute extends Component<SignInProps> {
 
    onSubmit() {
       if (this.mobileNumber.length !== MOBILE_NUMBER_LENGTH) {
-         this.errorMsg = strings.mobileNumberEmptyError
+         this.errorMsg = this.props.t('authModule:mobileNumberEmptyError')
       } else if (this.password === '') {
-         this.errorMsg = strings.passwordEmptyError
+         this.errorMsg = this.props.t('authModule:passwordEmptyError')
       } else {
          this.errorMsg = null
 
@@ -126,20 +130,27 @@ class SignInRoute extends Component<SignInProps> {
          return <Redirect to={HOMEPAGE_PATH} />
       }
       return (
-         <SignInForm
-            onSubmit={onSubmit}
-            OnChangeMobileNumber={OnChangeMobileNumber}
-            onChangePassword={onChangePassword}
-            isLoading={this.authStore.getUserSignInAPIStatus === API_FETCHING}
-            isError={isError}
-            errorMsg={errorMsg}
-            mobileNumber={mobileNumber}
-            password={password}
-            isPasswordError={isPasswordError}
-            isMobileNumberError={isMobileNumberError}
-         />
+         <>
+            <ChangeLanguageButtons />
+            <SignInForm
+               onSubmit={onSubmit}
+               OnChangeMobileNumber={OnChangeMobileNumber}
+               onChangePassword={onChangePassword}
+               isLoading={
+                  this.authStore.getUserSignInAPIStatus === API_FETCHING
+               }
+               isError={isError}
+               errorMsg={errorMsg}
+               mobileNumber={mobileNumber}
+               password={password}
+               isPasswordError={isPasswordError}
+               isMobileNumberError={isMobileNumberError}
+            />
+         </>
       )
    }
 }
 
-export default withRouter(SignInRoute)
+const SignInRouteWithRouter = withRouter(SignInRoute)
+
+export default withTranslation()(SignInRouteWithRouter)

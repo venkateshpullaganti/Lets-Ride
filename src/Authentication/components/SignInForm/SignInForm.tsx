@@ -5,11 +5,11 @@ import { FormHeading } from '../../../Common/components/FormHeading'
 import { Input } from '../../../Common/components/Input'
 import { Logo } from '../../../Common/components/Logo'
 import { SIGN_UP_PATH } from '../../constants/NavigationConstants'
-import strings from '../../i18n/strings.json'
 
 import { Container, Form, AskSignUp, SignUpLink } from './styledComponents'
+import { withTranslation, WithTranslation } from 'react-i18next'
 
-type SignInProps = {
+interface SignInProps extends WithTranslation {
    errorMsg: string | null
    OnChangeMobileNumber: (event: React.ChangeEvent<HTMLInputElement>) => void
    onChangePassword: (event: React.ChangeEvent<HTMLInputElement>) => void
@@ -47,17 +47,18 @@ class SignInForm extends Component<SignInProps> {
          mobileNumber,
          password,
          isMobileNumberError,
-         isPasswordError
+         isPasswordError,
+         t
       } = this.props
 
       return (
          <Container>
             <Form onSubmit={this.onSubmit}>
                <Logo />
-               <FormHeading headingText={strings.signInHeaderText} />
+               <FormHeading headingText={t('authModule:signInHeaderText')} />
                <Input
                   type={'number'}
-                  labelText={strings.mobileNumberLabelText}
+                  labelText={t('authModule:mobileNumberLabelText')}
                   id={'signinMobileNumber'}
                   isError={isMobileNumberError}
                   onChange={OnChangeMobileNumber}
@@ -67,7 +68,7 @@ class SignInForm extends Component<SignInProps> {
                />
                <Input
                   type={'password'}
-                  labelText={strings.passwordLabelText}
+                  labelText={t('authModule:passwordLabelText')}
                   id={'signinpassword'}
                   isError={isPasswordError}
                   onChange={onChangePassword}
@@ -78,16 +79,15 @@ class SignInForm extends Component<SignInProps> {
 
                <Button
                   isLoading={isLoading}
-                  displayText={strings.btnLoginText}
+                  displayText={t('authModule:btnLoginText')}
                   type={'submit'}
                   onClick={this.onSubmit}
                />
                <AskSignUp>
-                  {strings.dontHaveAccountSignup}
+                  {t('authModule:dontHaveAccountSignup')}
                   <SignUpLink href={SIGN_UP_PATH}>
-                     {strings.signUpText}
+                     {t('authModule:signUpText')}
                   </SignUpLink>
-                  {/* <p className='text-red-500 font-semibold'>{errorMsg}</p> */}
                </AskSignUp>
             </Form>
          </Container>
@@ -95,4 +95,4 @@ class SignInForm extends Component<SignInProps> {
    }
 }
 
-export { SignInForm }
+export default withTranslation()(SignInForm)
