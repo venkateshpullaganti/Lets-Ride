@@ -21,6 +21,7 @@ const Form = styled.form`
 `
 const AskSignUp = styled.div`
    ${Typo14BrightBlueHKGroteskRegular}
+   ${tw`text-lg`}
 `
 const SignUpLink = styled.a`
    margin-left: 2px;

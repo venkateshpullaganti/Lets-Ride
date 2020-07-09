@@ -5,8 +5,12 @@ import Colors from '../../../Common/themes/Colors'
 
 const Col = styled.div`
    color: ${Colors.steel};
-   width: 11.1%;
+   width: 11%;
    ${tw`text-center`};
 `
+const TableWrapper = styled.div`
+   border: 1px solid yellow;
+   ${tw``};
+`
 
-export { Col }
+export { Col, TableWrapper }

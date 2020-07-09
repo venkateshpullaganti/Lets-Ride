@@ -12,7 +12,8 @@ const Root = styled.div`
    ${tw`flex flex-col w-screen border-box`};
 `
 const Body = styled.div`
-   ${tw`p-2`};
+   box-sizing: border-box;
+   ${tw`p-1`};
 `
 const NavBar = styled.div`
    margin-top: 80px;

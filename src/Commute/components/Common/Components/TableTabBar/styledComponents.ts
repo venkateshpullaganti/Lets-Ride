@@ -11,6 +11,7 @@ const RequestsContainer = styled.div`
 `
 const Navigator = styled.div`
    border-bottom: 1px solid ${Colors.steel60};
+
    ${tw`my-4`};
 `
 const NavBtn = styled.button`

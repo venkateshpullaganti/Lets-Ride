@@ -27,7 +27,7 @@ const CustomInput = styled.input`
       -webkit-appearance: none;
    }
    -moz-appearance: textfield;
-   ${tw`px-3 focus:outline-none`}
+   ${tw`px-3 focus:outline-none focus:border-blue-500 `}
 `
 const Label = styled.label`
    ${Typo12SteelHKGroteskSemiBold};

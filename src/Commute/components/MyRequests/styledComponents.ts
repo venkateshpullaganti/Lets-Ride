@@ -8,7 +8,6 @@ interface NavBtnProps {
 }
 
 const RequestsContainer = styled.div`
-   ${'' /* border: 1px solid green; */}
    ${tw``};
 `
 const Navigator = styled.div`
@@ -30,8 +29,9 @@ const NavBtn = styled.button`
    }
 `
 const RequestTable = styled.div`
-   border: 1px solid ${Colors.lightBlueGrey};
-   ${tw`m-2 `};
+   border: 1px solid red;
+   box-sizing: border-box;
+   ${tw` `};
 `
 const Col = styled.div`
    color: ${Colors.steel};

@@ -6,7 +6,7 @@ import Colors from '../../../../Common/themes/Colors'
 const Row = styled.div`
    height: 64px;
    border: 1px solid ${Colors.lightBlueGrey40};
-   ${tw`flex justify-between items-center p-2`};
+   ${tw`flex justify-between items-center`};
 `
 const Data = styled.div`
    color: ${Colors.steel};

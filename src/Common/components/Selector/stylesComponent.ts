@@ -5,7 +5,7 @@ import { Typo12SteelHKGroteskSemiBold } from '../../styleGuide/Typos'
 import Colors from '../../themes/Colors'
 
 const Dropdown = styled.div`
-   ${tw``};
+   ${tw`w-full`};
 `
 
 export { Dropdown }

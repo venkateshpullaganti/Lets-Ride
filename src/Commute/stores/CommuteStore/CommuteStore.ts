@@ -44,7 +44,7 @@ class CommuteStore {
       this.totalMatchingAssets = 0
 
       const ridePaginationConfig = {
-         limit: 2,
+         limit: 4,
          model: RideRequestModel,
          getEntitiesAPI: this.commuteAPIService.myRideRequestsApi,
          totalKey: 'total_rides',

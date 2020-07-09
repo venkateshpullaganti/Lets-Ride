@@ -11,19 +11,17 @@ const Btn = styled.button`
    margin-bottom: 40px;
    background: ${Colors.brightBlue};
    border-radius: 4px;
-   ${tw`flex justify-center items-center text-white p-2`};
+   border: 2px solid ${Colors.brightBlue};
    ${props =>
       props.disabled
          ? ` opacity:0.5;
-            cursor:not-allowed;
-           `
+      cursor:not-allowed;
+      `
          : `
-            opacity:1;
-            cursor:pointer;
-            `};
-   &:focus {
-      outline: none;
-   }
+      opacity:1;
+      cursor:pointer;
+      `};
+   ${tw`flex justify-center items-center text-white p-2 focus:outline-none focus:border-blue-400`};
 `
 const BtnTypo = styled.span`
    ${Typo14WhiteRubikMedium}

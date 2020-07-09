@@ -1,4 +1,4 @@
-import React, { Component, FunctionComponent } from 'react'
+import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 
 import { APIStatus } from '@ib/api-constants'
@@ -19,7 +19,7 @@ import {
 import { FilterBar } from '../Common/Components/FilterBar'
 
 import { Item } from './Item'
-import { Col } from './styledComponents'
+import { Col, TableWrapper } from './styledComponents'
 import { OptionType, OptionsType } from '../types'
 import Plus from '../../../Common/components/Icons/Plus'
 
@@ -81,7 +81,7 @@ class Table extends Component<TableProps> {
       } = this.props
 
       return (
-         <>
+         <TableWrapper>
             <FilterBar
                taskCount={taskCount ?? 10}
                onChangeSort={onChangeSort}
@@ -110,7 +110,7 @@ class Table extends Component<TableProps> {
                   currentPage={currentPage}
                />
             </TableFooter>
-         </>
+         </TableWrapper>
       )
    }
 }

@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { lazy } from 'react'
 
 import { SIGN_IN_PATH } from '../constants/NavigationConstants'
 
-import { SignInRoute } from './SignInRoute'
 import { Route } from 'react-router-dom'
+
+const SignInRoute = lazy(() => import('./SignInRoute'))
 
 const routes = [
    <Route

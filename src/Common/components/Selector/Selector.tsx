@@ -4,6 +4,8 @@ import Select from 'react-select'
 import { Label, Required, Error } from '../Input/styledComponents'
 import { OptionType, OptionsType } from '../../../Commute/components/types'
 
+import { Dropdown } from './stylesComponent'
+
 interface SelectorProps {
    options: OptionsType
    label: string
@@ -33,7 +35,7 @@ export function Selector(props: SelectorProps) {
             {label}
             <Required>{isRequired ? '*' : null}</Required>
          </Label>
-         <div data-testid={label}>
+         <Dropdown data-testid={label}>
             <Select
                key={label}
                className={
@@ -45,7 +47,7 @@ export function Selector(props: SelectorProps) {
                options={options}
                placeholder={placeholder}
             />
-         </div>
+         </Dropdown>
          <Error>{isError ? 'Required' : null}</Error>
       </>
    )
