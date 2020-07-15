@@ -7,9 +7,10 @@ import {
 } from '@ib/api-constants'
 import { waitFor } from '@testing-library/react'
 
-import RideRequestFixture from '../../../Commute/fixtures/myRideRequestsFixtures.json'
+import paginationStoreTestFixtures from './PaginationStoreTestsData/paginationStoreTestFixtures.json'
+import PaginationStoreTestsModel from './PaginationStoreTestsData/PaginationStoreTestsModel'
+
 import { PaginationStore } from '.'
-import RideRequestModel from '../../../Commute/stores/models/RideRequestModel/RideRequestModel'
 
 describe('Pagination store tests', () => {
    let paginationStore
@@ -20,11 +21,11 @@ describe('Pagination store tests', () => {
       mockEntitiesFetchingAPI = jest.fn()
       config = {
          limit: 2,
-         model: RideRequestModel,
+         model: PaginationStoreTestsModel,
          getEntitiesAPI: mockEntitiesFetchingAPI,
-         totalKey: 'total_rides',
+         totalKey: 'total_entities',
          currentPage: 1,
-         entitiesKey: 'rides',
+         entitiesKey: 'entities',
          filterOptionsAccessKey: 'filter_options',
          sortOptionsAccessKey: 'sort_options',
          filterKey: 'status'
@@ -48,7 +49,7 @@ describe('Pagination store tests', () => {
    })
    it('should test success state of getEntities', async () => {
       const mockSuccessPromise = new Promise((resolve, reject) =>
-         resolve(RideRequestFixture)
+         resolve(paginationStoreTestFixtures)
       )
       mockEntitiesFetchingAPI.mockReturnValue(mockSuccessPromise)
 
@@ -59,7 +60,7 @@ describe('Pagination store tests', () => {
    })
    it('should test failure state of getEntities', async () => {
       const mockSuccessPromise = new Promise((_, reject) =>
-         reject(RideRequestFixture)
+         reject(paginationStoreTestFixtures)
       )
       mockEntitiesFetchingAPI.mockReturnValue(mockSuccessPromise)
 
@@ -83,7 +84,7 @@ describe('Pagination store tests', () => {
       const mockLoadingPromise = new Promise(_ => {})
       mockEntitiesFetchingAPI.mockReturnValue(mockLoadingPromise)
 
-      paginationStore.onChangeFilter({ value: 'ACCEPTED', label: 'ACCEPTED' })
+      paginationStore.onChangeFilter({ value: 'FILTER1', label: 'FILTER1' })
       await waitFor(() => {
          expect(mockEntitiesFetchingAPI).toBeCalled()
          expect(paginationStore.apiStatus).toBe(API_FETCHING)
@@ -93,7 +94,10 @@ describe('Pagination store tests', () => {
       const mockLoadingPromise = new Promise(_ => {})
       mockEntitiesFetchingAPI.mockReturnValue(mockLoadingPromise)
 
-      paginationStore.onChangeSort({ value: 'seats', label: 'SEATS' })
+      paginationStore.onChangeSort({
+         value: 'sortOption1',
+         label: 'sortOption1'
+      })
       await waitFor(() => {
          expect(mockEntitiesFetchingAPI).toBeCalled()
          expect(paginationStore.apiStatus).toBe(API_FETCHING)
@@ -101,17 +105,17 @@ describe('Pagination store tests', () => {
    })
    it('should set the entities data, filter options and sort option on successful network call', async () => {
       const expectedSortOptions = [
-         { value: 'seats', label: 'SEATS' },
-         { value: 'laguage_quantity', label: 'LAGUAGE QUANTITY' }
+         { value: 'sortOption1', label: 'SORTOPTION1' },
+         { value: 'sortOption2', label: 'SORTOPTION2' }
       ]
       const expectedFilterOptions = [
-         { value: 'ACCEPTED', label: 'ACCEPTED' },
-         { value: 'EXPIRED', label: 'EXPIRED' },
-         { value: 'PENDING', label: 'PENDING' }
+         { value: 'FILTER1', label: 'FILTER1' },
+         { value: 'FILTER2', label: 'FILTER2' },
+         { value: 'FILTER3', label: 'FILTER3' }
       ]
 
       const mockSuccessPromise = new Promise(resolve =>
-         resolve(RideRequestFixture)
+         resolve(paginationStoreTestFixtures)
       )
       mockEntitiesFetchingAPI.mockReturnValue(mockSuccessPromise)
 

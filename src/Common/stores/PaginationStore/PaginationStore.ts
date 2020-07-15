@@ -2,8 +2,13 @@ import React from 'react'
 import { observable, action, computed } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
-import { PaginationStoreInterface } from '../types'
-import { OptionsType, OptionType } from '../../../Commute/components/types'
+
+export type OptionType = {
+   label: string
+   value: string
+}
+
+export type OptionsType = Array<OptionType>
 
 export type PaginationStoreProps = {
    limit: number

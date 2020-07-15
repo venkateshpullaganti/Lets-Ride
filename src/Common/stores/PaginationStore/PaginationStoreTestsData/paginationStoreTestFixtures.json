@@ -1,0 +1,67 @@
+{
+   "entities": [
+      {
+         "id": 1,
+         "key1": "value1",
+         "key2": "value2",
+         "key3": "value3"
+      },
+      {
+         "id": 2,
+         "key1": "value1",
+         "key2": "value2",
+         "key3": "value3"
+      },
+      {
+         "id": 3,
+         "key1": "value1",
+         "key2": "value2",
+         "key3": "value3"
+      },
+      {
+         "id": 4,
+         "key1": "value1",
+         "key2": "value2",
+         "key3": "value3"
+      },
+      {
+         "id": 5,
+         "key1": "value1",
+         "key2": "value2",
+         "key3": "value3"
+      },
+      {
+         "id": 6,
+         "key1": "value1",
+         "key2": "value2",
+         "key3": "value3"
+      },
+      {
+         "id": 7,
+         "key1": "value1",
+         "key2": "value2",
+         "key3": "value3"
+      },
+      {
+         "id": 8,
+         "key1": "value1",
+         "key2": "value2",
+         "key3": "value3"
+      },
+      {
+         "id": 9,
+         "key1": "value1",
+         "key2": "value2",
+         "key3": "value3"
+      },
+      {
+         "id": 10,
+         "key1": "value1",
+         "key2": "value2",
+         "key3": "value3"
+      }
+   ],
+   "total_entities": 10,
+   "filter_options": ["FILTER1", "FILTER2", "FILTER3"],
+   "sort_options": ["sortOption1", "sortOption2"]
+}
