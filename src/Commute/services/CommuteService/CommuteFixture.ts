@@ -1,10 +1,10 @@
-import { create } from 'apisauce'
+import { resolveWithTimeout } from '../../../Common/utils/TestUtils'
 
 import myRideRequestsFixtures from '../../fixtures/myRideRequestsFixtures.json'
 import myAssetRequestsFixtures from '../../fixtures/myAssetRequestsFixtures.json'
 import matchingResultsFixtures from '../../fixtures/matchingResultsFixtures.json'
+
 import { CommuteService } from '.'
-import { resolveWithTimeout } from '../../../Common/utils/TestUtils'
 
 class FixtureService implements CommuteService {
    rideRequest = requestObject => {
