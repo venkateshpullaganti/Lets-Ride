@@ -11,7 +11,7 @@ import {
    Item
 } from './styledComponents'
 
-import images from '../../../Common/themes/Images'
+import images from '../../../Common/themes/images'
 
 @observer
 class Selector extends Component {

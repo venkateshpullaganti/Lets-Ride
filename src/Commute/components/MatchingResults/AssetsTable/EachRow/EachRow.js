@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { API_SUCCESS, API_FAILED } from '@ib/api-constants'
 import { reaction } from 'mobx'
 
-import Images from '../../../../../Common/themes/Images'
+import Images from '../../../../../Common/themes/images'
 import { displayToaster } from '../../../../../Common/components/Toaster'
 
 import strings from '../../../../i18n/strings.json'

@@ -13,7 +13,7 @@ import {
 
 import { navigateToGivenPath } from '../../../Common/utils/NavigationUtils/NavigationUtils'
 
-import images from '../../../Common/themes/Images'
+import images from '../../../Common/themes/images'
 
 @observer
 class Dropdown extends Component {

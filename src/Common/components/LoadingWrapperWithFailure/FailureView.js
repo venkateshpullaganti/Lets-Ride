@@ -1,7 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 
-import images from '../../themes/Images'
+import images from '../../themes/images'
 
 import {
    FailureViewContainer,

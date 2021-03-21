@@ -7,7 +7,7 @@ import { goToHomePage } from '../../../utils/NavigationUtils/NavigationUtils'
 import LoadingWrapperWithFailure from '../../../../Common/components/LoadingWrapperWithFailure'
 import { Logo } from '../../../../Common/components/Logo'
 
-import images from '../../../../Common/themes/Images'
+import images from '../../../../Common/themes/images'
 
 import {
    REQUEST_PATHS,

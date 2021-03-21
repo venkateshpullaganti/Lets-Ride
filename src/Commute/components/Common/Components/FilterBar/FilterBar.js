@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import images from '../../../../../Common/themes/Images'
+import images from '../../../../../Common/themes/images'
 import strings from '../../../../i18n/strings.json'
 import { Selector } from '../../../Selector'
 
