@@ -61,7 +61,6 @@ class ShareTravelInfoRoute extends Component {
          travel_medium: travelMedium,
          asset_quantity: assetCount
       }
-      console.log(requestObj)
 
       this.shareStore.shareTravelInfo(
          requestObj,

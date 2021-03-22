@@ -75,7 +75,6 @@ class RideRequestRoute extends Component {
    }
 
    render() {
-      console.log('ROUTE', this.requestStore.getRideRequestAPIStatus)
       return (
          <RideRequestForm
             onSubmit={this.onSubmit}

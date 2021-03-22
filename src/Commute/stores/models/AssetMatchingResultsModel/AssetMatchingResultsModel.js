@@ -57,7 +57,6 @@ class AssetMatchingResultsModel {
    @action
    setGetAssetRequestApiError = error => {
       this.assetRequestApiError = error
-      console.log(error)
    }
    setGetRideRequestApiResponse = response => {}
 

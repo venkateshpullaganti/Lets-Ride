@@ -40,7 +40,6 @@ class RequestStore {
    }
    @action.bound
    rideRequest(requestObject, onSuccess, onFailure) {
-      console.log('store', requestObject)
       const rideRequestPromise = this.commuteAPIService.rideRequest(
          requestObject
       )

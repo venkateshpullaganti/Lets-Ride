@@ -27,13 +27,11 @@ class AuthStore {
 
    @action.bound
    setUserSignInAPIResponse(response) {
-      console.log(response)
       setAccessToken(response.access_token)
    }
 
    @action.bound
    setGetUserSignInAPIError(apiError) {
-      console.log(apiError)
       this.getUserSignInAPIError = apiError
    }
 
@@ -85,7 +83,6 @@ class AuthStore {
 
    @action.bound
    getUserProfile(requestObject) {
-      console.log('getUser')
       const userProfilePromise = this.authAPIService.userProfileApi(
          requestObject
       )
@@ -109,5 +106,3 @@ class AuthStore {
    }
 }
 export { AuthStore }
-
-// console.log(Object.entries(this.userProfile).length === 0, 'store obj')

@@ -34,11 +34,9 @@ class CommuteHomePage extends Component {
    getSelectedTab = () => {
       const selectedTab = this.props.match.params.selectedTab
       this.selectedCategory = selectedTab
-      console.log(this.selectedCategory)
    }
 
    renderSelectedCategory = () => {
-      console.log('render selected Category')
       const { commuteStore } = this.props
       if (this.selectedCategory === MATCHING_RESULTS) {
          return (

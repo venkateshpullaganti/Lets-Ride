@@ -48,7 +48,6 @@ class RideMatchingResultsModel {
    @action
    setGetRideRequestApiError = error => {
       this.rideRequestApiError = error
-      console.log(error)
    }
    setGetRideRequestApiResponse = response => {}
 

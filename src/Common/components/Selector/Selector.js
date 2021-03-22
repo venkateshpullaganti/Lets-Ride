@@ -14,7 +14,6 @@ export function Selector(props) {
       isError,
       errorMsg
    } = props
-   console.log(options)
    return (
       <Container data-testid={'react-selector'}>
          <Label className='mt-6' htmlFor={label}>

@@ -68,7 +68,6 @@ class CommuteService {
       )
    }
    myRideRequestsApi = (requestObject, otherParams) => {
-      console.log('service', otherParams)
       const limtAndOffset = `offset=${otherParams.offset}&limit=${otherParams.limit}`
       let status = ``
 

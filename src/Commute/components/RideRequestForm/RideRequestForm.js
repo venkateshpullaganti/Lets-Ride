@@ -128,7 +128,6 @@ class RideRequestForm extends Component {
             laguageCount,
             travelDate
          }
-         console.log(enteredDetails)
 
          onSubmit(enteredDetails)
       }

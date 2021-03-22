@@ -8,8 +8,7 @@ import { ProtectedRoute } from './Common/components/ProtectedRoute'
 import CommuteStores from './Commute/stores'
 import CommuteRoutes from './Commute/routes'
 
-import HomePage from './components/HomePage'
-import Page1 from './components/Page1'
+import HomePage from './Common/components/HomePage'
 
 import './App.css'
 
@@ -18,10 +17,6 @@ const App = () => {
       <Provider {...AuthStores} {...CommuteStores}>
          <Router basename={process.env.PUBLIC_URL}>
             <Switch>
-               <Route exact path='/page-1'>
-                  <Page1 />
-               </Route>
-
                {AuthRoutes}
                {CommuteRoutes}
                <Route path='/'>
