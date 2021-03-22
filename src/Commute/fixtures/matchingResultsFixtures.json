@@ -10,7 +10,7 @@
          "flexible_to_date_time": "",
          "seats": 3,
          "laguage_quantity": 5,
-         "username": "Mukunda 1",
+         "username": "Mukunda",
          "user_phone_number": 1234567890
       },
       {
@@ -36,7 +36,7 @@
          "flexible_to_date_time": "28/6/2020 10:30 AM",
          "seats": 3,
          "laguage_quantity": 5,
-         "username": "Pushpa 3",
+         "username": "Pushpa",
          "user_phone_number": 1234567890
       },
       {
@@ -49,7 +49,7 @@
          "flexible_to_date_time": "",
          "seats": 3,
          "laguage_quantity": 5,
-         "username": "Mukunda 4",
+         "username": "Mukunda",
          "user_phone_number": 1234567890
       },
       {
@@ -62,7 +62,7 @@
          "flexible_to_date_time": "28/6/2020 10:30 AM",
          "seats": 3,
          "laguage_quantity": 5,
-         "username": "Pushpa 5",
+         "username": "Pushpa",
          "user_phone_number": 1234567890
       },
       {
@@ -75,7 +75,7 @@
          "flexible_to_date_time": "",
          "seats": 3,
          "laguage_quantity": 5,
-         "username": "Dharaneeswar 6",
+         "username": "Dharaneeswar",
          "user_phone_number": 1234567890
       }
    ],
